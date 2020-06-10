@@ -33,6 +33,8 @@ typedef struct {
   int ch1, ch2;
 } Ttree;
 
+void bitzero(uint *e, size_t p, uint len);
+
 static void sort(Ttree *tree, int lo, int up) {
   uint i, j;
   Ttree temp;
@@ -270,7 +272,8 @@ THuffx loadHuff(ifstream &f) {
   H.num_dec = new uint[H.depth + 1];
   H.fst[H.depth] = 0;
   dold = 0;
-  for (d = H.depth - 1; d >= 0; d--) {
+  int signed_d;
+  for (d = H.depth - 1, signed_d = H.depth - 1; signed_d >= 0; d--, signed_d--) {
     dact = H.num_enc[d + 1];
     H.fst[d] = (H.fst[d + 1] + dact) >> 1;
     H.num_dec[d + 1] = dold;

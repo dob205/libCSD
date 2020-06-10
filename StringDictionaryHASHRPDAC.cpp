@@ -34,7 +34,7 @@ StringDictionaryHASHRPDAC::StringDictionaryHASHRPDAC() {
 }
 
 StringDictionaryHASHRPDAC::StringDictionaryHASHRPDAC(IteratorDictString *it,
-                                                     uint len, int overhead) {
+                                                     uint, int overhead) {
   this->type = HASHRPDAC;
   this->elements = 0;
   this->maxlength = 0;
@@ -216,36 +216,36 @@ uchar *StringDictionaryHASHRPDAC::extract(size_t id, uint *strLen) {
   }
 }
 
-IteratorDictID *StringDictionaryHASHRPDAC::locatePrefix(uchar *str,
-                                                        uint strLen) {
+IteratorDictID *StringDictionaryHASHRPDAC::locatePrefix(uchar *,
+                                                        uint ) {
   cout << "This dictionary does not provide prefix location" << endl;
   return NULL;
 }
 
-IteratorDictID *StringDictionaryHASHRPDAC::locateSubstr(uchar *str,
-                                                        uint strLen) {
+IteratorDictID *StringDictionaryHASHRPDAC::locateSubstr(uchar *,
+                                                        uint ) {
   cout << "This dictionary does not provide substring location" << endl;
   return NULL;
 }
 
-uint StringDictionaryHASHRPDAC::locateRank(uint rank) {
+uint StringDictionaryHASHRPDAC::locateRank(uint) {
   cout << "This dictionary does not provide rank location" << endl;
   return 0;
 }
 
-IteratorDictString *StringDictionaryHASHRPDAC::extractPrefix(uchar *str,
-                                                             uint strLen) {
+IteratorDictString *StringDictionaryHASHRPDAC::extractPrefix(uchar *,
+                                                             uint ) {
   cout << "This dictionary does not provide prefix extraction" << endl;
   return NULL;
 }
 
-IteratorDictString *StringDictionaryHASHRPDAC::extractSubstr(uchar *str,
-                                                             uint strLen) {
+IteratorDictString *StringDictionaryHASHRPDAC::extractSubstr(uchar *,
+                                                             uint ) {
   cout << "This dictionary does not provide substring extraction" << endl;
   return NULL;
 }
 
-uchar *StringDictionaryHASHRPDAC::extractRank(uint rank, uint *strLen) {
+uchar *StringDictionaryHASHRPDAC::extractRank(uint, uint *) {
   cout << "This dictionary does not provide rank extraction" << endl;
   return NULL;
 }

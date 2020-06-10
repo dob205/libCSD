@@ -41,6 +41,19 @@ using namespace std;
 
 #define RUNS 10
 
+void checkDict(void);
+void checkFile(void);
+void useTest(void);
+void runLocate(StringDictionary *dict, char *in);
+void runExtract(StringDictionary *dict, char *in);
+void runLocatePrefix(StringDictionary *dict, char *in);
+void runExtractPrefix(StringDictionary *dict, char *in);
+void runLocateSubstring(StringDictionary *dict, char *in);
+void runExtractSubstring(StringDictionary *dict, char *in);
+void generate(StringDictionary *dict, uint patterns, char *out);
+void generateP(StringDictionary *dict, uint mean, char *out);
+void generateS(StringDictionary *dict, uint mean, char *out);
+
 void checkDict() {
   cerr << endl;
   cerr << " *******************************************************************"

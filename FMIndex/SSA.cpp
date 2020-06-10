@@ -280,7 +280,7 @@ uint SSA::locate_id(uchar *pattern, uint m) {
 }
 
 uint SSA::locateP(uchar *pattern, uint m, size_t *left, size_t *right,
-                  size_t elements) {
+                  size_t) { // elements
   ulong i = m - 1;
   uint c = pattern[i];
   uint sp = occ[c];

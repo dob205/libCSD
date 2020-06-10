@@ -36,6 +36,10 @@ using namespace std;
 #include "iterators/IteratorDictStringPlain.h"
 #include "utils/LogSequence.h"
 
+void checkDict(void);
+void checkFile(void);
+void useBuild(void);
+
 void checkDict() {
   cerr << endl;
   cerr << " *******************************************************************"

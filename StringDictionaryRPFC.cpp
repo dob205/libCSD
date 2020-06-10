@@ -210,7 +210,7 @@ StringDictionaryRPFC::StringDictionaryRPFC(IteratorDictString *it,
   }
 }
 
-uint StringDictionaryRPFC::locate(uchar *str, uint strLen) {
+uint StringDictionaryRPFC::locate(uchar *str, uint) {
   uint id = NORESULT;
 
   // Locating the candidate bucket for the string
@@ -374,7 +374,7 @@ IteratorDictID *StringDictionaryRPFC::locatePrefix(uchar *str, uint strLen) {
   return NULL;
 }
 
-IteratorDictID *StringDictionaryRPFC::locateSubstr(uchar *str, uint strLen) {
+IteratorDictID *StringDictionaryRPFC::locateSubstr(uchar *, uint) {
   cerr << "This dictionary does not provide substring location" << endl;
   return NULL;
 }
@@ -404,8 +404,8 @@ IteratorDictString *StringDictionaryRPFC::extractPrefix(uchar *str,
     return NULL;
 }
 
-IteratorDictString *StringDictionaryRPFC::extractSubstr(uchar *str,
-                                                        uint strLen) {
+IteratorDictString *StringDictionaryRPFC::extractSubstr(uchar *,
+                                                        uint) {
   cerr << "This dictionary does not provide substring extraction" << endl;
   return 0;
 }
@@ -609,7 +609,7 @@ uint StringDictionaryRPFC::searchPrefix(uchar **ptr, uint scanneable,
 
 uint StringDictionaryRPFC::searchDistinctPrefix(uchar *ptr, uint scanneable,
                                                 uchar *decoded, uint *decLen,
-                                                uchar *str, uint strLen,
+                                                uchar *, uint strLen,
                                                 uint *offset) {
   uint id = 1;
 

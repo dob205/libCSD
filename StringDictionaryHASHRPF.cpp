@@ -34,7 +34,7 @@ StringDictionaryHASHRPF::StringDictionaryHASHRPF() {
 }
 
 StringDictionaryHASHRPF::StringDictionaryHASHRPF(IteratorDictString *it,
-                                                 uint len, int overhead) {
+                                                 uint, int overhead) {
   this->type = HASHRPF;
   this->elements = 0;
   this->maxlength = 0;
@@ -212,34 +212,34 @@ uchar *StringDictionaryHASHRPF::extract(size_t id, uint *strLen) {
   }
 }
 
-IteratorDictID *StringDictionaryHASHRPF::locatePrefix(uchar *str, uint strLen) {
+IteratorDictID *StringDictionaryHASHRPF::locatePrefix(uchar *, uint ) {
   cout << "This dictionary does not provide prefix location" << endl;
   return NULL;
 }
 
-IteratorDictID *StringDictionaryHASHRPF::locateSubstr(uchar *str, uint strLen) {
+IteratorDictID *StringDictionaryHASHRPF::locateSubstr(uchar *, uint ) {
   cout << "This dictionary does not provide substring location" << endl;
   return NULL;
 }
 
-uint StringDictionaryHASHRPF::locateRank(uint rank) {
+uint StringDictionaryHASHRPF::locateRank(uint) {
   cout << "This dictionary does not provide rank location" << endl;
   return 0;
 }
 
-IteratorDictString *StringDictionaryHASHRPF::extractPrefix(uchar *str,
-                                                           uint strLen) {
+IteratorDictString *StringDictionaryHASHRPF::extractPrefix(uchar *,
+                                                           uint ) {
   cout << "This dictionary does not provide prefix extraction" << endl;
   return NULL;
 }
 
-IteratorDictString *StringDictionaryHASHRPF::extractSubstr(uchar *str,
-                                                           uint strLen) {
+IteratorDictString *StringDictionaryHASHRPF::extractSubstr(uchar *,
+                                                           uint ) {
   cout << "This dictionary does not provide substring extraction" << endl;
   return NULL;
 }
 
-uchar *StringDictionaryHASHRPF::extractRank(uint rank, uint *strLen) {
+uchar *StringDictionaryHASHRPF::extractRank(uint , uint *) {
   cout << "This dictionary does not provide rank extraction" << endl;
   return NULL;
 }

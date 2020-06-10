@@ -29,6 +29,10 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 
 int NullFreq = 1 << (8 * sizeof(int) - 1);
 
+void *myMalloc(long long n);
+void *myRealloc(void *p, long long n);
+int blog(int x);
+
 void *myMalloc(long long n) {
   void *p;
   if (n == 0)

@@ -1,8 +1,9 @@
+CPPFLAGS=-Wall -Wextra -std=c++11 -pedantic -Werror -O3
+CLANG_EXTRA_FLAGS=-Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition
 
-#CPPFLAGS=-g3 -Wall -m32 -O0 
-#CPPFLAGS=-O3 -Wall -DNDEBUG 
-CPPFLAGS=-Wall -Wextra -std=c++11 -pedantic -Wmissing-prototypes -Wstrict-prototypes \
-    -Wold-style-definition -Werror -O3
+ifeq ($(CXX),clang)
+	CPPFLAGS += $(CLANG_EXTRA_FLAGS)
+endif
 
 all: clean libcompact
 

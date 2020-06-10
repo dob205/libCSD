@@ -469,7 +469,7 @@ IteratorDictID *StringDictionaryHTFC::locatePrefix(uchar *str, uint strLen) {
   return itResult;
 }
 
-IteratorDictID *StringDictionaryHTFC::locateSubstr(uchar *str, uint strLen) {
+IteratorDictID *StringDictionaryHTFC::locateSubstr(uchar *, uint ) {
   cerr << "This dictionary does not provide substring location" << endl;
   return NULL;
 }
@@ -498,8 +498,8 @@ IteratorDictString *StringDictionaryHTFC::extractPrefix(uchar *str,
     return NULL;
 }
 
-IteratorDictString *StringDictionaryHTFC::extractSubstr(uchar *str,
-                                                        uint strLen) {
+IteratorDictString *StringDictionaryHTFC::extractSubstr(uchar *,
+                                                        uint) {
   cerr << "This dictionary does not provide substring extraction" << endl;
   return 0;
 }
@@ -756,7 +756,7 @@ uint StringDictionaryHTFC::searchPrefix(ChunkScan *c, uint scanneable,
 }
 
 uint StringDictionaryHTFC::searchDistinctPrefix(ChunkScan *c, uint scanneable,
-                                                uchar *str, uint strLen) {
+                                                uchar *, uint strLen) {
   uint id = 1;
 
   for (id = 1; id < scanneable; id++)

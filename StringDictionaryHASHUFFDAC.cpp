@@ -239,36 +239,36 @@ uchar *StringDictionaryHASHUFFDAC::extract(size_t id, uint *strLen) {
   }
 }
 
-IteratorDictID *StringDictionaryHASHUFFDAC::locatePrefix(uchar *str,
-                                                         uint strLen) {
+IteratorDictID *StringDictionaryHASHUFFDAC::locatePrefix(uchar *,
+                                                         uint ) {
   cout << "This dictionary does not provide prefix location" << endl;
   return NULL;
 }
 
-IteratorDictID *StringDictionaryHASHUFFDAC::locateSubstr(uchar *str,
-                                                         uint strLen) {
+IteratorDictID *StringDictionaryHASHUFFDAC::locateSubstr(uchar *,
+                                                         uint ) {
   cout << "This dictionary does not provide substring location" << endl;
   return NULL;
 }
 
-uint StringDictionaryHASHUFFDAC::locateRank(uint rank) {
+uint StringDictionaryHASHUFFDAC::locateRank(uint ) {
   cout << "This dictionary does not provide rank location" << endl;
   return 0;
 }
 
-IteratorDictString *StringDictionaryHASHUFFDAC::extractPrefix(uchar *str,
-                                                              uint strLen) {
+IteratorDictString *StringDictionaryHASHUFFDAC::extractPrefix(uchar *,
+                                                              uint ) {
   cout << "This dictionary does not provide prefix extraction" << endl;
   return NULL;
 }
 
-IteratorDictString *StringDictionaryHASHUFFDAC::extractSubstr(uchar *str,
-                                                              uint strLen) {
+IteratorDictString *StringDictionaryHASHUFFDAC::extractSubstr(uchar *,
+                                                              uint ) {
   cout << "This dictionary does not provide substring extraction" << endl;
   return NULL;
 }
 
-uchar *StringDictionaryHASHUFFDAC::extractRank(uint rank, uint *strLen) {
+uchar *StringDictionaryHASHUFFDAC::extractRank(uint , uint *) {
   cout << "This dictionary does not provide rank extraction" << endl;
   return NULL;
 }

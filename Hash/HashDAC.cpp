@@ -70,7 +70,7 @@ size_t HashDAC::insert(uchar *w, size_t len, size_t offset) {
 
 void HashDAC::setOffset(size_t pos, size_t offset) { hashtable[pos] = offset; }
 
-void HashDAC::finish(size_t length) {
+void HashDAC::finish(size_t) { // length
   size_t b_size = (tsize + W - 1) / W;
 
   uint *bitmap = new uint[b_size];
@@ -137,7 +137,7 @@ HashDAC *HashDAC::load(ifstream &fp) {
   return h_new;
 }
 
-int HashDAC::scmp(size_t pos, uchar *w, size_t len) {
+int HashDAC::scmp(size_t pos, uchar *w, size_t ) { // len
   uint id = pos + 1;
   uint level = 0;
   size_t value;

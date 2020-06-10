@@ -117,7 +117,7 @@ StringDictionaryPFC::StringDictionaryPFC(IteratorDictString *it,
   blStrings = new LogSequence(&xblStrings, bits(bytesStrings));
 }
 
-uint StringDictionaryPFC::locate(uchar *str, uint strLen) {
+uint StringDictionaryPFC::locate(uchar *str, uint) {
   uint id = NORESULT;
 
   // Locating the candidate bucket for the string
@@ -272,7 +272,7 @@ IteratorDictID *StringDictionaryPFC::locatePrefix(uchar *str, uint strLen) {
   }
 }
 
-IteratorDictID *StringDictionaryPFC::locateSubstr(uchar *str, uint strLen) {
+IteratorDictID *StringDictionaryPFC::locateSubstr(uchar *, uint) {
   cerr << "This dictionary does not provide substring location" << endl;
   return NULL;
 }
@@ -303,8 +303,8 @@ IteratorDictString *StringDictionaryPFC::extractPrefix(uchar *str,
     return NULL;
 }
 
-IteratorDictString *StringDictionaryPFC::extractSubstr(uchar *str,
-                                                       uint strLen) {
+IteratorDictString *StringDictionaryPFC::extractSubstr(uchar *,
+                                                       uint) {
   cerr << "This dictionary does not provide substring extraction" << endl;
   return 0;
 }
@@ -361,7 +361,8 @@ inline uchar *StringDictionaryPFC::getHeader(size_t idbucket, uchar **str,
   *strLen = strlen((char *)ptr);
 
   *str = new uchar[maxlength];
-  strncpy((char *)*str, (char *)ptr, *strLen + 1);
+  memcpy((char *)*str, (char *)ptr, *strLen);
+  (*str)[*strLen] = 0; // add a zero after the last character
 
   return ptr + (*strLen) + 1;
 }
@@ -371,7 +372,9 @@ void StringDictionaryPFC::decodeNextString(uchar **ptr, uint lenPrefix,
   uint lenSuffix;
 
   lenSuffix = strlen((char *)*ptr);
-  strncpy((char *)(str + lenPrefix), (char *)*ptr, lenSuffix + 1);
+
+  memcpy((char *)(str + lenPrefix), (char *)*ptr, lenSuffix);
+  (str+lenPrefix)[lenSuffix] = 0; // add a zero after the last character
 
   *ptr += lenSuffix + 1;
   *strLen = lenPrefix + lenSuffix;
@@ -508,7 +511,7 @@ uint StringDictionaryPFC::searchPrefix(uchar **ptr, uint scanneable,
 
 uint StringDictionaryPFC::searchDistinctPrefix(uchar *ptr, uint scanneable,
                                                uchar *decoded, uint *decLen,
-                                               uchar *str, uint strLen) {
+                                               uchar *, uint strLen) {
   uint id = 1;
   uint lenPrefix;
 

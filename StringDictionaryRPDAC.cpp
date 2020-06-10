@@ -218,7 +218,7 @@ IteratorDictID *StringDictionaryRPDAC::locatePrefix(uchar *str, uint strLen) {
   return new IteratorDictIDContiguous(left, right);
 }
 
-IteratorDictID *StringDictionaryRPDAC::locateSubstr(uchar *str, uint strLen) {
+IteratorDictID *StringDictionaryRPDAC::locateSubstr(uchar *, uint ) {
   cout << "This dictionary does not provide substring location" << endl;
   return NULL;
 }
@@ -238,8 +238,8 @@ IteratorDictString *StringDictionaryRPDAC::extractPrefix(uchar *str,
                                      scanneable, maxlength);
 }
 
-IteratorDictString *StringDictionaryRPDAC::extractSubstr(uchar *str,
-                                                         uint strLen) {
+IteratorDictString *StringDictionaryRPDAC::extractSubstr(uchar *,
+                                                         uint ) {
   cout << "This dictionary does not provide substring extraction" << endl;
   return 0;
 }
