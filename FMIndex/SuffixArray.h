@@ -32,8 +32,8 @@
 #define SUFFIXARRAY_H_
 
 #include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 #define KEY(p) (V[*(p) + (h)])
 #define SWAP(p, q) (tmp = *(p), *(p) = *(q), *(q) = tmp)

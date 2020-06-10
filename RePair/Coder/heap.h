@@ -36,7 +36,7 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 #include "arrayg.h"
 #include "basics.h"
 #include "records.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 static const int PRNH = 0;
 

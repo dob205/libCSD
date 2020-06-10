@@ -30,8 +30,15 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 void *myMalloc(long long n); // safe malloc/realloc
 void *myRealloc(void *p, long long n);
 
+#ifdef malloc
+#undef malloc
 #define malloc(n) myMalloc(n)
+#endif
+
+#ifdef realloc
+#undef realloc
 #define realloc(p, n) myRealloc(p, n)
+#endif
 
 typedef struct {
   int left, right;

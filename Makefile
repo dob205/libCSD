@@ -1,4 +1,4 @@
-CPP=g++
+CPP=$(CXX)
 FLAGS=-O3 -Wall -DNDEBUG -I libcds/includes/ 
 LIB=libcds/lib/libcds.a
 
@@ -20,13 +20,14 @@ BIN=Build Test
 	@echo " [C++] Compiling $<"
 	@$(CPP) $(FLAGS) -c $< -o $@
 
-all: clean $(OBJECTS) $(EXES) $(BIN)
+all-but-clean: lib $(OBJECTS) $(EXES) $(BIN)
 	@echo " [MSG] Done compiling tests"
 	@echo " [FLG] $(FLAGS)"
 
-all-but-clean: $(OBJECTS) $(EXES) $(BIN)
-	@echo " [MSG] Done compiling tests"
-	@echo " [FLG] $(FLAGS)"
+all: clean all-but-clean
+
+lib:
+	cd libcds && make libcompact
 	
 Build:	
 	$(CPP) $(FLAGS) -o Build Build.o $(OBJECTS) ${LIB}
@@ -39,3 +40,5 @@ clean:
 	@echo " [CLN] Removing object files"
 	@rm -f  $(BIN) $(OBJECTS) $(EXES) *~ iterators/*~ FMIndex/*~ Hash/*~ Huffman/*~ RePair/*~ utils/*~ XBW/*~ 
 
+clean-all: clean
+	cd libcds && make clean

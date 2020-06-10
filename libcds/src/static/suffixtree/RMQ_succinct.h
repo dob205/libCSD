@@ -24,8 +24,8 @@
 #include <iostream>
 #include <libcdsTrees.h>
 #include <limits.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 using namespace std;
 using namespace cds_utils;
 

@@ -27,8 +27,8 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 // binary heap with sqrt(u) heaps for least occurring ones
 
 #include "heap.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 Theap Heap::createHeap(int u, Trarray *Rec, float factor, int minsize) {
   Theap H;

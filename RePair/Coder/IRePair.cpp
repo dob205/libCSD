@@ -27,7 +27,7 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 // extendible array for pairs
 
 #include "IRePair.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 int IRePair::compress(int *text, unsigned int length, size_t *csymbols,
                       size_t *crules, Tdiccarray **rules) {

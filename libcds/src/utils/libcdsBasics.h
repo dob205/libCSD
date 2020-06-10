@@ -29,8 +29,8 @@
 #include <iostream>
 #include <sstream>
 #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <string>
 #include <sys/resource.h>
 #include <sys/stat.h>

@@ -28,15 +28,16 @@
 #ifndef REPAIR_H_
 #define REPAIR_H_
 
-using namespace std;
+
 
 #include <libcdsBasics.h>
-using namespace cds_utils;
 
 #include "../utils/DAC_VLS.h"
 #include "../utils/LogSequence.h"
 #include "../utils/Utils.h"
 #include "Coder/IRePair.h"
+
+using namespace cds_utils;
 
 class RePair {
 public:

@@ -24,8 +24,8 @@
 #define CREPAIR_H
 
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <string.h>
 
 #include <Array.h>

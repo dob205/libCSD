@@ -24,9 +24,9 @@
 #ifndef SDARRAY_H
 #define SDARRAY_H
 
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
 #include <sys/timeb.h>
 
 #include <cppUtils.h>

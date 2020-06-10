@@ -27,7 +27,7 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 // extendible array for rules
 
 #include "dictionary.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 int Dictionary::insertRule(Tdiccarray *Dicc, Trule rule) {
   int id;

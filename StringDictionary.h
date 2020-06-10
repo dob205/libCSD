@@ -28,7 +28,6 @@
 #ifndef _STRINGDICTIONARY_H
 #define _STRINGDICTIONARY_H
 
-using namespace std;
 
 #include <libcdsBasics.h>
 using namespace cds_utils;

@@ -39,8 +39,8 @@
 #pragma clang diagnostic ignored "-Wunused-function"
 #endif
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #if 1
 #include <sys/timeb.h>
 #else

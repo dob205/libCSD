@@ -27,6 +27,7 @@
 #ifndef SEQUENCEBUILDERWAVELETTREE_H
 #define SEQUENCEBUILDERWAVELETTREE_H
 
+#include <wt_coder.h>
 namespace cds_static {
 class SequenceBuilderWaveletTree : public SequenceBuilder {
 public:

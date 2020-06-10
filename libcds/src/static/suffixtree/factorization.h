@@ -24,9 +24,9 @@
 
 #include <BitSequence.h>
 #include <libcdsTrees.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
 #include <string.h>
 
 namespace cds_static {

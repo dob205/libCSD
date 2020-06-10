@@ -27,7 +27,7 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 
 #include "arrayg.h"
 #include "records.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 int ArrayG::insertArray(Tarray *A, int pair) {
   int *npairs;

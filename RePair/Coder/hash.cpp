@@ -32,7 +32,7 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 // value -1 denotes empty cells, -2 is a deletion mark
 
 #include "hash.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 int HashRP::searchHash(Thash H, Tpair p) {
   relong u = ((relong)p.left) << (8 * sizeof(int)) | (relong)p.right;
