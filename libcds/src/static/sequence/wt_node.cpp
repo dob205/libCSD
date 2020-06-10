@@ -21,18 +21,20 @@
 
 #include <wt_node.h>
 
-namespace cds_static
-{
+namespace cds_static {
 
-    wt_node * wt_node::load(ifstream & fp) {
-        uint rd = loadValue<uint>(fp);
-        if(rd==WT_NODE_NULL_HDR) return NULL;
-        size_t pos = fp.tellg();
-        fp.seekg(pos-sizeof(uint));
-        switch(rd) {
-            case WT_NODE_INTERNAL_HDR: return wt_node_internal::load(fp);
-            case WT_NODE_LEAF_HDR: return wt_node_leaf::load(fp);
-        }
-        return NULL;
-    }
-};
+wt_node *wt_node::load(ifstream &fp) {
+  uint rd = loadValue<uint>(fp);
+  if (rd == WT_NODE_NULL_HDR)
+    return NULL;
+  size_t pos = fp.tellg();
+  fp.seekg(pos - sizeof(uint));
+  switch (rd) {
+  case WT_NODE_INTERNAL_HDR:
+    return wt_node_internal::load(fp);
+  case WT_NODE_LEAF_HDR:
+    return wt_node_leaf::load(fp);
+  }
+  return NULL;
+}
+} // namespace cds_static

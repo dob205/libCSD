@@ -1,6 +1,6 @@
 /* DecodingTree.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class implements a (sub)tree representation which encodes a set of
  * codeword from a root prefix.
@@ -26,7 +26,6 @@
  *   Miguel A. Martinez-Prieto:	migumar2@infor.uva.es
  */
 
-
 #ifndef _DECTREE_H
 #define _DECTREE_H
 
@@ -41,89 +40,88 @@ using namespace std;
 #include <libcdsBasics.h>
 using namespace cds_utils;
 
+class TreeNode {
+public:
+  /** Generic constructor. */
+  TreeNode() {
+    this->symbol = -1;
+    this->children[0] = -1;
+    this->children[1] = -1;
+  }
 
-class TreeNode
-{
-	public:
-		/** Generic constructor. */
-		TreeNode()
-		{ 
-			this->symbol = -1;
-			this->children[0] = -1;  
-			this->children[1] = -1; 
-		}
+  /** Generic destructor. */
+  ~TreeNode() {}
 
-		/** Generic destructor. */
-		~TreeNode() { }
+private:
+  int symbol;      // The symbol represented in the node
+  int children[2]; // The node children
 
-	private:
-		int symbol;		// The symbol represented in the node
-		int children[2];	// The node children
-
-	friend class DecodingTree;
-	friend class DecodingTable;
-	friend class IteratorDictStringHTFC;
-	friend class IteratorDictStringHHTFC;
+  friend class DecodingTree;
+  friend class DecodingTable;
+  friend class IteratorDictStringHTFC;
+  friend class IteratorDictStringHHTFC;
 };
 
-class DecodingTree
-{	
-	public:
-		/** Generic constructor. */
-		DecodingTree() { this->leaves = 0; this->tree = NULL; };
+class DecodingTree {
+public:
+  /** Generic constructor. */
+  DecodingTree() {
+    this->leaves = 0;
+    this->tree = NULL;
+  };
 
-		/** Class constructor. 
-		    @param codeword: the root prefix.
-		    @param first: the first encoded symbol.
-		    @param partree: the tree structure represented with 
-		      balanced parenthesis.
-		    @param symbols: symbols stored in the tree leafs.
-		*/
-		DecodingTree(uint codeword, BitString *partree, vector<uint> *symbols);
+  /** Class constructor.
+      @param codeword: the root prefix.
+      @param first: the first encoded symbol.
+      @param partree: the tree structure represented with
+        balanced parenthesis.
+      @param symbols: symbols stored in the tree leafs.
+  */
+  DecodingTree(uint codeword, BitString *partree, vector<uint> *symbols);
 
-		/** Returns the last symbol encoded by the tree
-		*/
-		uint getLastSymbol() { return symbols[leaves-1]+1; };
+  /** Returns the last symbol encoded by the tree
+   */
+  uint getLastSymbol() { return symbols[leaves - 1] + 1; };
 
-		/** Computes the size of the structure in bytes. 
-		    @returns the dictionary size in bytes.
-		*/
-		size_t getSize();
+  /** Computes the size of the structure in bytes.
+      @returns the dictionary size in bytes.
+  */
+  size_t getSize();
 
-		/** Stores the decoding tree structure into an ofstream.
-		    @param out: the oftstream.
-		*/
-		void save(ofstream &out);
+  /** Stores the decoding tree structure into an ofstream.
+      @param out: the oftstream.
+  */
+  void save(ofstream &out);
 
-		/** Loads a decoding tree structure from an ifstream.
-		    @param in: the ifstream.
-		    @returns the loaded decoding table.
-		*/
-		static DecodingTree *load(ifstream &in);
+  /** Loads a decoding tree structure from an ifstream.
+      @param in: the ifstream.
+      @returns the loaded decoding table.
+  */
+  static DecodingTree *load(ifstream &in);
 
-		/** Generic destructor. */
-		~DecodingTree();
+  /** Generic destructor. */
+  ~DecodingTree();
 
-	protected:
-		uint codeword;			//! Root prefix
-		uint leaves;			//! Number of symbols (leaves)
-		uint nodes;			//! Total nodes in the tree
+protected:
+  uint codeword; //! Root prefix
+  uint leaves;   //! Number of symbols (leaves)
+  uint nodes;    //! Total nodes in the tree
 
-		TreeNode *tree;			//! The subtree structure represented with pointers
-		BitString *partree;		//! The subtree structure represented with balanced parenthesis
-		vector<uint> symbols;		//! Symbols stored in the tree leafs.
+  TreeNode *tree; //! The subtree structure represented with pointers
+  BitString
+      *partree; //! The subtree structure represented with balanced parenthesis
+  vector<uint> symbols; //! Symbols stored in the tree leafs.
 
-		/** Builds the pointer-based representation of the tree from
-		    it counterpart based on balanced parenthesis. 
-		    @param bits: number of bits used in the representation.
-		    @param symbols: symbols stored in the tree leafs.
-		*/
-		void buildTree(uint bits);
+  /** Builds the pointer-based representation of the tree from
+      it counterpart based on balanced parenthesis.
+      @param bits: number of bits used in the representation.
+      @param symbols: symbols stored in the tree leafs.
+  */
+  void buildTree(uint bits);
 
-	friend class DecodingTable;
-	friend class IteratorDictStringHTFC;
-	friend class IteratorDictStringHHTFC;
+  friend class DecodingTable;
+  friend class IteratorDictStringHTFC;
+  friend class IteratorDictStringHHTFC;
 };
 
-#endif  /* _DECTREE_H */
-
+#endif /* _DECTREE_H */

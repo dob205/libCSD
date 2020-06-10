@@ -1,10 +1,10 @@
 /* IteratorDictIDDuplicates.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * Iterator class for scanning streams of IDs containing duplicates.
  * The IDs must be sorted before scanning!!!
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -29,41 +29,38 @@
 #ifndef _ITERATORDICTIDDUPLICATES_H
 #define _ITERATORDICTIDDUPLICATES_H
 
-
 #include <iostream>
 using namespace std;
 
-class IteratorDictIDDuplicates : public IteratorDictID
-{
-	public:
-		/** ID Iterator Constructor for streams of duplicated elements.
-		    @param ids: the array of ids
-		    @param scanneable: the number of ids in the array
-		*/
-		IteratorDictIDDuplicates(size_t *ids, size_t scanneable)
-		{
-			this->ids = ids;
-			this->scanneable = scanneable;
+class IteratorDictIDDuplicates : public IteratorDictID {
+public:
+  /** ID Iterator Constructor for streams of duplicated elements.
+      @param ids: the array of ids
+      @param scanneable: the number of ids in the array
+  */
+  IteratorDictIDDuplicates(size_t *ids, size_t scanneable) {
+    this->ids = ids;
+    this->scanneable = scanneable;
 
-			this->processed = 0;
-		}
+    this->processed = 0;
+  }
 
-		size_t next()
-		{
-			size_t next = ids[processed];
+  size_t next() {
+    size_t next = ids[processed];
 
-			// Jumping duplicates results
-			do { processed++; } while (ids[processed-1] == ids[processed]);
+    // Jumping duplicates results
+    do {
+      processed++;
+    } while (ids[processed - 1] == ids[processed]);
 
-			return next;
-		}
+    return next;
+  }
 
+  /** Generic destructor */
+  ~IteratorDictIDDuplicates() { delete[] ids; }
 
-		/** Generic destructor */
-		~IteratorDictIDDuplicates() { delete [] ids; }
-
-	protected:
-		size_t *ids;	// Array of ids
+protected:
+  size_t *ids; // Array of ids
 };
 
-#endif  
+#endif

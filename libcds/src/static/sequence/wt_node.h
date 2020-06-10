@@ -23,36 +23,34 @@
 #define wt_node_h
 
 #include <libcdsBasics.h>
-#include <wt_coder.h>
 #include <vector>
+#include <wt_coder.h>
 
 using namespace cds_utils;
 
-namespace cds_static
-{
+namespace cds_static {
 
-    #define WT_NODE_NULL_HDR 0
-    #define WT_NODE_INTERNAL_HDR 2
-    #define WT_NODE_LEAF_HDR 3
+#define WT_NODE_NULL_HDR 0
+#define WT_NODE_INTERNAL_HDR 2
+#define WT_NODE_LEAF_HDR 3
 
-    /** Base clase for nodes in the wavelet tree
-     *
-     *  @author Francisco Claude
-     */
-    class wt_node
-    {
-        public:
-            virtual ~wt_node() {}
-            virtual size_t rank(uint symbol, size_t pos, uint l, wt_coder * c) const = 0;
-            virtual size_t select(uint symbol, size_t pos, uint l, wt_coder * c) const = 0;
-            virtual uint access(size_t pos) const = 0;
-            virtual uint access(size_t pos, size_t & rankp) const = 0;
-            virtual size_t getSize() const = 0;
-            virtual void save(ofstream & fp) const = 0;
-            static wt_node * load(ifstream & fp);
-    };
-
+/** Base clase for nodes in the wavelet tree
+ *
+ *  @author Francisco Claude
+ */
+class wt_node {
+public:
+  virtual ~wt_node() {}
+  virtual size_t rank(uint symbol, size_t pos, uint l, wt_coder *c) const = 0;
+  virtual size_t select(uint symbol, size_t pos, uint l, wt_coder *c) const = 0;
+  virtual uint access(size_t pos) const = 0;
+  virtual uint access(size_t pos, size_t &rankp) const = 0;
+  virtual size_t getSize() const = 0;
+  virtual void save(ofstream &fp) const = 0;
+  static wt_node *load(ifstream &fp);
 };
+
+} // namespace cds_static
 
 #include <wt_node_internal.h>
 #include <wt_node_leaf.h>

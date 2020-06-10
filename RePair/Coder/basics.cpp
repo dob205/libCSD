@@ -24,38 +24,43 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 
 */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-int NullFreq = 1 << (8*sizeof(int)-1);
+int NullFreq = 1 << (8 * sizeof(int) - 1);
 
-void *myMalloc (long long n)
-{
-    void *p;
-    if (n == 0) return NULL;
-    p = (void*)malloc(n);
-    if (p == NULL)
-       { fprintf(stderr,"Error: malloc failed\n");
-	 exit(1);
-       }
-    return p;
+void *myMalloc(long long n) {
+  void *p;
+  if (n == 0)
+    return NULL;
+  p = (void *)malloc(n);
+  if (p == NULL) {
+    fprintf(stderr, "Error: malloc failed\n");
+    exit(1);
+  }
+  return p;
 }
 
-void *myRealloc (void *p, long long n)
-{
-    if (n == 0) { free(p); return NULL; }
-    if (p == NULL) return myMalloc(n);
-    p = (void*)realloc(p,n);
-    if (p == NULL)
-       { fprintf(stderr,"Error: realloc failed\n");
-	 exit(1);
-       }
-    return p;
+void *myRealloc(void *p, long long n) {
+  if (n == 0) {
+    free(p);
+    return NULL;
+  }
+  if (p == NULL)
+    return myMalloc(n);
+  p = (void *)realloc(p, n);
+  if (p == NULL) {
+    fprintf(stderr, "Error: realloc failed\n");
+    exit(1);
+  }
+  return p;
 }
 
-int blog (int x)
-{
-     int l=0;
-     while (x) { x>>=1; l++; }
-     return l;
+int blog(int x) {
+  int l = 0;
+  while (x) {
+    x >>= 1;
+    l++;
+  }
+  return l;
 }

@@ -22,26 +22,24 @@
 #ifndef BITSEQUENCEBUILDERDARRAY_H
 #define BITSEQUENCEBUILDERDARRAY_H
 
-#include <libcdsBasics.h>
-#include <BitSequenceDArray.h>
 #include <BitSequenceBuilder.h>
+#include <BitSequenceDArray.h>
+#include <libcdsBasics.h>
 
-namespace cds_static
-{
-    /** Base class for BitSequence builders, it defines the build function
-     * that takes only a bitmap. The parameters for construction are can
-     * be set in any way by the builder, but none are received when
-     * the actual building takes place.
-     *
-     * @author Rodrigo Canovas
-     */
-    class BitSequenceBuilderDArray : public BitSequenceBuilder
-    {
-        public:
-            BitSequenceBuilderDArray();
-            virtual ~BitSequenceBuilderDArray();
-            virtual BitSequence * build(uint * bitseq, size_t len) const;
-            virtual BitSequence * build(const BitString & bs) const;
-    };
+namespace cds_static {
+/** Base class for BitSequence builders, it defines the build function
+ * that takes only a bitmap. The parameters for construction are can
+ * be set in any way by the builder, but none are received when
+ * the actual building takes place.
+ *
+ * @author Rodrigo Canovas
+ */
+class BitSequenceBuilderDArray : public BitSequenceBuilder {
+public:
+  BitSequenceBuilderDArray();
+  virtual ~BitSequenceBuilderDArray();
+  virtual BitSequence *build(uint *bitseq, size_t len) const;
+  virtual BitSequence *build(const BitString &bs) const;
 };
+} // namespace cds_static
 #endif

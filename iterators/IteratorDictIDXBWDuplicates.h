@@ -1,9 +1,9 @@
 /* IteratorDictIDXBWDuplicates.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * Iterator class for scanning IDs from a substring search in a XBW.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -35,79 +35,76 @@ using namespace std;
 
 #include "../XBW/XBW.h"
 
-class IteratorDictIDXBWDuplicates : public IteratorDictID
-{
-	public:
-		/** ID Iterator Constructor for streams of contiguous elements.
-	    	@param left: the first element ID (left limit)
-	    	@param right: the last element ID (right limit)
-	    	@param xbw: the XBW
-		 */
-		IteratorDictIDXBWDuplicates(size_t left, size_t right, XBW *xbw)
-		{
-			this->leftLimit = left;
-			this->rightLimit = right;
-			this->xbw = xbw;
+class IteratorDictIDXBWDuplicates : public IteratorDictID {
+public:
+  /** ID Iterator Constructor for streams of contiguous elements.
+  @param left: the first element ID (left limit)
+  @param right: the last element ID (right limit)
+  @param xbw: the XBW
+   */
+  IteratorDictIDXBWDuplicates(size_t left, size_t right, XBW *xbw) {
+    this->leftLimit = left;
+    this->rightLimit = right;
+    this->xbw = xbw;
 
-			this->scanneable = right+1;
-			this->processed = left;
+    this->scanneable = right + 1;
+    this->processed = left;
 
-			queue.push_back(processed);
+    queue.push_back(processed);
 
-			while (hasNext()) results.push_back(advance());
-			sort(results.begin(), results.end());
+    while (hasNext())
+      results.push_back(advance());
+    sort(results.begin(), results.end());
 
-			this->scanneable = results.size();
-			this->processed = 0;
+    this->scanneable = results.size();
+    this->processed = 0;
 
-			results.push_back(0);
-		}
+    results.push_back(0);
+  }
 
-		size_t next()
-		{
-			size_t next = results[processed];
+  size_t next() {
+    size_t next = results[processed];
 
-			// Jumping repeated results
-			do { processed++; } while (results[processed-1] == results[processed]);
+    // Jumping repeated results
+    do {
+      processed++;
+    } while (results[processed - 1] == results[processed]);
 
-			return next;
-		}
+    return next;
+  }
 
-	protected:
-		size_t leftLimit;	// Left stream limit
-		size_t rightLimit;	// Right stream limit
+protected:
+  size_t leftLimit;  // Left stream limit
+  size_t rightLimit; // Right stream limit
 
-		XBW *xbw;		// The XBW
+  XBW *xbw; // The XBW
 
-		vector<uint> queue;	// Vector storing data about non-processed nodes
-		vector<uint> results;	// Vector storing results
+  vector<uint> queue;   // Vector storing data about non-processed nodes
+  vector<uint> results; // Vector storing results
 
+  /** Extracts the next ID in the stream.
+  @returns the next ID.
+   */
+  inline size_t advance() {
+    while (xbw->maxLabel != xbw->alpha->access(queue[0])) {
+      uint left, right;
+      xbw->getChildren(queue[0], &left, &right);
+      queue.erase(queue.begin(), queue.begin() + 1);
 
-		/** Extracts the next ID in the stream. 
-	    	@returns the next ID.
-		 */
-		inline size_t advance()
-		{
-			while (xbw->maxLabel != xbw->alpha->access(queue[0]))
-			{
-				uint left, right;
-				xbw->getChildren(queue[0], &left, &right);
-				queue.erase(queue.begin(), queue.begin()+1);
+      for (uint j = left; j <= right; j++)
+        queue.push_back(j);
+    }
 
-				for (uint j=left; j<=right; j++) queue.push_back(j);
-			}
+    uint next = xbw->alpha->rank(xbw->maxLabel, queue[0]);
+    queue.erase(queue.begin(), queue.begin() + 1);
 
-			uint next = xbw->alpha->rank(xbw->maxLabel, queue[0]);
-			queue.erase(queue.begin(), queue.begin()+1);
+    if (queue.size() == 0) {
+      processed++;
+      queue.push_back(processed);
+    }
 
-			if (queue.size() == 0)
-			{
-				processed++;
-				queue.push_back(processed);
-			}
-
-			return next;
-		}
+    return next;
+  }
 };
 
-#endif  
+#endif

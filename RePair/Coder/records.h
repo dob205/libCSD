@@ -24,58 +24,57 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 
 */
 
-	// extendible array for records
+// extendible array for records
 
 #ifndef RECORDSINCLUDED
 #define RECORDSINCLUDED
 
-#include "stdio.h"
 #include "basics.h"
+#include "stdio.h"
 
-typedef struct
-   { int prev,next;
-   } Tlist; // list of prev next equal char
+typedef struct {
+  int prev, next;
+} Tlist; // list of prev next equal char
 
-typedef struct
-   { Tpair pair; // pair content
-     int freq; // frequency
-     int cpos; // 1st position in C
-     int hpos; // position in heap
-     int kpos; // position in hash
-   } Trecord;
+typedef struct {
+  Tpair pair; // pair content
+  int freq;   // frequency
+  int cpos;   // 1st position in C
+  int hpos;   // position in heap
+  int kpos;   // position in hash
+} Trecord;
 
-typedef struct
-   { Trecord *records; 
-     int maxsize;  
-     int size;
-     float factor;
-     int minsize;
-     void *Hash;  // Thash *
-     void *Heap; // Theap *
-     void *List; // Tlist *
-   } Trarray;
+typedef struct {
+  Trecord *records;
+  int maxsize;
+  int size;
+  float factor;
+  int minsize;
+  void *Hash; // Thash *
+  void *Heap; // Theap *
+  void *List; // Tlist *
+} Trarray;
 
-#include "heap.h"
 #include "hash.h"
+#include "heap.h"
 
 // contents can be accessed as Rec.records[0..Rec.size-1]
-class Records
-{
+class Records {
 public:
-	// inserts pair in Rec, returns id, links to/from
-	// Hash and Heap, not List. sets freq = 1
-	static int insertRecord (Trarray *Rec, Tpair pair);
-	// deletes last cell in Rec
-	static void deleteRecord (Trarray *Rec);
-	 // creates empty array
-	static Trarray createRecords (float factor, int minsize);
-	// associates structures
-	static void assocRecords (Trarray *Rec, void *Hash, void *Heap, void *List); 
-	// destroys Rec
-	static void destroyRecords (Trarray *Rec);
-	// delete record, freq <= 1
-	// due to freq 0 or purgue (freq 1)
-	// already deleted from heap
-	static void removeRecord (Trarray *Rec, int id);
+  // inserts pair in Rec, returns id, links to/from
+  // Hash and Heap, not List. sets freq = 1
+  static int insertRecord(Trarray *Rec, Tpair pair);
+  // deletes last cell in Rec
+  static void deleteRecord(Trarray *Rec);
+  // creates empty array
+  static Trarray createRecords(float factor, int minsize);
+  // associates structures
+  static void assocRecords(Trarray *Rec, void *Hash, void *Heap, void *List);
+  // destroys Rec
+  static void destroyRecords(Trarray *Rec);
+  // delete record, freq <= 1
+  // due to freq 0 or purgue (freq 1)
+  // already deleted from heap
+  static void removeRecord(Trarray *Rec, int id);
 };
 #endif

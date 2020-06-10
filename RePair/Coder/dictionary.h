@@ -24,36 +24,35 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 
 */
 
-	// extendible array for records
+// extendible array for records
 
 #ifndef DICTIONARYINCLUDED
 #define DICTIONARYINCLUDED
 
-#include <stdio.h>
 #include "basics.h"
+#include <stdio.h>
 
-typedef struct
-   { Tpair rule; // left and righ component
-     int l;	 // rule length
-   } Trule;
+typedef struct {
+  Tpair rule; // left and righ component
+  int l;      // rule length
+} Trule;
 
-typedef struct
-   { Trule *rules; 
-     int maxsize;  
-     int size;
-     float factor;
-     int minsize;
-   } Tdiccarray;
+typedef struct {
+  Trule *rules;
+  int maxsize;
+  int size;
+  float factor;
+  int minsize;
+} Tdiccarray;
 
 // contents can be accessed as Dic.rules[0..Dicc.size-1]
-class Dictionary
-{
+class Dictionary {
 public:
-	// inserts rule in Dicc, returns id
-	static int insertRule (Tdiccarray *Dicc, Trule rule); 
-	 // creates empty dictionary
-	static Tdiccarray createDicc (float factor, int minsize);
-	// destroys Rec
-	static void destroyDicc (Tdiccarray *Dicc);
+  // inserts rule in Dicc, returns id
+  static int insertRule(Tdiccarray *Dicc, Trule rule);
+  // creates empty dictionary
+  static Tdiccarray createDicc(float factor, int minsize);
+  // destroys Rec
+  static void destroyDicc(Tdiccarray *Dicc);
 };
 #endif

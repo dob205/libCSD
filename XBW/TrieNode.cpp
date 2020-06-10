@@ -1,6 +1,6 @@
 /* TrieNode.cpp
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * TrieNode for the XBW
  *
@@ -25,74 +25,71 @@
  *   Miguel A. Martinez-Prieto:	migumar2@infor.uva.es
  */
 
-
 #include "TrieNode.h"
 
-TrieNode::TrieNode(char symbol)
-{
-	this->symbol = symbol;
-	this->last_ch = 0;
-	this->parent = 0;
-	this->leaf = this->last = false;
+TrieNode::TrieNode(char symbol) {
+  this->symbol = symbol;
+  this->last_ch = 0;
+  this->parent = 0;
+  this->leaf = this->last = false;
 }
 
-void
-TrieNode::insert(const uchar *str, int len, int *occ, vector<TrieNode*> *nodes)
-{
-	if(len>=0)
-	{
-		leaf = false;
-		TrieNode * next = children[str[0]];
-		if(next == NULL)
-		{
-			occ[(uint)symbol]++;
-			next = new TrieNode(str[0]);
-			nodes->push_back(next);
-			next->parent = this;
-			children[str[0]] = next;
+void TrieNode::insert(const uchar *str, int len, int *occ,
+                      vector<TrieNode *> *nodes) {
+  if (len >= 0) {
+    leaf = false;
+    TrieNode *next = children[str[0]];
+    if (next == NULL) {
+      occ[(uint)symbol]++;
+      next = new TrieNode(str[0]);
+      nodes->push_back(next);
+      next->parent = this;
+      children[str[0]] = next;
 
-			if(str[0]>=last_ch)
-			{
-				if(children[last_ch]!=NULL)
-					children[last_ch]->last = false;
-				last_ch = str[0];
-				next->last = true;
-			}
-		}
-		next->insert(str+1,len-1, occ, nodes);
-	}
-	else
-	{
-		last = true;
-		leaf = true;
-	}
+      if (str[0] >= last_ch) {
+        if (children[last_ch] != NULL)
+          children[last_ch]->last = false;
+        last_ch = str[0];
+        next->last = true;
+      }
+    }
+    next->insert(str + 1, len - 1, occ, nodes);
+  } else {
+    last = true;
+    leaf = true;
+  }
 }
 
-bool
-TrieNode::less(const TrieNode & n) const
-{
-	assert(this==&n || !(parent==n.parent && symbol==n.symbol));
-	if(parent==n.parent && symbol==n.symbol) return true;
-	if((uchar)symbol<(uchar)n.symbol) return true;
-	if((uchar)symbol>(uchar)n.symbol) return false;
-	if(parent==NULL) return true;
-	if(n.parent==NULL) return false;
-	return (*parent).less(*n.parent);
+bool TrieNode::less(const TrieNode &n) const {
+  assert(this == &n || !(parent == n.parent && symbol == n.symbol));
+  if (parent == n.parent && symbol == n.symbol)
+    return true;
+  if ((uchar)symbol < (uchar)n.symbol)
+    return true;
+  if ((uchar)symbol > (uchar)n.symbol)
+    return false;
+  if (parent == NULL)
+    return true;
+  if (n.parent == NULL)
+    return false;
+  return (*parent).less(*n.parent);
 }
 
-bool
-TrieNode::cmp(const TrieNode & n) const
-{
-	assert(this==&n || !(parent==n.parent && symbol==n.symbol));
-	if(parent==n.parent && (uchar)symbol==(uchar)n.symbol) return true;
-	if(parent==n.parent && (uchar)symbol<(uchar)n.symbol) return true;
-	if(parent==n.parent && (uchar)symbol>(uchar)n.symbol) return false;
-	if(parent==NULL) return true;
-	if(n.parent==NULL) return false;
-	if((*parent).less(*(n.parent))) return true;
-	return false;
+bool TrieNode::cmp(const TrieNode &n) const {
+  assert(this == &n || !(parent == n.parent && symbol == n.symbol));
+  if (parent == n.parent && (uchar)symbol == (uchar)n.symbol)
+    return true;
+  if (parent == n.parent && (uchar)symbol < (uchar)n.symbol)
+    return true;
+  if (parent == n.parent && (uchar)symbol > (uchar)n.symbol)
+    return false;
+  if (parent == NULL)
+    return true;
+  if (n.parent == NULL)
+    return false;
+  if ((*parent).less(*(n.parent)))
+    return true;
+  return false;
 }
 
-TrieNode::~TrieNode() {
-}
-
+TrieNode::~TrieNode() {}

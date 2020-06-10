@@ -1,6 +1,6 @@
 /* StatCoder.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class implements a general encoder/decoder for dealing with Huffman
  * and Hu-Tucker codes.
@@ -35,48 +35,46 @@ using namespace cds_utils;
 #include "Codeword.h"
 #include "DecodingTable.h"
 
-class StatCoder
-{
-	public:
-		// Generic constructor
-		StatCoder() { };
+class StatCoder {
+public:
+  // Generic constructor
+  StatCoder(){};
 
-		// Constructor for encoding purposes
-		StatCoder(Codeword *codewords)  { this->codewords = codewords; };
+  // Constructor for encoding purposes
+  StatCoder(Codeword *codewords) { this->codewords = codewords; };
 
-		// Constructor for decoding purposes
-		StatCoder(DecodingTable *table, Codeword *codewords)
-		{
-			this->table = table;
-			this->codewords = codewords;
-		};
+  // Constructor for decoding purposes
+  StatCoder(DecodingTable *table, Codeword *codewords) {
+    this->table = table;
+    this->codewords = codewords;
+  };
 
-		/** Performs the Hu-Tucker encoding of the symbol in the text
-		    jumping, in the current byte, the given number of bits.
-		    @param symbol: the symbol to be encoded.
-		    @param text: the text in which the symbol is encoded.
-		    @param offset: the number of bits to be jumped.
-		    @returns the number of advanced bytes in this operation.
-		*/
-		uint encodeSymbol(uchar symbol, uchar *text, uint *offset);
+  /** Performs the Hu-Tucker encoding of the symbol in the text
+      jumping, in the current byte, the given number of bits.
+      @param symbol: the symbol to be encoded.
+      @param text: the text in which the symbol is encoded.
+      @param offset: the number of bits to be jumped.
+      @returns the number of advanced bytes in this operation.
+  */
+  uint encodeSymbol(uchar symbol, uchar *text, uint *offset);
 
-		/** Performs the Hu-Tucker encoding of the string.
-		    @param str: the string to be encoded.
-		    @param strLen: the string length.
-		    @param encLen: pointer to the encoded string length.
-		    @param offset: pointer to number of bits used in the last
-		      byte.
-		    @returns the encoded string.
-		*/
-		uchar* encodeString(uchar *str, uint strLen, uint *encLen, uint *offset);
+  /** Performs the Hu-Tucker encoding of the string.
+      @param str: the string to be encoded.
+      @param strLen: the string length.
+      @param encLen: pointer to the encoded string length.
+      @param offset: pointer to number of bits used in the last
+        byte.
+      @returns the encoded string.
+  */
+  uchar *encodeString(uchar *str, uint strLen, uint *encLen, uint *offset);
 
-		uint decodeString(ChunkScan* c);
+  uint decodeString(ChunkScan *c);
 
-		~StatCoder() { };
+  ~StatCoder(){};
 
-	protected:
-		Codeword *codewords;
-		DecodingTable *table;
+protected:
+  Codeword *codewords;
+  DecodingTable *table;
 };
 
 #endif /* STATCODER_H_ */

@@ -21,30 +21,28 @@
 
 #include <wt_coder.h>
 
-namespace cds_static
-{
+namespace cds_static {
 
-    wt_coder::wt_coder() {
-        user_count=0;
-    }
+wt_coder::wt_coder() { user_count = 0; }
 
-    void wt_coder::use() {
-        user_count++;
-    }
+void wt_coder::use() { user_count++; }
 
-    void wt_coder::unuse() {
-        user_count--;
-        if(user_count==0) delete this;
-    }
+void wt_coder::unuse() {
+  user_count--;
+  if (user_count == 0)
+    delete this;
+}
 
-    wt_coder * wt_coder::load(ifstream & fp) {
-        uint rd = loadValue<uint>(fp);
-        size_t pos = fp.tellg();
-        fp.seekg(pos-sizeof(uint));
-        switch(rd) {
-            case WT_CODER_HUFF_HDR: return wt_coder_huff::load(fp);
-            case WT_CODER_BINARY_HDR: return wt_coder_binary::load(fp);
-        }
-        return NULL;
-    }
-};
+wt_coder *wt_coder::load(ifstream &fp) {
+  uint rd = loadValue<uint>(fp);
+  size_t pos = fp.tellg();
+  fp.seekg(pos - sizeof(uint));
+  switch (rd) {
+  case WT_CODER_HUFF_HDR:
+    return wt_coder_huff::load(fp);
+  case WT_CODER_BINARY_HDR:
+    return wt_coder_binary::load(fp);
+  }
+  return NULL;
+}
+} // namespace cds_static

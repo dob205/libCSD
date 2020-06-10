@@ -1,6 +1,6 @@
 /* Hash.cpp
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * Abstract class for implementing compressed hash dictionaries.
  *
@@ -27,109 +27,87 @@
 
 #include "Hash.h"
 
-	size_t
-	Hash::insert(uchar *w, size_t len, size_t offset)
-	{
-		size_t hval = bitwisehash(w, len, tsize);
+size_t Hash::insert(uchar *w, size_t len, size_t offset) {
+  size_t hval = bitwisehash(w, len, tsize);
 
-		if(hashtable[hval] == (size_t)-1)
-		{
-			 hashtable[hval] = offset;
-			 enclength[hval] = len;
-			 n++;
-			 return hval;
-		}
-		else
-		{
-			 //use double hashing
-			 size_t h2 = step_value(w, len, tsize);
-			 for(size_t i=1; i<tsize; i++){
-				 hval = (hval + h2)%tsize;
-				 if(hashtable[hval] == (size_t)-1){
-					 hashtable[hval] = offset;
-					 enclength[hval] = len;
-					 n++;
-					 return hval;
-				 }
-			 }
-			 cout << "Error Hash table full" << endl;
-			 return (size_t)-1;
-		}
-	}
+  if (hashtable[hval] == (size_t)-1) {
+    hashtable[hval] = offset;
+    enclength[hval] = len;
+    n++;
+    return hval;
+  } else {
+    // use double hashing
+    size_t h2 = step_value(w, len, tsize);
+    for (size_t i = 1; i < tsize; i++) {
+      hval = (hval + h2) % tsize;
+      if (hashtable[hval] == (size_t)-1) {
+        hashtable[hval] = offset;
+        enclength[hval] = len;
+        n++;
+        return hval;
+      }
+    }
+    cout << "Error Hash table full" << endl;
+    return (size_t)-1;
+  }
+}
 
-	void
-	Hash::setOffset(size_t pos, size_t offset)
-	{
-		hashtable[pos] = offset;
-	}
+void Hash::setOffset(size_t pos, size_t offset) { hashtable[pos] = offset; }
 
-	void
-	Hash::finish(size_t length)
-	{
-		size_t b_size = (tsize+W-1)/W;
+void Hash::finish(size_t length) {
+  size_t b_size = (tsize + W - 1) / W;
 
-		hash = new LogSequence(bits(length), tsize);
-		uint *bitmap = new uint[b_size];
-		for(size_t i=0; i<b_size; i++) bitmap[i]=0;
+  hash = new LogSequence(bits(length), tsize);
+  uint *bitmap = new uint[b_size];
+  for (size_t i = 0; i < b_size; i++)
+    bitmap[i] = 0;
 
-		for(size_t i=0; i<tsize; i++)
-		{
-			if(hashtable[i]!=(size_t)-1)
-			{
-				hash->setField(i, hashtable[i]);
-				bitset(bitmap, i);
-			}
-			else hash->setField(i, 0);
-		}
+  for (size_t i = 0; i < tsize; i++) {
+    if (hashtable[i] != (size_t)-1) {
+      hash->setField(i, hashtable[i]);
+      bitset(bitmap, i);
+    } else
+      hash->setField(i, 0);
+  }
 
-		b_ht = new BitSequenceRG(bitmap, tsize, 20);
+  b_ht = new BitSequenceRG(bitmap, tsize, 20);
 
-		delete [] bitmap;
-		delete [] hashtable;
-		delete [] enclength;
-	}
+  delete[] bitmap;
+  delete[] hashtable;
+  delete[] enclength;
+}
 
-	void
-	Hash::setData(uchar *data)
-	{
-		this->data = data;
-	}
+void Hash::setData(uchar *data) { this->data = data; }
 
-	void
-	Hash::save(ofstream & fp)
-	{
-		saveValue(fp, tsize);
-		saveValue(fp, n);
-		hash->save(fp);
-		b_ht->save(fp);
-	}
+void Hash::save(ofstream &fp) {
+  saveValue(fp, tsize);
+  saveValue(fp, n);
+  hash->save(fp);
+  b_ht->save(fp);
+}
 
-	Hash *
-	Hash::load(ifstream & fp, int r)
-	{
-		switch(r) {
-			// HASHUFF and HASHRP must be the same value
-			case (HASHUFF):
-				return Hashdh::load(fp);
-			// HASBHUFF and HASHVRP must be the same value
-			case (HASHBHUFF): 
-				return HashBdh::load(fp);
-			// HASBBHUFF and HASBBHRP must be the same value
-			case (HASHBBHUFF): 
-				return HashBBdh::load(fp);
-		}
+Hash *Hash::load(ifstream &fp, int r) {
+  switch (r) {
+  // HASHUFF and HASHRP must be the same value
+  case (HASHUFF):
+    return Hashdh::load(fp);
+  // HASBHUFF and HASHVRP must be the same value
+  case (HASHBHUFF):
+    return HashBdh::load(fp);
+  // HASBBHUFF and HASBBHRP must be the same value
+  case (HASHBBHUFF):
+    return HashBBdh::load(fp);
+  }
 
-		return NULL;
-	}
+  return NULL;
+}
 
-	int
-	Hash::scmp(size_t offset, uchar *w, size_t len)
-	{
-		size_t ini_pos =  offset;
-		for(size_t i=0; i<len; i++){
-			if(w[i] != data[ini_pos+i])
-				return 1;
-		}
+int Hash::scmp(size_t offset, uchar *w, size_t len) {
+  size_t ini_pos = offset;
+  for (size_t i = 0; i < len; i++) {
+    if (w[i] != data[ini_pos + i])
+      return 1;
+  }
 
-		return 0;
-	}
+  return 0;
+}

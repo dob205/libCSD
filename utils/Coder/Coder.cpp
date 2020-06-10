@@ -1,6 +1,6 @@
 /* Coder.cpp
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class implements a general encoder/decoder for dealing with Huffman
  * and Hu-Tucker codes.
@@ -28,131 +28,120 @@
 
 #include "Coder.h"
 
-uint
-Coder::encodeSymbol(uchar symbol, uchar *text, uint *offset)
-{
-	uint codeword = codewords[(int)symbol].codeword;
-	uint bits = codewords[(int)symbol].bits;
+uint Coder::encodeSymbol(uchar symbol, uchar *text, uint *offset) {
+  uint codeword = codewords[(int)symbol].codeword;
+  uint bits = codewords[(int)symbol].bits;
 
-	uint processed = 0;
-	uint bytes = 0;
+  uint processed = 0;
+  uint bytes = 0;
 
-	while ((bits-processed) >= (8-(*offset)))
-	{
-		uchar code = ((codeword << (W-bits+processed)) >> (W-8+(*offset)));
-		text[bytes] |= code;
+  while ((bits - processed) >= (8 - (*offset))) {
+    uchar code = ((codeword << (W - bits + processed)) >> (W - 8 + (*offset)));
+    text[bytes] |= code;
 
-		processed += 8-(*offset);
-		*offset = 0; bytes++;
-		text[bytes] = 0;
-	}
+    processed += 8 - (*offset);
+    *offset = 0;
+    bytes++;
+    text[bytes] = 0;
+  }
 
-	// Encoding the remaining bits
-	if (bits > processed)
-	{
-		uchar code = ((codeword << (W-bits+processed)) >> (W-8+(*offset)));
-		text[bytes] |= code;
+  // Encoding the remaining bits
+  if (bits > processed) {
+    uchar code = ((codeword << (W - bits + processed)) >> (W - 8 + (*offset)));
+    text[bytes] |= code;
 
-		*offset += bits-processed;
-	}
+    *offset += bits - processed;
+  }
 
-	return bytes;
+  return bytes;
 }
 
-uchar*
-Coder::encodeString(uchar *str, uint strLen, uint *encLen, uint *offset)
-{
-	uchar *encoded = new uchar[4*strLen];
-	*encLen = 0; encoded[*encLen] = 0;
-	*offset = 0;
+uchar *Coder::encodeString(uchar *str, uint strLen, uint *encLen,
+                           uint *offset) {
+  uchar *encoded = new uchar[4 * strLen];
+  *encLen = 0;
+  encoded[*encLen] = 0;
+  *offset = 0;
 
-	for (uint i=0; i<strLen; i++)
-		*encLen += encodeSymbol(str[i], &(encoded[*encLen]), offset);
+  for (uint i = 0; i < strLen; i++)
+    *encLen += encodeSymbol(str[i], &(encoded[*encLen]), offset);
 
-	if (*offset > 0) (*encLen)++;
+  if (*offset > 0)
+    (*encLen)++;
 
-	return encoded;
+  return encoded;
 }
 
-uint
-Coder::decodeString(ChunkScan* c)
-{
-	c->extracted = 0;
+uint Coder::decodeString(ChunkScan *c) {
+  c->extracted = 0;
 
-	uint prevLen = c->strLen;
-	uint nextLen = 0;
-	bool end = false;
+  uint prevLen = c->strLen;
+  uint nextLen = 0;
+  bool end = false;
 
-	uint shared = 0;
+  uint shared = 0;
 
-	// Checking if any char has been extracted in advance
-	if (c->advanced != 0)
-	{
-		// Checking if a full string is encoded in these advanced chars
-		c->str[prevLen+c->advanced] = 0;
-		nextLen = strlen((char*)(c->str+prevLen));
+  // Checking if any char has been extracted in advance
+  if (c->advanced != 0) {
+    // Checking if a full string is encoded in these advanced chars
+    c->str[prevLen + c->advanced] = 0;
+    nextLen = strlen((char *)(c->str + prevLen));
 
-		if ((nextLen < c->advanced) && (nextLen > 0))
-		{
-			uint read = prevLen+VByte::decode(&(c->strLen), c->str+prevLen);
-			shared = c->strLen;
+    if ((nextLen < c->advanced) && (nextLen > 0)) {
+      uint read = prevLen + VByte::decode(&(c->strLen), c->str + prevLen);
+      shared = c->strLen;
 
-			uint extracted = prevLen+nextLen;
+      uint extracted = prevLen + nextLen;
 
-			for (uint i=read; i<=extracted; i++)
-			{
-				c->str[c->strLen] = c->str[i];
-				c->strLen++;
-			}
+      for (uint i = read; i <= extracted; i++) {
+        c->str[c->strLen] = c->str[i];
+        c->strLen++;
+      }
 
-			nextLen++;
-			if (nextLen != c->advanced)
-			{
-				uint xadv = c->advanced-nextLen;
-				extracted++;
+      nextLen++;
+      if (nextLen != c->advanced) {
+        uint xadv = c->advanced - nextLen;
+        extracted++;
 
-				for (uint i=0; i<xadv; i++)
-				{
-					c->str[c->strLen+i] = c->str[extracted+i];
-				}
+        for (uint i = 0; i < xadv; i++) {
+          c->str[c->strLen + i] = c->str[extracted + i];
+        }
 
-				c->advanced = xadv;
-			}
-			else c->advanced = 0;
+        c->advanced = xadv;
+      } else
+        c->advanced = 0;
 
-			return shared;
-		}
-		else
-		{
-			c->strLen = prevLen+c->advanced;
-			c->extracted = c->advanced;
-		}
-	}
+      return shared;
+    } else {
+      c->strLen = prevLen + c->advanced;
+      c->extracted = c->advanced;
+    }
+  }
 
-	// Extracts, at least, the two first bytes because represent the VByte
-	// encoding of the prefix length
-	while ((c->strLen-prevLen) < 2) end = table->processChunk(c);
+  // Extracts, at least, the two first bytes because represent the VByte
+  // encoding of the prefix length
+  while ((c->strLen - prevLen) < 2)
+    end = table->processChunk(c);
 
-	// Appends the extracted chars before the common prefix
-	uint extracted = c->strLen-prevLen;
-	uint read = VByte::decode(&(c->strLen), c->str+prevLen);
-	shared = c->strLen;
+  // Appends the extracted chars before the common prefix
+  uint extracted = c->strLen - prevLen;
+  uint read = VByte::decode(&(c->strLen), c->str + prevLen);
+  shared = c->strLen;
 
-	for (uint i=read; i<extracted; i++)
-	{
-		c->str[c->strLen] = c->str[prevLen+i];
-		c->strLen++;
-	}
+  for (uint i = read; i < extracted; i++) {
+    c->str[c->strLen] = c->str[prevLen + i];
+    c->strLen++;
+  }
 
-	if (end && (c->advanced > 0))
-	{
-		// Copying advanced chars
-		for (uint i=0; i<c->advanced; i++)
-			c->str[c->strLen+i] = c->str[prevLen+extracted+i];
-	}
+  if (end && (c->advanced > 0)) {
+    // Copying advanced chars
+    for (uint i = 0; i < c->advanced; i++)
+      c->str[c->strLen + i] = c->str[prevLen + extracted + i];
+  }
 
-	// Extracts the remaining suffix
-	while (!end) end = table->processChunk(c);
+  // Extracts the remaining suffix
+  while (!end)
+    end = table->processChunk(c);
 
-	return shared;
+  return shared;
 }

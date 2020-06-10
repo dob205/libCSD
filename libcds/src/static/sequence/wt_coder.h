@@ -22,52 +22,50 @@
 #ifndef wt_coder_h
 #define wt_coder_h
 
-#include <libcdsBasics.h>
 #include <fstream>
+#include <libcdsBasics.h>
 
 using namespace std;
 
-namespace cds_static
-{
+namespace cds_static {
 
-    #define WT_CODER_HUFF_HDR 2
-    #define WT_CODER_BINARY_HDR 3
+#define WT_CODER_HUFF_HDR 2
+#define WT_CODER_BINARY_HDR 3
 
-    class wt_coder_binary;
-    class wt_coder_huff;
+class wt_coder_binary;
+class wt_coder_huff;
 
-    /** Coder that defines the shape of a wavelet tree
-     *
-     *  @author Francisco Claude
-     */
-    class wt_coder
-    {
-        public:
-            wt_coder();
-            virtual void use();
-            virtual void unuse();
-            virtual ~wt_coder() {};
-            /** Tells if at level l the symbol is represented by a one or a zero */
-            virtual bool is_set(uint symbol, uint l) const=0;
-            /** Tells if the path of symbol becomes unique at level l */
-            virtual bool done(uint symbol, uint l) const =0;
-            /** Returns the size of the coder */
-            virtual size_t getSize() const = 0;
-            /** Returns the depth of the tree */
-            virtual uint depth() const
-            {
-                return -1;       // Implemented in wt_coder_binary
-            }
-            /** Saves the coder to a file, returns 0 in case of success */
-            virtual void save(ofstream & fp) const = 0;
-            /** Loads a coder from a file, returns NULL in case of error */
-            static wt_coder * load(ifstream & fp);
-        protected:
-            uint user_count;
-    };
+/** Coder that defines the shape of a wavelet tree
+ *
+ *  @author Francisco Claude
+ */
+class wt_coder {
+public:
+  wt_coder();
+  virtual void use();
+  virtual void unuse();
+  virtual ~wt_coder(){};
+  /** Tells if at level l the symbol is represented by a one or a zero */
+  virtual bool is_set(uint symbol, uint l) const = 0;
+  /** Tells if the path of symbol becomes unique at level l */
+  virtual bool done(uint symbol, uint l) const = 0;
+  /** Returns the size of the coder */
+  virtual size_t getSize() const = 0;
+  /** Returns the depth of the tree */
+  virtual uint depth() const {
+    return -1; // Implemented in wt_coder_binary
+  }
+  /** Saves the coder to a file, returns 0 in case of success */
+  virtual void save(ofstream &fp) const = 0;
+  /** Loads a coder from a file, returns NULL in case of error */
+  static wt_coder *load(ifstream &fp);
 
+protected:
+  uint user_count;
 };
 
-#include <wt_coder_huff.h>
+} // namespace cds_static
+
 #include <wt_coder_binary.h>
+#include <wt_coder_huff.h>
 #endif

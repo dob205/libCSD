@@ -1,6 +1,6 @@
 /* Hashdh.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class implements the core functionality for a compressed hash dictionary
  * based on double hashing (dh). It realizes the main foundations of the
@@ -42,49 +42,48 @@
 
 using namespace cds_static;
 
-	class Hashdh: public Hash{
+class Hashdh : public Hash {
 
-		public:
-			/* Generic constructor. */
-			Hashdh();
+public:
+  /* Generic constructor. */
+  Hashdh();
 
-			/* Create a hash table of size the given size.
-			 * @tsize: the hash table size.
-			 */
-			Hashdh(uint tsize);
+  /* Create a hash table of size the given size.
+   * @tsize: the hash table size.
+   */
+  Hashdh(uint tsize);
 
-			/* Searches for a key in the hash table.
-			 * @w: the key to be searched.
-			 * @len: the key length.
-			 * @returns the position in which the key is stored (or -1 if it does not exist).
-			 */
-			size_t search(uchar *w, size_t len);
+  /* Searches for a key in the hash table.
+   * @w: the key to be searched.
+   * @len: the key length.
+   * @returns the position in which the key is stored (or -1 if it does not
+   * exist).
+   */
+  size_t search(uchar *w, size_t len);
 
-			/* Retrieves the position in which the i-th key is stored.
-			 * @i: key position in the hash table.
-			 * @returns the position in the compressed sequence.
-			 */
-			size_t getValue(size_t i);
+  /* Retrieves the position in which the i-th key is stored.
+   * @i: key position in the hash table.
+   * @returns the position in the compressed sequence.
+   */
+  size_t getValue(size_t i);
 
+  /* Retrieves the i-th position in the hash table. It returns the same value
+   * that "getValue" for HashB and HashBB.
+   * @i: position in the hash table.
+   * @returns the position in the compressed sequence.
+   */
+  size_t getValuePos(size_t i);
 
-			/* Retrieves the i-th position in the hash table. It returns the same value that
-			 * "getValue" for HashB and HashBB.
-			 * @i: position in the hash table.
-			 * @returns the position in the compressed sequence.
-			 */
-			size_t getValuePos(size_t i);
+  /* Obtains the hash table size.
+   * @returns the hash table size.
+   */
+  size_t getSize();
 
-			/* Obtains the hash table size.
-			 * @returns the hash table size.
-			 */
-			size_t getSize();
+  /** Loads a hash from a file*/
+  static Hashdh *load(ifstream &fp);
 
-			/** Loads a hash from a file*/
-			static Hashdh * load(ifstream & fp);
+  virtual ~Hashdh();
 
-			virtual ~Hashdh();
-
-		protected:
-
-	};
+protected:
+};
 #endif

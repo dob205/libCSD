@@ -24,50 +24,46 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 
 */
 
-	// extendible array for rules
+// extendible array for rules
 
-#include <stdlib.h>
 #include "dictionary.h"
+#include <stdlib.h>
 
-int 
-Dictionary::insertRule (Tdiccarray *Dicc, Trule rule)
-   { int id;
-     Trule *nrule;
-     if (Dicc->size == Dicc->maxsize)
-	{ if (Dicc->maxsize == 0)
-	     { Dicc->maxsize = Dicc->minsize;
-	       Dicc->rules = (Trule*) malloc (Dicc->maxsize * sizeof(Trule));
-	     }
-	  else
-	     { Dicc->maxsize /= Dicc->factor;
-	       Dicc->rules = (Trule*) realloc (Dicc->rules, Dicc->maxsize * sizeof(Trule));
-	     }
-	}
-     id = Dicc->size++;
-     nrule = &Dicc->rules[id];
-     *nrule = rule;
-	 
-     return id;
-   }
+int Dictionary::insertRule(Tdiccarray *Dicc, Trule rule) {
+  int id;
+  Trule *nrule;
+  if (Dicc->size == Dicc->maxsize) {
+    if (Dicc->maxsize == 0) {
+      Dicc->maxsize = Dicc->minsize;
+      Dicc->rules = (Trule *)malloc(Dicc->maxsize * sizeof(Trule));
+    } else {
+      Dicc->maxsize /= Dicc->factor;
+      Dicc->rules =
+          (Trule *)realloc(Dicc->rules, Dicc->maxsize * sizeof(Trule));
+    }
+  }
+  id = Dicc->size++;
+  nrule = &Dicc->rules[id];
+  *nrule = rule;
 
+  return id;
+}
 
-Tdiccarray 
-Dictionary::createDicc (float factor, int minsize)
-   { Tdiccarray Dicc;
-     Dicc.rules = NULL;
-     Dicc.maxsize = 0;
-     Dicc.size = 0;
-     Dicc.factor = factor;
-     Dicc.minsize = minsize;
-     return Dicc;
-   }
+Tdiccarray Dictionary::createDicc(float factor, int minsize) {
+  Tdiccarray Dicc;
+  Dicc.rules = NULL;
+  Dicc.maxsize = 0;
+  Dicc.size = 0;
+  Dicc.factor = factor;
+  Dicc.minsize = minsize;
+  return Dicc;
+}
 
-void 
-Dictionary::destroyDicc (Tdiccarray *Dicc)
-   { if (Dicc->maxsize == 0) return;
-     free (Dicc->rules);
-     Dicc->rules = NULL;
-     Dicc->maxsize = 0;
-     Dicc->size = 0;
-   }
-   
+void Dictionary::destroyDicc(Tdiccarray *Dicc) {
+  if (Dicc->maxsize == 0)
+    return;
+  free(Dicc->rules);
+  Dicc->rules = NULL;
+  Dicc->maxsize = 0;
+  Dicc->size = 0;
+}

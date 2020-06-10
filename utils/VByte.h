@@ -1,6 +1,6 @@
 /* VByte.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class implements the Variable Byte (VByte) Code:
  *
@@ -31,7 +31,6 @@
  *   Miguel A. Martinez-Prieto:	migumar2@infor.uva.es
  */
 
-
 #ifndef _VBYTE_H
 #define _VBYTE_H
 
@@ -41,23 +40,21 @@ using namespace std;
 #include <libcdsBasics.h>
 using namespace cds_utils;
 
-class VByte
-{		
-  public:
-    /** Encodes the integer 'c' in the sequence of bytes (uchar) 'r'.
-	@param c: the number to be encoded.
-	@param r: the resulting encoded sequence.
-	@returns the number of bytes used for encoding.
-    */
-    static uint encode(uint c, uchar *r);
+class VByte {
+public:
+  /** Encodes the integer 'c' in the sequence of bytes (uchar) 'r'.
+      @param c: the number to be encoded.
+      @param r: the resulting encoded sequence.
+      @returns the number of bytes used for encoding.
+  */
+  static uint encode(uint c, uchar *r);
 
-    /** Decodes the sequence of bytes (uchar) 'r' into the integer 'c'.
-	@param c: the resulting decoded number.
-	@param r: the sequence to be decoded.
-	@returns the number of bytes read for decoding.
-    */
-    static uint decode(uint *c, uchar *r);
+  /** Decodes the sequence of bytes (uchar) 'r' into the integer 'c'.
+      @param c: the resulting decoded number.
+      @param r: the sequence to be decoded.
+      @returns the number of bytes read for decoding.
+  */
+  static uint decode(uint *c, uchar *r);
 };
 
-#endif  /* _VBYTE_H */
-
+#endif /* _VBYTE_H */

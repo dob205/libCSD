@@ -23,36 +23,35 @@ Chile. Blanco Encalada 2120, Santiago, Chile. gnavarro@dcc.uchile.cl
 
 */
 
-	// extendible circular array for pairs
+// extendible circular array for pairs
 
 #ifndef ARRAYINCLUDED
 #define ARRAYINCLUDED
 
 #include "basics.h"
 
-typedef struct
-   { int *pairs; // identifiers
-     int maxsize;  
-     int size;
-     int fst; // first of circular array
-     float factor;
-     int minsize;
-     void *Rec; // records
-   } Tarray;
+typedef struct {
+  int *pairs; // identifiers
+  int maxsize;
+  int size;
+  int fst; // first of circular array
+  float factor;
+  int minsize;
+  void *Rec; // records
+} Tarray;
 
 // contents can be accessed as A.pairs[0..A.size-1]
-class ArrayG
-{
+class ArrayG {
 public:
-	// creates empty array
-	static Tarray createArray (void *Rec, float factor, int minsize);
-	// destroys A
-	static void destroyArray (Tarray *A);
+  // creates empty array
+  static Tarray createArray(void *Rec, float factor, int minsize);
+  // destroys A
+  static void destroyArray(Tarray *A);
 
-	// inserts pair in A, returns pos
-	static int insertArray (Tarray *A, int pair);
-	 // deletes last cell in A
-	static void deleteArray (Tarray *A);	
+  // inserts pair in A, returns pos
+  static int insertArray(Tarray *A, int pair);
+  // deletes last cell in A
+  static void deleteArray(Tarray *A);
 };
-  
+
 #endif

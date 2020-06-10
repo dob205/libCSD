@@ -1,6 +1,6 @@
 /* BinaryNode.cpp
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class models the binary nodes used for building statiscal codes.
  *
@@ -25,28 +25,22 @@
  *   Miguel A. Martinez-Prieto:	migumar2@infor.uva.es
  */
 
-
 #include "BinaryNode.h"
 
-BinaryNode::BinaryNode()
-{
-	this->type = 0;
-	this->position = -1;
-	this->weight = -1;
+BinaryNode::BinaryNode() {
+  this->type = 0;
+  this->position = -1;
+  this->weight = -1;
 
-	this->leftChild = this->rightChild = NULL;
+  this->leftChild = this->rightChild = NULL;
 }
 
-BinaryNode::BinaryNode(uint type, uint position, uint weight)
-{
-	this->type = type;
-	this->position = position;
-	this->weight = weight;
+BinaryNode::BinaryNode(uint type, uint position, uint weight) {
+  this->type = type;
+  this->position = position;
+  this->weight = weight;
 
-	this->leftChild = this->rightChild = NULL;
+  this->leftChild = this->rightChild = NULL;
 }
 
-BinaryNode::~BinaryNode()
-{
-}
-
+BinaryNode::~BinaryNode() {}

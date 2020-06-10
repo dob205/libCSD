@@ -1,9 +1,10 @@
 /* IteratorDictStringFMINDEX.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
- * Iterator class for scanning strings (continuous range) in a FMIndex Dictionary.
- * 
+ * Iterator class for scanning strings (continuous range) in a FMIndex
+ * Dictionary.
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -35,57 +36,54 @@ using namespace std;
 
 #include "../FMIndex/SSA.h"
 
-class IteratorDictStringFMINDEX : public IteratorDictString
-{
-	public:
-		/** Iterator Constructor designed for scanning a FMIndex dictionary.
-		    @fm_index: the self-index
-		    @first: the first ID to be retrieved
-		    @scanneable: the last to be retrieved
-		    @last: the last valid id in the dictionary
-		    @maxlength: the length of the largest string in the dictionary
-		*/
-	    	IteratorDictStringFMINDEX(SSA *fm_index, uint first, size_t scanneable, uint last, uint maxlength)
-		{ 
-		    	this->fm_index = fm_index;
-		    	this->maxlength = maxlength;
-		    	this->scanneable = scanneable;
-		    	this->last = last;
-		    	this->processed = first;
-		}
+class IteratorDictStringFMINDEX : public IteratorDictString {
+public:
+  /** Iterator Constructor designed for scanning a FMIndex dictionary.
+      @fm_index: the self-index
+      @first: the first ID to be retrieved
+      @scanneable: the last to be retrieved
+      @last: the last valid id in the dictionary
+      @maxlength: the length of the largest string in the dictionary
+  */
+  IteratorDictStringFMINDEX(SSA *fm_index, uint first, size_t scanneable,
+                            uint last, uint maxlength) {
+    this->fm_index = fm_index;
+    this->maxlength = maxlength;
+    this->scanneable = scanneable;
+    this->last = last;
+    this->processed = first;
+  }
 
-		/** Checks for non-processed strings in the stream. 
-		    @returns if remains non-processed strings. 
-		*/
-	    	bool hasNext()
-		{
-			return processed<scanneable; 
-		}
+  /** Checks for non-processed strings in the stream.
+      @returns if remains non-processed strings.
+  */
+  bool hasNext() { return processed < scanneable; }
 
-		/** Extracts the next string in the stream. Note that a 
-		    previous checking about next existence must be peformed 
-		    using the 'hasNext' method.
-		    @param strLen: pointer to the string length.
-		    @returns the next string.
-		*/
-		unsigned char* next(uint *strLen) 
-		{
-			size_t id;
+  /** Extracts the next string in the stream. Note that a
+      previous checking about next existence must be peformed
+      using the 'hasNext' method.
+      @param strLen: pointer to the string length.
+      @returns the next string.
+  */
+  unsigned char *next(uint *strLen) {
+    size_t id;
 
-			if (processed == last) id=2;
-			else id = processed+3;
-			processed++;
+    if (processed == last)
+      id = 2;
+    else
+      id = processed + 3;
+    processed++;
 
-			return fm_index->extract_id(id, strLen, maxlength);
-		}
+    return fm_index->extract_id(id, strLen, maxlength);
+  }
 
-		/** Generic destructor. */
-		~IteratorDictStringFMINDEX() { }
+  /** Generic destructor. */
+  ~IteratorDictStringFMINDEX() {}
 
-	protected:
-		SSA *fm_index;	// Self-index
-		uint maxlength;	// String maxlength
-		size_t last;	// Last id in the dictionary
+protected:
+  SSA *fm_index;  // Self-index
+  uint maxlength; // String maxlength
+  size_t last;    // Last id in the dictionary
 };
 
-#endif  
+#endif

@@ -21,65 +21,61 @@
 
 #include <wt_coder_binary.h>
 
-namespace cds_static
-{
+namespace cds_static {
 
-    wt_coder_binary::wt_coder_binary(const Array & a, Mapper *am) {
-        //am->use();
-        uint maxv = 0;
-        for(size_t i=0;i<a.getLength();i++)
-            maxv = max(maxv,a[i]);
-        h = bits(maxv);
-        //am->unuse();
-    }
+wt_coder_binary::wt_coder_binary(const Array &a, Mapper *) {
+  // am->use();
+  uint maxv = 0;
+  for (size_t i = 0; i < a.getLength(); i++)
+    maxv = max(maxv, a[i]);
+  h = bits(maxv);
+  // am->unuse();
+}
 
-    wt_coder_binary::wt_coder_binary(uint * seq, size_t n, Mapper * am) {
-        uint max_v = 0;
-        for(uint i=0;i<n;i++)
-            max_v = max(am->map(seq[i]),max_v);
-        h=bits(max_v);
-    }
+wt_coder_binary::wt_coder_binary(uint *seq, size_t n, Mapper *am) {
+  uint max_v = 0;
+  for (uint i = 0; i < n; i++)
+    max_v = max(am->map(seq[i]), max_v);
+  h = bits(max_v);
+}
 
-    wt_coder_binary::wt_coder_binary(uchar * seq, size_t n, Mapper * am) {
-        uint max_v = 0;
-        for(uint i=0;i<n;i++)
-            max_v = max(am->map((uint)seq[i]),max_v);
-        h=bits(max_v);
-    }
+wt_coder_binary::wt_coder_binary(uchar *seq, size_t n, Mapper *am) {
+  uint max_v = 0;
+  for (uint i = 0; i < n; i++)
+    max_v = max(am->map((uint)seq[i]), max_v);
+  h = bits(max_v);
+}
 
-    wt_coder_binary::wt_coder_binary() {}
+wt_coder_binary::wt_coder_binary() {}
 
-    wt_coder_binary::~wt_coder_binary() {}
+wt_coder_binary::~wt_coder_binary() {}
 
-    bool wt_coder_binary::is_set(uint symbol, uint l) const
-    {
-        if((1<<(h-l-1))&symbol) return true;
-        return false;
-    }
+bool wt_coder_binary::is_set(uint symbol, uint l) const {
+  if ((1 << (h - l - 1)) & symbol)
+    return true;
+  return false;
+}
 
-    bool wt_coder_binary::done(uint symbol, uint l) const
-    {
-        if(l==h) return true;
-        return false;
-    }
+bool wt_coder_binary::done(uint, uint l) const {
+  if (l == h)
+    return true;
+  return false;
+}
 
-    size_t wt_coder_binary::getSize() const
-    {
-        return sizeof(wt_coder_binary);
-    }
+size_t wt_coder_binary::getSize() const { return sizeof(wt_coder_binary); }
 
-    void wt_coder_binary::save(ofstream & fp) const
-    {
-        uint wr = WT_CODER_BINARY_HDR;
-        saveValue(fp,wr);
-        saveValue(fp,h);
-    }
+void wt_coder_binary::save(ofstream &fp) const {
+  uint wr = WT_CODER_BINARY_HDR;
+  saveValue(fp, wr);
+  saveValue(fp, h);
+}
 
-    wt_coder_binary * wt_coder_binary::load(ifstream & fp) {
-        uint rd = loadValue<uint>(fp);
-        if(rd!=WT_CODER_BINARY_HDR) return NULL;
-        wt_coder_binary * ret = new wt_coder_binary();
-        ret->h = loadValue<uint>(fp);
-        return ret;
-    }
-};
+wt_coder_binary *wt_coder_binary::load(ifstream &fp) {
+  uint rd = loadValue<uint>(fp);
+  if (rd != WT_CODER_BINARY_HDR)
+    return NULL;
+  wt_coder_binary *ret = new wt_coder_binary();
+  ret->h = loadValue<uint>(fp);
+  return ret;
+}
+} // namespace cds_static

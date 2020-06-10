@@ -1,9 +1,9 @@
 /* IteratorDictStringXBWDuplicates.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * Iterator class for scanning strings from a substring search in a XBW.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -35,95 +35,95 @@ using namespace std;
 
 #include "../XBW/XBW.h"
 
-class IteratorDictStringXBWDuplicates : public IteratorDictString
-{
-	public:
-		/** ID Iterator Constructor for streams of contiguous elements.
-			@param left: the first element ID (left limit)
-			@param right: the last element ID (right limit)
-			@param xbw: the XBW
-			@param maxlength: largest string length.
-		 */
-		IteratorDictStringXBWDuplicates(size_t left, size_t right, XBW *xbw,  uint maxlength)
-		{
-			this->leftLimit = left;
-			this->rightLimit = right;
-			this->xbw = xbw;
-			this->maxlength = maxlength; 
-	
-			this->scanneable = right+1;
-			this->processed = left;
-	
-			queue.push_back(processed);
-	
-			while (hasNext()) results.push_back(advance());
-			sort(results.begin(), results.end());
-	
-			this->scanneable = results.size();
-			this->processed = 0;
+class IteratorDictStringXBWDuplicates : public IteratorDictString {
+public:
+  /** ID Iterator Constructor for streams of contiguous elements.
+          @param left: the first element ID (left limit)
+          @param right: the last element ID (right limit)
+          @param xbw: the XBW
+          @param maxlength: largest string length.
+   */
+  IteratorDictStringXBWDuplicates(size_t left, size_t right, XBW *xbw,
+                                  uint maxlength) {
+    this->leftLimit = left;
+    this->rightLimit = right;
+    this->xbw = xbw;
+    this->maxlength = maxlength;
 
-			results.push_back(0);
-		}
+    this->scanneable = right + 1;
+    this->processed = left;
 
-		/** Checks for non-processed strings in the stream. 
-		    @returns if remains non-processed strings. 
-		*/
-		bool hasNext() { return processed<scanneable; };
+    queue.push_back(processed);
 
-		/** Extracts the next ID in the stream. 
-	    	@returns the next ID.
-		 */
-		unsigned char* next(uint *strLen)
-		{
-			size_t next = results[processed];
+    while (hasNext())
+      results.push_back(advance());
+    sort(results.begin(), results.end());
 
-			// Jumping repeated results
-			do { processed++; } while (results[processed-1] == results[processed]);
+    this->scanneable = results.size();
+    this->processed = 0;
 
-			uchar *str;
-			xbw->idToStr(xbw->alpha->select(xbw->maxLabel, next), strLen, &str, 0);
-			(*strLen)--; str[*strLen] = 0;
+    results.push_back(0);
+  }
 
-			return str;
-		}
+  /** Checks for non-processed strings in the stream.
+      @returns if remains non-processed strings.
+  */
+  bool hasNext() { return processed < scanneable; };
 
-		/** Generic destructor. */
-		~IteratorDictStringXBWDuplicates() { }
+  /** Extracts the next ID in the stream.
+  @returns the next ID.
+   */
+  unsigned char *next(uint *strLen) {
+    size_t next = results[processed];
 
-	protected:
-		size_t leftLimit;	// Left stream limit
-		size_t rightLimit;	// Right stream limit
+    // Jumping repeated results
+    do {
+      processed++;
+    } while (results[processed - 1] == results[processed]);
 
-		XBW *xbw;		// The XBW
+    uchar *str;
+    xbw->idToStr(xbw->alpha->select(xbw->maxLabel, next), strLen, &str, 0);
+    (*strLen)--;
+    str[*strLen] = 0;
 
-		vector<uint> queue;	// Vector storing data about non-processed nodes
-		vector<uint> results;	// Vector storing results
+    return str;
+  }
 
-		/** Extracts the next ID in the stream.
-	    	@returns the next ID.
-		 */
-		inline size_t advance()
-		{
-			while (xbw->maxLabel != xbw->alpha->access(queue[0]))
-			{
-				uint left, right;
-				xbw->getChildren(queue[0], &left, &right);
-				queue.erase(queue.begin(), queue.begin()+1);
+  /** Generic destructor. */
+  ~IteratorDictStringXBWDuplicates() {}
 
-				for (uint j=left; j<=right; j++) queue.push_back(j);
-			}
+protected:
+  size_t leftLimit;  // Left stream limit
+  size_t rightLimit; // Right stream limit
 
-			uint next = xbw->alpha->rank(xbw->maxLabel, queue[0]);
-			queue.erase(queue.begin(), queue.begin()+1);
+  XBW *xbw; // The XBW
 
-			if (queue.size() == 0)
-			{
-				processed++;
-				queue.push_back(processed);
-			}
+  vector<uint> queue;   // Vector storing data about non-processed nodes
+  vector<uint> results; // Vector storing results
 
-			return next;
-		}
+  /** Extracts the next ID in the stream.
+  @returns the next ID.
+   */
+  inline size_t advance() {
+    while (xbw->maxLabel != xbw->alpha->access(queue[0])) {
+      uint left, right;
+      xbw->getChildren(queue[0], &left, &right);
+      queue.erase(queue.begin(), queue.begin() + 1);
+
+      for (uint j = left; j <= right; j++)
+        queue.push_back(j);
+    }
+
+    uint next = xbw->alpha->rank(xbw->maxLabel, queue[0]);
+    queue.erase(queue.begin(), queue.begin() + 1);
+
+    if (queue.size() == 0) {
+      processed++;
+      queue.push_back(processed);
+    }
+
+    return next;
+  }
 };
 
-#endif  
+#endif

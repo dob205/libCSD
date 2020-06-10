@@ -1,4 +1,4 @@
-/* Copyright (C) 2010, Rodrigo Cánovas, all rights reserved.  
+/* Copyright (C) 2010, Rodrigo Cánovas, all rights reserved.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,49 +22,49 @@ using namespace std;
 using namespace cds_utils;
 using namespace cds_static;
 
-SuffixTree * saveLoad(SuffixTree * bs) {
-	ofstream ofs("cst.tmp");
-	bs->save(ofs);
-	ofs.close();
-	ifstream ifs("cst.tmp");
-	SuffixTree * ret = SuffixTree::load(ifs);
-	ifs.close();
-	return ret;
+SuffixTree *saveLoad(SuffixTree *bs) {
+  ofstream ofs("cst.tmp");
+  bs->save(ofs);
+  ofs.close();
+  ifstream ifs("cst.tmp");
+  SuffixTree *ret = SuffixTree::load(ifs);
+  ifs.close();
+  return ret;
 }
 
-bool testSuffixTree(SuffixTree *s1){
-	/*add any test you want*/
-	return true;
+bool testSuffixTree(SuffixTree *s1) {
+  /*add any test you want*/
+  return true;
 }
 
+int main(int argc, char *argv[]) {
+  char *text;
+  size_t length;
 
-int main(int argc, char *argv[]){
-	char *text;
-	size_t length;
-	
-	if(argc!=2) {
-		cout << "Checks if the SuffixTree of the file <arch> is save/load correctly" << endl << endl;
-		cout << "usage: " << argv[0] << " <arch>" << endl;
-		return 0;
-	}
-	
-	if(loadText(argv[1], &text, &length))
-		return 1;
-	
-	/*create index*/
+  if (argc != 2) {
+    cout << "Checks if the SuffixTree of the file <arch> is save/load correctly"
+         << endl
+         << endl;
+    cout << "usage: " << argv[0] << " <arch>" << endl;
+    return 0;
+  }
 
-	SuffixTree *cst;
-	
-	SuffixTreeY csty(text, length, DAC, CN_NPR, 32); 
-	cst	= saveLoad(&csty); 
-	if(!testSuffixTree(cst)) {
-		cerr << "ERROR TESTING SuffixTreeY" << endl;
-		return -1;
-	}
-	delete (SuffixTreeY *)cst;
-	cout << "SuffixTree_Y OK\n" << endl;
-	
-	delete [] text;
-	return 0;
+  if (loadText(argv[1], &text, &length))
+    return 1;
+
+  /*create index*/
+
+  SuffixTree *cst;
+
+  SuffixTreeY csty(text, length, DAC, CN_NPR, 32);
+  cst = saveLoad(&csty);
+  if (!testSuffixTree(cst)) {
+    cerr << "ERROR TESTING SuffixTreeY" << endl;
+    return -1;
+  }
+  delete (SuffixTreeY *)cst;
+  cout << "SuffixTree_Y OK\n" << endl;
+
+  delete[] text;
+  return 0;
 }
-

@@ -23,73 +23,71 @@
 #ifndef PERMINCLUDED
 #define PERMINCLUDED
 
-#include <libcdsBasics.h>
 #include <BitSequence.h>
 #include <BitSequenceBuilder.h>
+#include <libcdsBasics.h>
 
 using namespace cds_utils;
 
 namespace cds_static {
 
-typedef struct sperm
-{
-  uint *elems;                   // elements of the permutation
-  uint nelems;                   // # of elements
-  BitSequence * bmap;                   // bitmap allowing rank() queries in O(1) time
-  uint *bwdptrs;                 // array of backward pointers
-  uint nbits;                    // log(nelems)
-  uint nbwdptrs;                 // # of backward pointers
+typedef struct sperm {
+  uint *elems;       // elements of the permutation
+  uint nelems;       // # of elements
+  BitSequence *bmap; // bitmap allowing rank() queries in O(1) time
+  uint *bwdptrs;     // array of backward pointers
+  uint nbits;        // log(nelems)
+  uint nbwdptrs;     // # of backward pointers
   uint t;
-} *perm;
+} * perm;
 
-typedef struct
-{
+typedef struct {
   uint key;
   uint pointer;
 } auxbwd;
 
 /** Creates a permutation
- *  
+ *
  *  @author Diego Arroyuelo
  */
-perm createPerm(uint *elems, uint nelems, uint t, BitSequenceBuilder * bmb);
+perm createPerm(uint *elems, uint nelems, uint t, BitSequenceBuilder *bmb);
 
 /** Gets the i-th element of the permutation
- *  
+ *
  *  @author Diego Arroyuelo
  */
 uint getelemPerm(const perm P, uint i);
 
 /** Destroys a permutation
- *  
+ *
  *  @author Diego Arroyuelo
  */
 void destroyPerm(perm P);
 
 /** Get pi(i)^{-1}
- *  
+ *
  *  @author Diego Arroyuelo
  */
 uint inversePerm(const perm P, uint i);
 
 /** Saves a permutation
- *  
+ *
  *  @author Diego Arroyuelo
  */
-uint savePerm(const perm P, ofstream & f);
+uint savePerm(const perm P, ofstream &f);
 
 /** Loads a permutation
- *  
+ *
  *  @author Diego Arroyuelo
  */
-perm loadPerm(ifstream & f);
+perm loadPerm(ifstream &f);
 
 /** Returns the size of the data structure
- *  
+ *
  *  @author Diego Arroyuelo
  */
 uint sizeofPerm(const perm P);
 
-};
+} // namespace cds_static
 
 #endif

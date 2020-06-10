@@ -22,43 +22,41 @@
 #ifndef _MAPPERCONT_H
 #define _MAPPERCONT_H
 
-#include <libcdsBasics.h>
 #include <iostream>
+#include <libcdsBasics.h>
 
 #include <Array.h>
-#include <Mapper.h>
 #include <BitSequence.h>
 #include <BitSequenceBuilder.h>
+#include <Mapper.h>
 
 using namespace std;
 using namespace cds_utils;
 
-namespace cds_static
-{
+namespace cds_static {
 
-    /** Mapper that makes the values in the set contiguous
-     *
-     *  @author Francisco Claude
-     */
-    class MapperCont : public Mapper
-    {
-        public:
-            MapperCont(const Array & seq, const BitSequenceBuilder & bsb);
-            MapperCont(const uint * A, const size_t len, const BitSequenceBuilder & bsb);
+/** Mapper that makes the values in the set contiguous
+ *
+ *  @author Francisco Claude
+ */
+class MapperCont : public Mapper {
+public:
+  MapperCont(const Array &seq, const BitSequenceBuilder &bsb);
+  MapperCont(const uint *A, const size_t len, const BitSequenceBuilder &bsb);
 
-            virtual ~MapperCont();
+  virtual ~MapperCont();
 
-            virtual uint map(uint s) const;
-            virtual uint unmap(uint s) const;
-            virtual size_t getSize() const;
+  virtual uint map(uint s) const;
+  virtual uint unmap(uint s) const;
+  virtual size_t getSize() const;
 
-            virtual void save(ofstream & out) const;
-            static MapperCont * load(ifstream & input);
+  virtual void save(ofstream &out) const;
+  static MapperCont *load(ifstream &input);
 
-        protected:
-            MapperCont();
-            BitSequence * m;
-    };
-
+protected:
+  MapperCont();
+  BitSequence *m;
 };
-#endif                           /* _MAPPERCONT_H */
+
+} // namespace cds_static
+#endif /* _MAPPERCONT_H */

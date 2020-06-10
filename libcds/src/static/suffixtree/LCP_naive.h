@@ -21,36 +21,37 @@
 
 #include <LCP.h>
 
-namespace cds_static{
+namespace cds_static {
 
-	class LCP_naive: public LCP{
-		private:
-			LCP_naive();
-			size_t *lcp_array;
-			size_t  b;
-			size_t  length;
+class LCP_naive : public LCP {
+private:
+  LCP_naive();
+  size_t *lcp_array;
+  size_t b;
+  size_t length;
 
-		public:
-		
-			LCP_naive(TextIndex *csa, char *text, size_t n);
+public:
+  LCP_naive(TextIndex *csa, char *text, size_t n);
 
-			/**Return LCP[i]*/
-			virtual size_t get_LCP(size_t i, TextIndex *csa) const;
-			
-			 /**Return LCP[i], being faster if sequential acceses to the LCP had been done*/
-			virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos, size_t *n_next, bool dir) const;
-			
-			/** Returns the size of the structure in bytes */
-			virtual  size_t getSize() const;
-			
-			/** Stores the structure given a file pointer, return 0 in case of success */
-			virtual void save(ofstream & fp) const;
+  /**Return LCP[i]*/
+  virtual size_t get_LCP(size_t i, TextIndex *csa) const;
 
-			/** Reads a LCP determining the type */
-			static LCP_naive * load(ifstream & fp);
-		
-			virtual ~LCP_naive();
-	};
+  /**Return LCP[i], being faster if sequential acceses to the LCP had been
+   * done*/
+  virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos,
+                             size_t *n_next, bool dir) const;
+
+  /** Returns the size of the structure in bytes */
+  virtual size_t getSize() const;
+
+  /** Stores the structure given a file pointer, return 0 in case of success */
+  virtual void save(ofstream &fp) const;
+
+  /** Reads a LCP determining the type */
+  static LCP_naive *load(ifstream &fp);
+
+  virtual ~LCP_naive();
 };
+} // namespace cds_static
 
 #endif

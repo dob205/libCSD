@@ -22,47 +22,45 @@
 #ifndef _MAPPER_H
 #define _MAPPER_H
 
-#include <libcdsBasics.h>
 #include <iostream>
+#include <libcdsBasics.h>
 
 using namespace std;
 
-namespace cds_static
-{
+namespace cds_static {
 
-    #define MAPPER_NONE_HDR 2
-    #define MAPPER_CONT_HDR 3
+#define MAPPER_NONE_HDR 2
+#define MAPPER_CONT_HDR 3
 
-    /** Base class for alphabet mappers
-     *
-     *  @author Francisco Claude
-     */
-    class Mapper
-    {
-        public:
-            Mapper();
-            virtual ~Mapper() {}
-            /** Maps the symbol */
-            virtual uint map(uint s) const=0;
-            /** Unmaps the symbol */
-            virtual uint unmap(uint s) const=0;
-            /** Returns the size of the mapper */
-            virtual size_t getSize()  const=0;
-            /** Saves the mapper to a file */
-            virtual void save(ofstream & out) const=0;
-            /** Loads the mapper from a file */
-            static Mapper * load(ifstream & input);
-            /** Reference counter incrementor */
-            virtual void use();
-            /** Reference counter decrementor */
-            virtual void unuse();
+/** Base class for alphabet mappers
+ *
+ *  @author Francisco Claude
+ */
+class Mapper {
+public:
+  Mapper();
+  virtual ~Mapper() {}
+  /** Maps the symbol */
+  virtual uint map(uint s) const = 0;
+  /** Unmaps the symbol */
+  virtual uint unmap(uint s) const = 0;
+  /** Returns the size of the mapper */
+  virtual size_t getSize() const = 0;
+  /** Saves the mapper to a file */
+  virtual void save(ofstream &out) const = 0;
+  /** Loads the mapper from a file */
+  static Mapper *load(ifstream &input);
+  /** Reference counter incrementor */
+  virtual void use();
+  /** Reference counter decrementor */
+  virtual void unuse();
 
-        protected:
-            /** Nr of references */
-            int userCount;
-    };
+protected:
+  /** Nr of references */
+  int userCount;
 };
+} // namespace cds_static
 
-#include <MapperNone.h>
 #include <MapperCont.h>
-#endif                           /* _MAPPER_H */
+#include <MapperNone.h>
+#endif /* _MAPPER_H */

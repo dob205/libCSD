@@ -16,76 +16,74 @@
  *
  */
 
-
 #include <LCP_DAC.h>
 
-namespace cds_static{
-	/*global variable for do sequential access*/
+namespace cds_static {
+/*global variable for do sequential access*/
 
-	/*LCP using Directly Addressable Variable-Length Codes */
-	LCP_DAC::LCP_DAC(){
-		lcp_type = DAC;
-		rep = NULL;
-		n = 0;
-		next_p = NULL;
-	}
+/*LCP using Directly Addressable Variable-Length Codes */
+LCP_DAC::LCP_DAC() {
+  lcp_type = DAC;
+  rep = NULL;
+  n = 0;
+  next_p = NULL;
+}
 
-	LCP_DAC::LCP_DAC(TextIndex *csa, char *text, size_t length){
-		lcp_type = DAC;
-		n = length;	
-		uint *lcp = create_lcp(csa,text,n,32);
-		rep = new factorization(lcp, n);
-		next_p = new size_t[(uint)rep->nLevels -1];
-		delete [] lcp;
-	}
-             
-	size_t LCP_DAC::get_LCP(size_t i, TextIndex *csa) const{
-		return (size_t)rep->access(i+1);
-	}
+LCP_DAC::LCP_DAC(TextIndex *csa, char *text, size_t length) {
+  lcp_type = DAC;
+  n = length;
+  uint *lcp = create_lcp(csa, text, n, 32);
+  rep = new factorization(lcp, n);
+  next_p = new size_t[(uint)rep->nLevels - 1];
+  delete[] lcp;
+}
 
+size_t LCP_DAC::get_LCP(size_t i, TextIndex *) const {
+  return (size_t)rep->access(i + 1);
+}
 
-	size_t LCP_DAC::get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos, size_t *n_next, bool dir) const{ 
-		if(*n_next==0){
-			*n_next = (size_t)rep->nLevels -1;
-			for(size_t j=0; j< *n_next; j++)
-				next_p[j] =0;
-			*next_pos = next_p;
-		}		
-		return (size_t)rep->access_seq(i+1, *next_pos, dir);
-	}
+size_t LCP_DAC::get_seq_LCP(size_t i, TextIndex *, size_t **next_pos,
+                            size_t *n_next, bool dir) const {
+  if (*n_next == 0) {
+    *n_next = (size_t)rep->nLevels - 1;
+    for (size_t j = 0; j < *n_next; j++)
+      next_p[j] = 0;
+    *next_pos = next_p;
+  }
+  return (size_t)rep->access_seq(i + 1, *next_pos, dir);
+}
 
-	size_t LCP_DAC::getSize() const{
-	  size_t mem = 0;
-		mem += sizeof(LCP_DAC);
-		mem += sizeof(size_t)*((uint)rep->nLevels -1);
-		mem += rep->getSize();
-		return mem;
-	}
+size_t LCP_DAC::getSize() const {
+  size_t mem = 0;
+  mem += sizeof(LCP_DAC);
+  mem += sizeof(size_t) * ((uint)rep->nLevels - 1);
+  mem += rep->getSize();
+  return mem;
+}
 
-	void LCP_DAC::save(ofstream & fp) const{
-		saveValue(fp, lcp_type);
-		saveValue(fp, n);
-		rep->save(fp); 
-	}
+void LCP_DAC::save(ofstream &fp) const {
+  saveValue(fp, lcp_type);
+  saveValue(fp, n);
+  rep->save(fp);
+}
 
-	LCP_DAC* LCP_DAC::load(ifstream & fp){
-		LCP_DAC *lcp = new LCP_DAC();
-		size_t type = loadValue<size_t>(fp);
-		if(type!=DAC){
-			abort();
-		}
-		lcp->n = loadValue<size_t>(fp);
-		lcp->rep = factorization::load(fp);
-		lcp->next_p = new size_t[(uint)((lcp->rep)->nLevels) -1];
-		return lcp;
-	}
+LCP_DAC *LCP_DAC::load(ifstream &fp) {
+  LCP_DAC *lcp = new LCP_DAC();
+  size_t type = loadValue<size_t>(fp);
+  if (type != DAC) {
+    abort();
+  }
+  lcp->n = loadValue<size_t>(fp);
+  lcp->rep = factorization::load(fp);
+  lcp->next_p = new size_t[(uint)((lcp->rep)->nLevels) - 1];
+  return lcp;
+}
 
-	LCP_DAC::~LCP_DAC(){
-		if(rep!=NULL)
-			delete (factorization *)rep;
-		if(next_p!=NULL)
-			delete [] next_p;
-	}
+LCP_DAC::~LCP_DAC() {
+  if (rep != NULL)
+    delete (factorization *)rep;
+  if (next_p != NULL)
+    delete[] next_p;
+}
 
-};
-
+} // namespace cds_static

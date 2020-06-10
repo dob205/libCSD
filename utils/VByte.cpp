@@ -1,6 +1,6 @@
 /* VByte.cpp
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class implements the Variable Byte (VByte) Code:
  *
@@ -31,45 +31,36 @@
  *   Miguel A. Martinez-Prieto:	migumar2@infor.uva.es
  */
 
-
-
 #include "VByte.h"
 
-uint
-VByte::encode(uint c, uchar *r)
-{
-	unsigned int i= 0;
+uint VByte::encode(uint c, uchar *r) {
+  unsigned int i = 0;
 
-	while (c>127)
-	{
-		r[i] = (unsigned char)(c&127);
-		i++;
-		c>>=7;
-	}
+  while (c > 127) {
+    r[i] = (unsigned char)(c & 127);
+    i++;
+    c >>= 7;
+  }
 
-	r[i] = (unsigned char)(c|0x80);
-	i++;
+  r[i] = (unsigned char)(c | 0x80);
+  i++;
 
-	return i;
-}
-	
-uint
-VByte::decode(uint *c, uchar *r)
-{
-	*c = 0;
-	register int i = 0;
-	register int shift = 0;
-
-	while ( !(r[i] & 0x80) )
-	{
-		*c |= (r[i] & 127) << shift;
-		i++;
-		shift+=7;
-	}
-
-	*c |= (r[i] & 127) << shift;
-	i++;
-
-	return i;
+  return i;
 }
 
+uint VByte::decode(uint *c, uchar *r) {
+  *c = 0;
+  int i = 0;
+  int shift = 0;
+
+  while (!(r[i] & 0x80)) {
+    *c |= (r[i] & 127) << shift;
+    i++;
+    shift += 7;
+  }
+
+  *c |= (r[i] & 127) << shift;
+  i++;
+
+  return i;
+}

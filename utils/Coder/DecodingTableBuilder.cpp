@@ -1,6 +1,6 @@
 /* DecodingTableBuilder.cpp
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class comprises some utilities for building the decoding table used in
  * Huffman and HuTucker codes.
@@ -28,265 +28,224 @@
 
 #include "DecodingTableBuilder.h"
 
-DecodingTableBuilder::DecodingTableBuilder(uint maxv)
-{
-	this->maxv = maxv;
+DecodingTableBuilder::DecodingTableBuilder(uint maxv) { this->maxv = maxv; }
+
+DecodingTableBuilder::DecodingTableBuilder(Codeword *codews) {
+  this->maxv = 255;
+  codewords = codews;
+  tableSubstr = new DecodeableSubstr[(int)pow((float)2, (int)TABLEBITSO)];
+  table = new DecodingTable(maxv);
+
+  uint i = 0;
+
+  while (i < maxv) {
+    if (codewords[i].bits > TABLEBITSO) {
+      // The first k bits are used as key for
+      // traversing the Huffman tree
+      uint index = codewords[i].codeword >> (codewords[i].bits - TABLEBITSO);
+
+      // Check if the tree is now stored
+      if (tableSubstr[index].dbits == 0) {
+        tableSubstr[index].dbits = 0;
+      }
+    }
+
+    i++;
+  }
 }
 
-DecodingTableBuilder::DecodingTableBuilder(Codeword *codews)
-{
-	this->maxv = 255;
-	codewords = codews;
-	tableSubstr = new DecodeableSubstr[(int)pow((float)2,(int)TABLEBITSO)];
-	table = new DecodingTable(maxv);
+void DecodingTableBuilder::initializeFromHuffman(Huffman *huff) {
+  codewords = huff->obtainCodewords();
+  tableSubstr = new DecodeableSubstr[(int)pow((float)2, (int)TABLEBITSO)];
+  table = new DecodingTable(maxv);
 
-	uint i=0;
+  uint i = 0;
 
-	while (i<maxv)
-	{
-		if (codewords[i].bits > TABLEBITSO)
-		{
-			// The first k bits are used as key for
-			// traversing the Huffman tree
-			uint index = codewords[i].codeword >> (codewords[i].bits-TABLEBITSO);
+  while (i < maxv) {
+    if (codewords[i].bits > TABLEBITSO) {
+      // The first k bits are used as key for
+      // traversing the Huffman tree
+      uint index = codewords[i].codeword >> (codewords[i].bits - TABLEBITSO);
 
-			// Check if the tree is now stored
-			if (tableSubstr[index].dbits == 0)
-			{
-				tableSubstr[index].dbits = 0;
-			}
-		}
+      // Check if the tree is now stored
+      if (tableSubstr[index].dbits == 0) {
+        // Obtaining the subtree and inserting it in the
+        // decoding table
+        DecodingTree *tree = huff->obtainSubtree(index, TABLEBITSO);
 
-		i++;
-	}
+        uint pos = table->setDecodingSubtree(tree);
+        tableSubstr[index].setLargeSubstr(pos);
+      }
+    }
+
+    i++;
+  }
 }
 
-void
-DecodingTableBuilder::initializeFromHuffman(Huffman *huff)
-{
-	codewords = huff->obtainCodewords();
-	tableSubstr = new DecodeableSubstr[(int)pow((float)2,(int)TABLEBITSO)];
-	table = new DecodingTable(maxv);
+void DecodingTableBuilder::initializeFromHuTucker(HuTucker *ht) {
+  maxv++;
 
-	uint i=0;
+  codewords = ht->obtainCodewords();
+  tableSubstr = new DecodeableSubstr[(int)pow((float)2, (int)TABLEBITSO)];
+  table = new DecodingTable(maxv);
 
-	while (i<maxv)
-	{
-		if (codewords[i].bits > TABLEBITSO)
-		{
-			// The first k bits are used as key for
-			// traversing the Huffman tree
-			uint index = codewords[i].codeword >> (codewords[i].bits-TABLEBITSO);
+  uint i = 0;
 
-			// Check if the tree is now stored
-			if (tableSubstr[index].dbits == 0)
-			{
-				// Obtaining the subtree and inserting it in the
-				// decoding table
-				DecodingTree *tree = huff->obtainSubtree(index, TABLEBITSO);
+  while (i < maxv) {
+    if (codewords[i].bits > TABLEBITSO) {
+      // The first k bits are used as key for
+      // traversing the Hu-Tucker tree
+      uint index = codewords[i].codeword >> (codewords[i].bits - TABLEBITSO);
 
-				uint pos = table->setDecodingSubtree(tree);
-				tableSubstr[index].setLargeSubstr(pos);
-			}
-		}
+      // Obtaining the subtree and inserting it in the
+      // decoding table
+      DecodingTree *tree = ht->obtainSubtree(index, TABLEBITSO);
 
-		i++;
-	}
+      uint pos = table->setDecodingSubtree(tree);
+      tableSubstr[index].setLargeSubstr(pos);
+
+      i = tree->getLastSymbol();
+    } else
+      i++;
+  }
 }
 
-void
-DecodingTableBuilder::initializeFromHuTucker(HuTucker *ht)
-{
-	maxv++;
+void DecodingTableBuilder::insertDecodeableSubstr(uchar symbol, uint *seq,
+                                                  ushort *ptr,
+                                                  vector<uchar> *substr,
+                                                  vector<ushort> *lenSubstr) {
+  uint bits = codewords[(int)symbol].bits;
+  uint codeword = codewords[(int)symbol].codeword;
 
-	codewords = ht->obtainCodewords();
-	tableSubstr = new DecodeableSubstr[(int)pow((float)2,(int)TABLEBITSO)];
-	table = new DecodingTable(maxv);
+  if (bits <= TABLEBITSO) {
+    *seq = (*seq << bits) | codeword;
+    *ptr += bits;
+  } else {
+    *seq = (*seq << TABLEBITSO) | (codeword >> (bits - TABLEBITSO));
+    *ptr += TABLEBITSO;
+  }
 
-	uint i=0;
+  if (*ptr >= TABLEBITSO) {
+    uint index = (*seq >> (*ptr - TABLEBITSO)) & mask(TABLEBITSO);
 
-	while (i<maxv)
-	{
-		if (codewords[i].bits > TABLEBITSO)
-		{
-			// The first k bits are used as key for
-			// traversing the Hu-Tucker tree
-			uint index = codewords[i].codeword >> (codewords[i].bits-TABLEBITSO);
+    if (bits > TABLEBITSO)
+      *ptr += (bits - TABLEBITSO);
 
-			// Obtaining the subtree and inserting it in the
-			// decoding table
-			DecodingTree *tree = ht->obtainSubtree(index, TABLEBITSO);
+    if ((substr->size() > 0) && (tableSubstr[index].dbits <= 1)) {
+      // This substring has not been previously indexed
+      if ((*ptr == TABLEBITSO) && (bits <= TABLEBITSO)) {
+        // The encoded symbol is fully represented in
+        // the current chunk
+        substr->push_back(symbol);
+        lenSubstr->push_back(bits);
+        tableSubstr[index].setSubstr(substr, substr->size(), *ptr);
 
-			uint pos = table->setDecodingSubtree(tree);
-			tableSubstr[index].setLargeSubstr(pos);
+        *ptr = 0;
+        substr->clear();
+        lenSubstr->clear();
+      } else {
+        // The encoded symbol is not represented in
+        // the current chunk
+        tableSubstr[index].setSubstr(substr, substr->size(), *ptr - bits);
 
-			i = tree->getLastSymbol();
-		}
-		else i++;
-	}
+        substr->clear();
+        lenSubstr->clear();
+        *ptr = bits;
+        substr->push_back(symbol);
+        lenSubstr->push_back(bits);
+
+        if (*ptr >= TABLEBITSO) {
+          // The encoded symbol fills the chunk
+          // and must be indexed if its length is
+          // equals to TABLEBITSO. Otherwise, its
+          // corresponding subtree is already in
+          // the table.
+
+          if (*ptr == TABLEBITSO) {
+            index = codeword;
+            if (tableSubstr[index].length == 0)
+              tableSubstr[index].setSubstr(substr, 1, TABLEBITSO);
+          }
+
+          *ptr = 0;
+          substr->clear();
+          lenSubstr->clear();
+        }
+      }
+    } else {
+      if (substr->size() == 0) {
+        substr->clear();
+        lenSubstr->clear();
+
+        *ptr = bits;
+        substr->push_back(symbol);
+        lenSubstr->push_back(bits);
+
+        if (*ptr == TABLEBITSO) {
+          index = codeword;
+
+          if (tableSubstr[index].length == 0)
+            tableSubstr[index].setSubstr(substr, 1, TABLEBITSO);
+        }
+
+        *ptr = 0;
+        substr->clear();
+        lenSubstr->clear();
+      } else {
+        substr->clear();
+        lenSubstr->clear();
+
+        if ((*ptr == TABLEBITSO) && (bits <= TABLEBITSO))
+          *ptr = 0;
+        else {
+          *ptr = bits;
+          substr->push_back(symbol);
+          lenSubstr->push_back(bits);
+
+          if (*ptr >= TABLEBITSO) {
+            if (*ptr == TABLEBITSO) {
+              index = codeword;
+              if (tableSubstr[index].length == 0)
+                tableSubstr[index].setSubstr(substr, 1, TABLEBITSO);
+            }
+
+            *ptr = 0;
+            substr->clear();
+            lenSubstr->clear();
+          }
+        }
+      }
+    }
+  } else {
+    substr->push_back(symbol);
+    lenSubstr->push_back(bits);
+  }
 }
 
+void DecodingTableBuilder::insertEndingSubstr(uint *seq, ushort *ptr,
+                                              vector<uchar> *substr,
+                                              vector<ushort> *lenSubstr) {
+  uint bits = TABLEBITSO - (*ptr);
+  *seq = (*seq << bits);
+  uint index = (*seq) & mask(TABLEBITSO);
 
-void
-DecodingTableBuilder::insertDecodeableSubstr(uchar symbol, uint *seq, ushort *ptr, vector<uchar> *substr, vector<ushort> *lenSubstr)
-{
-	uint bits = codewords[(int)symbol].bits;
-	uint codeword = codewords[(int)symbol].codeword;
+  if (tableSubstr[index].length == 0)
+    tableSubstr[index].setSpecialSubstr(substr, substr->size());
 
-	if (bits <= TABLEBITSO)
-	{
-		*seq = (*seq << bits) | codeword;
-		*ptr += bits;
-	}
-	else
-	{
-		*seq = (*seq << TABLEBITSO) | (codeword >> (bits-TABLEBITSO));
-		*ptr += TABLEBITSO;
-	}
-
-	if (*ptr >= TABLEBITSO)
-	{
-		uint index = (*seq >> (*ptr-TABLEBITSO)) & mask(TABLEBITSO);
-
-		if (bits > TABLEBITSO) *ptr += (bits-TABLEBITSO);
-
-		if ((substr->size() > 0) && (tableSubstr[index].dbits <= 1))
-		{
-			// This substring has not been previously indexed
-			if ((*ptr == TABLEBITSO) && (bits <= TABLEBITSO))
-			{
-				// The encoded symbol is fully represented in
-				// the current chunk
-				substr->push_back(symbol); lenSubstr->push_back(bits);
-				tableSubstr[index].setSubstr(substr, substr->size(), *ptr);
-
-				*ptr = 0;
-				substr->clear(); lenSubstr->clear();
-			}
-			else
-			{
-				// The encoded symbol is not represented in
-				// the current chunk
-				tableSubstr[index].setSubstr(substr, substr->size(), *ptr-bits);
-
-				substr->clear(); lenSubstr->clear();
-				*ptr = bits;
-				substr->push_back(symbol); lenSubstr->push_back(bits);
-
-				if (*ptr >= TABLEBITSO)
-				{
-					// The encoded symbol fills the chunk
-					// and must be indexed if its length is
-					// equals to TABLEBITSO. Otherwise, its
-					// corresponding subtree is already in
-					// the table.
-
-					if (*ptr == TABLEBITSO)
-					{
-						index = codeword;
-						if (tableSubstr[index].length == 0)
-							tableSubstr[index].setSubstr(substr, 1, TABLEBITSO);
-					}
-
-					*ptr = 0;
-					substr->clear(); lenSubstr->clear();
-				}
-			}
-		}
-		else
-		{
-			if (substr->size() == 0)
-			{
-				substr->clear(); lenSubstr->clear();
-
-				*ptr = bits;
-				substr->push_back(symbol); lenSubstr->push_back(bits);
-
-				if (*ptr == TABLEBITSO)
-				{
-					index = codeword;
-
-					if (tableSubstr[index].length == 0)
-						tableSubstr[index].setSubstr(substr, 1, TABLEBITSO);
-				}
-
-				*ptr = 0;
-				substr->clear(); lenSubstr->clear();
-			}
-			else
-			{
-				substr->clear(); lenSubstr->clear();
-
-				if ((*ptr == TABLEBITSO) && (bits <= TABLEBITSO)) *ptr = 0;
-				else
-				{
-					*ptr = bits;
-					substr->push_back(symbol); lenSubstr->push_back(bits);
-
-					if (*ptr >= TABLEBITSO)
-					{
-						if (*ptr == TABLEBITSO)
-						{
-							index = codeword;
-							if (tableSubstr[index].length == 0)
-								tableSubstr[index].setSubstr(substr, 1, TABLEBITSO);
-						}
-
-						*ptr = 0;
-						substr->clear(); lenSubstr->clear();
-					}
-				}
-			}
-		}
-	}
-	else
-	{
-		substr->push_back(symbol);
-		lenSubstr->push_back(bits);
-	}
+  *ptr = 0;
+  substr->clear();
+  lenSubstr->clear();
 }
 
-void
-DecodingTableBuilder::insertEndingSubstr(uint *seq, ushort *ptr, vector<uchar> *substr, vector<ushort> *lenSubstr)
-{
-	uint bits = TABLEBITSO-(*ptr);
-	*seq = (*seq << bits);
-	uint index = (*seq) & mask(TABLEBITSO);
+Codeword *DecodingTableBuilder::getCodewords() { return codewords; }
 
-	if (tableSubstr[index].length == 0)
-		tableSubstr[index].setSpecialSubstr(substr, substr->size());
+uint DecodingTableBuilder::getMax() { return maxv; }
 
-	*ptr = 0;
-	substr->clear();
-	lenSubstr->clear();
+DecodingTable *DecodingTableBuilder::getTable() {
+  table->setDecodingTable(TABLEBITSO, tableSubstr);
+  return table;
 }
 
-Codeword*
-DecodingTableBuilder::getCodewords()
-{
-	return codewords;
-}
+DecodeableSubstr *DecodingTableBuilder::getTableSubstr() { return tableSubstr; }
 
-uint
-DecodingTableBuilder::getMax()
-{
-	return maxv;
-}
-
-DecodingTable*
-DecodingTableBuilder::getTable()
-{
-	table->setDecodingTable(TABLEBITSO, tableSubstr);
-	return table;
-}
-
-DecodeableSubstr*
-DecodingTableBuilder::getTableSubstr()
-{
-	return tableSubstr;
-}
-
-DecodingTableBuilder::~DecodingTableBuilder()
-{
-	delete [] tableSubstr;
-}
+DecodingTableBuilder::~DecodingTableBuilder() { delete[] tableSubstr; }

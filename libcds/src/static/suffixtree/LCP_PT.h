@@ -16,46 +16,47 @@
  *
  */
 
-
 #ifndef LCP_PT_H
 #define LCP_PT_H
 
-#include <RMQ_succinct.h>
 #include <LCP.h>
+#include <RMQ_succinct.h>
 
-namespace cds_static{
+namespace cds_static {
 
-	class LCP_PT: public LCP{
-		private:
-			LCP_PT();
-			
-			virtual int calc_delta(unsigned int i, unsigned int j) const;
-				
-			int logv;
-			size_t length;
-			int mask;
-			int v;
-			int m; /*size of rev_ess*/
-			int *rev_cover;
-			int *delta;
-			int cover_size;
-			int *rev_ess;
-			RMQ_succinct *rmq;
+class LCP_PT : public LCP {
+private:
+  LCP_PT();
 
-		public:
-			/*Puglisi and Turpin encoding of the LCP,
-			 * @param csa The compressed suffix array of the text
-			 * @param text The text
-			 * @param n  The length of the text
-			 * @param _logv logarithm (base 2) of the period of the difference cover you would like to use. Valid values for "logv" are 2,3,4,5,6,7 and 8
-			 * */
-			LCP_PT(TextIndex *csa, char *text, size_t n, int _logv=8);
-			virtual size_t get_LCP(size_t i, TextIndex *csa) const;
-			virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos, size_t *n_next, bool dir) const;
-			virtual size_t getSize() const;
-			virtual void save(ofstream & fp) const;
-			static LCP_PT * load(ifstream & fp);
-			virtual ~LCP_PT();
-	};
+  virtual int calc_delta(unsigned int i, unsigned int j) const;
+
+  int logv;
+  size_t length;
+  int mask;
+  int v;
+  int m; /*size of rev_ess*/
+  int *rev_cover;
+  int *delta;
+  int cover_size;
+  int *rev_ess;
+  RMQ_succinct *rmq;
+
+public:
+  /*Puglisi and Turpin encoding of the LCP,
+   * @param csa The compressed suffix array of the text
+   * @param text The text
+   * @param n  The length of the text
+   * @param _logv logarithm (base 2) of the period of the difference cover you
+   * would like to use. Valid values for "logv" are 2,3,4,5,6,7 and 8
+   * */
+  LCP_PT(TextIndex *csa, char *text, size_t n, int _logv = 8);
+  virtual size_t get_LCP(size_t i, TextIndex *csa) const;
+  virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos,
+                             size_t *n_next, bool dir) const;
+  virtual size_t getSize() const;
+  virtual void save(ofstream &fp) const;
+  static LCP_PT *load(ifstream &fp);
+  virtual ~LCP_PT();
 };
+} // namespace cds_static
 #endif

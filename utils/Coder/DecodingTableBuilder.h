@@ -1,6 +1,6 @@
 /* DecodingTableBuilder.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class comprises some utilities for building the decoding table used in
  * Huffman and HuTucker codes.
@@ -34,80 +34,82 @@
 #include <vector>
 using namespace std;
 
-#include <string.h>
 #include <libcdsBasics.h>
+#include <string.h>
 using namespace cds_utils;
 
 #include "DecodingTable.h"
 
-#include "../../Huffman/Huffman.h"
 #include "../../HuTucker/HuTucker.h"
+#include "../../Huffman/Huffman.h"
 
-class DecodingTableBuilder
-{
-	public:
-		// Generic constructor
-		// @maxv: maximum value used in the alphabet (all ASCII chars are assumed by default)
-		DecodingTableBuilder(uint maxv=255);
+class DecodingTableBuilder {
+public:
+  // Generic constructor
+  // @maxv: maximum value used in the alphabet (all ASCII chars are assumed by
+  // default)
+  DecodingTableBuilder(uint maxv = 255);
 
-		DecodingTableBuilder(Codeword *codews);
+  DecodingTableBuilder(Codeword *codews);
 
-		// Initializes the manager from a Huffman code
-		// @huff: the Huffman code.
-		void initializeFromHuffman(Huffman *huff);
+  // Initializes the manager from a Huffman code
+  // @huff: the Huffman code.
+  void initializeFromHuffman(Huffman *huff);
 
-		// Initializes the manager from a Huffman code
-		// @huff: the Huffman code.
-		void initializeFromHuTucker(HuTucker *ht);
+  // Initializes the manager from a Huffman code
+  // @huff: the Huffman code.
+  void initializeFromHuTucker(HuTucker *ht);
 
-		/** Gets the codewords
-		    @returns the set of codewords.
-		 */
-		Codeword* getCodewords();
+  /** Gets the codewords
+      @returns the set of codewords.
+   */
+  Codeword *getCodewords();
 
-		/** Gets the max value used in the alphabet
-		    @returns the set of codewords.
-		 */
-		uint getMax();
+  /** Gets the max value used in the alphabet
+      @returns the set of codewords.
+   */
+  uint getMax();
 
-		/** Gets the resulting table for decodification
-		    @returns the set of codewords.
-		 */
-		DecodingTable* getTable();
+  /** Gets the resulting table for decodification
+      @returns the set of codewords.
+   */
+  DecodingTable *getTable();
 
-		/** Gets the table of substrings
-		    @returns the table of substrings.
-		*/
-		DecodeableSubstr* getTableSubstr();
+  /** Gets the table of substrings
+      @returns the table of substrings.
+  */
+  DecodeableSubstr *getTableSubstr();
 
-		/** Processes the next encoded symbol and checks if the current
-		    sequence encodes a decodeable substring. In this case,
-		    information about this substring is stored for building the
-		    decodeable table.
-		    @param symbol: the symbol to be encoded.
-		    @param seq: the current encoded sequence.
-		    @param ptr: number of un-processed bits in the sequence.
-		    @param substr: queue containing the symbols previosuly
-		      processed.
-		    @param lenSubstr: queue containing the lengths of the
-		      symbol previosuly processed.
-		*/
-		void insertDecodeableSubstr(uchar symbol, uint *seq, ushort *ptr, vector<uchar> *substr, vector<ushort> *lenSubstr);
+  /** Processes the next encoded symbol and checks if the current
+      sequence encodes a decodeable substring. In this case,
+      information about this substring is stored for building the
+      decodeable table.
+      @param symbol: the symbol to be encoded.
+      @param seq: the current encoded sequence.
+      @param ptr: number of un-processed bits in the sequence.
+      @param substr: queue containing the symbols previosuly
+        processed.
+      @param lenSubstr: queue containing the lengths of the
+        symbol previosuly processed.
+  */
+  void insertDecodeableSubstr(uchar symbol, uint *seq, ushort *ptr,
+                              vector<uchar> *substr, vector<ushort> *lenSubstr);
 
-		/** Similar than insertDecodeableSubstr, but it fills the
-		    sequence with 0s and inserts it in the table using as
-		    decoding information that currently stored in the queues */
-		void insertEndingSubstr(uint *seq, ushort *ptr, vector<uchar> *substr, vector<ushort> *lenSubstr);
+  /** Similar than insertDecodeableSubstr, but it fills the
+      sequence with 0s and inserts it in the table using as
+      decoding information that currently stored in the queues */
+  void insertEndingSubstr(uint *seq, ushort *ptr, vector<uchar> *substr,
+                          vector<ushort> *lenSubstr);
 
-		// Generic destructor
-		~DecodingTableBuilder();
+  // Generic destructor
+  ~DecodingTableBuilder();
 
-		Codeword *codewords;	
-		DecodeableSubstr *tableSubstr;
-		DecodingTable *table;	
+  Codeword *codewords;
+  DecodeableSubstr *tableSubstr;
+  DecodingTable *table;
 
-	protected:
-		uint maxv;	// Max value in the code
+protected:
+  uint maxv; // Max value in the code
 };
 
 #endif /* DECODINGTABLEBUILDER_H_ */

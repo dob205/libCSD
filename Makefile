@@ -23,6 +23,10 @@ BIN=Build Test
 all: clean $(OBJECTS) $(EXES) $(BIN)
 	@echo " [MSG] Done compiling tests"
 	@echo " [FLG] $(FLAGS)"
+
+all-but-clean: $(OBJECTS) $(EXES) $(BIN)
+	@echo " [MSG] Done compiling tests"
+	@echo " [FLG] $(FLAGS)"
 	
 Build:	
 	$(CPP) $(FLAGS) -o Build Build.o $(OBJECTS) ${LIB}

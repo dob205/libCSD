@@ -19,46 +19,42 @@
  *
  */
 
-
 #include <PermutationMRRR.h>
 
 namespace cds_static {
-  
-PermutationMRRR::PermutationMRRR(uint * elems, uint nelems, uint t, BitSequenceBuilder * bmb) {
+
+PermutationMRRR::PermutationMRRR(uint *elems, uint nelems, uint t,
+                                 BitSequenceBuilder *bmb) {
   permutation = createPerm(elems, nelems, t, bmb);
 }
 
-PermutationMRRR::PermutationMRRR() {
-}
+PermutationMRRR::PermutationMRRR() {}
 
-PermutationMRRR::~PermutationMRRR() {
-  destroyPerm(permutation);
-}
+PermutationMRRR::~PermutationMRRR() { destroyPerm(permutation); }
 
 size_t PermutationMRRR::getSize() const {
-  return sizeof(PermutationMRRR)+sizeofPerm(permutation);
+  return sizeof(PermutationMRRR) + sizeofPerm(permutation);
 }
 
-uint PermutationMRRR::pi(uint i) const {
-  return getelemPerm(permutation,i);
-}
+uint PermutationMRRR::pi(uint i) const { return getelemPerm(permutation, i); }
 
 uint PermutationMRRR::revpi(uint i) const {
-  return inversePerm(permutation,i);
+  return inversePerm(permutation, i);
 }
 
-void PermutationMRRR::save(ofstream & fp) const {
-	uint wr = MRRRPERM;
-	saveValue(fp,wr);
-    savePerm(permutation,fp);
+void PermutationMRRR::save(ofstream &fp) const {
+  uint wr = MRRRPERM;
+  saveValue(fp, wr);
+  savePerm(permutation, fp);
 }
 
-PermutationMRRR * PermutationMRRR::load(ifstream & fp) {
+PermutationMRRR *PermutationMRRR::load(ifstream &fp) {
   uint rd = loadValue<uint>(fp);
-  if(rd!=MRRRPERM) return NULL;
-  PermutationMRRR * ret = new PermutationMRRR();
+  if (rd != MRRRPERM)
+    return NULL;
+  PermutationMRRR *ret = new PermutationMRRR();
   ret->permutation = loadPerm(fp);
   return ret;
 }
 
-};
+} // namespace cds_static

@@ -16,49 +16,51 @@
  *
  */
 
-
 #ifndef NPR_H
-#define	NPR_H
+#define NPR_H
 
 #include <LCP.h>
 
-namespace cds_static{
-	
-	static const size_t FMN_NPR = 2; 
-	static const size_t CN_NPR  = 3;
+namespace cds_static {
 
-	class NPR{
-		public:
-			size_t npr_type;
+static const size_t FMN_NPR = 2;
+static const size_t CN_NPR = 3;
 
-			virtual ~NPR() {};
-			
-			// Return the position of the next smaller value of i (NSV[i])
-			virtual size_t find_NSV(size_t i,  TextIndex *csa, LCP *lcp) const= 0;
-			
-			// Return the position of the previous smaller value of i plus one (PSV[i]+1)
-			virtual size_t find_PSV(size_t i,  TextIndex *csa, LCP *lcp) const= 0;
-			
-			//Return the first previous position, from i, that contains a value < d
-			virtual size_t bwd_PSV(size_t i, TextIndex *csa, LCP *lcp, size_t d) const= 0; 
-			
-			//Return the first next position, from i, that contains a value < d
-			virtual size_t fwd_NSV(size_t i, TextIndex *csa, LCP *lcp, size_t d) const= 0;
-			
-			//Return the range minimum query over the LCP array, between the positions x and y
-			virtual size_t find_RMQ(size_t x, size_t y, TextIndex *csa, LCP *lcp) const= 0;
-			
-			//Return the size, in bytes, of the NPR structure
-			virtual  size_t getSize() const = 0;
+class NPR {
+public:
+  size_t npr_type;
 
-			virtual void save(ofstream & fp) const=0;
+  virtual ~NPR(){};
 
-			static NPR * load(ifstream & fp);
-	};
+  // Return the position of the next smaller value of i (NSV[i])
+  virtual size_t find_NSV(size_t i, TextIndex *csa, LCP *lcp) const = 0;
 
+  // Return the position of the previous smaller value of i plus one (PSV[i]+1)
+  virtual size_t find_PSV(size_t i, TextIndex *csa, LCP *lcp) const = 0;
+
+  // Return the first previous position, from i, that contains a value < d
+  virtual size_t bwd_PSV(size_t i, TextIndex *csa, LCP *lcp,
+                         size_t d) const = 0;
+
+  // Return the first next position, from i, that contains a value < d
+  virtual size_t fwd_NSV(size_t i, TextIndex *csa, LCP *lcp,
+                         size_t d) const = 0;
+
+  // Return the range minimum query over the LCP array, between the positions x
+  // and y
+  virtual size_t find_RMQ(size_t x, size_t y, TextIndex *csa,
+                          LCP *lcp) const = 0;
+
+  // Return the size, in bytes, of the NPR structure
+  virtual size_t getSize() const = 0;
+
+  virtual void save(ofstream &fp) const = 0;
+
+  static NPR *load(ifstream &fp);
 };
-#include <NPR_FMN.h>
+
+} // namespace cds_static
 #include <NPR_CN.h>
+#include <NPR_FMN.h>
 
 #endif
-

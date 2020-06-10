@@ -21,119 +21,115 @@
 
 #include <Array.h>
 
-namespace cds_utils
-{
+namespace cds_utils {
 
-    Array::Array(ifstream & input) {
-        length = loadValue<size_t>(input);
-        maxValue = loadValue<uint>(input);
-        bitsPerItem = loadValue<uint>(input);
-        uintLength = loadValue<size_t>(input);
-        data = loadValue<uint>(input,uintLength);
-    }
+Array::Array(ifstream &input) {
+  length = loadValue<size_t>(input);
+  maxValue = loadValue<uint>(input);
+  bitsPerItem = loadValue<uint>(input);
+  uintLength = loadValue<size_t>(input);
+  data = loadValue<uint>(input, uintLength);
+}
 
-    Array::Array(const vector<uint> & A, uint bpe) {
-        size_t n = A.size();
-        maxValue = 0;
+Array::Array(const vector<uint> &A, uint bpe) {
+  size_t n = A.size();
+  maxValue = 0;
 
-        if(bpe==0) {
-            for(size_t k=0;k<n;k++)
-                maxValue = max(maxValue,A[k]);
-        }
-	else if(bpe==32) maxValue=~0; 
-	else maxValue = (1<<bpe)-1;
+  if (bpe == 0) {
+    for (size_t k = 0; k < n; k++)
+      maxValue = max(maxValue, A[k]);
+  } else if (bpe == 32)
+    maxValue = ~0;
+  else
+    maxValue = (1 << bpe) - 1;
 
-        length = n;
-        initData();
-        assert(bpe==0 || bitsPerItem==bpe);
-		
-        for(size_t k=0;k<n;k++) {
-            assert(A[k] <= maxValue);
-            setField(k, A[k]);
-        }
-    }
+  length = n;
+  initData();
+  assert(bpe == 0 || bitsPerItem == bpe);
 
-    Array::Array(const vector<uint>::iterator & ini, const vector<uint>::iterator & fin, uint bpe) {
-        size_t n = 0;
-        maxValue = 0;
-        for(vector<uint>::iterator it = ini; it!=fin ;++it) {
-            maxValue = max(maxValue,*it);
-            n++;
-        }
-        if(bpe!=0) {
-            maxValue = (1<<(bpe-1));
-        }
-        length = n;
-        initData();
-        assert(bpe==0 || bitsPerItem==bpe);
-        n = 0;
-        for(vector<uint>::iterator it=ini;it!=fin;++it) {
-            assert(*it <= maxValue);
-            setField(n, *it);
-            n++;
-        }
-    }
+  for (size_t k = 0; k < n; k++) {
+    assert(A[k] <= maxValue);
+    setField(k, A[k]);
+  }
+}
 
-    Array::Array(size_t n, uint _maxValue) {
-        length = n;
-        maxValue = _maxValue;
-        initData();
-    }
+Array::Array(const vector<uint>::iterator &ini,
+             const vector<uint>::iterator &fin, uint bpe) {
+  size_t n = 0;
+  maxValue = 0;
+  for (vector<uint>::iterator it = ini; it != fin; ++it) {
+    maxValue = max(maxValue, *it);
+    n++;
+  }
+  if (bpe != 0) {
+    maxValue = (1 << (bpe - 1));
+  }
+  length = n;
+  initData();
+  assert(bpe == 0 || bitsPerItem == bpe);
+  n = 0;
+  for (vector<uint>::iterator it = ini; it != fin; ++it) {
+    assert(*it <= maxValue);
+    setField(n, *it);
+    n++;
+  }
+}
 
-    Array::Array(uint * A, size_t n, uint bpe) {
-        maxValue = 0;
-        if(bpe==0) {
-            for(size_t k=0;k<n;k++)
-                maxValue = max(maxValue,A[k]);
-        }
-        else {
-            maxValue = (1<<(bpe-1));
-        }
-        length = n;
-        initData();
-        assert(bpe==0 || bitsPerItem==bpe);
-        for(size_t k=0;k<n;k++) {
-            assert(A[k] <= maxValue);
-            setField(k, A[k]);
-        }
-    }
+Array::Array(size_t n, uint _maxValue) {
+  length = n;
+  maxValue = _maxValue;
+  initData();
+}
 
-    Array::Array(uint * A, size_t i, size_t j, uint bpe) {
-        maxValue = 0;
-        if(bpe==0) {
-            for(size_t k=i;k<=j;k++)
-                maxValue = max(maxValue,A[k]);
-        }
-        else {
-            maxValue = (1<<(bpe-1));
-        }
-        length = j-i+1;
-        initData();
-        assert(bpe==0 || bitsPerItem==bpe);
-        for(size_t k=i;k<=j;k++) {
-            assert(A[k] <= maxValue);
-            setField(k-i, A[k]);
-        }
-    }
+Array::Array(uint *A, size_t n, uint bpe) {
+  maxValue = 0;
+  if (bpe == 0) {
+    for (size_t k = 0; k < n; k++)
+      maxValue = max(maxValue, A[k]);
+  } else {
+    maxValue = (1 << (bpe - 1));
+  }
+  length = n;
+  initData();
+  assert(bpe == 0 || bitsPerItem == bpe);
+  for (size_t k = 0; k < n; k++) {
+    assert(A[k] <= maxValue);
+    setField(k, A[k]);
+  }
+}
 
-    Array::~Array() {
-        delete [] data;
-    }
+Array::Array(uint *A, size_t i, size_t j, uint bpe) {
+  maxValue = 0;
+  if (bpe == 0) {
+    for (size_t k = i; k <= j; k++)
+      maxValue = max(maxValue, A[k]);
+  } else {
+    maxValue = (1 << (bpe - 1));
+  }
+  length = j - i + 1;
+  initData();
+  assert(bpe == 0 || bitsPerItem == bpe);
+  for (size_t k = i; k <= j; k++) {
+    assert(A[k] <= maxValue);
+    setField(k - i, A[k]);
+  }
+}
 
-    void Array::save(ofstream & out) const
-    {
-        saveValue(out,length);
-        saveValue(out,maxValue);
-        saveValue(out,bitsPerItem);
-        saveValue(out,uintLength);
-        saveValue(out,data,uintLength);
-    }
+Array::~Array() { delete[] data; }
 
-    void Array::initData() {
-        bitsPerItem = bits(maxValue);
-        uintLength = uint_len(length,bitsPerItem);
-        data = new uint[uintLength];
-        for(size_t i=0;i<uintLength;i++)
-            data[i] = 0;
-    }
-};
+void Array::save(ofstream &out) const {
+  saveValue(out, length);
+  saveValue(out, maxValue);
+  saveValue(out, bitsPerItem);
+  saveValue(out, uintLength);
+  saveValue(out, data, uintLength);
+}
+
+void Array::initData() {
+  bitsPerItem = bits(maxValue);
+  uintLength = uint_len(length, bitsPerItem);
+  data = new uint[uintLength];
+  for (size_t i = 0; i < uintLength; i++)
+    data[i] = 0;
+}
+} // namespace cds_utils

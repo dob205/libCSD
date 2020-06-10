@@ -25,205 +25,210 @@
 #include <cmath>
 // #include <sys/types.h>
 
-namespace cds_static
-{
-    BitSequence375::BitSequence375(uint *bitarray, size_t n)
-    {    
-	unsigned int nb;
-	unsigned int ns;
-	unsigned int countB, countS, blockIndex, superblockIndex;
-	register unsigned int block;
+namespace cds_static {
+BitSequence375::BitSequence375(uint *bitarray, size_t n) {
+  unsigned int nb;
+  unsigned int ns;
+  unsigned int countB, countS, blockIndex, superblockIndex;
+  unsigned int block;
 
+  this->nn = (n / W) + 1;
+  this->data = new uint[nn];
+  for (size_t i = 0; i < nn; i++)
+    data[i] = bitarray[i];
 
-	this->nn = (n/W)+1;
-	this->data = new uint[nn];
-        for(size_t i=0;i<nn;i++) data[i] = bitarray[i];
+  this->n = n;
+  //	ns = (n/256)+1;
+  //	nb = (n/32)+1;
 
-	this->n = n; 
-//	ns = (n/256)+1;
-//	nb = (n/32)+1;
+  ns = (n + 255) / 256;
+  nb = (n + W - 1) / 32;
 
-	ns = (n+255)/256;
-	nb = (n+W-1)/32;
+  this->bSize = nb;
+  this->sSize = ns;
+  this->bdata = new uchar[nb];
+  this->sdata = new uint[ns];
+  // this->bdata =(uchar*)malloc(nb*sizeof(uchar));  //	Db = (unsigned char
+  // *)malloc(nb*sizeof(unsigned char)); this->sdata =
+  // (uint*)malloc(ns*sizeof(uint));  // 	Ds = (unsigned int
+  // *)malloc(ns*sizeof(unsigned int));
 
-	this->bSize = nb;
-	this->sSize = ns;
-	this->bdata =new uchar[nb];
-	this->sdata =new uint[ns];
-	//this->bdata =(uchar*)malloc(nb*sizeof(uchar));  //	Db = (unsigned char *)malloc(nb*sizeof(unsigned char));
-	//this->sdata = (uint*)malloc(ns*sizeof(uint));  // 	Ds = (unsigned int *)malloc(ns*sizeof(unsigned int));
+  /* Ahora construimos los bloques */
+  blockIndex = 0;
+  superblockIndex = 0;
+  countB = 0;
+  countS = 0;
 
-	/* Ahora construimos los bloques */
-	blockIndex = 0;
-	superblockIndex = 0;
-	countB = 0;
-	countS = 0;
-
-	while(blockIndex < nb)
-	{
-		if(!(blockIndex%8)) 
-		{
-			countS += countB;
-			sdata[superblockIndex++] = countS;
-			countB = 0;
-		}
-       
-		bdata[blockIndex] = countB;
-		block = bitarray[blockIndex++];
-		countB += popcount(block);
-	}
-
-	pop = countS+countB;
+  while (blockIndex < nb) {
+    if (!(blockIndex % 8)) {
+      countS += countB;
+      sdata[superblockIndex++] = countS;
+      countB = 0;
     }
 
-    BitSequence375::~BitSequence375()
-    {
-	delete [] data;
-	delete [] bdata;
-	delete [] sdata;
-	/*free (bdata);
-	free (sdata);*/
-    }
+    bdata[blockIndex] = countB;
+    block = bitarray[blockIndex++];
+    countB += popcount(block);
+  }
 
-    size_t BitSequence375::rank0(const size_t i) const
-    {
-        return i+1-rank1(i);
-    }
+  pop = countS + countB;
+}
 
-    size_t BitSequence375::rank1(const size_t position) const
-    {
-        if(((int)position+1)==0) return 0;
+BitSequence375::~BitSequence375() {
+  delete[] data;
+  delete[] bdata;
+  delete[] sdata;
+  /*free (bdata);
+  free (sdata);*/
+}
 
-	register unsigned int block;    
-	if (position > n) return pop;	
-	block = data[position/32] << (31-position%32);
+size_t BitSequence375::rank0(const size_t i) const { return i + 1 - rank1(i); }
 
-	return sdata[position/256] + bdata[position/32] + 
-           __popcount_tab[block & 0xff] + __popcount_tab[(block>>8) & 0xff] +
-           __popcount_tab[(block>>16) & 0xff] + __popcount_tab[block>>24];
-    }
+size_t BitSequence375::rank1(const size_t position) const {
+  if (((int)position + 1) == 0)
+    return 0;
 
-    bool BitSequence375::access(const size_t i) const
-    {
+  unsigned int block;
+  if (position > n)
+    return pop;
+  block = data[position / 32] << (31 - position % 32);
 
-	return (1u << (i % W)) & data[i/W];
-    }
+  return sdata[position / 256] + bdata[position / 32] +
+         __popcount_tab[block & 0xff] + __popcount_tab[(block >> 8) & 0xff] +
+         __popcount_tab[(block >> 16) & 0xff] + __popcount_tab[block >> 24];
+}
 
-    void BitSequence375::save(ofstream & f) const
-    {
-        uint wr = BRW32_375;
-        saveValue(f,wr);
+bool BitSequence375::access(const size_t i) const {
 
-        saveValue(f,nn);	
-        saveValue(f,data, nn);
-        saveValue(f,sSize);
-        saveValue(f,sdata, sSize);
-        saveValue(f,bSize);
-        saveValue<uchar>(f,bdata, bSize);
-        saveValue(f,pop);
-        saveValue(f,n);	
-    }
+  return (1u << (i % W)) & data[i / W];
+}
 
-    BitSequence375 * BitSequence375::load(ifstream & f) 
-    {
-        assert(f.good());
-        uint type = loadValue<uint>(f);
-        if(type!=BRW32_375) {    // throw exception
-            abort();
-        }
-        BitSequence375 * ret = new BitSequence375();
-        ret->nn = loadValue<uint>(f);	
-        ret->data = loadValue<uint>(f, ret->nn);
-        ret->sSize = loadValue<uint>(f);
-        ret->sdata = loadValue<uint>(f, ret->sSize);
-        ret->bSize = loadValue<uint>(f);
-        ret->bdata = loadValue<uchar>(f, ret->bSize);
-        ret->pop = loadValue<uint>(f);
-        ret->n = loadValue<uint>(f);	
-        return ret;
+void BitSequence375::save(ofstream &f) const {
+  uint wr = BRW32_375;
+  saveValue(f, wr);
 
-    }
+  saveValue(f, nn);
+  saveValue(f, data, nn);
+  saveValue(f, sSize);
+  saveValue(f, sdata, sSize);
+  saveValue(f, bSize);
+  saveValue<uchar>(f, bdata, bSize);
+  saveValue(f, pop);
+  saveValue(f, n);
+}
 
-    size_t BitSequence375::getSize() const
-    {
-	return (this->nn*sizeof(uint)) + (sizeof(uint)*sSize) + (sizeof(uchar)*bSize) + (sizeof(BitSequence));
-    }
+BitSequence375 *BitSequence375::load(ifstream &f) {
+  assert(f.good());
+  uint type = loadValue<uint>(f);
+  if (type != BRW32_375) { // throw exception
+    abort();
+  }
+  BitSequence375 *ret = new BitSequence375();
+  ret->nn = loadValue<uint>(f);
+  ret->data = loadValue<uint>(f, ret->nn);
+  ret->sSize = loadValue<uint>(f);
+  ret->sdata = loadValue<uint>(f, ret->sSize);
+  ret->bSize = loadValue<uint>(f);
+  ret->bdata = loadValue<uchar>(f, ret->bSize);
+  ret->pop = loadValue<uint>(f);
+  ret->n = loadValue<uint>(f);
+  return ret;
+}
 
-    size_t BitSequence375::selectPrev1(const size_t start) const
-    {
-	cout << "Not implemented SELECTPREV1" << endl;
-	return 0;
-    }
+size_t BitSequence375::getSize() const {
+  return (this->nn * sizeof(uint)) + (sizeof(uint) * sSize) +
+         (sizeof(uchar) * bSize) + (sizeof(BitSequence));
+}
 
-    size_t BitSequence375::selectNext1(const size_t k1) const
-    {
-	cout << "Not implemented SELECTNEXT1" << endl;
-	return 0;
-    }
+size_t BitSequence375::selectPrev1(const size_t) const {
+  cout << "Not implemented SELECTPREV1" << endl;
+  return 0;
+}
 
-    size_t BitSequence375::select1(const size_t x1) const
-    {
-	uint spos,bpos,pos,word,x;
-	uchar *blk;
-	size_t j = x1;
-	if (j > pop) return n;
-	spos = binsearch(sdata,(n+256-1)/256,j);
+size_t BitSequence375::selectNext1(const size_t) const {
+  cout << "Not implemented SELECTNEXT1" << endl;
+  return 0;
+}
 
-	j -= sdata[spos];
-	pos = spos<<8;
-	blk = bdata + (pos>>5);
-	bpos = 0;
-    
-	while ( ((spos*8+bpos) < ((n-1)/W)) && (bpos < (1<<3)-1) && (blk[bpos+1] < j)) bpos++;
-     
-	pos += bpos<<5;
-	word = data[pos>>5];
-	j -= blk[bpos];
+size_t BitSequence375::select1(const size_t x1) const {
+  uint spos, bpos, pos, word, x;
+  uchar *blk;
+  size_t j = x1;
+  if (j > pop)
+    return n;
+  spos = binsearch(sdata, (n + 256 - 1) / 256, j);
 
-	while (1) 
-    	{ 
-		x = __popcount_tab[word & ((1<<8)-1)]; 
+  j -= sdata[spos];
+  pos = spos << 8;
+  blk = bdata + (pos >> 5);
+  bpos = 0;
 
-		if (j <= x) break;
-		j -= x; pos += 8;
-		word >>= 8;
-	}
-	
-	while (j) { if (word & 1) j--; word >>= 1; pos++; }
+  while (((spos * 8 + bpos) < ((n - 1) / W)) && (bpos < (1 << 3) - 1) &&
+         (blk[bpos + 1] < j))
+    bpos++;
 
-	return pos-1;
-    }
+  pos += bpos << 5;
+  word = data[pos >> 5];
+  j -= blk[bpos];
 
-    size_t BitSequence375::select0(const size_t x1) const
-    {
-	uint spos,bpos,pos,word,x;
-	uchar *blk;
-	size_t j = x1;
-	if (j > (n-pop)) return n;
-	spos = binsearch0(sdata,(n+256-1)/256,j);
+  while (1) {
+    x = __popcount_tab[word & ((1 << 8) - 1)];
 
-	j -= 256*spos-sdata[spos];
-	pos = spos<<8;
-	blk = bdata + (pos>>5);
-	bpos = 0;
+    if (j <= x)
+      break;
+    j -= x;
+    pos += 8;
+    word >>= 8;
+  }
 
-	while ( ((spos*8+bpos) < ((n-1)/W)) && (bpos < (1<<3)-1) && (((32*(bpos+1))-blk[bpos+1]) < j)) bpos++;
+  while (j) {
+    if (word & 1)
+      j--;
+    word >>= 1;
+    pos++;
+  }
 
-	pos += bpos<<5;	
-	word = data[pos>>5];
-	j -= (32*bpos)-blk[bpos];
+  return pos - 1;
+}
 
-	while (1) 
-    	{ 
-		x = 8-(__popcount_tab[word & ((1<<8)-1)]); 
+size_t BitSequence375::select0(const size_t x1) const {
+  uint spos, bpos, pos, word, x;
+  uchar *blk;
+  size_t j = x1;
+  if (j > (n - pop))
+    return n;
+  spos = binsearch0(sdata, (n + 256 - 1) / 256, j);
 
-		if (j <= x) break;
-		j -= x; pos += 8;
-		word >>= 8;
-	}
-	
-	while (j) { if (!(word & 1)) j--; word >>= 1; pos++; }
+  j -= 256 * spos - sdata[spos];
+  pos = spos << 8;
+  blk = bdata + (pos >> 5);
+  bpos = 0;
 
-	return pos-1;
-    }
-};
+  while (((spos * 8 + bpos) < ((n - 1) / W)) && (bpos < (1 << 3) - 1) &&
+         (((32 * (bpos + 1)) - blk[bpos + 1]) < j))
+    bpos++;
+
+  pos += bpos << 5;
+  word = data[pos >> 5];
+  j -= (32 * bpos) - blk[bpos];
+
+  while (1) {
+    x = 8 - (__popcount_tab[word & ((1 << 8) - 1)]);
+
+    if (j <= x)
+      break;
+    j -= x;
+    pos += 8;
+    word >>= 8;
+  }
+
+  while (j) {
+    if (!(word & 1))
+      j--;
+    word >>= 1;
+    pos++;
+  }
+
+  return pos - 1;
+}
+} // namespace cds_static

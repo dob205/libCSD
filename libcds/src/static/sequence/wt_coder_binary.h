@@ -22,38 +22,36 @@
 #ifndef wt_coder_binary_h
 #define wt_coder_binary_h
 
+#include <Mapper.h>
 #include <libcdsBasics.h>
 #include <wt_coder.h>
-#include <Mapper.h>
 
 using namespace std;
 
-namespace cds_static
-{
+namespace cds_static {
 
-    /** Considers the binary representation of the symbols as the code
-     *
-     *  @author Francisco Claude
-     */
-    class wt_coder_binary: public wt_coder
-    {
-        public:
-            wt_coder_binary(const Array & a, Mapper *am);
-            /** Buils a wt_coder_binary using the sequence of length n and the alphabet_mapper
-             *  to determine the length of the binary codes */
-            wt_coder_binary(uint * seq, size_t n, Mapper * am);
-            wt_coder_binary(uchar * seq, size_t n, Mapper * am);
-            virtual ~wt_coder_binary();
-            virtual bool is_set(uint symbol, uint l) const;
-            virtual bool done(uint symbol, uint l) const;
-            virtual uint depth() const{ return h; }
-            virtual size_t getSize() const;
-            virtual void save(ofstream & fp) const;
-            static wt_coder_binary * load(ifstream & fp);
+/** Considers the binary representation of the symbols as the code
+ *
+ *  @author Francisco Claude
+ */
+class wt_coder_binary : public wt_coder {
+public:
+  wt_coder_binary(const Array &a, Mapper *am);
+  /** Buils a wt_coder_binary using the sequence of length n and the
+   * alphabet_mapper to determine the length of the binary codes */
+  wt_coder_binary(uint *seq, size_t n, Mapper *am);
+  wt_coder_binary(uchar *seq, size_t n, Mapper *am);
+  virtual ~wt_coder_binary();
+  virtual bool is_set(uint symbol, uint l) const;
+  virtual bool done(uint symbol, uint l) const;
+  virtual uint depth() const { return h; }
+  virtual size_t getSize() const;
+  virtual void save(ofstream &fp) const;
+  static wt_coder_binary *load(ifstream &fp);
 
-        protected:
-            wt_coder_binary();
-            uint h;
-    };
+protected:
+  wt_coder_binary();
+  uint h;
 };
+} // namespace cds_static
 #endif

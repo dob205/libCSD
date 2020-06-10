@@ -1,9 +1,9 @@
 /* IteratorDictIDNoContiguous.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * Iterator class for scanning streams of no contiguous IDs.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -28,35 +28,32 @@
 #ifndef _ITERATORDICTIDNOCONTIGUOUS_H
 #define _ITERATORDICTIDNOCONTIGUOUS_H
 
-
 #include <iostream>
 using namespace std;
 
-class IteratorDictIDNoContiguous : public IteratorDictID
-{
-	public:
-		/** ID Iterator Constructor for streams of contiguous elements.
-		    @param ids: the array of ids
-		    @param scanneable: the number of ids in the array
-		*/
-		IteratorDictIDNoContiguous(size_t *ids, size_t scanneable)
-		{
-			this->ids = ids;
-			this->scanneable = scanneable;
+class IteratorDictIDNoContiguous : public IteratorDictID {
+public:
+  /** ID Iterator Constructor for streams of contiguous elements.
+      @param ids: the array of ids
+      @param scanneable: the number of ids in the array
+  */
+  IteratorDictIDNoContiguous(size_t *ids, size_t scanneable) {
+    this->ids = ids;
+    this->scanneable = scanneable;
 
-			this->processed = 0;
-		}
+    this->processed = 0;
+  }
 
-		/** Extracts the next ID in the stream. 
-		    @returns the next ID.
-		*/
-	        size_t next() { return ids[processed++]; }
+  /** Extracts the next ID in the stream.
+      @returns the next ID.
+  */
+  size_t next() { return ids[processed++]; }
 
-		/** Generic destructor */
-		~IteratorDictIDNoContiguous() { delete [] ids; }
+  /** Generic destructor */
+  ~IteratorDictIDNoContiguous() { delete[] ids; }
 
-	protected:
-		size_t *ids;	// Array of ids
+protected:
+  size_t *ids; // Array of ids
 };
 
-#endif  
+#endif

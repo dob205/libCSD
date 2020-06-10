@@ -16,40 +16,38 @@
  *
  */
 
-
 #ifndef LCP_DAC_H
 #define LCP_DAC_H
 
-#include <factorization.h>
 #include <LCP.h>
+#include <factorization.h>
 
-namespace cds_static{
+namespace cds_static {
 
-	class LCP_DAC: public LCP{
-	
-		private:
-			size_t *next_p;  //usefull for get_seq_LCP
-			factorization *rep;
-			LCP_DAC();
+class LCP_DAC : public LCP {
 
-		public:
-			size_t n;
-			
-			/* LCP encoding using Susana's static factorization,
-			 * @param csa The compressed suffix array of the text
-			 * @param text The text
-			 * @param n  The length of the text 
-			 * */
-			LCP_DAC(TextIndex *csa, char *text, size_t n); 
-			virtual size_t get_LCP(size_t i, TextIndex *csa) const;
-			virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos, size_t *n_next, bool dir) const;
-			virtual size_t getSize() const;
-			virtual void save(ofstream & fp) const;
-			static LCP_DAC * load(ifstream & fp);
-			virtual ~LCP_DAC();
-	};
+private:
+  size_t *next_p; // usefull for get_seq_LCP
+  factorization *rep;
+  LCP_DAC();
+
+public:
+  size_t n;
+
+  /* LCP encoding using Susana's static factorization,
+   * @param csa The compressed suffix array of the text
+   * @param text The text
+   * @param n  The length of the text
+   * */
+  LCP_DAC(TextIndex *csa, char *text, size_t n);
+  virtual size_t get_LCP(size_t i, TextIndex *csa) const;
+  virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos,
+                             size_t *n_next, bool dir) const;
+  virtual size_t getSize() const;
+  virtual void save(ofstream &fp) const;
+  static LCP_DAC *load(ifstream &fp);
+  virtual ~LCP_DAC();
 };
+} // namespace cds_static
 
 #endif
-
-

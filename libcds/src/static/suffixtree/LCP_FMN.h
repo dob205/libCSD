@@ -16,7 +16,6 @@
  *
  */
 
-
 #ifndef LCP_FMN_H
 #define LCP_FMN_H
 
@@ -25,47 +24,48 @@
 
 using namespace cds_static;
 
-namespace cds_static{
-	
-	class LCP_FMN: public LCP{
-		private:
-			LCP_FMN();
-			virtual void generate_OZ(BitSequence *U, uint **O, uint **Z, uint length);
+namespace cds_static {
 
-			BitSequence *O, *Z;
-			size_t b_length; //length of the bitmaps
-			size_t OZ_type;
-	
-		public:
-		
-			/*Johannes, Veli & Gonzalo LCP encode
-			 * @param csa The compressed suffix array of the text
-			 * @param text The text
-			 * @param n  The length of the text
-			 * @param op_rs Choose rank/select implementation that will be used (must be RRR02_HDR or SDARRAY_HDR)
-			 * */
-			LCP_FMN(TextIndex *csa, char *text, size_t n, size_t op_rs=RRR02_HDR);
-			
-			LCP_FMN(LCP *lcp, TextIndex *csa, size_t n, size_t op_rs=RRR02_HDR);
-			
-			/**Return LCP[i]*/
-			virtual size_t get_LCP(size_t i, TextIndex *csa) const;
+class LCP_FMN : public LCP {
+private:
+  LCP_FMN();
+  virtual void generate_OZ(BitSequence *U, uint **O, uint **Z, uint length);
 
-			/**Return LCP[i], being faster if sequential acceses to the LCP had been done*/
-			virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos, size_t *n_next, bool dir) const;
+  BitSequence *O, *Z;
+  size_t b_length; // length of the bitmaps
+  size_t OZ_type;
 
-			/** Returns the size of the structure in bytes */
-			virtual size_t getSize() const;
+public:
+  /*Johannes, Veli & Gonzalo LCP encode
+   * @param csa The compressed suffix array of the text
+   * @param text The text
+   * @param n  The length of the text
+   * @param op_rs Choose rank/select implementation that will be used (must be
+   * RRR02_HDR or SDARRAY_HDR)
+   * */
+  LCP_FMN(TextIndex *csa, char *text, size_t n, size_t op_rs = RRR02_HDR);
 
-			/** Stores the structure given a file pointer, return 0 in case of success */
-			virtual void save(ofstream & fp) const;
+  LCP_FMN(LCP *lcp, TextIndex *csa, size_t n, size_t op_rs = RRR02_HDR);
 
-			/** Reads a LCP determining the type */
-			static LCP_FMN * load(ifstream & fp);
+  /**Return LCP[i]*/
+  virtual size_t get_LCP(size_t i, TextIndex *csa) const;
 
-			virtual ~LCP_FMN();
-	};
+  /**Return LCP[i], being faster if sequential acceses to the LCP had been
+   * done*/
+  virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos,
+                             size_t *n_next, bool dir) const;
+
+  /** Returns the size of the structure in bytes */
+  virtual size_t getSize() const;
+
+  /** Stores the structure given a file pointer, return 0 in case of success */
+  virtual void save(ofstream &fp) const;
+
+  /** Reads a LCP determining the type */
+  static LCP_FMN *load(ifstream &fp);
+
+  virtual ~LCP_FMN();
 };
+} // namespace cds_static
 
 #endif
-

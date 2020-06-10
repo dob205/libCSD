@@ -23,39 +23,38 @@
 #ifndef _MYMMAP_H_
 #define _MYMMAP_H_
 
-
 #ifdef WIN32
 #include <windows.h>
 #else
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
+#include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/mman.h>
 #include <unistd.h>
 #endif
 
 #ifdef WIN32
-#define PAGE_READONLY          0x02     
-#define SECTION_MAP_READ    0x0004
-#define FILE_MAP_READ       SECTION_MAP_READ
+#define PAGE_READONLY 0x02
+#define SECTION_MAP_READ 0x0004
+#define FILE_MAP_READ SECTION_MAP_READ
 #endif
 
-namespace cds_static{
+namespace cds_static {
 
-	typedef struct {
-		void *addr;
-		int len;
+typedef struct {
+  void *addr;
+  int len;
 #ifdef WIN32
-		HANDLE h1,h2;
+  HANDLE h1, h2;
 #else
-		int fd;
+  int fd;
 #endif
-	} MMAP;
+} MMAP;
 
-	MMAP *mymmap (char *fname);
-	int mymunmap (MMAP *m);
+MMAP *mymmap(char *fname);
+int mymunmap(MMAP *m);
 
-};
+} // namespace cds_static
 #endif

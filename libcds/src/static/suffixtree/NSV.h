@@ -16,54 +16,53 @@
  *
  */
 
-
 #ifndef NSV_H
 #define NSV_H
 
-#include <LCP.h>
 #include <BitSequence.h>
+#include <LCP.h>
 
-namespace cds_static{
-	class NSV{
+namespace cds_static {
+class NSV {
 
-		private:
-			NSV();
-			virtual void create_first_level(LCP *lcp, TextIndex *csa);
-			virtual void create_level_r(LCP *lcp, size_t level, TextIndex *csa);
-			virtual void create_last_level(LCP *lcp, TextIndex *csa);
-			virtual size_t find_NSV_r(size_t v, size_t level, TextIndex *csa, LCP *lcp) const;
+private:
+  NSV();
+  virtual void create_first_level(LCP *lcp, TextIndex *csa);
+  virtual void create_level_r(LCP *lcp, size_t level, TextIndex *csa);
+  virtual void create_last_level(LCP *lcp, TextIndex *csa);
+  virtual size_t find_NSV_r(size_t v, size_t level, TextIndex *csa,
+                            LCP *lcp) const;
 
-			size_t r;					/*levels*/
-			size_t b;          /*block size*/
-			size_t n;					/*number of element of lcp*/
-			BitSequence **P;  		/*bitarray with the pioneer for each level*/
-			BitSequence **R;  		/*bitarray with the pioneer and their answers*/
-			size_t *A;  		/*stored values for the last level*/
-			size_t b_A;  /*bits needed per value in A*/
+  size_t r;        /*levels*/
+  size_t b;        /*block size*/
+  size_t n;        /*number of element of lcp*/
+  BitSequence **P; /*bitarray with the pioneer for each level*/
+  BitSequence **R; /*bitarray with the pioneer and their answers*/
+  size_t *A;       /*stored values for the last level*/
+  size_t b_A;      /*bits needed per value in A*/
 
+public:
+  /*NSV Data structure base on Fisher, Makinnen, and Navarro "Faster
+   * Entropy-Bounded Compressed Suffix Trees"
+   * @param lcp Any LCP array data structure
+   * @param levels Number of levels that the recursion will use (in general is
+   * better to use only 2 or 3 levels).
+   * @param block Block size that will be used
+   * @param csa The compresses suffix array*/
+  NSV(LCP *lcp, size_t levels, size_t block, TextIndex *csa);
 
-		public:
+  // return the position where is the NSV of v
+  virtual size_t find_NSV(size_t v, TextIndex *csa, LCP *lcp) const;
 
-			/*NSV Data structure base on Fisher, Makinnen, and Navarro "Faster Entropy-Bounded Compressed Suffix Trees"
-			 * @param lcp Any LCP array data structure
-			 * @param levels Number of levels that the recursion will use (in general is better to use only 2 or 3 levels). 
-			 * @param block Block size that will be used
-			 * @param csa The compresses suffix array*/
-			NSV(LCP *lcp, size_t levels, size_t block, TextIndex *csa); 
+  // memory use for NSV in bytes
+  virtual size_t getSize() const;
 
-			//return the position where is the NSV of v
-			virtual size_t find_NSV(size_t v, TextIndex *csa, LCP *lcp) const;
+  virtual void save(ofstream &fp) const;
 
-			//memory use for NSV in bytes
-			virtual size_t getSize() const; 
+  static NSV *load(ifstream &fp);
 
-			virtual void save(ofstream & fp) const;
-
-			static NSV* load(ifstream & fp);
-
-			virtual ~NSV();
-	};
-
+  virtual ~NSV();
 };
-#endif
 
+} // namespace cds_static
+#endif

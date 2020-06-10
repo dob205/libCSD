@@ -1,5 +1,6 @@
 /* CRePair.h
-   Copyright (C) 2007, Rodrigo Gonzalez, Francisco Claude F, all rights reserved.
+   Copyright (C) 2007, Rodrigo Gonzalez, Francisco Claude F, all rights
+   reserved.
 
    Compressed RePair
 
@@ -22,11 +23,10 @@
 #ifndef CREPAIR_H
 #define CREPAIR_H
 
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
-#include <iostream>
 
 #include <Array.h>
 #include <BitSequence.h>
@@ -38,28 +38,29 @@ using namespace std;
 
 class CRePair {
 
-  public:
-	CRePair();
+public:
+  CRePair();
 
-	void compress(uint min_value, uint max_value, uint max_assigned, uint m, uint n, uint *symbols, uint *symbols_pair);
+  void compress(uint min_value, uint max_value, uint max_assigned, uint m,
+                uint n, uint *symbols, uint *symbols_pair);
 
-	uint* getSequence();
-	Array* getSymbolsGrammar();
-	BitSequence* getBitsGrammar();
+  uint *getSequence();
+  Array *getSymbolsGrammar();
+  BitSequence *getBitsGrammar();
 
-	~CRePair();
-      
-  protected:
-	uint min_value, max_value, max_assigned, m, n, pos, symbols_new_len;
-	uint *symbols, *symbols_pair, *symbols_new, *symbols_new_bit;
-	Array * final_symbols_dict;
-	BitSequence *BRR;
+  ~CRePair();
 
-	bool compress_pair_table();
-	void fillBR();
-	void unroll(uint s, uint i);
-	void new_value(uint *symbols_pair, uint *symbols_new_value, uint *k1, uint *j, uint pos);
+protected:
+  uint min_value, max_value, max_assigned, m, n, pos, symbols_new_len;
+  uint *symbols, *symbols_pair, *symbols_new, *symbols_new_bit;
+  Array *final_symbols_dict;
+  BitSequence *BRR;
+
+  bool compress_pair_table();
+  void fillBR();
+  void unroll(uint s, uint i);
+  void new_value(uint *symbols_pair, uint *symbols_new_value, uint *k1, uint *j,
+                 uint pos);
 };
 
 #endif
-

@@ -16,36 +16,37 @@
  *
  */
 
-
 #ifndef LCP_PHISPARE_H
 #define LCP_PHISPARE_H
 
 #include <LCP.h>
 
-namespace cds_static{
+namespace cds_static {
 
-	class LCP_PhiSpare: public LCP{
-		private:
-			int q;   
-			size_t n;   //length of LCP
-			int *plcp; //psi lcp
+class LCP_PhiSpare : public LCP {
+private:
+  int q;
+  size_t n;  // length of LCP
+  int *plcp; // psi lcp
 
-			LCP_PhiSpare();
-		
-		public:
-			/*Karkkainen, Manzini, and Puglisi encoding of the LCP,
-			 * @param csa The compressed suffix array of the text
-			 * @param text The text
-			 * @param n  The length of the text
-			 * @param _q The sample period to use (if q = -1 its mean that we will not use any sample)
-			 * */
-			LCP_PhiSpare(TextIndex *csa, char *text, size_t _n, int _q = 32);
-			virtual size_t get_LCP(size_t i, TextIndex *csa) const;
-			virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos, size_t *n_next, bool dir) const;
-			virtual size_t getSize() const;
-			virtual void save(ofstream & fp) const;
-			static LCP_PhiSpare * load(ifstream & fp);
-			virtual ~LCP_PhiSpare();
-	};
+  LCP_PhiSpare();
+
+public:
+  /*Karkkainen, Manzini, and Puglisi encoding of the LCP,
+   * @param csa The compressed suffix array of the text
+   * @param text The text
+   * @param n  The length of the text
+   * @param _q The sample period to use (if q = -1 its mean that we will not use
+   * any sample)
+   * */
+  LCP_PhiSpare(TextIndex *csa, char *text, size_t _n, int _q = 32);
+  virtual size_t get_LCP(size_t i, TextIndex *csa) const;
+  virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos,
+                             size_t *n_next, bool dir) const;
+  virtual size_t getSize() const;
+  virtual void save(ofstream &fp) const;
+  static LCP_PhiSpare *load(ifstream &fp);
+  virtual ~LCP_PhiSpare();
 };
+} // namespace cds_static
 #endif

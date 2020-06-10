@@ -1,6 +1,6 @@
 /* BinaryNode.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class models the binary nodes used for building statiscal codes.
  *
@@ -25,7 +25,6 @@
  *   Miguel A. Martinez-Prieto:	migumar2@infor.uva.es
  */
 
-
 #ifndef _BINARYNODE_H
 #define _BINARYNODE_H
 
@@ -35,38 +34,32 @@ using namespace std;
 #include <libcdsBasics.h>
 using namespace cds_utils;
 
-class BinaryNode
-{		
-	public:
-		/** Generic Constructor */
-		BinaryNode();
+class BinaryNode {
+public:
+  /** Generic Constructor */
+  BinaryNode();
 
-		/** Class Constructor.
-		    @param type: describes the node type (0=external / 1=internal).
-		    @param position: points to the node position in the global 
-		      sequence.
-		    @param weight: node weight (frequency).
-		*/
-		BinaryNode(uint type, uint position, uint weight);
+  /** Class Constructor.
+      @param type: describes the node type (0=external / 1=internal).
+      @param position: points to the node position in the global
+        sequence.
+      @param weight: node weight (frequency).
+  */
+  BinaryNode(uint type, uint position, uint weight);
 
-		/** Generic Destructor */
-		~BinaryNode();
+  /** Generic Destructor */
+  ~BinaryNode();
 
-	protected:
-		bool type;		// Node type
-		int position;		// Node position
-		int weight;		// Node weight
+protected:
+  bool type;    // Node type
+  int position; // Node position
+  int weight;   // Node weight
 
-		BinaryNode *leftChild;	// Pointer to the (possible) left child
-		BinaryNode *rightChild;	// Pointer to the (possible) right child
+  BinaryNode *leftChild;  // Pointer to the (possible) left child
+  BinaryNode *rightChild; // Pointer to the (possible) right child
 
-	friend class HuTucker;
-	friend class Huffman;
+  friend class HuTucker;
+  friend class Huffman;
 };
 
-
-
-
-
-#endif  /* _BINARYNODE_H */
-
+#endif /* _BINARYNODE_H */

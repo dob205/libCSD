@@ -1,9 +1,9 @@
 /* IteratorDictStringVector.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * Iterator class for scanning a vector of strings.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -35,59 +35,49 @@
 #include <vector>
 using namespace std;
 
-class IteratorDictStringVector : public IteratorDictString 
-{
-	public:
-		/** Constructor for the Vector Iterator:
-		    @arr: the array of strings.
-		    @scanneable: stream size (in bytes).
-		*/
-	    	IteratorDictStringVector(vector<uchar*> *arr, size_t scanneable)
-		{ 
-			this->arr = *arr;
-			this->scanneable = scanneable; 
-			this->processed = 0;
-		}
+class IteratorDictStringVector : public IteratorDictString {
+public:
+  /** Constructor for the Vector Iterator:
+      @arr: the array of strings.
+      @scanneable: stream size (in bytes).
+  */
+  IteratorDictStringVector(vector<uchar *> *arr, size_t scanneable) {
+    this->arr = *arr;
+    this->scanneable = scanneable;
+    this->processed = 0;
+  }
 
-		/** Extracts the next string in the stream. 
-		    @param strLen pointer to the string length.
-		    @returns the next string.
-		*/
-		unsigned char* next(uint *str_length) 
-		{
-			processed++;
+  /** Extracts the next string in the stream.
+      @param strLen pointer to the string length.
+      @returns the next string.
+  */
+  unsigned char *next(uint *str_length) {
+    processed++;
 
-			*str_length = strlen((char*)(arr[processed-1]));
+    *str_length = strlen((char *)(arr[processed - 1]));
 
-			return arr[processed-1];
-		}
+    return arr[processed - 1];
+  }
 
-		/** Checks for non-processed strings in the stream. 
-		    @returns if remains non-processed strings. 
-		*/
-	    	bool hasNext()
-		{
-			return processed<scanneable;
-		}
+  /** Checks for non-processed strings in the stream.
+      @returns if remains non-processed strings.
+  */
+  bool hasNext() { return processed < scanneable; }
 
-		/** Generic destructor. */
-		~IteratorDictStringVector() 
-		{
-		}
+  /** Generic destructor. */
+  ~IteratorDictStringVector() {}
 
-	protected:
-	        vector<uchar*> arr;	// The array of strings
+protected:
+  vector<uchar *> arr; // The array of strings
 
-		bool static sorting(uchar *i, uchar *j)
-		{
-			if (strcmp((char*)i, (char*)j) < 0) return true;
-			else return false;
-		}
+  bool static sorting(uchar *i, uchar *j) {
+    if (strcmp((char *)i, (char *)j) < 0)
+      return true;
+    else
+      return false;
+  }
 
-	        void sortstr()
-	        {
-	        	std::sort(arr.begin(), arr.end(), sorting);
-	        }
+  void sortstr() { std::sort(arr.begin(), arr.end(), sorting); }
 };
 
-#endif  
+#endif

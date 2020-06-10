@@ -24,28 +24,26 @@
 
 #include <iostream>
 
-#include <libcdsBasics.h>
 #include <Mapper.h>
+#include <libcdsBasics.h>
 
 using namespace std;
 
-namespace cds_static
-{
+namespace cds_static {
 
-    /** Mapper that doesn't change the value (identity)
-     *
-     *  @author Francisco Claude
-     */
-    class MapperNone : public Mapper
-    {
-        public:
-            MapperNone();
-            virtual ~MapperNone() {}
-            virtual uint map(const uint s) const;
-            virtual uint unmap(const uint s) const;
-            virtual size_t getSize() const;
-            virtual void save(ofstream & out) const;
-            static MapperNone * load(ifstream & input);
-    };
+/** Mapper that doesn't change the value (identity)
+ *
+ *  @author Francisco Claude
+ */
+class MapperNone : public Mapper {
+public:
+  MapperNone();
+  virtual ~MapperNone() {}
+  virtual uint map(const uint s) const;
+  virtual uint unmap(const uint s) const;
+  virtual size_t getSize() const;
+  virtual void save(ofstream &out) const;
+  static MapperNone *load(ifstream &input);
 };
-#endif                           /* __MAPPER_NONE_H */
+} // namespace cds_static
+#endif /* __MAPPER_NONE_H */

@@ -1,9 +1,9 @@
 /* IteratorDictIDContiguous.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * Iterator class for scanning streams of contiguous IDs.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -28,49 +28,46 @@
 #ifndef _ITERATORDICTIDCONTIGUOUS_H
 #define _ITERATORDICTIDCONTIGUOUS_H
 
-
 #include <iostream>
 using namespace std;
 
-class IteratorDictIDContiguous : public IteratorDictID
-{
-	public:
-		/** ID Iterator Constructor for streams of contiguous elements.
-		    @param left: the first element ID (left limit)
-		    @param right: the last element ID (right limit)
-		*/
-		IteratorDictIDContiguous(size_t left, size_t right)
-		{
-			this->leftLimit = left;
-			this->rightLimit = right;
-			this->scanneable = right;
+class IteratorDictIDContiguous : public IteratorDictID {
+public:
+  /** ID Iterator Constructor for streams of contiguous elements.
+      @param left: the first element ID (left limit)
+      @param right: the last element ID (right limit)
+  */
+  IteratorDictIDContiguous(size_t left, size_t right) {
+    this->leftLimit = left;
+    this->rightLimit = right;
+    this->scanneable = right;
 
-			this->processed = left-1;
-		}
+    this->processed = left - 1;
+  }
 
-		/** Extracts the next ID in the stream. 
-		    @returns the next ID.
-		*/
-	    	size_t next() { return ++processed; }
+  /** Extracts the next ID in the stream.
+      @returns the next ID.
+  */
+  size_t next() { return ++processed; }
 
-		/** Obtains the left limit of the stream. That is, the ID of 
-		    the first element in the stream.
-		    @returns the left limit.
-		*/
-		size_t getLeftLimit() { return leftLimit; }
+  /** Obtains the left limit of the stream. That is, the ID of
+      the first element in the stream.
+      @returns the left limit.
+  */
+  size_t getLeftLimit() { return leftLimit; }
 
-		/** Obtains the right limit of the stream. That is, the ID of 
-		    the last element in the stream.
-		    @returns the right limit.
-		*/
-		size_t getRightLimit() { return rightLimit; }
+  /** Obtains the right limit of the stream. That is, the ID of
+      the last element in the stream.
+      @returns the right limit.
+  */
+  size_t getRightLimit() { return rightLimit; }
 
-		/** Generic destructor */
-		~IteratorDictIDContiguous() {}
+  /** Generic destructor */
+  ~IteratorDictIDContiguous() {}
 
-	protected:
-		size_t leftLimit;	// Left stream limit
-		size_t rightLimit;	// Right stream limit
+protected:
+  size_t leftLimit;  // Left stream limit
+  size_t rightLimit; // Right stream limit
 };
 
-#endif  
+#endif

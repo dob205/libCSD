@@ -22,39 +22,39 @@
 #ifndef wt_node_internal_h
 #define wt_node_internal_h
 
-#include <wt_node.h>
-#include <libcdsBasics.h>
 #include <BitSequence.h>
 #include <BitSequenceBuilder.h>
 #include <cassert>
+#include <libcdsBasics.h>
+#include <wt_node.h>
 
-namespace cds_static
-{
+namespace cds_static {
 
-    /** Class for representing internal nodes
-     *
-     *  @author Francisco Claude
-     */
-    class wt_node_internal: public wt_node
-    {
-        public:
-            wt_node_internal(uint * seq, size_t n, uint l, wt_coder * c, BitSequenceBuilder * bmb);
-            wt_node_internal(uchar * seq, size_t n, uint l, wt_coder * c, BitSequenceBuilder * bmb, size_t left, uint * done);
-            virtual ~wt_node_internal();
-            virtual size_t rank(uint symbol, size_t pos, uint level, wt_coder * c) const;
-            //virtual size_t rankLessThan(uint &symbol, size_t pos) const;
-            virtual size_t select(uint symbol, size_t pos, uint level, wt_coder * c) const;
-            virtual uint access(size_t pos) const;
-            virtual uint access(size_t pos, size_t & rankp) const;
-            virtual size_t getSize() const;
-            virtual void save(ofstream & fp) const;
-            static wt_node_internal * load(ifstream & fp);
+/** Class for representing internal nodes
+ *
+ *  @author Francisco Claude
+ */
+class wt_node_internal : public wt_node {
+public:
+  wt_node_internal(uint *seq, size_t n, uint l, wt_coder *c,
+                   BitSequenceBuilder *bmb);
+  wt_node_internal(uchar *seq, size_t n, uint l, wt_coder *c,
+                   BitSequenceBuilder *bmb, size_t left, uint *done);
+  virtual ~wt_node_internal();
+  virtual size_t rank(uint symbol, size_t pos, uint level, wt_coder *c) const;
+  // virtual size_t rankLessThan(uint &symbol, size_t pos) const;
+  virtual size_t select(uint symbol, size_t pos, uint level, wt_coder *c) const;
+  virtual uint access(size_t pos) const;
+  virtual uint access(size_t pos, size_t &rankp) const;
+  virtual size_t getSize() const;
+  virtual void save(ofstream &fp) const;
+  static wt_node_internal *load(ifstream &fp);
 
-        protected:
-            wt_node_internal();
-            wt_node *left_child, *right_child;
-            BitSequence * bitmap;
-            //uint length;
-    };
+protected:
+  wt_node_internal();
+  wt_node *left_child, *right_child;
+  BitSequence *bitmap;
+  // uint length;
 };
+} // namespace cds_static
 #endif

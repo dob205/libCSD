@@ -1,10 +1,10 @@
 /* StringDictionaryRPDAC.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
- * This class implements a Compressed String Dictionary combining Re-Pair 
+ * This class implements a Compressed String Dictionary combining Re-Pair
  * compression [1] and Directly Addresable Codes [2]:
- * 
+ *
  *   ==========================================================================
  *     [1] N. Jesper Larsson and Alistair Moffat.
  *         Off-Line Dictionary-Based Compression.
@@ -18,12 +18,12 @@
  *
  *   ==========================================================================
  *     "Compressed String Dictionaries"
- *     Nieves R. Brisaboa, Rodrigo Canovas, Francisco Claude, 
+ *     Nieves R. Brisaboa, Rodrigo Canovas, Francisco Claude,
  *     Miguel A. Martinez-Prieto and Gonzalo Navarro.
  *     10th Symposium on Experimental Algorithms (SEA'2011), p.136-147, 2011.
  *   ==========================================================================
  *
- * The current approach enhances the original one with efficient locate and 
+ * The current approach enhances the original one with efficient locate and
  * extract operations ** by prefix **.
  *
  * This library is free software; you can redistribute it and/or
@@ -53,110 +53,108 @@
 #include <iostream>
 using namespace std;
 
-#include "StringDictionary.h"
 #include "RePair/Coder/IRePair.h"
+#include "StringDictionary.h"
 #include "utils/DAC_VLS.h"
 #include "utils/LogSequence.h"
 
-class StringDictionaryRPDAC : public StringDictionary 
-{
-	public:
-		/** Generic Constructor. */
-		StringDictionaryRPDAC();
+class StringDictionaryRPDAC : public StringDictionary {
+public:
+  /** Generic Constructor. */
+  StringDictionaryRPDAC();
 
-		/** Class Constructor.
-		    @param it: iterator containing the original set of strings.
-		*/
-		StringDictionaryRPDAC(IteratorDictString *it);
-		
-		/** Retrieves the ID corresponding to the given string.
-		    @param str: the string to be searched.
-		    @param strLen: the string length.
-		    @returns the ID (or NORESULT if it is not in the bucket).
-		*/
-		uint locate(uchar *str, uint strLen);
-		
-		/** Obtains the string associated with the given ID.
-		    @param id: the ID to be extracted.
-		    @param strLen: pointer to the extracted string length.
-		    @returns the requested string (or NULL if it is not in the
-		      dictionary).
-		 */
-		uchar* extract(size_t id, uint *strLen);
-		
-		/** Locates all IDs of those elements prefixed by the given 
-		    string.
-		    @param str: the prefix to be searched.
-		    @param strLen: the prefix length.
-		    @returns an iterator for direct scanning of all the IDs.
-		*/
-		IteratorDictID* locatePrefix(uchar *str, uint strLen);
-		
-		/** Locates all IDs of those elements containing the given 
-		    substring.
-		    @param str: the substring to be searched.
-		    @param strLen: the substring length.
-		    @returns an iterator for direct scanning of all the IDs.
-		*/
-		IteratorDictID* locateSubstr(uchar *str, uint strLen);
-		
-		/** Retrieves the ID with rank k according to its alphabetical order. 
-		    @param rank: the alphabetical ranking.
-		    @returns the ID.
-		*/
-		uint locateRank(uint rank);
-		
-		/** Extracts all elements prefixed by the given string.
-		    @param str: the prefix to be searched.
-		    @param strLen: the prefix length.
-		    @returns an iterator for direct scanning of all the strings.
-		*/
-		IteratorDictString* extractPrefix(uchar *str, uint strLen);
-		
-		/** Extracts all elements containing by the given substring.
-		    @param str: the substring to be searched.
-		    @param strLen: the substring length.
-		    @returns an iterator for direct scanning of all the strings.
-		*/
-		IteratorDictString* extractSubstr(uchar *str, uint strLen);
-		
-		/** Obtains the string  with rank k according to its 
-		    alphabetical order.
-		    @param id: the ID to be extracted.
-		    @param strLen: pointer to the extracted string length.
-		    @returns the requested string (or NULL if it is not in the
-		      dictionary).
-		*/
-		uchar* extractRank(uint rank, uint *strLen);
-		
-		/** Extracts all strings in the dictionary sorted in 
-		    alphabetical order. 
-		    @returns an iterator for direct scanning of all the strings.
-		*/
-		IteratorDictString* extractTable();
-		
-		/** Computes the size of the structure in bytes. 
-		    @returns the dictionary size in bytes.
-		*/
-		size_t getSize();
-		
-		/** Stores the dictionary into an ofstream.
-		    @param out: the oftstream.
-		*/
-		void save(ofstream &out);
-		
-		/** Loads a dictionary from an ifstream.
-		    @param in: the ifstream.
-		    @returns the loaded dictionary.
-		*/
-		static StringDictionary *load(ifstream &in);
+  /** Class Constructor.
+      @param it: iterator containing the original set of strings.
+  */
+  StringDictionaryRPDAC(IteratorDictString *it);
 
-		/** Generic destructor. */
-		~StringDictionaryRPDAC();
+  /** Retrieves the ID corresponding to the given string.
+      @param str: the string to be searched.
+      @param strLen: the string length.
+      @returns the ID (or NORESULT if it is not in the bucket).
+  */
+  uint locate(uchar *str, uint strLen);
 
-	protected:
-		RePair *rp;			//! RePair representation
+  /** Obtains the string associated with the given ID.
+      @param id: the ID to be extracted.
+      @param strLen: pointer to the extracted string length.
+      @returns the requested string (or NULL if it is not in the
+        dictionary).
+   */
+  uchar *extract(size_t id, uint *strLen);
+
+  /** Locates all IDs of those elements prefixed by the given
+      string.
+      @param str: the prefix to be searched.
+      @param strLen: the prefix length.
+      @returns an iterator for direct scanning of all the IDs.
+  */
+  IteratorDictID *locatePrefix(uchar *str, uint strLen);
+
+  /** Locates all IDs of those elements containing the given
+      substring.
+      @param str: the substring to be searched.
+      @param strLen: the substring length.
+      @returns an iterator for direct scanning of all the IDs.
+  */
+  IteratorDictID *locateSubstr(uchar *str, uint strLen);
+
+  /** Retrieves the ID with rank k according to its alphabetical order.
+      @param rank: the alphabetical ranking.
+      @returns the ID.
+  */
+  uint locateRank(uint rank);
+
+  /** Extracts all elements prefixed by the given string.
+      @param str: the prefix to be searched.
+      @param strLen: the prefix length.
+      @returns an iterator for direct scanning of all the strings.
+  */
+  IteratorDictString *extractPrefix(uchar *str, uint strLen);
+
+  /** Extracts all elements containing by the given substring.
+      @param str: the substring to be searched.
+      @param strLen: the substring length.
+      @returns an iterator for direct scanning of all the strings.
+  */
+  IteratorDictString *extractSubstr(uchar *str, uint strLen);
+
+  /** Obtains the string  with rank k according to its
+      alphabetical order.
+      @param id: the ID to be extracted.
+      @param strLen: pointer to the extracted string length.
+      @returns the requested string (or NULL if it is not in the
+        dictionary).
+  */
+  uchar *extractRank(uint rank, uint *strLen);
+
+  /** Extracts all strings in the dictionary sorted in
+      alphabetical order.
+      @returns an iterator for direct scanning of all the strings.
+  */
+  IteratorDictString *extractTable();
+
+  /** Computes the size of the structure in bytes.
+      @returns the dictionary size in bytes.
+  */
+  size_t getSize();
+
+  /** Stores the dictionary into an ofstream.
+      @param out: the oftstream.
+  */
+  void save(ofstream &out);
+
+  /** Loads a dictionary from an ifstream.
+      @param in: the ifstream.
+      @returns the loaded dictionary.
+  */
+  static StringDictionary *load(ifstream &in);
+
+  /** Generic destructor. */
+  ~StringDictionaryRPDAC();
+
+protected:
+  RePair *rp; //! RePair representation
 };
 
-#endif  /* _STRINGDICTIONARY_RPDAC_H */
-
+#endif /* _STRINGDICTIONARY_RPDAC_H */

@@ -21,23 +21,18 @@
 
 #include <BitSequenceBuilderSDArray.h>
 
-namespace cds_static
-{
+namespace cds_static {
 
-    BitSequenceBuilderSDArray::BitSequenceBuilderSDArray() {
-    }
-	
-    BitSequenceBuilderSDArray::~BitSequenceBuilderSDArray() {
-    }
+BitSequenceBuilderSDArray::BitSequenceBuilderSDArray() {}
 
-    BitSequence * BitSequenceBuilderSDArray::build(uint * bitseq, size_t len) const
-    {
-        return new BitSequenceSDArray(bitseq,len);
-    }
+BitSequenceBuilderSDArray::~BitSequenceBuilderSDArray() {}
 
-    BitSequence * BitSequenceBuilderSDArray::build(const BitString & bs) const
-    {
-        return new BitSequenceSDArray(bs);
-    }
+BitSequence *BitSequenceBuilderSDArray::build(uint *bitseq, size_t len) const {
+  return new BitSequenceSDArray(bitseq, len);
+}
 
-};
+BitSequence *BitSequenceBuilderSDArray::build(const BitString &bs) const {
+  return new BitSequenceSDArray(bs);
+}
+
+} // namespace cds_static

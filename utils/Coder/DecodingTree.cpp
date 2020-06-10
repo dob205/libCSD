@@ -1,6 +1,6 @@
 /* DecodingTree.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * This class implements a (sub)tree representation which encodes a set of
  * codeword from a root prefix.
@@ -26,102 +26,86 @@
  *   Miguel A. Martinez-Prieto:	migumar2@infor.uva.es
  */
 
-
 #include "DecodingTree.h"
 
-DecodingTree::DecodingTree(uint codeword, BitString *partree, vector<uint> *symbols)
-{
-	this->codeword = codeword;
-	this->partree = partree;
-	this->symbols = *symbols;
-	this->leaves = 0;
+DecodingTree::DecodingTree(uint codeword, BitString *partree,
+                           vector<uint> *symbols) {
+  this->codeword = codeword;
+  this->partree = partree;
+  this->symbols = *symbols;
+  this->leaves = 0;
 
-	buildTree(partree->getLength());
+  buildTree(partree->getLength());
 }
 
-size_t 
-DecodingTree::getSize()
-{
-	return nodes*sizeof(TreeNode)+sizeof(DecodingTree)+leaves*sizeof(uint);
+size_t DecodingTree::getSize() {
+  return nodes * sizeof(TreeNode) + sizeof(DecodingTree) +
+         leaves * sizeof(uint);
 }
 
-void 
-DecodingTree::save(ofstream &out)
-{
-	saveValue<uint>(out, codeword);
-	saveValue<uint>(out, leaves);
-	partree->save(out);
-	for (uint i=0; i<leaves; i++) saveValue<uint>(out, symbols[i]);
+void DecodingTree::save(ofstream &out) {
+  saveValue<uint>(out, codeword);
+  saveValue<uint>(out, leaves);
+  partree->save(out);
+  for (uint i = 0; i < leaves; i++)
+    saveValue<uint>(out, symbols[i]);
 
-	delete partree;
+  delete partree;
 }
 
+DecodingTree *DecodingTree::load(ifstream &in) {
+  DecodingTree *table = new DecodingTree();
 
-DecodingTree*
-DecodingTree::load(ifstream &in)
-{
-	DecodingTree *table = new DecodingTree();
+  table->codeword = loadValue<uint>(in);
+  table->leaves = loadValue<uint>(in);
 
-	table->codeword = loadValue<uint>(in);
-	table->leaves = loadValue<uint>(in);
+  table->partree = new BitString(in);
+  for (uint i = 0; i < table->leaves; i++)
+    table->symbols.push_back(loadValue<uint>(in));
+  table->buildTree(table->partree->getLength());
+  delete table->partree;
 
-	table->partree = new BitString(in);
-	for (uint i=0; i<table->leaves; i++) table->symbols.push_back(loadValue<uint>(in));
-	table->buildTree(table->partree->getLength());
-	delete table->partree;
-
-	return table;
+  return table;
 }
 
+void DecodingTree::buildTree(uint bits) {
+  leaves = 0;
+  nodes = bits / 2;
+  tree = new TreeNode[nodes];
 
-void
-DecodingTree::buildTree(uint bits)
-{
-	leaves = 0;
-	nodes = bits/2;
-	tree = new TreeNode[nodes];
+  uint xNodes = 0, ptr = 0;
+  vector<uint> queue;
 
-	uint xNodes=0, ptr=0;
-	vector<uint> queue;
+  while (ptr < bits) {
+    if (partree->getBit(ptr) == 0) {
+      // New node: checking its ancestor
+      uint level = queue.size();
 
-	while (ptr < bits)
-	{
-		if (partree->getBit(ptr) == 0)
-		{
-			// New node: checking its ancestor
-			uint level = queue.size();
+      if (level > 0) {
+        // Left child
+        if (tree[queue[level - 1]].children[0] == -1)
+          tree[queue[level - 1]].children[0] = xNodes;
+        // Right child
+        else
+          tree[queue[level - 1]].children[1] = xNodes;
+      }
 
-			if (level > 0)
-			{
-				// Left child
-				if (tree[queue[level-1]].children[0] == -1) tree[queue[level-1]].children[0] = xNodes;
-				// Right child
-				else tree[queue[level-1]].children[1] = xNodes;		
-			}
+      queue.push_back(xNodes);
+      xNodes++;
+    } else {
+      uint position = queue.size() - 1;
 
-			queue.push_back(xNodes);
-			xNodes++;
-		}
-		else
-		{
-			uint position = queue.size()-1;
+      // Leaf node
+      if (tree[queue[position]].children[0] == -1) {
+        tree[queue[position]].symbol = symbols[leaves];
+        leaves++;
+      }
 
-			// Leaf node
-			if (tree[queue[position]].children[0] == -1)
-			{
-				tree[queue[position]].symbol = symbols[leaves];
-				leaves++;
-			}
+      queue.pop_back();
+    }
 
-			queue.pop_back();
-		}
-
-		ptr++;
-	}
+    ptr++;
+  }
 }
 
-
-DecodingTree::~DecodingTree()
-{
-	delete [] tree;
-}
+DecodingTree::~DecodingTree() { delete[] tree; }

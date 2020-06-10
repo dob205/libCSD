@@ -1,10 +1,10 @@
 /* IteratorDictStringHTFC.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * Iterator class for scanning strings in a Plain Front-Coding representation
  * compressed with Hu-Tucker.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -40,225 +40,215 @@ using namespace std;
 #include "../utils/Utils.h"
 #include "../utils/VByte.h"
 
-class IteratorDictStringHTFC : public IteratorDictString
-{
-	public:
-		/** HTFC Iterator Constructor designed for scanning a Hu-Tucker
-		    Front-Coding representation.
-		    @param table: decoding table for the Hu-Tucker code.
-		    @param codewords: Hu-Tucker codewords.
-		    @param ptr: pointer to the sequence of strings.
-		    @param blStrings: positional index to the strings.
-		    @param bucket: first bucket to be traversed.
-		    @param offset: number of initial strings to be initially
-		      discarded.
-		    @param bucketsize: general bucketsize value used for 
-		      obtaining the Plain Front-Coding representation.
- 		    @param scanneable: bucket size.
-		    @param maxlength: largest string length.
-		    @param maxcomplength: largest compressed string length.
-		*/
-	        IteratorDictStringHTFC(DecodingTable *table, Codeword *codewords,
-				       uchar* ptr, 
-				       LogSequence *blStrings, size_t bucket, 
-				       uint offset, uint bucketsize, 
-				       size_t scanneable, uint maxlength, uint maxcomplength)
-		{ 
-			this->table = table;
-			this->codewords = codewords;
-			this->k = table->getK();
+class IteratorDictStringHTFC : public IteratorDictString {
+public:
+  /** HTFC Iterator Constructor designed for scanning a Hu-Tucker
+      Front-Coding representation.
+      @param table: decoding table for the Hu-Tucker code.
+      @param codewords: Hu-Tucker codewords.
+      @param ptr: pointer to the sequence of strings.
+      @param blStrings: positional index to the strings.
+      @param bucket: first bucket to be traversed.
+      @param offset: number of initial strings to be initially
+        discarded.
+      @param bucketsize: general bucketsize value used for
+        obtaining the Plain Front-Coding representation.
+      @param scanneable: bucket size.
+      @param maxlength: largest string length.
+      @param maxcomplength: largest compressed string length.
+  */
+  IteratorDictStringHTFC(DecodingTable *table, Codeword *codewords, uchar *ptr,
+                         LogSequence *blStrings, size_t bucket, uint offset,
+                         uint bucketsize, size_t scanneable, uint maxlength,
+                         uint maxcomplength) {
+    this->table = table;
+    this->codewords = codewords;
+    this->k = table->getK();
 
-			this->blStrings = blStrings;
-			this->bucket = bucket;
-			this->pos = offset;
-			this->bucketsize = bucketsize;
+    this->blStrings = blStrings;
+    this->bucket = bucket;
+    this->pos = offset;
+    this->bucketsize = bucketsize;
 
-			this->scanneable = scanneable;
-			this->maxlength = maxlength;
-			this->maxcomplength = maxcomplength;
-			this->processed = 0;
+    this->scanneable = scanneable;
+    this->maxlength = maxlength;
+    this->maxcomplength = maxcomplength;
+    this->processed = 0;
 
-			this->ptr = ptr;
+    this->ptr = ptr;
 
-			{
-				this->chunk.c_chunk = 0;
-				this->chunk.c_valid = 0;
-				this->chunk.b_ptr = ptr+blStrings->getField(bucket);
-				this->chunk.b_remain = maxcomplength;
-				this->chunk.str = new uchar[2*maxlength+k];
-				this->chunk.strLen = 0;
-				this->chunk.advanced = 0;
-				this->chunk.extracted = 0;
-			}
+    {
+      this->chunk.c_chunk = 0;
+      this->chunk.c_valid = 0;
+      this->chunk.b_ptr = ptr + blStrings->getField(bucket);
+      this->chunk.b_remain = maxcomplength;
+      this->chunk.str = new uchar[2 * maxlength + k];
+      this->chunk.strLen = 0;
+      this->chunk.advanced = 0;
+      this->chunk.extracted = 0;
+    }
 
-			// Jumping the corresponding strings
-			if (pos > 0)
-			{
-				decodeHeader();
-				for (uint i=1; i<pos; i++) decodeNextString();
-			}
-		}
+    // Jumping the corresponding strings
+    if (pos > 0) {
+      decodeHeader();
+      for (uint i = 1; i < pos; i++)
+        decodeNextString();
+    }
+  }
 
-		/** Checks for non-processed strings in the stream. 
-		    @returns if remains non-processed strings. 
-		*/
-	    	bool hasNext()
-		{
-			return processed<scanneable; 
-		}
+  /** Checks for non-processed strings in the stream.
+      @returns if remains non-processed strings.
+  */
+  bool hasNext() { return processed < scanneable; }
 
-		/** Extracts the next string in the stream. Note that a 
-		    previous checking about next existence must be peformed 
-		    using the 'hasNext' method.
-		    @param strLen: pointer to the string length.
-		    @returns the next string.
-		*/
-		unsigned char* next(uint *strLen) 
-		{
-			// Checking the bucket end
-			if ((pos % bucketsize) == 0) decodeHeader();
-			else decodeNextString();
+  /** Extracts the next string in the stream. Note that a
+      previous checking about next existence must be peformed
+      using the 'hasNext' method.
+      @param strLen: pointer to the string length.
+      @returns the next string.
+  */
+  unsigned char *next(uint *strLen) {
+    // Checking the bucket end
+    if ((pos % bucketsize) == 0)
+      decodeHeader();
+    else
+      decodeNextString();
 
-			*strLen = chunk.strLen-1;
-			uchar *str = new uchar[chunk.strLen+1];
-			strncpy((char*)str, (char*)chunk.str, chunk.strLen);
+    *strLen = chunk.strLen - 1;
+    uchar *str = new uchar[chunk.strLen + 1];
+    strncpy((char *)str, (char *)chunk.str, chunk.strLen);
 
-			processed++;
-			pos++;
-		
-			return str;
-		}
+    processed++;
+    pos++;
 
-		/** Generic destructor. */
-		~IteratorDictStringHTFC() 
-		{
-			delete [] chunk.str;
-		}
+    return str;
+  }
 
-	protected:
-		DecodingTable *table;	//! Decoding table for Hu-Tucker
-		Codeword *codewords;	//! Hu-Tucker codewords
-		uint k;			//! Chunk size used in the table
-		uint maxcomplength;	//! Largest compressed string length
+  /** Generic destructor. */
+  ~IteratorDictStringHTFC() { delete[] chunk.str; }
 
-		LogSequence *blStrings;	//! Positional index to the strings representation
-		size_t bucket;		//! Bucket currently traversed
-		uint pos;		//! Internal position in the bucket
-		uint bucketsize;	//! Size of the current bucket
+protected:
+  DecodingTable *table; //! Decoding table for Hu-Tucker
+  Codeword *codewords;  //! Hu-Tucker codewords
+  uint k;               //! Chunk size used in the table
+  uint maxcomplength;   //! Largest compressed string length
 
-		uchar *ptr;		//! Pointer to the first global position
+  LogSequence *blStrings; //! Positional index to the strings representation
+  size_t bucket;          //! Bucket currently traversed
+  uint pos;               //! Internal position in the bucket
+  uint bucketsize;        //! Size of the current bucket
 
-		ChunkScan chunk;	//! Chunk scanning structure
+  uchar *ptr; //! Pointer to the first global position
 
-		inline void decodeHeader()
-		{
-			chunk.strLen = 0; chunk.advanced = 0; chunk.extracted = 1;
-			chunk.c_chunk = 0; chunk.c_valid = 0;chunk.b_remain = maxcomplength;
+  ChunkScan chunk; //! Chunk scanning structure
 
-			// Variables used for adjusting purposes
-			uint plen = 0;
-			uint pvalid = 0;
-			uchar *pptr = chunk.b_ptr;
+  inline void decodeHeader() {
+    chunk.strLen = 0;
+    chunk.advanced = 0;
+    chunk.extracted = 1;
+    chunk.c_chunk = 0;
+    chunk.c_valid = 0;
+    chunk.b_remain = maxcomplength;
 
-			while (true)
-			{
-				if (table->processChunk(&chunk)) break;
+    // Variables used for adjusting purposes
+    uint plen = 0;
+    uint pvalid = 0;
+    uchar *pptr = chunk.b_ptr;
 
-				plen = chunk.strLen;
-				pvalid = chunk.c_valid;
-				pptr = chunk.b_ptr;
-			}
+    while (true) {
+      if (table->processChunk(&chunk))
+        break;
 
-			uint bits = 0;
+      plen = chunk.strLen;
+      pvalid = chunk.c_valid;
+      pptr = chunk.b_ptr;
+    }
 
-			for (uint i=1; i<=chunk.strLen-plen; i++)
-			{
-				uchar c = chunk.str[chunk.strLen-i];
-				bits += codewords[c].bits;
-			}
+    uint bits = 0;
 
-			chunk.c_valid = 8*(chunk.b_ptr-pptr) - bits + pvalid;
-			chunk.b_ptr = chunk.b_ptr - (chunk.c_valid/8);
+    for (uint i = 1; i <= chunk.strLen - plen; i++) {
+      uchar c = chunk.str[chunk.strLen - i];
+      bits += codewords[c].bits;
+    }
 
-			bucket++;
-			chunk.b_remain = ptr+blStrings->getField(bucket)-chunk.b_ptr;
-			chunk.advanced = 0; chunk.extracted = 0;
-			chunk.c_chunk = 0; chunk.c_valid = 0;
-		}
+    chunk.c_valid = 8 * (chunk.b_ptr - pptr) - bits + pvalid;
+    chunk.b_ptr = chunk.b_ptr - (chunk.c_valid / 8);
 
-		inline void decodeNextString()
-		{
-			chunk.extracted = 0;
+    bucket++;
+    chunk.b_remain = ptr + blStrings->getField(bucket) - chunk.b_ptr;
+    chunk.advanced = 0;
+    chunk.extracted = 0;
+    chunk.c_chunk = 0;
+    chunk.c_valid = 0;
+  }
 
-			uint prevLen = chunk.strLen;
-			uint nextLen = 0;
-			bool end = false;
+  inline void decodeNextString() {
+    chunk.extracted = 0;
 
-			// Checking if any char has been extracted in advance
-			if (chunk.advanced != 0)
-			{
-				// Checking if a full string is encoded in these advanced chars
-				chunk.str[prevLen+chunk.advanced] = 0;
-				nextLen = strlen((char*)(chunk.str+prevLen));
+    uint prevLen = chunk.strLen;
+    uint nextLen = 0;
+    bool end = false;
 
-				if ((nextLen < chunk.advanced) && (nextLen > 0))
-				{
-					uint read = prevLen+VByte::decode(&(chunk.strLen), chunk.str+prevLen);
-					uint extracted = prevLen+nextLen;
+    // Checking if any char has been extracted in advance
+    if (chunk.advanced != 0) {
+      // Checking if a full string is encoded in these advanced chars
+      chunk.str[prevLen + chunk.advanced] = 0;
+      nextLen = strlen((char *)(chunk.str + prevLen));
 
-					for (uint i=read; i<=extracted; i++)
-					{
-						chunk.str[chunk.strLen] = chunk.str[i];
-						chunk.strLen++;
-					}
+      if ((nextLen < chunk.advanced) && (nextLen > 0)) {
+        uint read =
+            prevLen + VByte::decode(&(chunk.strLen), chunk.str + prevLen);
+        uint extracted = prevLen + nextLen;
 
-					nextLen++;
+        for (uint i = read; i <= extracted; i++) {
+          chunk.str[chunk.strLen] = chunk.str[i];
+          chunk.strLen++;
+        }
 
-					if (nextLen != chunk.advanced)
-					{
-						uint xadv = chunk.advanced-nextLen;
-						extracted++;
+        nextLen++;
 
-						for (uint i=0; i<xadv; i++) chunk.str[chunk.strLen+i] = chunk.str[extracted+i];
+        if (nextLen != chunk.advanced) {
+          uint xadv = chunk.advanced - nextLen;
+          extracted++;
 
-						chunk.advanced = xadv;
-					}
-					else chunk.advanced = 0;
+          for (uint i = 0; i < xadv; i++)
+            chunk.str[chunk.strLen + i] = chunk.str[extracted + i];
 
-					return;
-				}
-				else
-				{
-					chunk.strLen = prevLen+chunk.advanced;
-					chunk.extracted = chunk.advanced;
-				}
-			}
+          chunk.advanced = xadv;
+        } else
+          chunk.advanced = 0;
 
-			// Extracts, at least, the two first bytes because represent the VByte
-			// encoding of the prefix length
-			while ((chunk.strLen-prevLen) < 2) end = table->processChunk(&chunk);
+        return;
+      } else {
+        chunk.strLen = prevLen + chunk.advanced;
+        chunk.extracted = chunk.advanced;
+      }
+    }
 
-			// Appends the extracted chars before the common prefix
-			uint extracted = chunk.strLen-prevLen;
-			uint read = VByte::decode(&(chunk.strLen), chunk.str+prevLen);
+    // Extracts, at least, the two first bytes because represent the VByte
+    // encoding of the prefix length
+    while ((chunk.strLen - prevLen) < 2)
+      end = table->processChunk(&chunk);
 
-			for (uint i=read; i<extracted; i++)
-			{
-				chunk.str[chunk.strLen] = chunk.str[prevLen+i];
-				chunk.strLen++;
-			}
+    // Appends the extracted chars before the common prefix
+    uint extracted = chunk.strLen - prevLen;
+    uint read = VByte::decode(&(chunk.strLen), chunk.str + prevLen);
 
-			if (end && (chunk.advanced > 0))
-			{
-				// Copying advanced chars
-				for (uint i=0; i<chunk.advanced; i++)
-					chunk.str[chunk.strLen+i] = chunk.str[prevLen+extracted+i];
-			}
+    for (uint i = read; i < extracted; i++) {
+      chunk.str[chunk.strLen] = chunk.str[prevLen + i];
+      chunk.strLen++;
+    }
 
-			// Extracts the remaining suffix
-			while (!end) end = table->processChunk(&chunk);
-		}
+    if (end && (chunk.advanced > 0)) {
+      // Copying advanced chars
+      for (uint i = 0; i < chunk.advanced; i++)
+        chunk.str[chunk.strLen + i] = chunk.str[prevLen + extracted + i];
+    }
+
+    // Extracts the remaining suffix
+    while (!end)
+      end = table->processChunk(&chunk);
+  }
 };
 
-#endif  
-
+#endif

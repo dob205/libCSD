@@ -22,88 +22,86 @@
 #ifndef STATIC_SEQUENCE_WVTREE_H
 #define STATIC_SEQUENCE_WVTREE_H
 
-#include <iostream>
-#include <cassert>
-#include <libcdsBasics.h>
 #include <BitSequence.h>
 #include <BitSequenceBuilder.h>
-#include <wt_node_internal.h>
-#include <wt_coder_binary.h>
 #include <Mapper.h>
 #include <Sequence.h>
+#include <cassert>
+#include <iostream>
+#include <libcdsBasics.h>
+#include <wt_coder_binary.h>
+#include <wt_node_internal.h>
 
 using namespace std;
 
-namespace cds_static
-{
+namespace cds_static {
 
-    /** Wavelet tree implementation using pointers.
-     *
-     *  @author Francisco Claude
-     */
-    class WaveletTree : public Sequence
-    {
-        public:
+/** Wavelet tree implementation using pointers.
+ *
+ *  @author Francisco Claude
+ */
+class WaveletTree : public Sequence {
+public:
+  /** Builds a Wavelet Tree for the string stored in a
+   *
+   * @param coder corresponds to the coder used to give the shape to the tree.
+   * @param bmb builder for the bitmaps in each node.
+   * @param am mapper for the alphabet.
+   * */
+  WaveletTree(const Array &a, wt_coder *coder, BitSequenceBuilder *bmb,
+              Mapper *am);
+  /** Builds a Wavelet Tree for the string
+   * pointed by symbols assuming its length
+   * equals n
+   * @param coder corresponds to the coder used to give the shape to the tree.
+   * @param bmb builder for the bitmaps in each node.
+   * @param am mapper for the alphabet.
+   * */
+  WaveletTree(uint *symbols, size_t n, wt_coder *coder, BitSequenceBuilder *bmb,
+              Mapper *am, bool free = false);
 
-            /** Builds a Wavelet Tree for the string stored in a
-             *
-             * @param coder corresponds to the coder used to give the shape to the tree.
-             * @param bmb builder for the bitmaps in each node.
-             * @param am mapper for the alphabet.
-             * */
-            WaveletTree(const Array & a, wt_coder * coder, BitSequenceBuilder *bmb, Mapper *am);
-            /** Builds a Wavelet Tree for the string
-             * pointed by symbols assuming its length
-             * equals n 
-             * @param coder corresponds to the coder used to give the shape to the tree.
-             * @param bmb builder for the bitmaps in each node.
-             * @param am mapper for the alphabet.
-             * */
-            WaveletTree(uint * symbols, size_t n, wt_coder * coder, BitSequenceBuilder * bmb, Mapper * am, bool free=false);
+  /** Builds a Wavelet Tree for the string
+   * pointed by symbols assuming its length
+   * equals n
+   * @param coder corresponds to the coder used to give the shape to the tree.
+   * @param bmb builder for the bitmaps in each node.
+   * @param am mapper for the alphabet.
+   * */
+  WaveletTree(uchar *symbols, size_t n, wt_coder *coder,
+              BitSequenceBuilder *bmb, Mapper *am, bool free = false);
 
-            /** Builds a Wavelet Tree for the string
-             * pointed by symbols assuming its length
-             * equals n 
-             * @param coder corresponds to the coder used to give the shape to the tree.
-             * @param bmb builder for the bitmaps in each node.
-             * @param am mapper for the alphabet.
-             * */
-            WaveletTree(uchar * symbols, size_t n, wt_coder * coder, BitSequenceBuilder * bmb, Mapper * am, bool free=false);
+  virtual ~WaveletTree();
 
-            virtual ~WaveletTree();
+  virtual size_t rank(uint symbol, size_t pos) const;
 
-            virtual size_t rank(uint symbol, size_t pos) const;
+  virtual size_t select(uint symbol, size_t j) const;
 
-            virtual size_t select(uint symbol, size_t j) const;
+  virtual uint access(size_t pos) const;
+  virtual uint access(size_t pos, size_t &rank) const;
 
-            virtual uint access(size_t pos) const;
-            virtual uint access(size_t pos, size_t &rank) const;
+  virtual size_t count(uint s) const;
 
-            virtual size_t count(uint s) const;
+  virtual size_t getSize() const;
 
-            virtual size_t getSize() const;
+  virtual void save(ofstream &fp) const;
+  static WaveletTree *load(ifstream &fp);
 
-            virtual void save(ofstream & fp) const;
-            static WaveletTree * load(ifstream & fp);
+protected:
+  WaveletTree();
 
-        protected:
+  wt_node *root;
+  wt_coder *c;
+  Mapper *am;
 
-            WaveletTree();
+  /** Length of the string. */
+  size_t n;
 
-            wt_node * root;
-            wt_coder * c;
-            Mapper * am;
+  /** Height of the Wavelet Tree. */
+  uint max_v;
 
-            /** Length of the string. */
-            size_t n;
-
-            /** Height of the Wavelet Tree. */
-            uint max_v;
-
-            /** Flag for testing for correcteness. */
-            bool test;
-
-    };
-
+  /** Flag for testing for correcteness. */
+  bool test;
 };
-#endif                           /* _STATIC_SEQUENCE_WVTREE_H */
+
+} // namespace cds_static
+#endif /* _STATIC_SEQUENCE_WVTREE_H */

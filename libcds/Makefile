@@ -1,6 +1,8 @@
 
 #CPPFLAGS=-g3 -Wall -m32 -O0 
-CPPFLAGS=-O3 -Wall -DNDEBUG 
+#CPPFLAGS=-O3 -Wall -DNDEBUG 
+CPPFLAGS=-Wall -Wextra -std=c++11 -pedantic -Wmissing-prototypes -Wstrict-prototypes \
+    -Wold-style-definition -Werror -O3
 
 all: clean libcompact
 

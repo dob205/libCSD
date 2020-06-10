@@ -1,6 +1,6 @@
 /* Codeword.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * Simple bit-based codeword.
  *
@@ -25,50 +25,48 @@
  *   Miguel A. Martinez-Prieto:	migumar2@infor.uva.es
  */
 
-
 #ifndef _CODEWORD_H
 #define _CODEWORD_H
 
-class Codeword
-{		
-	public:
-		/** Generic Constructor */
-		Codeword() { this->codeword = 0; this->bits = 0; }
+class Codeword {
+public:
+  /** Generic Constructor */
+  Codeword() {
+    this->codeword = 0;
+    this->bits = 0;
+  }
 
-		/** Class Constructor.
-		    @param codeword: the codeword
-		    @param bits: the codeword length (in bits)
-		*/
-		Codeword(uint codeword, uint bits)
-		{
-			this->codeword = codeword;
-			this->bits = bits;
-		}
+  /** Class Constructor.
+      @param codeword: the codeword
+      @param bits: the codeword length (in bits)
+  */
+  Codeword(uint codeword, uint bits) {
+    this->codeword = codeword;
+    this->bits = bits;
+  }
 
-		/** Generic Destructor */
-		~Codeword() {};
+  /** Generic Destructor */
+  ~Codeword(){};
 
-	protected:
-		uint codeword;	// Codeword (right-aligned)
-		uint bits;	// Codeword length in number of bits
+protected:
+  uint codeword; // Codeword (right-aligned)
+  uint bits;     // Codeword length in number of bits
 
-	friend class StatCoder;
-	friend class DecodingTableBuilder;
+  friend class StatCoder;
+  friend class DecodingTableBuilder;
 
-	friend class HuTucker;
-	friend class Huffman;
+  friend class HuTucker;
+  friend class Huffman;
 
-	friend class StringDictionaryHASHHF;
-	friend class StringDictionaryHASHUFFDAC;
-	friend class StringDictionaryHTFC;
-	friend class StringDictionaryHHTFC;
-	friend class StringDictionaryRPHTFC;
+  friend class StringDictionaryHASHHF;
+  friend class StringDictionaryHASHUFFDAC;
+  friend class StringDictionaryHTFC;
+  friend class StringDictionaryHHTFC;
+  friend class StringDictionaryRPHTFC;
 
-	friend class IteratorDictStringHTFC;
-	friend class IteratorDictStringHHTFC;
-	friend class IteratorDictStringRPHTFC;
+  friend class IteratorDictStringHTFC;
+  friend class IteratorDictStringHHTFC;
+  friend class IteratorDictStringRPHTFC;
 };
 
-
-#endif  /* _CODEWORD_H */
-
+#endif /* _CODEWORD_H */

@@ -1,9 +1,9 @@
 /* IteratorDictID.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
- * all rights reserved.
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ * Martinez-Prieto all rights reserved.
  *
  * Iterator class for scanning streams of IDs.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -28,35 +28,33 @@
 #ifndef _ITERATORDICTID_H
 #define _ITERATORDICTID_H
 
-
 #include <iostream>
 using namespace std;
 
-class IteratorDictID
-{
-	public:
-		/** Checks for non-processed IDs in the stream. 
-		    @returns if remains non-processed IDs.
-		*/
-	    	bool hasNext() { return processed<scanneable; };
+class IteratorDictID {
+public:
+  /** Checks for non-processed IDs in the stream.
+      @returns if remains non-processed IDs.
+  */
+  bool hasNext() { return processed < scanneable; };
 
-		/** Extracts the next ID in the stream. 
-		    @returns the next ID.
-		*/
-	    	virtual size_t next()=0;
+  /** Extracts the next ID in the stream.
+      @returns the next ID.
+  */
+  virtual size_t next() = 0;
 
-		/** Generic destructor */
-		virtual ~IteratorDictID() {} ;
+  /** Generic destructor */
+  virtual ~IteratorDictID(){};
 
-	protected:
-		size_t processed;	// Number of processed IDs
-		size_t scanneable;	// Upper limit of the stream
+protected:
+  size_t processed;  // Number of processed IDs
+  size_t scanneable; // Upper limit of the stream
 };
 
 #include "IteratorDictIDContiguous.h"
-#include "IteratorDictIDNoContiguous.h"
 #include "IteratorDictIDDuplicates.h"
+#include "IteratorDictIDNoContiguous.h"
 #include "IteratorDictIDXBW.h"
 #include "IteratorDictIDXBWDuplicates.h"
 
-#endif  
+#endif

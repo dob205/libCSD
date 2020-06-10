@@ -22,36 +22,34 @@
 #ifndef wt_node_leaf_h
 #define wt_node_leaf_h
 
-#include <wt_node.h>
-#include <libcdsBasics.h>
-#include <wt_coder.h>
 #include <cassert>
+#include <libcdsBasics.h>
 #include <vector>
+#include <wt_coder.h>
+#include <wt_node.h>
 
-namespace cds_static
-{
+namespace cds_static {
 
-    /** Class for representing leaves of the wavelet tree.
-     *
-     *  @author Francisco Claude
-     */
-    class wt_node_leaf: public wt_node
-    {
-        public:
-            wt_node_leaf(uint symbol, size_t count);
-            virtual ~wt_node_leaf();
-            virtual size_t rank(uint symbol, size_t pos, uint l, wt_coder * c) const;
-            virtual size_t select(uint symbol, size_t pos, uint l, wt_coder * c) const;
-            virtual uint access(size_t pos) const;
-            virtual uint access(size_t pos, size_t &rank) const;
-            virtual size_t getSize() const;
-            virtual void save(ofstream & fp) const;
-            static wt_node_leaf * load(ifstream & fp);
+/** Class for representing leaves of the wavelet tree.
+ *
+ *  @author Francisco Claude
+ */
+class wt_node_leaf : public wt_node {
+public:
+  wt_node_leaf(uint symbol, size_t count);
+  virtual ~wt_node_leaf();
+  virtual size_t rank(uint symbol, size_t pos, uint l, wt_coder *c) const;
+  virtual size_t select(uint symbol, size_t pos, uint l, wt_coder *c) const;
+  virtual uint access(size_t pos) const;
+  virtual uint access(size_t pos, size_t &rank) const;
+  virtual size_t getSize() const;
+  virtual void save(ofstream &fp) const;
+  static wt_node_leaf *load(ifstream &fp);
 
-        protected:
-            wt_node_leaf();
-            uint symbol;
-            size_t count;
-    };
+protected:
+  wt_node_leaf();
+  uint symbol;
+  size_t count;
 };
+} // namespace cds_static
 #endif

@@ -21,15 +21,12 @@
 
 #include <BitSequenceBuilder375.h>
 
-namespace cds_static
-{
-    BitSequence * BitSequenceBuilder375::build(uint * bitseq, size_t len) const
-    {
-        return new BitSequence375(bitseq, len);
-    }
+namespace cds_static {
+BitSequence *BitSequenceBuilder375::build(uint *bitseq, size_t len) const {
+  return new BitSequence375(bitseq, len);
+}
 
-    BitSequence * BitSequenceBuilder375::build(const BitString & bs) const
-    {
-	return new BitSequence375(bs.getData(), bs.getLength());
-    }
-};
+BitSequence *BitSequenceBuilder375::build(const BitString &bs) const {
+  return new BitSequence375(bs.getData(), bs.getLength());
+}
+} // namespace cds_static

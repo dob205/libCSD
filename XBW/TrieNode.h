@@ -1,5 +1,6 @@
 /* TrieNode.h
- * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A. Martinez-Prieto
+ * Copyright (C) 2014, Francisco Claude & Rodrigo Canovas & Miguel A.
+ Martinez-Prieto
  * all rights reserved.
  *
  * TrieNode for the XBW
@@ -29,10 +30,10 @@
 #ifndef TRIENODE_H_
 #define TRIENODE_H_
 
-#include <iostream>
-#include <vector>
-#include <map>
 #include <cstring>
+#include <iostream>
+#include <map>
+#include <vector>
 using namespace std;
 
 #include <libcdsBasics.h>
@@ -40,24 +41,24 @@ using namespace cds_utils;
 
 class TrieNode {
 
-	public:
-		TrieNode(char symbol);
+public:
+  TrieNode(char symbol);
 
-		void insert(const uchar *str, int len, int *occ, vector<TrieNode*> *nodes);
-		bool less(const TrieNode & n) const;
-		bool cmp(const TrieNode & n) const;
+  void insert(const uchar *str, int len, int *occ, vector<TrieNode *> *nodes);
+  bool less(const TrieNode &n) const;
+  bool cmp(const TrieNode &n) const;
 
-		virtual ~TrieNode();
+  virtual ~TrieNode();
 
-	protected:
-		uchar symbol;
-		map<char,TrieNode*> children;
-		TrieNode *parent;
-		uchar last_ch;
-		bool leaf;
-		bool last;
+protected:
+  uchar symbol;
+  map<char, TrieNode *> children;
+  TrieNode *parent;
+  uchar last_ch;
+  bool leaf;
+  bool last;
 
-	friend class StringDictionaryXBW;
+  friend class StringDictionaryXBW;
 };
 
 #endif /* TRIENODE_H_ */

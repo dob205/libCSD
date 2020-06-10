@@ -24,53 +24,50 @@
 
 namespace cds_static {
 
-int compare(const void *p1, const void *p2) {
-  return  ((auxbwd *)p1)->key - ((auxbwd *)p2)->key;
+static inline int compare(const void *p1, const void *p2) {
+  return ((auxbwd *)p1)->key - ((auxbwd *)p2)->key;
 }
 
-
-perm createPerm(uint *elems, uint nelems, uint t, BitSequenceBuilder * bmb) {
+perm createPerm(uint *elems, uint nelems, uint t, BitSequenceBuilder *bmb) {
   perm P;
-  uint *b, *baux, nextelem, i, j, bptr,
-    aux, antbptr,nbwdptrs, elem,nbits, firstelem, cyclesize;
+  uint *b, *baux, nextelem, i, j, bptr, aux, antbptr, nbwdptrs, elem, nbits,
+      cyclesize;
   auxbwd *auxbwdptr;
   P = new struct sperm;
-  P->elems  = elems;
+  P->elems = elems;
   P->nelems = nelems;
-  P->nbits  = bits(nelems-1);
-  nbits = bits(nelems-1);
+  P->nbits = bits(nelems - 1);
+  nbits = bits(nelems - 1);
   P->t = t;
-  if (t==1) {
-    P->bwdptrs = new uint[uint_len(nelems,nbits)];
-    assert(P->bwdptrs!=NULL);
+  if (t == 1) {
+    P->bwdptrs = new uint[uint_len(nelems, nbits)];
+    assert(P->bwdptrs != NULL);
     P->nbwdptrs = nelems;
-    for (i=0; i<nelems; i++) {
+    for (i = 0; i < nelems; i++) {
       uint bg = get_field(elems, nbits, i);
-      assert(bg<nelems);
+      assert(bg < nelems);
       set_field(P->bwdptrs, nbits, bg, i);
     }
     P->bmap = NULL;
-  }
-  else {
-    auxbwdptr = new auxbwd[(t+((int)ceil((double)nelems/t)))];
-    assert(auxbwdptr!=NULL);
-    b = new uint[uint_len(nelems,1)];
-    for(i=0;i<uint_len(nelems,1);i++)
-      b[i]=0;
-    assert(b!=NULL);    
-    baux = new uint[uint_len(nelems,1)];
-    for(i=0;i<uint_len(nelems,1);i++)
+  } else {
+    auxbwdptr = new auxbwd[(t + ((int)ceil((double)nelems / t)))];
+    assert(auxbwdptr != NULL);
+    b = new uint[uint_len(nelems, 1)];
+    for (i = 0; i < uint_len(nelems, 1); i++)
+      b[i] = 0;
+    assert(b != NULL);
+    baux = new uint[uint_len(nelems, 1)];
+    for (i = 0; i < uint_len(nelems, 1); i++)
       baux[i] = 0;
-    assert(baux!=NULL);
+    assert(baux != NULL);
     nbwdptrs = 0;
     for (i = 0; i < nelems; i++) {
-      if (bitget(baux,i) == 0) {
+      if (bitget(baux, i) == 0) {
         nextelem = j = bptr = antbptr = i;
         aux = 0;
         bitset(baux, j);
         cyclesize = 0;
-        firstelem = j;
-        while ((elem=get_field(elems,nbits,j)) != nextelem) {
+        while ((elem = get_field(elems, nbits, j)) != nextelem) {
           j = elem;
           bitset(baux, j);
           aux++;
@@ -78,8 +75,8 @@ perm createPerm(uint *elems, uint nelems, uint t, BitSequenceBuilder * bmb) {
             auxbwdptr[nbwdptrs].key = j;
             auxbwdptr[nbwdptrs++].pointer = bptr;
             antbptr = bptr;
-            bptr    = j;
-            aux     = 0;
+            bptr = j;
+            aux = 0;
             bitset(b, j);
           }
           cyclesize++;
@@ -92,56 +89,55 @@ perm createPerm(uint *elems, uint nelems, uint t, BitSequenceBuilder * bmb) {
       }
     }
     qsort(auxbwdptr, nbwdptrs, sizeof(auxbwd), &compare);
-    aux = uint_len(nbwdptrs,P->nbits);
+    aux = uint_len(nbwdptrs, P->nbits);
     P->bwdptrs = new uint[aux];
-    assert(P->bwdptrs!=NULL);
-    for(i=0;i<aux;i++) P->bwdptrs[i] = 0;
+    assert(P->bwdptrs != NULL);
+    for (i = 0; i < aux; i++)
+      P->bwdptrs[i] = 0;
     P->nbwdptrs = nbwdptrs;
     for (i = 0; i < nbwdptrs; i++) {
       set_field(P->bwdptrs, nbits, i, auxbwdptr[i].pointer);
-      //if(i<5) 
+      // if(i<5)
       //  printf(" %d ",get_field(P->bwdptrs,nbits,i));
     }
-    //printf("\n");
+    // printf("\n");
     P->bmap = bmb->build(b, nelems);
-    //delete [] P->bmap;
-    delete [] b;
-    delete [] (baux);
-    delete [] (auxbwdptr);
+    // delete [] P->bmap;
+    delete[] b;
+    delete[](baux);
+    delete[](auxbwdptr);
   }
   return P;
 }
 
-
 void destroyPerm(perm P) {
-  delete [] P->elems;
-  if (P->bmap) delete P->bmap;
-  delete [] P->bwdptrs;
+  delete[] P->elems;
+  if (P->bmap)
+    delete P->bmap;
+  delete[] P->bwdptrs;
   delete P;
 }
-
 
 // Computes P-1[i]
 uint inversePerm(const perm P, uint i) {
   uint j, elem;
-  if (P->t==1) {
-    j = get_field(P->bwdptrs,P->nbits,i); 
-  }
-  else {
+  if (P->t == 1) {
+    j = get_field(P->bwdptrs, P->nbits, i);
+  } else {
     j = i;
-    while (((elem=get_field(P->elems,P->nbits,j)) != i)&&(!P->bmap->access(j)))
+    while (((elem = get_field(P->elems, P->nbits, j)) != i) &&
+           (!P->bmap->access(j)))
       j = elem;
 
     if (elem != i) {
       // follows the backward pointer
-      j = get_field(P->bwdptrs, P->nbits, P->bmap->rank1(j-1));
-      while ((elem = get_field(P->elems,P->nbits,j))!= i)
+      j = get_field(P->bwdptrs, P->nbits, P->bmap->rank1(j - 1));
+      while ((elem = get_field(P->elems, P->nbits, j)) != i)
         j = elem;
     }
   }
   return j;
 }
-
 
 // gets the ith element of a perm P
 
@@ -149,70 +145,66 @@ uint getelemPerm(const perm P, uint i) {
   return get_field(P->elems, P->nbits, i);
 }
 
-
-uint savePerm(const perm P, ofstream & f) {
+uint savePerm(const perm P, ofstream &f) {
   uint aux;
   uint v;
 
-  saveValue(f,P->nelems);
-  saveValue(f,P->elems,uint_len(P->nelems,P->nbits));
+  saveValue(f, P->nelems);
+  saveValue(f, P->elems, uint_len(P->nelems, P->nbits));
 
-  aux = ((P->nelems+W-1)/W);
+  aux = ((P->nelems + W - 1) / W);
 
   if (P->bmap) {
-    v=1;
-    saveValue(f,v);
+    v = 1;
+    saveValue(f, v);
     P->bmap->save(f);
-  }
-  else {
-    v=0;
-    saveValue(f,v);
+  } else {
+    v = 0;
+    saveValue(f, v);
   }
 
-  saveValue(f,P->nbwdptrs);
-  aux = uint_len(P->nbwdptrs,P->nbits);
-  saveValue(f,P->bwdptrs,aux);
-  saveValue(f,P->t);
+  saveValue(f, P->nbwdptrs);
+  aux = uint_len(P->nbwdptrs, P->nbits);
+  saveValue(f, P->bwdptrs, aux);
+  saveValue(f, P->t);
   return 0;
 }
 
-
-perm loadPerm(ifstream & f) {
+perm loadPerm(ifstream &f) {
   uint aux;
   perm P;
   uint v;
 
-  P = new struct sperm;          //(struct sperm*) malloc(sizeof(struct sperm));
+  P = new struct sperm; //(struct sperm*) malloc(sizeof(struct sperm));
 
   P->nelems = loadValue<uint>(f);
 
-  P->nbits = bits(P->nelems-1);
-  aux = uint_len(P->nelems,P->nbits);
-  P->elems = loadValue<uint>(f,aux);
+  P->nbits = bits(P->nelems - 1);
+  aux = uint_len(P->nelems, P->nbits);
+  P->elems = loadValue<uint>(f, aux);
 
   v = loadValue<uint>(f);
 
   if (v) {
     P->bmap = BitSequence::load(f);
-  }
-  else P->bmap = NULL;
+  } else
+    P->bmap = NULL;
 
   P->nbwdptrs = loadValue<uint>(f);
 
-  aux = uint_len(P->nbwdptrs,P->nbits);
-  P->bwdptrs = loadValue<uint>(f,aux);
+  aux = uint_len(P->nbwdptrs, P->nbits);
+  P->bwdptrs = loadValue<uint>(f, aux);
 
   P->t = loadValue<uint>(f);
 
   return P;
 }
 
-
 uint sizeofPerm(perm P) {
   return sizeof(struct sperm) +
-    ((uint_len(P->nelems,P->nbits))*sizeof(uint)) +
-    ((P->bmap)?(P->bmap->getSize()):0) +
-    ((uint_len(P->nbwdptrs,P->nbits))*sizeof(uint));
+         ((uint_len(P->nelems, P->nbits)) * sizeof(uint)) +
+         ((P->bmap) ? (P->bmap->getSize()) : 0) +
+         ((uint_len(P->nbwdptrs, P->nbits)) * sizeof(uint));
 }
 
-};
+} // namespace cds_static
