@@ -1,5 +1,5 @@
 
-CPP=g++
+CPP=$(CXX)
 
 INCL=-I../includes/
 
@@ -31,6 +31,7 @@ clean:
 	@rm -f $(OBJECTS)
 
 lib: pre $(OBJECTS)
+	mkdir -p lib
 	@echo " [LIB] Packing the object files"
 	@ar rcs ../lib/libcds.a $(OBJECTS) 
 

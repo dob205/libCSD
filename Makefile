@@ -1,5 +1,5 @@
 CPP=g++
-FLAGS=-O9 -Wall -DNDEBUG -I libcds/includes/ 
+FLAGS=-O3 -Wall -DNDEBUG -I libcds/includes/ 
 LIB=libcds/lib/libcds.a
 
 OBJECTS_CODER=utils/Coder/StatCoder.o utils/Coder/DecodingTableBuilder.o utils/Coder/DecodingTable.o utils/Coder/DecodingTree.o utils/Coder/BinaryNode.o
