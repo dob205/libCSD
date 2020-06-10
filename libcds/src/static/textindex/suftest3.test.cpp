@@ -66,6 +66,23 @@
 
 namespace cds_static {
 
+char *error_index(int e)  __attribute__((unused));
+int get_length(void *index, ulong *length) __attribute__((unused));
+int extract(void *index, ulong from, ulong to, uchar **snippet,
+                   ulong *snippet_length) __attribute__((unused));
+int display(void *index, uchar *pattern, ulong length, ulong numc, 
+            ulong *numocc, uchar **snippet_text,
+            ulong **snippet_lengths) __attribute__((unused));
+
+int locate(void *index, uchar *pattern, ulong length, ulong **occ,
+                  ulong *numocc) __attribute__((unused));
+
+ulong locate_extract(void *index) __attribute__((unused));
+int free_index(void *index) __attribute__((unused));
+int save_index(void *, char *) __attribute__((unused));
+int build_index(uchar *text, ulong length, char *build_options,
+                       void **index) __attribute__((unused));
+
 #if 1
 typedef struct timeb mytimestruct;
 static inline void mygettime(mytimestruct *t) { ftime(t); }
@@ -153,7 +170,7 @@ static int load_index(char *filename, void **index) {
   return 0;
 }
 
-static int build_index(uchar *text, ulong length, char *build_options,
+int build_index(uchar *text, ulong length, char *build_options,
                        void **index) {
   char delimiters[] = " =;";
   char filename[256] = "";
@@ -221,12 +238,12 @@ static int build_index(uchar *text, ulong length, char *build_options,
 }
 
 // void *index, char *filename
-static int save_index(void *, char *) {
+int save_index(void *, char *) {
   /*si lo puedo grabar*/
   return 99;
 }
 
-static int free_index(void *index) {
+int free_index(void *index) {
   CSA *SA = (CSA *)index;
 #ifdef USE_MMAP
   if (SA->mapp != NULL)
@@ -288,7 +305,7 @@ static inline int count(void *index, uchar *pattern, ulong length,
   return 0;
 }
 
-static ulong locate_extract(void *index) {
+ulong locate_extract(void *index) {
   CSA *SA = (CSA *)index;
   ulong largo, *occ, lar, n = SA->n, l, r, lll = 0;
   ulong matches;
@@ -308,7 +325,7 @@ static ulong locate_extract(void *index) {
   return lll;
 }
 
-static int locate(void *index, uchar *pattern, ulong length, ulong **occ,
+int locate(void *index, uchar *pattern, ulong length, ulong **occ,
                   ulong *numocc) {
   //*numocc=locate_extract(index);
   // exit(0);
@@ -323,7 +340,7 @@ static int locate(void *index, uchar *pattern, ulong length, ulong **occ,
 /*///////////////////////
 //Accessing the indexed//
 ///////////////////////*/
-static int display(void *index, uchar *pattern, ulong length, ulong numc,
+int display(void *index, uchar *pattern, ulong length, ulong numc,
                    ulong *numocc, uchar **snippet_text,
                    ulong **snippet_lengths) {
   int l, r;
@@ -365,7 +382,7 @@ static int display(void *index, uchar *pattern, ulong length, ulong numc,
   return 0;
 }
 
-static int extract(void *index, ulong from, ulong to, uchar **snippet,
+int extract(void *index, ulong from, ulong to, uchar **snippet,
                    ulong *snippet_length) {
   CSA *SA = (CSA *)index;
   ulong n = SA->n;
@@ -391,7 +408,7 @@ static int extract(void *index, ulong from, ulong to, uchar **snippet,
   return 0;
 }
 
-static int get_length(void *index, ulong *length) {
+int get_length(void *index, ulong *length) {
   (*length) = ((CSA *)index)->n;
   return 0;
 }
@@ -399,7 +416,8 @@ static int get_length(void *index, ulong *length) {
 /*////////////////
 //Error handling//
 ////////////////*/
-static char *error_index(int e) {
+
+char *error_index(int e){
   char *error = new char[50];
   switch (e) {
   case 0:

@@ -301,4 +301,4 @@ void suffixsort(int *x, int *p, int n, int k, int l) {
     I[V[i]] = i;
 }
 
-}; // namespace cds_static
+} // namespace cds_static
