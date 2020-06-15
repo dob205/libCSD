@@ -67,6 +67,7 @@
 
 #define MIN(a, b) ((a) <= (b) ? (a) : (b))
 
+using ulong = unsigned long;
 class SuffixArray {
 public:
   SuffixArray();
