@@ -553,8 +553,7 @@ IteratorDictString *StringDictionaryHHTFC::extractPrefix(uchar *str,
     return NULL;
 }
 
-IteratorDictString *StringDictionaryHHTFC::extractSubstr(uchar *,
-                                                         uint) {
+IteratorDictString *StringDictionaryHHTFC::extractSubstr(uchar *, uint) {
   cerr << "This dictionary does not provide substring extraction" << endl;
   return 0;
 }

@@ -303,8 +303,7 @@ IteratorDictString *StringDictionaryPFC::extractPrefix(uchar *str,
     return NULL;
 }
 
-IteratorDictString *StringDictionaryPFC::extractSubstr(uchar *,
-                                                       uint) {
+IteratorDictString *StringDictionaryPFC::extractSubstr(uchar *, uint) {
   cerr << "This dictionary does not provide substring extraction" << endl;
   return 0;
 }
@@ -374,7 +373,7 @@ void StringDictionaryPFC::decodeNextString(uchar **ptr, uint lenPrefix,
   lenSuffix = strlen((char *)*ptr);
 
   memcpy((char *)(str + lenPrefix), (char *)*ptr, lenSuffix);
-  (str+lenPrefix)[lenSuffix] = 0; // add a zero after the last character
+  (str + lenPrefix)[lenSuffix] = 0; // add a zero after the last character
 
   *ptr += lenSuffix + 1;
   *strLen = lenPrefix + lenSuffix;

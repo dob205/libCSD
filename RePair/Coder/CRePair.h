@@ -23,9 +23,9 @@
 #ifndef CREPAIR_H
 #define CREPAIR_H
 
-#include <iostream>
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
 #include <string.h>
 
 #include <Array.h>

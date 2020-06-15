@@ -23,10 +23,10 @@
 #define _FACTORIZATION_VAR
 
 #include <BitSequence.h>
-#include <libcdsTrees.h>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <libcdsTrees.h>
 #include <string.h>
 
 namespace cds_static {

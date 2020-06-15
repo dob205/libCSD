@@ -404,8 +404,7 @@ IteratorDictString *StringDictionaryRPFC::extractPrefix(uchar *str,
     return NULL;
 }
 
-IteratorDictString *StringDictionaryRPFC::extractSubstr(uchar *,
-                                                        uint) {
+IteratorDictString *StringDictionaryRPFC::extractSubstr(uchar *, uint) {
   cerr << "This dictionary does not provide substring extraction" << endl;
   return 0;
 }

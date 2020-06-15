@@ -491,8 +491,7 @@ IteratorDictString *StringDictionaryRPHTFC::extractPrefix(uchar *str,
     return NULL;
 }
 
-IteratorDictString *StringDictionaryRPHTFC::extractSubstr(uchar *,
-                                                          uint) {
+IteratorDictString *StringDictionaryRPHTFC::extractSubstr(uchar *, uint) {
   cerr << "This dictionary does not provide substring extraction" << endl;
   return 0;
 }

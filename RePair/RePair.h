@@ -28,8 +28,6 @@
 #ifndef REPAIR_H_
 #define REPAIR_H_
 
-
-
 #include <libcdsBasics.h>
 
 #include "../utils/DAC_VLS.h"

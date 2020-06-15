@@ -66,22 +66,22 @@
 
 namespace cds_static {
 
-char *error_index(int e)  __attribute__((unused));
+char *error_index(int e) __attribute__((unused));
 int get_length(void *index, ulong *length) __attribute__((unused));
 int extract(void *index, ulong from, ulong to, uchar **snippet,
-                   ulong *snippet_length) __attribute__((unused));
-int display(void *index, uchar *pattern, ulong length, ulong numc, 
-            ulong *numocc, uchar **snippet_text,
-            ulong **snippet_lengths) __attribute__((unused));
+            ulong *snippet_length) __attribute__((unused));
+int display(void *index, uchar *pattern, ulong length, ulong numc,
+            ulong *numocc, uchar **snippet_text, ulong **snippet_lengths)
+    __attribute__((unused));
 
 int locate(void *index, uchar *pattern, ulong length, ulong **occ,
-                  ulong *numocc) __attribute__((unused));
+           ulong *numocc) __attribute__((unused));
 
 ulong locate_extract(void *index) __attribute__((unused));
 int free_index(void *index) __attribute__((unused));
 int save_index(void *, char *) __attribute__((unused));
-int build_index(uchar *text, ulong length, char *build_options,
-                       void **index) __attribute__((unused));
+int build_index(uchar *text, ulong length, char *build_options, void **index)
+    __attribute__((unused));
 
 #if 1
 typedef struct timeb mytimestruct;
@@ -170,8 +170,7 @@ static int load_index(char *filename, void **index) {
   return 0;
 }
 
-int build_index(uchar *text, ulong length, char *build_options,
-                       void **index) {
+int build_index(uchar *text, ulong length, char *build_options, void **index) {
   char delimiters[] = " =;";
   char filename[256] = "";
   int j, num_parameters;
@@ -326,7 +325,7 @@ ulong locate_extract(void *index) {
 }
 
 int locate(void *index, uchar *pattern, ulong length, ulong **occ,
-                  ulong *numocc) {
+           ulong *numocc) {
   //*numocc=locate_extract(index);
   // exit(0);
   int l, r;
@@ -341,8 +340,7 @@ int locate(void *index, uchar *pattern, ulong length, ulong **occ,
 //Accessing the indexed//
 ///////////////////////*/
 int display(void *index, uchar *pattern, ulong length, ulong numc,
-                   ulong *numocc, uchar **snippet_text,
-                   ulong **snippet_lengths) {
+            ulong *numocc, uchar **snippet_text, ulong **snippet_lengths) {
   int l, r;
   int pos;
   ulong *occ, i, j, from, to, len, x;
@@ -383,7 +381,7 @@ int display(void *index, uchar *pattern, ulong length, ulong numc,
 }
 
 int extract(void *index, ulong from, ulong to, uchar **snippet,
-                   ulong *snippet_length) {
+            ulong *snippet_length) {
   CSA *SA = (CSA *)index;
   ulong n = SA->n;
   int pos;
@@ -417,7 +415,7 @@ int get_length(void *index, ulong *length) {
 //Error handling//
 ////////////////*/
 
-char *error_index(int e){
+char *error_index(int e) {
   char *error = new char[50];
   switch (e) {
   case 0:

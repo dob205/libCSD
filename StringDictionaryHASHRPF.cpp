@@ -33,8 +33,8 @@ StringDictionaryHASHRPF::StringDictionaryHASHRPF() {
   this->maxlength = 0;
 }
 
-StringDictionaryHASHRPF::StringDictionaryHASHRPF(IteratorDictString *it,
-                                                 uint, int overhead) {
+StringDictionaryHASHRPF::StringDictionaryHASHRPF(IteratorDictString *it, uint,
+                                                 int overhead) {
   this->type = HASHRPF;
   this->elements = 0;
   this->maxlength = 0;
@@ -212,12 +212,12 @@ uchar *StringDictionaryHASHRPF::extract(size_t id, uint *strLen) {
   }
 }
 
-IteratorDictID *StringDictionaryHASHRPF::locatePrefix(uchar *, uint ) {
+IteratorDictID *StringDictionaryHASHRPF::locatePrefix(uchar *, uint) {
   cout << "This dictionary does not provide prefix location" << endl;
   return NULL;
 }
 
-IteratorDictID *StringDictionaryHASHRPF::locateSubstr(uchar *, uint ) {
+IteratorDictID *StringDictionaryHASHRPF::locateSubstr(uchar *, uint) {
   cout << "This dictionary does not provide substring location" << endl;
   return NULL;
 }
@@ -227,19 +227,17 @@ uint StringDictionaryHASHRPF::locateRank(uint) {
   return 0;
 }
 
-IteratorDictString *StringDictionaryHASHRPF::extractPrefix(uchar *,
-                                                           uint ) {
+IteratorDictString *StringDictionaryHASHRPF::extractPrefix(uchar *, uint) {
   cout << "This dictionary does not provide prefix extraction" << endl;
   return NULL;
 }
 
-IteratorDictString *StringDictionaryHASHRPF::extractSubstr(uchar *,
-                                                           uint ) {
+IteratorDictString *StringDictionaryHASHRPF::extractSubstr(uchar *, uint) {
   cout << "This dictionary does not provide substring extraction" << endl;
   return NULL;
 }
 
-uchar *StringDictionaryHASHRPF::extractRank(uint , uint *) {
+uchar *StringDictionaryHASHRPF::extractRank(uint, uint *) {
   cout << "This dictionary does not provide rank extraction" << endl;
   return NULL;
 }

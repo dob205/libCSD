@@ -34,8 +34,8 @@
 #include <iostream>
 using namespace std;
 
-#include "../utils/Coder/DecodingTable.h"
 #include "../utils/Coder/Codeword.h"
+#include "../utils/Coder/DecodingTable.h"
 #include "../utils/LogSequence.h"
 #include "../utils/Utils.h"
 #include "../utils/VByte.h"

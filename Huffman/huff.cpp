@@ -273,7 +273,8 @@ THuffx loadHuff(ifstream &f) {
   H.fst[H.depth] = 0;
   dold = 0;
   int signed_d;
-  for (d = H.depth - 1, signed_d = H.depth - 1; signed_d >= 0; d--, signed_d--) {
+  for (d = H.depth - 1, signed_d = H.depth - 1; signed_d >= 0;
+       d--, signed_d--) {
     dact = H.num_enc[d + 1];
     H.fst[d] = (H.fst[d + 1] + dact) >> 1;
     H.num_dec[d + 1] = dold;

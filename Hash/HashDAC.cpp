@@ -137,7 +137,7 @@ HashDAC *HashDAC::load(ifstream &fp) {
   return h_new;
 }
 
-int HashDAC::scmp(size_t pos, uchar *w, size_t ) { // len
+int HashDAC::scmp(size_t pos, uchar *w, size_t) { // len
   uint id = pos + 1;
   uint level = 0;
   size_t value;

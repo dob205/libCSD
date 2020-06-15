@@ -35,10 +35,10 @@
 #define _DAC_VLS
 
 #include <BitSequence.h>
-#include <libcdsTrees.h>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <libcdsTrees.h>
 #include <string.h>
 
 using namespace cds_static;

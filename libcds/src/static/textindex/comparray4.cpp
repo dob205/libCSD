@@ -36,11 +36,11 @@
 
 #define USE_MMAP
 
-#include <comparray4.h>
 #include <cmath>
-#include <mmap.h>
+#include <comparray4.h>
 #include <cstdio>
 #include <cstdlib>
+#include <mmap.h>
 
 #define inline
 #define ENCODENUM encodegamma

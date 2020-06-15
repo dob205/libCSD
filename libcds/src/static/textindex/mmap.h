@@ -26,9 +26,9 @@
 #ifdef WIN32
 #include <windows.h>
 #else
-#include <fcntl.h>
 #include <cstdio>
 #include <cstdlib>
+#include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>

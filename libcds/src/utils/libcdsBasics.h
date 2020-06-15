@@ -24,13 +24,12 @@
 
 #include <cassert>
 #include <cmath>
+#include <cstdio>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <stdint.h>
-#include <cstdio>
-#include <cstdlib>
 #include <string>
 #include <sys/resource.h>
 #include <sys/stat.h>

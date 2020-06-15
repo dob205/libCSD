@@ -285,12 +285,12 @@ uchar *StringDictionaryHASHHF::extract(size_t id, uint *strLen) {
   }
 }
 
-IteratorDictID *StringDictionaryHASHHF::locatePrefix(uchar *, uint ) {
+IteratorDictID *StringDictionaryHASHHF::locatePrefix(uchar *, uint) {
   cout << "This dictionary does not provide prefix location" << endl;
   return NULL;
 }
 
-IteratorDictID *StringDictionaryHASHHF::locateSubstr(uchar *, uint ) {
+IteratorDictID *StringDictionaryHASHHF::locateSubstr(uchar *, uint) {
   cout << "This dictionary does not provide substring location" << endl;
   return NULL;
 }
@@ -300,19 +300,17 @@ uint StringDictionaryHASHHF::locateRank(uint) {
   return 0;
 }
 
-IteratorDictString *StringDictionaryHASHHF::extractPrefix(uchar *,
-                                                          uint ) {
+IteratorDictString *StringDictionaryHASHHF::extractPrefix(uchar *, uint) {
   cout << "This dictionary does not provide prefix extraction" << endl;
   return NULL;
 }
 
-IteratorDictString *StringDictionaryHASHHF::extractSubstr(uchar *,
-                                                          uint ) {
+IteratorDictString *StringDictionaryHASHHF::extractSubstr(uchar *, uint) {
   cout << "This dictionary does not provide substring extraction" << endl;
   return NULL;
 }
 
-uchar *StringDictionaryHASHHF::extractRank(uint , uint *) {
+uchar *StringDictionaryHASHHF::extractRank(uint, uint *) {
   cout << "This dictionary does not provide rank extraction" << endl;
   return NULL;
 }

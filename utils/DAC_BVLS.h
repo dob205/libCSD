@@ -36,10 +36,10 @@
 #define _DAC_BVLS
 
 #include <BitSequence.h>
-#include <libcdsTrees.h>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <libcdsTrees.h>
 #include <string.h>
 
 #define BYTE 8
