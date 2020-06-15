@@ -49,3 +49,8 @@ clean:
 
 clean-all: clean
 	cd libcds && make clean
+
+merge: libCSD.a
+
+libCSD.a:
+	ar rcs libCSD.a ${OBJECTS}

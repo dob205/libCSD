@@ -1,0 +1,7 @@
+*.o
+*.a
+libcds/includes/
+.idea/
+.vscode/
+Build
+Test
