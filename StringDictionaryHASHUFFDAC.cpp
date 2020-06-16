@@ -71,8 +71,8 @@ StringDictionaryHASHUFFDAC::StringDictionaryHASHUFFDAC(IteratorDictString *it,
   size_t ptr = 0;
   uint offset = 0, bytes = 0;
   uchar *tmp = new uchar[4 * maxlength];
-  vector<uchar> textSubstr;
-  vector<ushort> lenSubstr;
+  std::vector<uchar> textSubstr;
+  std::vector<ushort> lenSubstr;
   ushort ptrSubstr = 0;
   uint codeSubstr = 0;
 
@@ -81,10 +81,10 @@ StringDictionaryHASHUFFDAC::StringDictionaryHASHUFFDAC(IteratorDictString *it,
   uint nLevels = 0;         // DAC height
   uchar *dacseq;            // Byte sequence
   BitString *bS;            // Bistring drawing the DAC structure
-  vector<uint> levelsIndex; // Starting position for each level
+  std::vector<uint> levelsIndex; // Starting position for each level
 
   // Simulating the hash representation
-  vector<SortString> sorting(elements);
+  std::vector<SortString> sorting(elements);
 
   for (uint current = 1; current <= elements; current++) {
     // Resetting variables for the next string
@@ -127,7 +127,7 @@ StringDictionaryHASHUFFDAC::StringDictionaryHASHUFFDAC(IteratorDictString *it,
   }
 
   bS = new BitString(tamCode);
-  vector<uint> xLevels(nLevels);
+  std::vector<uint> xLevels(nLevels);
 
   xLevels[0] = 0;
   for (uint i = 1; i < nLevels; i++)
@@ -135,7 +135,7 @@ StringDictionaryHASHUFFDAC::StringDictionaryHASHUFFDAC(IteratorDictString *it,
   for (uint i = 0; i < nLevels; i++)
     levelsIndex[i] = xLevels[i];
 
-  vector<uint> rankLevels(nLevels + 1, 0); // Ranks until the level beginnings
+  std::vector<uint> rankLevels(nLevels + 1, 0); // Ranks until the level beginnings
 
   // Sorting Tdict into Tdict*
   std::sort(sorting.begin(), sorting.end(), sortTdict);
@@ -240,37 +240,37 @@ uchar *StringDictionaryHASHUFFDAC::extract(size_t id, uint *strLen) {
 }
 
 IteratorDictID *StringDictionaryHASHUFFDAC::locatePrefix(uchar *, uint) {
-  cout << "This dictionary does not provide prefix location" << endl;
+  std::cout << "This dictionary does not provide prefix location" << std::endl;
   return NULL;
 }
 
 IteratorDictID *StringDictionaryHASHUFFDAC::locateSubstr(uchar *, uint) {
-  cout << "This dictionary does not provide substring location" << endl;
+  std::cout << "This dictionary does not provide substring location" << std::endl;
   return NULL;
 }
 
 uint StringDictionaryHASHUFFDAC::locateRank(uint) {
-  cout << "This dictionary does not provide rank location" << endl;
+  std::cout << "This dictionary does not provide rank location" << std::endl;
   return 0;
 }
 
 IteratorDictString *StringDictionaryHASHUFFDAC::extractPrefix(uchar *, uint) {
-  cout << "This dictionary does not provide prefix extraction" << endl;
+  std::cout << "This dictionary does not provide prefix extraction" << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHUFFDAC::extractSubstr(uchar *, uint) {
-  cout << "This dictionary does not provide substring extraction" << endl;
+  std::cout << "This dictionary does not provide substring extraction" << std::endl;
   return NULL;
 }
 
 uchar *StringDictionaryHASHUFFDAC::extractRank(uint, uint *) {
-  cout << "This dictionary does not provide rank extraction" << endl;
+  std::cout << "This dictionary does not provide rank extraction" << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHUFFDAC::extractTable() {
-  vector<uchar *> tabledec(elements);
+  std::vector<uchar *> tabledec(elements);
   uint strLen;
 
   for (uint i = 1; i <= elements; i++)
@@ -326,7 +326,7 @@ size_t StringDictionaryHASHUFFDAC::getSize() {
          256 * sizeof(bool);
 }
 
-void StringDictionaryHASHUFFDAC::save(ofstream &out) {
+void StringDictionaryHASHUFFDAC::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -340,7 +340,7 @@ void StringDictionaryHASHUFFDAC::save(ofstream &out) {
   table->save(out);
 }
 
-StringDictionary *StringDictionaryHASHUFFDAC::load(ifstream &in) {
+StringDictionary *StringDictionaryHASHUFFDAC::load(std::ifstream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != HASHUFFDAC)
     return NULL;

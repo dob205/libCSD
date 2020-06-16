@@ -32,7 +32,7 @@
 #include <string.h>
 
 #include <iostream>
-using namespace std;
+
 
 #include "../RePair/RePair.h"
 #include "../utils/LogSequence.h"

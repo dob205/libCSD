@@ -53,14 +53,14 @@ uint MapperCont::unmap(uint s) const { return m->select1(s); }
 
 size_t MapperCont::getSize() const { return sizeof(MapperCont) + m->getSize(); }
 
-void MapperCont::save(ofstream &out) const {
+void MapperCont::save(std::ofstream &out) const {
   assert(out.good());
   uint wr = MAPPER_CONT_HDR;
   saveValue(out, wr);
   m->save(out);
 }
 
-MapperCont *MapperCont::load(ifstream &input) {
+MapperCont *MapperCont::load(std::ifstream &input) {
   assert(input.good());
   uint rd = loadValue<uint>(input);
   if (rd != MAPPER_CONT_HDR)

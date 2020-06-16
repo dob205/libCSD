@@ -76,10 +76,10 @@ public:
 
   virtual size_t getSize() const;
 
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
   /** Reads the bitmap from a file pointer, returns NULL in case of error */
-  static BitSequenceRRR *load(ifstream &fp);
+  static BitSequenceRRR *load(std::ifstream &fp);
 
   /** Creates a new sampling for the queries */
   void create_sampling(uint sampling_rate);

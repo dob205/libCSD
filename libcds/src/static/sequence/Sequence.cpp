@@ -65,10 +65,10 @@ uint Sequence::access(size_t i, size_t &_rank) const {
   return s;
 }
 
-Sequence *Sequence::load(ifstream &fp) {
+Sequence *Sequence::load(std::ifstream &fp) {
   uint type = loadValue<uint>(fp);
   size_t pos = fp.tellg();
-  fp.seekg(pos - sizeof(uint), ios::beg);
+  fp.seekg(pos - sizeof(uint), std::ios::beg);
   switch (type) {
   case GMR_CHUNK_HDR:
     return SequenceGMRChunk::load(fp);

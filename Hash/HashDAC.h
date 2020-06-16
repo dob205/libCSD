@@ -36,7 +36,7 @@
 #define HASHDAC_H
 
 #include <iostream>
-using namespace std;
+
 
 #include <BitSequence.h>
 #include <libcdsBasics.h>
@@ -97,10 +97,10 @@ public:
   size_t getSize();
 
   /** Saves the hash to a file */
-  void save(ofstream &fp);
+  void save(std::ofstream &fp);
 
   /** Loads a hash from a file*/
-  static HashDAC *load(ifstream &fp);
+  static HashDAC *load(std::ifstream &fp);
 
   virtual ~HashDAC();
 

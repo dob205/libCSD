@@ -33,7 +33,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
-using namespace std;
+
 
 class IteratorDictStringVector : public IteratorDictString {
 public:
@@ -41,7 +41,7 @@ public:
       @arr: the array of strings.
       @scanneable: stream size (in bytes).
   */
-  IteratorDictStringVector(vector<uchar *> *arr, size_t scanneable) {
+  IteratorDictStringVector(std::vector<uchar *> *arr, size_t scanneable) {
     this->arr = *arr;
     this->scanneable = scanneable;
     this->processed = 0;
@@ -68,7 +68,7 @@ public:
   ~IteratorDictStringVector() {}
 
 protected:
-  vector<uchar *> arr; // The array of strings
+  std::vector<uchar *> arr; // The array of strings
 
   bool static sorting(uchar *i, uchar *j) {
     if (strcmp((char *)i, (char *)j) < 0)

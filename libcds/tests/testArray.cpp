@@ -7,7 +7,7 @@
 #include <cppUtils.h>
 #include <libcdsBasics.h>
 
-using namespace std;
+
 using namespace cds_utils;
 
 bool compare(Array *a1, Array *a2) {
@@ -27,19 +27,19 @@ bool compare(Array *a1, Array *a2) {
 
 void test(const string &function, Array *a1, Array *a2) {
   if (!compare(a1, a2)) {
-    cout << "Error in ()" << function << endl;
+    std::cout << "Error in ()" << function << std::endl;
     abort();
   }
 }
 
 void testSaveLoad(Array *a) {
-  string dir = "/tmp/";
-  string pfx = "lcds";
+  std::string dir = "/tmp/";
+  std::string pfx = "lcds";
   char *fname = tempnam(dir.c_str(), pfx.c_str()); // tmpnam(NULL);
-  ofstream outfs(fname);
+  std::ofstream outfs(fname);
   a->save(outfs);
   outfs.close();
-  ifstream infs(fname);
+  std::ifstream infs(fname);
   Array *a_copy = new Array(infs);
   infs.close();
   remove(fname);
@@ -50,7 +50,7 @@ void testSaveLoad(Array *a) {
 }
 
 void testConstructors(Array *a) {
-  vector<uint> vals_vector;
+  std::vector<uint> vals_vector;
   uint *vals_array = new uint[a->getLength()];
   for (size_t i = 0; i < a->getLength(); i++) {
     vals_vector.push_back(a->getField(i));
@@ -93,33 +93,33 @@ int main(int argc, char **argv) {
   Array *a;
 
   // Test 1: empty array
-  cout << "Testing empty array" << endl;
+  std::cout << "Testing empty array" << std::endl;
   a = buildArray(57921, 0, 0);
   testSaveLoad(a);
   testConstructors(a);
   delete a;
 
   // Test 2: binary array
-  cout << "Testing binary array" << endl;
+  std::cout << "Testing binary array" << std::endl;
   a = buildArray(57921, 100000, 1);
   testSaveLoad(a);
   testConstructors(a);
   delete a;
 
   // Test 1: 7 bits array
-  cout << "Testing 7 bits array" << endl;
+  std::cout << "Testing 7 bits array" << std::endl;
   a = buildArray(8647, 100000, 126);
   testSaveLoad(a);
   testConstructors(a);
   delete a;
 
   // Test 1: big array
-  cout << "Testing big array" << endl;
+  std::cout << "Testing big array" << std::endl;
   a = buildArray(8647, 10000000, (1 << 23));
   testSaveLoad(a);
   testConstructors(a);
   delete a;
 
-  cout << endl << "Tests passed!" << endl;
+  std::cout << endl << "Tests passed!" << std::endl;
   return 0;
 }

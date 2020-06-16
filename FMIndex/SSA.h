@@ -36,7 +36,7 @@
 
 #include "SuffixArray.h"
 
-using namespace std;
+
 using namespace cds_static;
 
 class SSA {
@@ -61,8 +61,8 @@ public:
                size_t last);
 
   uchar *extract_id(uint id, uint *strLen, uint max_len);
-  static SSA *load(ifstream &fp);
-  void save(ofstream &fp);
+  static SSA *load(std::ifstream &fp);
+  void save(std::ofstream &fp);
 
 protected:
   uint n;

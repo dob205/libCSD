@@ -271,7 +271,7 @@ size_t NSV::find_NSV(size_t v, TextIndex *csa, LCP *lcp) const {
   return n;
 }
 
-void NSV::save(ofstream &fp) const {
+void NSV::save(std::ofstream &fp) const {
   saveValue(fp, r);
   saveValue(fp, b);
   saveValue(fp, n);
@@ -285,7 +285,7 @@ void NSV::save(ofstream &fp) const {
   saveValue(fp, A, (num_elements * b_A + W - 1) / W);
 }
 
-NSV *NSV::load(ifstream &fp) {
+NSV *NSV::load(std::ifstream &fp) {
   NSV *nsv = new NSV();
   nsv->r = loadValue<size_t>(fp);
   nsv->b = loadValue<size_t>(fp);

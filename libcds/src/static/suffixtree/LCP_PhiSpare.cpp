@@ -28,8 +28,8 @@ LCP_PhiSpare::LCP_PhiSpare() {
 
 LCP_PhiSpare::LCP_PhiSpare(TextIndex *csa, char *text, size_t _n, int _q) {
   if (_q > (int)_n) {
-    cout << "Specified q (" << _q << ") greater than string length (" << _n
-         << ")" << endl;
+    std::cout << "Specified q (" << _q << ") greater than string length (" << _n
+         << ")" << std::endl;
     exit(1);
   }
   lcp_type = PHI;
@@ -45,7 +45,7 @@ LCP_PhiSpare::LCP_PhiSpare(TextIndex *csa, char *text, size_t _n, int _q) {
     m = 1 + (_n - 1) / _q;
     plcp = new int[m]; // space for sampled lcps
     if (plcp == NULL) {
-      cout << "Failed to allocate memory for plcp." << endl;
+      std::cout << "Failed to allocate memory for plcp." << std::endl;
       exit(1);
     }
     // initialize samples to -1
@@ -140,7 +140,7 @@ size_t LCP_PhiSpare::getSize() const {
   return mem;
 }
 
-void LCP_PhiSpare::save(ofstream &fp) const {
+void LCP_PhiSpare::save(std::ofstream &fp) const {
   saveValue(fp, lcp_type);
   saveValue(fp, q);
   saveValue(fp, n);
@@ -148,7 +148,7 @@ void LCP_PhiSpare::save(ofstream &fp) const {
     saveValue(fp, plcp, (1 + (n - 1) / q));
 }
 
-LCP_PhiSpare *LCP_PhiSpare::load(ifstream &fp) {
+LCP_PhiSpare *LCP_PhiSpare::load(std::ifstream &fp) {
   LCP_PhiSpare *lcp = new LCP_PhiSpare();
   size_t type = loadValue<uint>(fp);
   if (type != PHI) {

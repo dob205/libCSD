@@ -30,7 +30,7 @@
 #include <iostream>
 #include <libcdsBasics.h>
 
-using namespace std;
+
 
 namespace cds_static {
 
@@ -71,8 +71,8 @@ public:
 
   virtual size_t count(uint symbol) const;
 
-  virtual void save(ofstream &fp) const;
-  static WaveletTreeNoptrs *load(ifstream &fp);
+  virtual void save(std::ofstream &fp) const;
+  static WaveletTreeNoptrs *load(std::ifstream &fp);
 
 protected:
   WaveletTreeNoptrs();

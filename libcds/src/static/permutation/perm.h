@@ -74,13 +74,13 @@ uint inversePerm(const perm P, uint i);
  *
  *  @author Diego Arroyuelo
  */
-uint savePerm(const perm P, ofstream &f);
+uint savePerm(const perm P, std::ofstream &f);
 
 /** Loads a permutation
  *
  *  @author Diego Arroyuelo
  */
-perm loadPerm(ifstream &f);
+perm loadPerm(std::ifstream &f);
 
 /** Returns the size of the data structure
  *

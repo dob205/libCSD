@@ -23,7 +23,7 @@
 
 namespace cds_static {
 
-wt_node *wt_node::load(ifstream &fp) {
+wt_node *wt_node::load(std::ifstream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd == WT_NODE_NULL_HDR)
     return NULL;

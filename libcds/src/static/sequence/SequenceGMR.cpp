@@ -28,10 +28,10 @@ SequenceGMR::SequenceGMR(uint *sequence, size_t n, uint chunk_length,
     : Sequence(n) {
   length = n;
 
-  cout << "length1=" << length << endl;
+  std::cout << "length1=" << length << std::endl;
   if (length % chunk_length)
     length += chunk_length - length % chunk_length;
-  cout << "length2=" << length << endl;
+  std::cout << "length2=" << length << std::endl;
   uint *new_seq = new uint[length];
   sigma = 0;
   for (uint i = 0; i < n; i++) {
@@ -39,15 +39,15 @@ SequenceGMR::SequenceGMR(uint *sequence, size_t n, uint chunk_length,
     sigma = max(sigma, new_seq[i]);
   }
   sigma++;
-  cout << "sigma=" << sigma << endl;
+  std::cout << "sigma=" << sigma << std::endl;
   for (uint i = n; i < length; i++)
     new_seq[i] = sigma;
   if (length != n)
     sigma++;
-  cout << "sigma=" << sigma << endl;
+  std::cout << "sigma=" << sigma << std::endl;
   this->chunk_length = chunk_length;
-  cout << "chunk_length=" << chunk_length << endl;
-  cout << "total_chunks=" << length / chunk_length << endl;
+  std::cout << "chunk_length=" << chunk_length << std::endl;
+  std::cout << "total_chunks=" << length / chunk_length << std::endl;
   build(new_seq, bmb, ssb);
   delete[] new_seq;
 }
@@ -56,10 +56,10 @@ SequenceGMR::SequenceGMR(const Array &sequence, uint chunk_length,
                          BitSequenceBuilder *bmb, SequenceBuilder *ssb)
     : Sequence(0) {
   length = sequence.getLength();
-  cout << "length1=" << length << endl;
+  std::cout << "length1=" << length << std::endl;
   if (length % chunk_length)
     length += chunk_length - length % chunk_length;
-  cout << "length2=" << length << endl;
+  std::cout << "length2=" << length << std::endl;
   uint *new_seq = new uint[length];
   sigma = 0;
   for (uint i = 0; i < sequence.getLength(); i++) {
@@ -67,15 +67,15 @@ SequenceGMR::SequenceGMR(const Array &sequence, uint chunk_length,
     sigma = max(sigma, new_seq[i]);
   }
   sigma++;
-  cout << "sigma=" << sigma << endl;
+  std::cout << "sigma=" << sigma << std::endl;
   for (uint i = sequence.getLength(); i < length; i++)
     new_seq[i] = sigma;
   if (length != sequence.getLength())
     sigma++;
-  cout << "sigma=" << sigma << endl;
+  std::cout << "sigma=" << sigma << std::endl;
   this->chunk_length = chunk_length;
-  cout << "chunk_length=" << chunk_length << endl;
-  cout << "total_chunks=" << length / chunk_length << endl;
+  std::cout << "chunk_length=" << chunk_length << std::endl;
+  std::cout << "total_chunks=" << length / chunk_length << std::endl;
   build(new_seq, bmb, ssb);
   delete[] new_seq;
 }
@@ -142,13 +142,13 @@ size_t SequenceGMR::rank(uint c, size_t j) const {
   size_t sum = B->rank1(B->select0(bp + i)) - prev;
   size_t cr = chunk[i]->rank(c, j - i * chunk_length);
   /*if(c==0) {
-          cout << "c=" << c << " j=" << j << endl;
-          cout << "i=" << i << endl;
-          cout << "bp=" << bp << endl;
-          cout << "rank_pos=" << rank_pos << endl;
-          cout << "prev=" << prev << endl;
-          cout << "sum=" << sum << endl;
-          cout << "cr=" << cr << endl;
+          std::cout << "c=" << c << " j=" << j << std::endl;
+          std::cout << "i=" << i << std::endl;
+          std::cout << "bp=" << bp << std::endl;
+          std::cout << "rank_pos=" << rank_pos << std::endl;
+          std::cout << "prev=" << prev << std::endl;
+          std::cout << "sum=" << sum << std::endl;
+          std::cout << "cr=" << cr << std::endl;
   }*/
   return sum + cr;
 }
@@ -166,17 +166,17 @@ size_t SequenceGMR::select(uint c, size_t j2) const {
     desp = 0;
   uint rchunk = i % (length / chunk_length);
   /*if(j==90) {
-          cout << "------------------------------" << endl;
-          cout << "c=" << c << "  j=" << j << endl;
-          cout << "chunk_length=" << chunk_length << endl;
-          cout << "rank_pos=" << rank_pos << endl;
-          cout << "prev=" << prev << endl;
-          cout << "sel=" << sel << endl;
-          cout << "block=" << block << endl;
-          cout << "i=" << i << endl;
-          cout << "desp=" << desp << endl;
-          cout << "rchunk=" << rchunk << endl;
-          cout << "j-desp=" << j-desp << endl;
+          std::cout << "------------------------------" << std::endl;
+          std::cout << "c=" << c << "  j=" << j << std::endl;
+          std::cout << "chunk_length=" << chunk_length << std::endl;
+          std::cout << "rank_pos=" << rank_pos << std::endl;
+          std::cout << "prev=" << prev << std::endl;
+          std::cout << "sel=" << sel << std::endl;
+          std::cout << "block=" << block << std::endl;
+          std::cout << "i=" << i << std::endl;
+          std::cout << "desp=" << desp << std::endl;
+          std::cout << "rchunk=" << rchunk << std::endl;
+          std::cout << "j-desp=" << j-desp << std::endl;
   }*/
   return (rchunk * chunk_length) + chunk[rchunk]->select(c, j - desp);
 }
@@ -186,14 +186,14 @@ uint SequenceGMR::access(size_t j) const {
 }
 
 size_t SequenceGMR::getSize() const {
-  cout << "chunk_length=" << chunk_length << " sigma=" << sigma << endl;
+  std::cout << "chunk_length=" << chunk_length << " sigma=" << sigma << std::endl;
   uint s = 0;
   for (uint i = 0; i < length / chunk_length; i++)
     s += sizeof(void *) + chunk[i]->getSize();
   return s + B->getSize() + sizeof(SequenceGMR);
 }
 
-void SequenceGMR::save(ofstream &fp) const {
+void SequenceGMR::save(std::ofstream &fp) const {
   uint wr = GMR_HDR;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -204,7 +204,7 @@ void SequenceGMR::save(ofstream &fp) const {
     chunk[i]->save(fp);
 }
 
-SequenceGMR *SequenceGMR::load(ifstream &fp) {
+SequenceGMR *SequenceGMR::load(std::ifstream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != GMR_HDR)
     return NULL;

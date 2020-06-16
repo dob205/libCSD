@@ -121,7 +121,7 @@ size_t BitSequence::countOnes() const { return ones; }
 
 size_t BitSequence::countZeros() const { return length - ones; }
 
-BitSequence *BitSequence::load(ifstream &fp) {
+BitSequence *BitSequence::load(std::ifstream &fp) {
   uint r = loadValue<uint>(fp);
   size_t pos = fp.tellg();
   fp.seekg(pos - sizeof(uint));

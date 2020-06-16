@@ -354,7 +354,7 @@ size_t NPR_CN::find_RMQ(size_t x, size_t y, TextIndex *csa, LCP *lcp) const {
     return next_ret * b + get_field_64(min_pos[0], bits_b, next_ret);
 
   /*this never happen*/
-  cout << "Error" << endl;
+  std::cout << "Error" << std::endl;
   return 0;
 }
 
@@ -415,7 +415,7 @@ size_t NPR_CN::find_RMQ(size_t x, size_t y, size_t r, size_t *min_r) const {
     return next_ret * b + get_field_64(min_pos[r + 1], bits_b, next_ret);
   }
   /*Error if the code reach this return*/
-  // cout << "Error" << endl;
+  // std::cout << "Error" << std::endl;
   return (size_t)-1;
 }
 
@@ -429,7 +429,7 @@ size_t NPR_CN::getSize() const {
   return mem;
 }
 
-void NPR_CN::save(ofstream &fp) const {
+void NPR_CN::save(std::ofstream &fp) const {
   saveValue(fp, npr_type);
   saveValue(fp, n);
   saveValue(fp, b);
@@ -442,7 +442,7 @@ void NPR_CN::save(ofstream &fp) const {
     saveValue(fp, min_pos[i], (level_size[i] * bits_b + W - 1) / W);
 }
 
-NPR_CN *NPR_CN::load(ifstream &fp) {
+NPR_CN *NPR_CN::load(std::ifstream &fp) {
   NPR_CN *npr = new NPR_CN();
   size_t type = loadValue<size_t>(fp);
   if (type != CN_NPR) {

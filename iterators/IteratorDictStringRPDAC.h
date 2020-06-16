@@ -31,7 +31,7 @@
 #include <string.h>
 
 #include <iostream>
-using namespace std;
+
 
 #include "../utils/DAC_VLS.h"
 #include "../utils/LogSequence.h"

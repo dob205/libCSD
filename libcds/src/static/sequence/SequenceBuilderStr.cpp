@@ -30,7 +30,7 @@
 #include <stack>
 #include <vector>
 
-using namespace std;
+
 
 #include <PermutationBuilder.h>
 #include <SequenceBuilderStr.h>
@@ -57,11 +57,11 @@ Sequence *SequenceBuilderStr::build(const Array &seq) {
 }
 
 SequenceBuilder *SequenceBuilderStr::getBuilder(const Array &seq) {
-  vector<string> params;
+  std::vector<string> params;
   tokenize(str, params, ';');
-  map<string, string> values;
+  std::map<string, string> values;
   for (uint i = 1; i < params.size(); i++) {
-    vector<string> res;
+    std::vector<string> res;
     tokenize(params[i], res, '=');
     if (res.size() == 2)
       values[res[0]] = res[1];
@@ -69,7 +69,7 @@ SequenceBuilder *SequenceBuilderStr::getBuilder(const Array &seq) {
       values[params[i]] = "";
   }
 #ifdef VERBOSE
-  cout << "params[0]=" << params[0] << endl;
+  std::cout << "params[0]=" << params[0] << std::endl;
 #endif
   if (params[0] == "WaveletTree") {
     BitSequenceBuilder *bsb = NULL;
@@ -81,28 +81,28 @@ SequenceBuilder *SequenceBuilderStr::getBuilder(const Array &seq) {
     if (values["bitseq"] == "BitSequenceRG") {
       bsb = new BitSequenceBuilderRG(samp);
 #ifdef VERBOSE
-      cout << "bitseq=BitSequenceRG" << endl;
+      std::cout << "bitseq=BitSequenceRG" << std::endl;
 #endif
     } else if (values["bitseq"] == "BitSequenceRRR") {
       bsb = new BitSequenceBuilderRRR(samp);
 #ifdef VERBOSE
-      cout << "bitseq=BitSequenceRRR" << endl;
+      std::cout << "bitseq=BitSequenceRRR" << std::endl;
 #endif
     } else if (values["bitseq"] == "BitSequenceSDArray") {
       bsb = new BitSequenceBuilderSDArray();
 #ifdef VERBOSE
-      cout << "bitseq=BitSequenceSDArray" << endl;
+      std::cout << "bitseq=BitSequenceSDArray" << std::endl;
 #endif
     } else if (values["bitseq"] == "BitSequenceDArray") {
       bsb = new BitSequenceBuilderDArray();
 #ifdef VERBOSE
-      cout << "bitseq=BitSequenceDArray" << endl;
+      std::cout << "bitseq=BitSequenceDArray" << std::endl;
 #endif
     } else {
       return NULL;
     }
 #ifdef VERBOSE
-    cout << "samp=" << samp << endl;
+    std::cout << "samp=" << samp << std::endl;
 #endif
     if (values.find("mapper") == values.end())
       return NULL;
@@ -110,12 +110,12 @@ SequenceBuilder *SequenceBuilderStr::getBuilder(const Array &seq) {
     if (values["mapper"] == "MapperCont") {
       am = new MapperCont(seq, *bsb);
 #ifdef VERBOSE
-      cout << "mapper=MapperCont" << endl;
+      std::cout << "mapper=MapperCont" << std::endl;
 #endif
     } else if (values["mapper"] == "MapperNone") {
       am = new MapperNone();
 #ifdef VERBOSE
-      cout << "mapper=MapperNone" << endl;
+      std::cout << "mapper=MapperNone" << std::endl;
 #endif
     } else {
       delete bsb;
@@ -127,12 +127,12 @@ SequenceBuilder *SequenceBuilderStr::getBuilder(const Array &seq) {
     if (values["shape"] == "Huffman") {
       wc = new wt_coder_huff(seq, am);
 #ifdef VERBOSE
-      cout << "shape=Huffman" << endl;
+      std::cout << "shape=Huffman" << std::endl;
 #endif
     } else if (values["shape"] == "Plain") {
       wc = new wt_coder_binary(seq, am);
 #ifdef VERBOSE
-      cout << "shape=Plain" << endl;
+      std::cout << "shape=Plain" << std::endl;
 #endif
     } else {
       delete bsb;

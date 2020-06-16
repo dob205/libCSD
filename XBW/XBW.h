@@ -32,7 +32,7 @@
 #include <fstream>
 #include <iostream>
 
-using namespace std;
+
 
 extern bool printing;
 
@@ -57,7 +57,7 @@ public:
    * \alpha sequence and sbb to create the bit-sequences.
    * @param input the input stream
    */
-  XBW(ifstream &input);
+  XBW(std::ifstream &input);
 
   /** Destroys the object */
   ~XBW();

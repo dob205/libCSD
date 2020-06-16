@@ -23,7 +23,7 @@
 
 namespace cds_utils {
 
-Array::Array(ifstream &input) {
+Array::Array(std::ifstream &input) {
   length = loadValue<size_t>(input);
   maxValue = loadValue<uint>(input);
   bitsPerItem = loadValue<uint>(input);
@@ -31,7 +31,7 @@ Array::Array(ifstream &input) {
   data = loadValue<uint>(input, uintLength);
 }
 
-Array::Array(const vector<uint> &A, uint bpe) {
+Array::Array(const std::vector<uint> &A, uint bpe) {
   size_t n = A.size();
   maxValue = 0;
 
@@ -53,11 +53,11 @@ Array::Array(const vector<uint> &A, uint bpe) {
   }
 }
 
-Array::Array(const vector<uint>::iterator &ini,
-             const vector<uint>::iterator &fin, uint bpe) {
+Array::Array(const std::vector<uint>::iterator &ini,
+             const std::vector<uint>::iterator &fin, uint bpe) {
   size_t n = 0;
   maxValue = 0;
-  for (vector<uint>::iterator it = ini; it != fin; ++it) {
+  for (std::vector<uint>::iterator it = ini; it != fin; ++it) {
     maxValue = max(maxValue, *it);
     n++;
   }
@@ -68,7 +68,7 @@ Array::Array(const vector<uint>::iterator &ini,
   initData();
   assert(bpe == 0 || bitsPerItem == bpe);
   n = 0;
-  for (vector<uint>::iterator it = ini; it != fin; ++it) {
+  for (std::vector<uint>::iterator it = ini; it != fin; ++it) {
     assert(*it <= maxValue);
     setField(n, *it);
     n++;
@@ -117,7 +117,7 @@ Array::Array(uint *A, size_t i, size_t j, uint bpe) {
 
 Array::~Array() { delete[] data; }
 
-void Array::save(ofstream &out) const {
+void Array::save(std::ofstream &out) const {
   saveValue(out, length);
   saveValue(out, maxValue);
   saveValue(out, bitsPerItem);

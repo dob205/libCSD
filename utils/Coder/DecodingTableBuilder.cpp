@@ -112,8 +112,8 @@ void DecodingTableBuilder::initializeFromHuTucker(HuTucker *ht) {
 
 void DecodingTableBuilder::insertDecodeableSubstr(uchar symbol, uint *seq,
                                                   ushort *ptr,
-                                                  vector<uchar> *substr,
-                                                  vector<ushort> *lenSubstr) {
+                                                  std::vector<uchar> *substr,
+                                                  std::vector<ushort> *lenSubstr) {
   uint bits = codewords[(int)symbol].bits;
   uint codeword = codewords[(int)symbol].codeword;
 
@@ -223,8 +223,8 @@ void DecodingTableBuilder::insertDecodeableSubstr(uchar symbol, uint *seq,
 }
 
 void DecodingTableBuilder::insertEndingSubstr(uint *seq, ushort *ptr,
-                                              vector<uchar> *substr,
-                                              vector<ushort> *lenSubstr) {
+                                              std::vector<uchar> *substr,
+                                              std::vector<ushort> *lenSubstr) {
   uint bits = TABLEBITSO - (*ptr);
   *seq = (*seq << bits);
   uint index = (*seq) & mask(TABLEBITSO);

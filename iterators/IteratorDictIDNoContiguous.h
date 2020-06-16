@@ -29,7 +29,7 @@
 #define _ITERATORDICTIDNOCONTIGUOUS_H
 
 #include <iostream>
-using namespace std;
+
 
 class IteratorDictIDNoContiguous : public IteratorDictID {
 public:

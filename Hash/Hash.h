@@ -29,7 +29,7 @@
 #define HASH_H
 
 #include <iostream>
-using namespace std;
+
 
 #include <BitSequence.h>
 #include <libcdsBasics.h>
@@ -93,10 +93,10 @@ public:
   virtual size_t getSize() = 0;
 
   /** Saves the hash to a file */
-  void save(ofstream &fp);
+  void save(std::ofstream &fp);
 
   /** Loads a hash from a file*/
-  static Hash *load(ifstream &fp, int r);
+  static Hash *load(std::ifstream &fp, int r);
 
   virtual ~Hash(){};
 

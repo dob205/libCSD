@@ -22,8 +22,8 @@ namespace cds_static {
 
 uint *LCP::create_lcp(TextIndex *csa, char *text, uint n, int q) const {
   if (q > (int)n) {
-    cout << "Specified q (" << q << ") greater than string length (" << n << ")"
-         << endl;
+    std::cout << "Specified q (" << q << ") greater than string length (" << n << ")"
+         << std::endl;
     return NULL;
   }
   int i, h, j, k, m;
@@ -35,7 +35,7 @@ uint *LCP::create_lcp(TextIndex *csa, char *text, uint n, int q) const {
     m = 1 + (n - 1) / q;
     plcp = new int[m]; // space for sampled lcps
     if (plcp == NULL) {
-      cout << "Failed to allocate memory for plcp." << endl;
+      std::cout << "Failed to allocate memory for plcp." << std::endl;
       return NULL;
     }
     /*initialize samples to -1*/
@@ -98,11 +98,11 @@ uint *LCP::create_lcp(TextIndex *csa, char *text, uint n, int q) const {
   return lcp;
 }
 
-LCP *LCP::load(ifstream &fp) {
+LCP *LCP::load(std::ifstream &fp) {
   size_t r = loadValue<size_t>(fp);
   size_t pos = fp.tellg();
   fp.seekg(pos - sizeof(size_t));
-  cout << "Loading " << r << endl;
+  std::cout << "Loading " << r << std::endl;
   switch (r) {
   case NAIVE:
     return LCP_naive::load(fp);

@@ -74,9 +74,9 @@ size_t Huffman::decode(uint *symb, uint *stream, size_t pos) {
   return decodeHuff(huff_table, symb, stream, pos);
 }
 
-void Huffman::save(ofstream &fp) { saveHuff(huff_table, fp); }
+void Huffman::save(std::ofstream &fp) { saveHuff(huff_table, fp); }
 
-Huffman *Huffman::load(ifstream &fp) {
+Huffman *Huffman::load(std::ifstream &fp) {
   Huffman *ret = new Huffman();
   ret->huff_table = loadHuff(fp);
   return ret;
@@ -142,8 +142,8 @@ DecodingTree *Huffman::obtainSubtree(uint symbol, uint k) {
   }
 
   // Retrieving the subtree
-  vector<uint> xTree;
-  vector<uint> symbols;
+  std::vector<uint> xTree;
+  std::vector<uint> symbols;
   uint bits = 0;
   retrieveSubtree(node, &xTree, &bits, &symbols);
 
@@ -154,8 +154,8 @@ DecodingTree *Huffman::obtainSubtree(uint symbol, uint k) {
   return new DecodingTree(symbol, tree, &symbols);
 }
 
-void Huffman::retrieveSubtree(BinaryNode *node, vector<uint> *tree, uint *bits,
-                              vector<uint> *symbols) {
+void Huffman::retrieveSubtree(BinaryNode *node, std::vector<uint> *tree, uint *bits,
+                              std::vector<uint> *symbols) {
   (*bits)++;
 
   // Left child

@@ -177,7 +177,7 @@ uint DAC_VLS::getSize() const {
   return mem;
 }
 
-void DAC_VLS::save(ofstream &fp) const {
+void DAC_VLS::save(std::ofstream &fp) const {
   saveValue(fp, tamCode);
   saveValue(fp, listLength);
   saveValue(fp, nLevels);
@@ -188,7 +188,7 @@ void DAC_VLS::save(ofstream &fp) const {
   bS->save(fp);
 }
 
-DAC_VLS *DAC_VLS::load(ifstream &fp) {
+DAC_VLS *DAC_VLS::load(std::ifstream &fp) {
   DAC_VLS *rep = new DAC_VLS();
   rep->tamCode = loadValue<uint>(fp);
   rep->listLength = loadValue<uint>(fp);

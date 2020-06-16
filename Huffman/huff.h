@@ -63,7 +63,7 @@ size_t decodeHuff(const THuffx H, uint *symb, uint *stream, size_t ptr);
  *
  *  @author Gonzalo Navarro
  */
-void saveHuff(const THuffx H, ofstream &f);
+void saveHuff(const THuffx H, std::ofstream &f);
 
 /** Size of H written on file
  *
@@ -80,6 +80,6 @@ void freeHuff(THuffx H);
 /** Loads H from file f, prepared for encoding and decoding
  * *  @author Gonzalo Navarro
  */
-THuffx loadHuff(ifstream &f);
+THuffx loadHuff(std::ifstream &f);
 
 #endif

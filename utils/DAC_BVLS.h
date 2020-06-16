@@ -50,8 +50,8 @@ class DAC_BVLS {
 public:
   DAC_BVLS(uchar *list, uint l_Length, uint max_seq_length);
 
-  DAC_BVLS(uint tamCode, uint nLevels, vector<uint> *levelsIndex,
-           vector<uint> *rankLevels, uchar *levels, BitString *bS);
+  DAC_BVLS(uint tamCode, uint nLevels, std::vector<uint> *levelsIndex,
+           std::vector<uint> *rankLevels, uchar *levels, BitString *bS);
 
   /*Return the length of the sequence that start at pos (pos start from 1 to n)
    * and in seq store the sequence*/
@@ -65,9 +65,9 @@ public:
   /*Return the size, in bytes, used for DAC_BVLS structure*/
   virtual uint getSize() const;
 
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
-  static DAC_BVLS *load(ifstream &fp);
+  static DAC_BVLS *load(std::ifstream &fp);
 
   virtual ~DAC_BVLS();
 

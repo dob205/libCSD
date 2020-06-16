@@ -4,15 +4,15 @@
 #include <TextIndex.h>
 #include <libcdsTrees.h>
 
-using namespace std;
+
 using namespace cds_utils;
 using namespace cds_static;
 
 TextIndex *saveLoad(TextIndex *bs) {
-  ofstream ofs("textindex.tmp");
+  std::ofstream ofs("textindex.tmp");
   bs->save(ofs);
   ofs.close();
-  ifstream ifs("textindex.tmp");
+  std::ifstream ifs("textindex.tmp");
   TextIndex *ret = TextIndex::load(ifs);
   ifs.close();
   return ret;
@@ -33,10 +33,10 @@ bool testTextIndex(TextIndex *s1, TextIndex *s2) {
 int main(int argc, char **argv) {
 
   if (argc != 2) {
-    cout << "Checks if the TextIndex of the file <arch> is save/load correctly"
+    std::cout << "Checks if the TextIndex of the file <arch> is save/load correctly"
          << endl
-         << endl;
-    cout << "usage: " << argv[0] << " <arch>" << endl;
+         << std::endl;
+    std::cout << "usage: " << argv[0] << " <arch>" << std::endl;
     return 0;
   }
   char *text = NULL;
@@ -45,18 +45,18 @@ int main(int argc, char **argv) {
 
   if (loadText(argv[1], &text, &length))
     return 1;
-  cout << "length: " << length << endl;
+  std::cout << "length: " << length << std::endl;
 
   ticsa = new TextIndexCSA((uchar *)text, (ulong)length, NULL);
 
   load_ticsa = saveLoad(ticsa);
 
   if (!testTextIndex(ticsa, load_ticsa)) {
-    cerr << "ERROR TESTING TextIndexCSA" << endl;
+    std::cerr << "ERROR TESTING TextIndexCSA" << std::endl;
     return -1;
   }
 
-  cout << "CSA OK\n" << endl;
+  std::cout << "CSA OK\n" << std::endl;
   delete (TextIndexCSA *)ticsa;
   delete (TextIndexCSA *)load_ticsa;
   if (text != NULL)

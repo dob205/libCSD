@@ -32,7 +32,7 @@
 #include <string.h>
 
 #include <iostream>
-using namespace std;
+
 
 #include "../utils/Coder/Codeword.h"
 #include "../utils/Coder/DecodingTable.h"

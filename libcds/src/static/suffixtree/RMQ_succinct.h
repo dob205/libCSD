@@ -26,7 +26,7 @@
 #include <iostream>
 #include <libcdsTrees.h>
 #include <limits.h>
-using namespace std;
+
 using namespace cds_utils;
 
 typedef unsigned char DTsucc;
@@ -51,8 +51,8 @@ public:
   RMQ_succinct(int *a, unsigned int n);
 
   uint getSize();
-  void save(ofstream &fp);
-  RMQ_succinct *load(ifstream &fp);
+  void save(std::ofstream &fp);
+  RMQ_succinct *load(std::ifstream &fp);
 
   virtual ~RMQ_succinct();
 

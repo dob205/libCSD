@@ -49,7 +49,7 @@ using namespace cds_utils;
 
 namespace cds_static {
 
-using namespace std;
+
 
 typedef struct csa {
   int n, m;
@@ -80,8 +80,8 @@ unsigned long *csa_batchlookup2(CSA *SA, int l, int r);
 int csa_bsearch(unsigned char *key, int keylen, CSA *SA, int *li, int *ri);
 void csa_decode1line(unsigned char *p, CSA *SA, int suf, int maxlen);
 void csa_decodeall(unsigned char *p, CSA *SA);
-void csa_save(CSA *csa, ofstream &fp);
-CSA *csa_load(ifstream &fp);
+void csa_save(CSA *csa, std::ofstream &fp);
+CSA *csa_load(std::ifstream &fp);
 void csa_free(CSA *csa);
 void csa_init(CSA *csa);
 } // namespace cds_static

@@ -76,14 +76,14 @@ size_t TextIndexCSA::getSize() const {
   return (size_t)size;
 }
 
-void TextIndexCSA::save(ofstream &fp) const {
+void TextIndexCSA::save(std::ofstream &fp) const {
   uint wr = CSA_HDR;
   saveValue(fp, wr);
   if (csa != NULL)
     csa_save(csa, fp);
 }
 
-TextIndexCSA *TextIndexCSA::load(ifstream &fp) {
+TextIndexCSA *TextIndexCSA::load(std::ifstream &fp) {
   uint type = loadValue<uint>(fp);
   if (type != CSA_HDR) {
     abort();

@@ -26,7 +26,7 @@
 
 #include <libcdsBasics.h>
 
-using namespace std;
+
 
 namespace cds_utils {
 /** BitString class
@@ -37,13 +37,13 @@ public:
   /** Reads a BitString from a file stream
    * @param input input file stream
    */
-  BitString(ifstream &input);
+  BitString(std::ifstream &input);
 
   /** Creates a BitString with len bits of space */
   BitString(const size_t len);
 
   /** Creates a bitmap from a vector (up to len bits) */
-  BitString(const vector<uint> fields, const size_t len);
+  BitString(const std::vector<uint> fields, const size_t len);
 
   /** Creates a bitmap from an array (len bits) */
   BitString(const uint *array, const size_t len);
@@ -74,7 +74,7 @@ public:
   /** Saves the bitmap to a file
    * @param out file stream
    */
-  void save(ofstream &out) const;
+  void save(std::ofstream &out) const;
 
   /** Returns the size in bytes of the BitString */
   inline size_t getSize() const {

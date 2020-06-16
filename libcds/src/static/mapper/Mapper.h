@@ -25,7 +25,7 @@
 #include <iostream>
 #include <libcdsBasics.h>
 
-using namespace std;
+
 
 namespace cds_static {
 
@@ -47,9 +47,9 @@ public:
   /** Returns the size of the mapper */
   virtual size_t getSize() const = 0;
   /** Saves the mapper to a file */
-  virtual void save(ofstream &out) const = 0;
+  virtual void save(std::ofstream &out) const = 0;
   /** Loads the mapper from a file */
-  static Mapper *load(ifstream &input);
+  static Mapper *load(std::ifstream &input);
   /** Reference counter incrementor */
   virtual void use();
   /** Reference counter decrementor */

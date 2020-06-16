@@ -55,10 +55,10 @@ public:
   virtual size_t getSize() const = 0;
 
   /** Saves permutation to stream */
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
   /** Loads the permutation */
-  static Permutation *load(ifstream &fp);
+  static Permutation *load(std::ifstream &fp);
 
 protected:
   size_t length;

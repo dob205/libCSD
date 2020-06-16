@@ -30,7 +30,7 @@
 #include <BitSequenceBuilder.h>
 #include <Mapper.h>
 
-using namespace std;
+
 using namespace cds_utils;
 
 namespace cds_static {
@@ -50,8 +50,8 @@ public:
   virtual uint unmap(uint s) const;
   virtual size_t getSize() const;
 
-  virtual void save(ofstream &out) const;
-  static MapperCont *load(ifstream &input);
+  virtual void save(std::ofstream &out) const;
+  static MapperCont *load(std::ifstream &input);
 
 protected:
   MapperCont();

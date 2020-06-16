@@ -8,15 +8,15 @@
 #include <BitString.h>
 #include <libcdsBasics.h>
 
-using namespace std;
+
 using namespace cds_utils;
 using namespace cds_static;
 
 BitSequence *saveLoad(BitSequence *bs) {
-  ofstream ofs("bitsequence.tmp");
+  std::ofstream ofs("bitsequence.tmp");
   bs->save(ofs);
   ofs.close();
-  ifstream ifs("bitsequence.tmp");
+  std::ifstream ifs("bitsequence.tmp");
   BitSequence *ret = BitSequence::load(ifs);
   ifs.close();
   return ret;
@@ -29,22 +29,22 @@ bool testBitSequence(BitString &a, BitSequence *bs) {
     if (a[i]) {
       rank1SoFar++;
       if (bs->select1(rank1SoFar) != i) {
-        cerr << "SELECT1 ERROR " << i << endl;
+        std::cerr << "SELECT1 ERROR " << i << std::endl;
         return false;
       }
       if (i > 0 && bs->selectNext1(i) != i) {
-        cout << "i=" << i << "sn=" << bs->selectNext1(i) << endl;
-        cerr << "SELECTNEXT1 ERROR" << endl;
+        std::cout << "i=" << i << "sn=" << bs->selectNext1(i) << std::endl;
+        std::cerr << "SELECTNEXT1 ERROR" << std::endl;
         return false;
       }
     } else {
       rank0SoFar++;
       if (bs->select0(rank0SoFar) != i) {
-        cerr << "SELECT0 ERROR" << endl;
+        std::cerr << "SELECT0 ERROR" << std::endl;
         return false;
       }
       if (i > 0 && bs->selectNext0(i) != i) {
-        cerr << "SELECTNEXT0 ERROR" << endl;
+        std::cerr << "SELECTNEXT0 ERROR" << std::endl;
         return false;
       }
     }
@@ -61,11 +61,11 @@ bool testBitSequence(BitString &a, BitSequence *bs) {
 int main(int argc, char **argv) {
 
   if (argc != 4) {
-    cout << "Checks the bitsequence classes generating <length> bitmaps with "
+    std::cout << "Checks the bitsequence classes generating <length> bitmaps with "
             "density <dens> using <seed> as seed for the numbers generation"
          << endl
-         << endl;
-    cout << "usage: " << argv[0] << " <seed> <length> <dens>" << endl;
+         << std::endl;
+    std::cout << "usage: " << argv[0] << " <seed> <length> <dens>" << std::endl;
     return 0;
   }
 
@@ -86,37 +86,37 @@ int main(int argc, char **argv) {
   BitSequenceRG bsRG(a, 20);
   BitSequence *s = saveLoad(&bsRG);
   if (!testBitSequence(a, s)) {
-    cerr << "ERROR TESTING BitSequenceRG" << endl;
+    std::cerr << "ERROR TESTING BitSequenceRG" << std::endl;
     return -1;
   }
-  cout << "RG OK\n" << endl;
+  std::cout << "RG OK\n" << std::endl;
   delete (BitSequenceRG *)s;
 
   BitSequenceDArray bsDArray(a);
   s = saveLoad(&bsDArray);
   if (!testBitSequence(a, s)) {
-    cerr << "ERROR TESTING BitSequenceDArray" << endl;
+    std::cerr << "ERROR TESTING BitSequenceDArray" << std::endl;
     return -1;
   }
-  cout << "DArray OK\n" << endl;
+  std::cout << "DArray OK\n" << std::endl;
   delete (BitSequenceDArray *)s;
 
   BitSequenceSDArray bsSDArray(a);
   s = saveLoad(&bsSDArray);
   if (!testBitSequence(a, s)) {
-    cerr << "ERROR TESTING BitSequenceSDArray" << endl;
+    std::cerr << "ERROR TESTING BitSequenceSDArray" << std::endl;
     return -1;
   }
-  cout << "SDArray OK\n" << endl;
+  std::cout << "SDArray OK\n" << std::endl;
   delete (BitSequenceSDArray *)s;
 
   BitSequenceRRR bsRRR(a, 33);
   s = saveLoad(&bsRRR);
   if (!testBitSequence(a, s)) {
-    cerr << "ERROR TESTING BitSequenceRRR" << endl;
+    std::cerr << "ERROR TESTING BitSequenceRRR" << std::endl;
     return -1;
   }
-  cout << "RRR OK\n" << endl;
+  std::cout << "RRR OK\n" << std::endl;
   delete (BitSequenceRRR *)s;
   return 0;
 }

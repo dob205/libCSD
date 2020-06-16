@@ -218,7 +218,7 @@ uint factorization::access_seq(uint param, size_t *next_pos, bool dir) {
   return partialSum;
 }
 
-void factorization::save(ofstream &fp) {
+void factorization::save(std::ofstream &fp) {
   saveValue(fp, listLength);
   saveValue(fp, nLevels);
   saveValue(fp, levelsIndex, nLevels + 1);
@@ -227,7 +227,7 @@ void factorization::save(ofstream &fp) {
   bS->save(fp);
 }
 
-factorization *factorization::load(ifstream &fp) {
+factorization *factorization::load(std::ifstream &fp) {
   factorization *rep = new factorization();
   rep->listLength = loadValue<uint>(fp);
   rep->nLevels = loadValue<byte>(fp);

@@ -27,7 +27,9 @@
 
 #include <libcdsBasics.h>
 
-using namespace std;
+#include <algorithm>
+
+using std::max;
 
 namespace cds_utils {
 /** Class for arrays with variable bit-width
@@ -55,20 +57,20 @@ public:
   /** Reads and Array from a file stream
    * @param input input file stream
    */
-  Array(ifstream &input);
+  Array(std::ifstream &input);
 
   /** Creates an array from a vector
    * @param A vector with the elements
    * @bpe bits per element
    */
-  Array(const vector<uint> &A, uint bpe = 0);
+  Array(const std::vector<uint> &A, uint bpe = 0);
 
   /** Creates an array from a vector iterator
    * @param ini initial position
    * @param fin final position
    * @bpe bits per element
    */
-  Array(const vector<uint>::iterator &ini, const vector<uint>::iterator &fin,
+  Array(const std::vector<uint>::iterator &ini, const std::vector<uint>::iterator &fin,
         uint bpe = 0);
 
   /** Creates an array copying part of a previously existing array
@@ -130,7 +132,7 @@ public:
   }
 
   /** Saves the array into a file */
-  void save(ofstream &out) const;
+  void save(std::ofstream &out) const;
 
   /** Returns the size of the array in bytes
    */

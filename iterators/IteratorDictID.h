@@ -29,7 +29,7 @@
 #define _ITERATORDICTID_H
 
 #include <iostream>
-using namespace std;
+
 
 class IteratorDictID {
 public:

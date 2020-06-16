@@ -32,7 +32,7 @@
 
 #include <cassert>
 #include <iostream>
-using namespace std;
+
 
 class IteratorDictString {
 public:

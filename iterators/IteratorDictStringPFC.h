@@ -31,7 +31,7 @@
 #include <string.h>
 
 #include <iostream>
-using namespace std;
+
 
 #include "../utils/Utils.h"
 #include "../utils/VByte.h"

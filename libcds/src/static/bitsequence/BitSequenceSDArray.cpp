@@ -91,7 +91,7 @@ size_t BitSequenceSDArray::getSize() const {
          (ones ? (sd.size + sd.sd0->size + sd.sd1->size) : 0);
 }
 
-void BitSequenceSDArray::save(ofstream &fp) const {
+void BitSequenceSDArray::save(std::ofstream &fp) const {
   uint wr = SDARRAY_HDR;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -100,7 +100,7 @@ void BitSequenceSDArray::save(ofstream &fp) const {
     selects3_save(&sd, fp);
 }
 
-BitSequenceSDArray *BitSequenceSDArray::load(ifstream &fp) {
+BitSequenceSDArray *BitSequenceSDArray::load(std::ifstream &fp) {
   uint id = loadValue<uint>(fp);
   if (id != SDARRAY_HDR)
     return NULL;

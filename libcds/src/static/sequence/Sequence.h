@@ -26,7 +26,7 @@
 #include <libcdsBasics.h>
 
 using namespace cds_utils;
-using namespace std;
+
 
 namespace cds_static {
 
@@ -81,10 +81,10 @@ public:
 
   /** Saves the structure to the stream
    */
-  virtual void save(ofstream &fp) const = 0;
+  virtual void save(std::ofstream &fp) const = 0;
 
   /** Reads a bitmap determining the type */
-  static Sequence *load(ifstream &fp);
+  static Sequence *load(std::ifstream &fp);
 
 protected:
   size_t length;

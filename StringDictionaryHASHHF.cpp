@@ -73,13 +73,13 @@ StringDictionaryHASHHF::StringDictionaryHASHHF(IteratorDictString *it, uint len,
   size_t ptr = 0;
   uint offset = 0, bytes = 0;
   uchar *tmp = new uchar[6 * maxlength];
-  vector<uchar> textSubstr;
-  vector<ushort> lenSubstr;
+  std::vector<uchar> textSubstr;
+  std::vector<ushort> lenSubstr;
   ushort ptrSubstr = 0;
   uint codeSubstr = 0;
 
   // Simulating the hash representation
-  vector<SortString> sorting(elements);
+  std::vector<SortString> sorting(elements);
 
   for (uint current = 1; current <= elements; current++) {
     // Resetting variables for the next string
@@ -286,37 +286,37 @@ uchar *StringDictionaryHASHHF::extract(size_t id, uint *strLen) {
 }
 
 IteratorDictID *StringDictionaryHASHHF::locatePrefix(uchar *, uint) {
-  cout << "This dictionary does not provide prefix location" << endl;
+  std::cout << "This dictionary does not provide prefix location" << std::endl;
   return NULL;
 }
 
 IteratorDictID *StringDictionaryHASHHF::locateSubstr(uchar *, uint) {
-  cout << "This dictionary does not provide substring location" << endl;
+  std::cout << "This dictionary does not provide substring location" << std::endl;
   return NULL;
 }
 
 uint StringDictionaryHASHHF::locateRank(uint) {
-  cout << "This dictionary does not provide rank location" << endl;
+  std::cout << "This dictionary does not provide rank location" << std::endl;
   return 0;
 }
 
 IteratorDictString *StringDictionaryHASHHF::extractPrefix(uchar *, uint) {
-  cout << "This dictionary does not provide prefix extraction" << endl;
+  std::cout << "This dictionary does not provide prefix extraction" << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHHF::extractSubstr(uchar *, uint) {
-  cout << "This dictionary does not provide substring extraction" << endl;
+  std::cout << "This dictionary does not provide substring extraction" << std::endl;
   return NULL;
 }
 
 uchar *StringDictionaryHASHHF::extractRank(uint, uint *) {
-  cout << "This dictionary does not provide rank extraction" << endl;
+  std::cout << "This dictionary does not provide rank extraction" << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHHF::extractTable() {
-  vector<uchar *> tabledec(elements);
+  std::vector<uchar *> tabledec(elements);
   uchar *tmp = new uchar[4 * maxlength + table->getK()];
 
   for (uint i = 1; i <= elements; i++) {
@@ -343,7 +343,7 @@ size_t StringDictionaryHASHHF::getSize() {
          sizeof(StringDictionaryHASHHF) + 256 * sizeof(bool);
 }
 
-void StringDictionaryHASHHF::save(ofstream &out) {
+void StringDictionaryHASHHF::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -359,7 +359,7 @@ void StringDictionaryHASHHF::save(ofstream &out) {
   table->save(out);
 }
 
-StringDictionary *StringDictionaryHASHHF::load(ifstream &in, uint technique) {
+StringDictionary *StringDictionaryHASHHF::load(std::ifstream &in, uint technique) {
   size_t type = loadValue<uint32_t>(in);
 
   if (type != HASHHF)

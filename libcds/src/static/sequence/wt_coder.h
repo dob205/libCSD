@@ -25,7 +25,7 @@
 #include <fstream>
 #include <libcdsBasics.h>
 
-using namespace std;
+
 
 namespace cds_static {
 
@@ -56,9 +56,9 @@ public:
     return -1; // Implemented in wt_coder_binary
   }
   /** Saves the coder to a file, returns 0 in case of success */
-  virtual void save(ofstream &fp) const = 0;
+  virtual void save(std::ofstream &fp) const = 0;
   /** Loads a coder from a file, returns NULL in case of error */
-  static wt_coder *load(ifstream &fp);
+  static wt_coder *load(std::ifstream &fp);
 
 protected:
   uint user_count;

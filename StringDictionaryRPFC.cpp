@@ -46,8 +46,8 @@ StringDictionaryRPFC::StringDictionaryRPFC(IteratorDictString *it,
   this->type = RPFC;
 
   if (bucketsize < 2) {
-    cerr << "[WARNING] The bucketsize value must be greater than 1. ";
-    cerr << "The dictionary is built using buckets of size 2" << endl;
+    std::cerr << "[WARNING] The bucketsize value must be greater than 1. ";
+    std::cerr << "The dictionary is built using buckets of size 2" << std::endl;
     this->bucketsize = 2;
   } else
     this->bucketsize = bucketsize;
@@ -60,7 +60,7 @@ StringDictionaryRPFC::StringDictionaryRPFC(IteratorDictString *it,
 
   // 2) Obtaining the char frequencies and building the Hu-Tucker tree
   //    and the Re-Pair encoding of the internal strings.
-  vector<vector<uchar>> headers(dict->buckets + 1);
+  std::vector<std::vector<uchar>> headers(dict->buckets + 1);
   size_t reservedInts = elements;
   int *rpdict = new int[reservedInts];
 
@@ -121,8 +121,8 @@ StringDictionaryRPFC::StringDictionaryRPFC(IteratorDictString *it,
   rp = new RePair(rpdict, ptrpdict, 255);
   bitsrp = rp->getBits();
 
-  vector<size_t> intStrings;              // Encoded internal strings
-  vector<size_t> beginnings(buckets + 1); // Bucket beginnings
+  std::vector<size_t> intStrings;              // Encoded internal strings
+  std::vector<size_t> beginnings(buckets + 1); // Bucket beginnings
 
   size_t ibytes = 0;
   uint io = 0, strings = 0;
@@ -154,7 +154,7 @@ StringDictionaryRPFC::StringDictionaryRPFC(IteratorDictString *it,
 
   // 3) Compressing the dictionary
   {
-    vector<size_t> xblStrings;
+    std::vector<size_t> xblStrings;
     size_t ptrB = 0, ptrE = 0;
     uint offset = 0, bytes = 0;
     uchar *tmp = new uchar[4 * maxlength];
@@ -375,7 +375,7 @@ IteratorDictID *StringDictionaryRPFC::locatePrefix(uchar *str, uint strLen) {
 }
 
 IteratorDictID *StringDictionaryRPFC::locateSubstr(uchar *, uint) {
-  cerr << "This dictionary does not provide substring location" << endl;
+  std::cerr << "This dictionary does not provide substring location" << std::endl;
   return NULL;
 }
 
@@ -405,7 +405,7 @@ IteratorDictString *StringDictionaryRPFC::extractPrefix(uchar *str,
 }
 
 IteratorDictString *StringDictionaryRPFC::extractSubstr(uchar *, uint) {
-  cerr << "This dictionary does not provide substring extraction" << endl;
+  std::cerr << "This dictionary does not provide substring extraction" << std::endl;
   return 0;
 }
 
@@ -423,7 +423,7 @@ size_t StringDictionaryRPFC::getSize() {
          sizeof(StringDictionaryRPFC);
 }
 
-void StringDictionaryRPFC::save(ofstream &out) {
+void StringDictionaryRPFC::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -438,7 +438,7 @@ void StringDictionaryRPFC::save(ofstream &out) {
   rp->save(out);
 }
 
-StringDictionary *StringDictionaryRPFC::load(ifstream &in) {
+StringDictionary *StringDictionaryRPFC::load(std::ifstream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != RPFC)
     return NULL;

@@ -32,7 +32,7 @@
 
 using namespace cds_utils;
 namespace cds_static {
-// using namespace std;
+// 
 
 class SequenceGMR : public Sequence {
 public:
@@ -54,10 +54,10 @@ public:
   virtual size_t select(uint c, size_t j) const;
   virtual uint access(size_t j) const;
   virtual size_t getSize() const;
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
   /** Loads the SequenceGMR object from the stream.
    */
-  static SequenceGMR *load(ifstream &fp);
+  static SequenceGMR *load(std::ifstream &fp);
 
 protected:
   SequenceGMR();

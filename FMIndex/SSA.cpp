@@ -74,7 +74,7 @@ SSA::~SSA() {
     delete[] occ;
 }
 
-void SSA::save(ofstream &fp) {
+void SSA::save(std::ofstream &fp) {
   saveValue(fp, n);
   saveValue(fp, maxV);
   saveValue(fp, occ, maxV + 1);
@@ -88,7 +88,7 @@ void SSA::save(ofstream &fp) {
   saveValue(fp, alphabet, 256);
 }
 
-SSA *SSA::load(ifstream &fp) {
+SSA *SSA::load(std::ifstream &fp) {
   SSA *fm = new SSA();
   fm->n = loadValue<uint>(fp);
   fm->maxV = loadValue<uint>(fp);
@@ -135,18 +135,18 @@ uint SSA::size() {
 }
 
 void SSA::print_stats() {
-  cout << "ssa stats:" << endl;
-  cout << "****************" << endl;
-  cout << "Total space  : " << size() << endl;
-  cout << endl;
-  cout << " bwt         : " << bwt->getSize() << endl;
+  std::cout << "ssa stats:" << std::endl;
+  std::cout << "****************" << std::endl;
+  std::cout << "Total space  : " << size() << std::endl;
+  std::cout << std::endl;
+  std::cout << " bwt         : " << bwt->getSize() << std::endl;
 
   if (samplesuff > 0) {
-    cout << " suff sample : " << sizeof(uint) * (1 + n / samplesuff) << endl;
-    cout << " sampled: " << sampled->getSize() << endl;
+    std::cout << " suff sample : " << sizeof(uint) * (1 + n / samplesuff) << std::endl;
+    std::cout << " sampled: " << sampled->getSize() << std::endl;
   }
-  cout << " occ         : " << (maxV + 1) * sizeof(uint) << endl;
-  cout << endl;
+  std::cout << " occ         : " << (maxV + 1) * sizeof(uint) << std::endl;
+  std::cout << std::endl;
 }
 
 bool SSA::set_static_sequence_builder(SequenceBuilder *ssb) {

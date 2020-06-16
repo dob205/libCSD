@@ -26,7 +26,7 @@
 #include <libcdsBasics.h>
 #include <wt_coder.h>
 
-using namespace std;
+
 
 namespace cds_static {
 
@@ -46,8 +46,8 @@ public:
   virtual bool done(uint symbol, uint l) const;
   virtual uint depth() const { return h; }
   virtual size_t getSize() const;
-  virtual void save(ofstream &fp) const;
-  static wt_coder_binary *load(ifstream &fp);
+  virtual void save(std::ofstream &fp) const;
+  static wt_coder_binary *load(std::ifstream &fp);
 
 protected:
   wt_coder_binary();

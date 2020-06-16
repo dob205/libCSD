@@ -51,7 +51,7 @@
 
 #include <iostream>
 #include <vector>
-using namespace std;
+
 
 #include <libcdsBasics.h>
 using namespace cds_utils;
@@ -150,13 +150,13 @@ public:
   /** Stores the dictionary into an ofstream.
       @param out: the oftstream.
   */
-  void save(ofstream &out);
+  void save(std::ofstream &out);
 
   /** Loads a dictionary from an ifstream.
       @param in: the ifstream.
       @returns the loaded dictionary.
   */
-  static StringDictionary *load(ifstream &in);
+  static StringDictionary *load(std::ifstream &in);
 
   /** Generic destructor. */
   ~StringDictionaryHTFC();
@@ -284,15 +284,15 @@ protected:
         decodeable substrings.
   */
   inline void insertDecodeableSubstr(uchar symbol, uint *seq, ushort *ptr,
-                                     vector<uchar> *substr,
-                                     vector<ushort> *lenSubstr,
+                                     std::vector<uchar> *substr,
+                                     std::vector<ushort> *lenSubstr,
                                      DecodeableSubstr *tableSubstr);
 
   /** Similar than insertDecodeableSubstr, but it fills the
       sequence with 0s and inserts it in the table using as
       decoding information that currently stored in the queues */
-  inline void insertEndingSubstr(uint *seq, ushort *ptr, vector<uchar> *substr,
-                                 vector<ushort> *lenSubstr,
+  inline void insertEndingSubstr(uint *seq, ushort *ptr, std::vector<uchar> *substr,
+                                 std::vector<ushort> *lenSubstr,
                                  DecodeableSubstr *tableSubstr);
 };
 

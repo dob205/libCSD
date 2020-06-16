@@ -34,7 +34,7 @@
 
 #include <fstream>
 #include <iostream>
-using namespace std;
+
 
 #include <BitString.h>
 #include <libcdsBasics.h>
@@ -77,7 +77,7 @@ public:
         balanced parenthesis.
       @param symbols: symbols stored in the tree leafs.
   */
-  DecodingTree(uint codeword, BitString *partree, vector<uint> *symbols);
+  DecodingTree(uint codeword, BitString *partree, std::vector<uint> *symbols);
 
   /** Returns the last symbol encoded by the tree
    */
@@ -91,13 +91,13 @@ public:
   /** Stores the decoding tree structure into an ofstream.
       @param out: the oftstream.
   */
-  void save(ofstream &out);
+  void save(std::ofstream &out);
 
   /** Loads a decoding tree structure from an ifstream.
       @param in: the ifstream.
       @returns the loaded decoding table.
   */
-  static DecodingTree *load(ifstream &in);
+  static DecodingTree *load(std::ifstream &in);
 
   /** Generic destructor. */
   ~DecodingTree();
@@ -110,7 +110,7 @@ protected:
   TreeNode *tree; //! The subtree structure represented with pointers
   BitString
       *partree; //! The subtree structure represented with balanced parenthesis
-  vector<uint> symbols; //! Symbols stored in the tree leafs.
+  std::vector<uint> symbols; //! Symbols stored in the tree leafs.
 
   /** Builds the pointer-based representation of the tree from
       it counterpart based on balanced parenthesis.

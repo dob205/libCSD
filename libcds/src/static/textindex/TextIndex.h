@@ -22,7 +22,7 @@
 
 #include <libcdsBasics.h>
 using namespace cds_utils;
-using namespace std;
+
 
 #ifndef uchar
 #define uchar unsigned char
@@ -98,10 +98,10 @@ public:
   virtual size_t getSize() const = 0;
 
   /** Stores the text index in the  given a file pointer*/
-  virtual void save(ofstream &fp) const = 0;
+  virtual void save(std::ofstream &fp) const = 0;
 
   /** Reads a text index determining the type */
-  static TextIndex *load(ifstream &fp);
+  static TextIndex *load(std::ifstream &fp);
 };
 } // namespace cds_static
 

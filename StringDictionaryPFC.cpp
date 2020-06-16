@@ -45,8 +45,8 @@ StringDictionaryPFC::StringDictionaryPFC(IteratorDictString *it,
   this->maxlength = 0;
 
   if (bucketsize < 2) {
-    cerr << "[WARNING] The bucketsize value must be greater than 1. ";
-    cerr << "The dictionary is built using buckets of size 2" << endl;
+    std::cerr << "[WARNING] The bucketsize value must be greater than 1. ";
+    std::cerr << "The dictionary is built using buckets of size 2" << std::endl;
     this->bucketsize = 2;
   } else
     this->bucketsize = bucketsize;
@@ -61,7 +61,7 @@ StringDictionaryPFC::StringDictionaryPFC(IteratorDictString *it,
   // Variables for strings management
   size_t reservedStrings = MEMALLOC * bucketsize;
   textStrings = new uchar[reservedStrings];
-  vector<size_t> xblStrings;
+  std::vector<size_t> xblStrings;
 
   xblStrings.push_back(bytesStrings);
 
@@ -273,7 +273,7 @@ IteratorDictID *StringDictionaryPFC::locatePrefix(uchar *str, uint strLen) {
 }
 
 IteratorDictID *StringDictionaryPFC::locateSubstr(uchar *, uint) {
-  cerr << "This dictionary does not provide substring location" << endl;
+  std::cerr << "This dictionary does not provide substring location" << std::endl;
   return NULL;
 }
 
@@ -304,7 +304,7 @@ IteratorDictString *StringDictionaryPFC::extractPrefix(uchar *str,
 }
 
 IteratorDictString *StringDictionaryPFC::extractSubstr(uchar *, uint) {
-  cerr << "This dictionary does not provide substring extraction" << endl;
+  std::cerr << "This dictionary does not provide substring extraction" << std::endl;
   return 0;
 }
 
@@ -324,7 +324,7 @@ size_t StringDictionaryPFC::getSize() {
          sizeof(StringDictionaryPFC);
 }
 
-void StringDictionaryPFC::save(ofstream &out) {
+void StringDictionaryPFC::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -335,7 +335,7 @@ void StringDictionaryPFC::save(ofstream &out) {
   blStrings->save(out);
 }
 
-StringDictionary *StringDictionaryPFC::load(ifstream &in) {
+StringDictionary *StringDictionaryPFC::load(std::ifstream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != PFC)
     return NULL;

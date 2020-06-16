@@ -27,7 +27,7 @@
 #include <Mapper.h>
 #include <libcdsBasics.h>
 
-using namespace std;
+
 
 namespace cds_static {
 
@@ -42,8 +42,8 @@ public:
   virtual uint map(const uint s) const;
   virtual uint unmap(const uint s) const;
   virtual size_t getSize() const;
-  virtual void save(ofstream &out) const;
-  static MapperNone *load(ifstream &input);
+  virtual void save(std::ofstream &out) const;
+  static MapperNone *load(std::ifstream &input);
 };
 } // namespace cds_static
 #endif /* __MAPPER_NONE_H */

@@ -26,7 +26,7 @@
 #include <SequenceBuilder.h>
 
 using namespace cds_utils;
-using namespace std;
+
 
 namespace cds_static {
 
@@ -58,9 +58,9 @@ public:
 
   virtual size_t getLength() const { return length; }
 
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
-  static SequenceAlphPart *load(ifstream &fp);
+  static SequenceAlphPart *load(std::ifstream &fp);
 
 protected:
   // reverse permutation for sorted symbols

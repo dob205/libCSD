@@ -34,7 +34,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
-using namespace std;
+
 
 #include <libcdsBasics.h>
 using namespace cds_utils;
@@ -44,7 +44,7 @@ class TrieNode {
 public:
   TrieNode(char symbol);
 
-  void insert(const uchar *str, int len, int *occ, vector<TrieNode *> *nodes);
+  void insert(const uchar *str, int len, int *occ, std::vector<TrieNode *> *nodes);
   bool less(const TrieNode &n) const;
   bool cmp(const TrieNode &n) const;
 
@@ -52,7 +52,7 @@ public:
 
 protected:
   uchar symbol;
-  map<char, TrieNode *> children;
+  std::map<char, TrieNode *> children;
   TrieNode *parent;
   uchar last_ch;
   bool leaf;

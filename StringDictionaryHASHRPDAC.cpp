@@ -69,7 +69,7 @@ StringDictionaryHASHRPDAC::StringDictionaryHASHRPDAC(IteratorDictString *it,
   }
 
   // Performing Tdict reorganization
-  vector<SortString> sorting(elements);
+  std::vector<SortString> sorting(elements);
 
   uchar *strCurrent;
   uint lenCurrent = 0;
@@ -217,37 +217,37 @@ uchar *StringDictionaryHASHRPDAC::extract(size_t id, uint *strLen) {
 }
 
 IteratorDictID *StringDictionaryHASHRPDAC::locatePrefix(uchar *, uint) {
-  cout << "This dictionary does not provide prefix location" << endl;
+  std::cout << "This dictionary does not provide prefix location" << std::endl;
   return NULL;
 }
 
 IteratorDictID *StringDictionaryHASHRPDAC::locateSubstr(uchar *, uint) {
-  cout << "This dictionary does not provide substring location" << endl;
+  std::cout << "This dictionary does not provide substring location" << std::endl;
   return NULL;
 }
 
 uint StringDictionaryHASHRPDAC::locateRank(uint) {
-  cout << "This dictionary does not provide rank location" << endl;
+  std::cout << "This dictionary does not provide rank location" << std::endl;
   return 0;
 }
 
 IteratorDictString *StringDictionaryHASHRPDAC::extractPrefix(uchar *, uint) {
-  cout << "This dictionary does not provide prefix extraction" << endl;
+  std::cout << "This dictionary does not provide prefix extraction" << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHRPDAC::extractSubstr(uchar *, uint) {
-  cout << "This dictionary does not provide substring extraction" << endl;
+  std::cout << "This dictionary does not provide substring extraction" << std::endl;
   return NULL;
 }
 
 uchar *StringDictionaryHASHRPDAC::extractRank(uint, uint *) {
-  cout << "This dictionary does not provide rank extraction" << endl;
+  std::cout << "This dictionary does not provide rank extraction" << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHRPDAC::extractTable() {
-  vector<uchar *> tabledec(elements);
+  std::vector<uchar *> tabledec(elements);
   uint strLen;
 
   for (uint i = 1; i <= elements; i++)
@@ -260,7 +260,7 @@ size_t StringDictionaryHASHRPDAC::getSize() {
   return hash->getSize() + rp->getSize() + sizeof(StringDictionaryHASHRPDAC);
 }
 
-void StringDictionaryHASHRPDAC::save(ofstream &out) {
+void StringDictionaryHASHRPDAC::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -269,7 +269,7 @@ void StringDictionaryHASHRPDAC::save(ofstream &out) {
   hash->save(out);
 }
 
-StringDictionary *StringDictionaryHASHRPDAC::load(ifstream &in,
+StringDictionary *StringDictionaryHASHRPDAC::load(std::ifstream &in,
                                                   uint technique) {
   size_t type = loadValue<uint32_t>(in);
   if (type != HASHRPDAC)

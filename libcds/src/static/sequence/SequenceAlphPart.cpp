@@ -23,7 +23,7 @@
 #include <algorithm>
 #include <iostream>
 
-using namespace std;
+
 
 namespace cds_static {
 
@@ -37,13 +37,13 @@ namespace cds_static {
     }
 
     inline uint offset(uint pos, uint cut, uint group) {
-        //cout << "pos=" << pos << " cut=" << cut << " grp=" << group << endl;
+        //cout << "pos=" << pos << " cut=" << cut << " grp=" << group << std::endl;
         uint ret = 0;
         if(pos<=cut)
             ret = 0;
         else
             ret = pos-cut-(1<<(group-cut-1));
-        //cout << "ret=" << ret << endl;
+        //cout << "ret=" << ret << std::endl;
         return ret;
     }
     */
@@ -91,11 +91,11 @@ SequenceAlphPart::SequenceAlphPart(const Array &seq, uint _cut,
     occ[seq[i]]++;
 
   // Create pairs (frequency,symbol) and then sort by frequency
-  pair<size_t, uint> *pairs = new pair<size_t, uint>[sigma + 2];
+  std::pair<size_t, uint> *pairs = new std::pair<size_t, uint>[sigma + 2];
   for (uint i = 0; i <= sigma; i++)
-    pairs[i] = pair<size_t, uint>(occ[i], i);
-  pairs[sigma + 1] = pair<size_t, uint>(0, sigma + 1);
-  sort(pairs, pairs + sigma + 2, greater<pair<size_t, uint>>());
+    pairs[i] = std::pair<size_t, uint>(occ[i], i);
+  pairs[sigma + 1] = std::pair<size_t, uint>(0, sigma + 1);
+  sort(pairs, pairs + sigma + 2, greater<std::pair<size_t, uint>>());
 
   revPermFreq = new uint[sigma + 1];
   origsigma = sigma;
@@ -132,7 +132,7 @@ SequenceAlphPart::SequenceAlphPart(const Array &seq, uint _cut,
     alphSortedByFreq[i] = pairs[i].second;
     uint sl = group(i, cut);
     groupForSymb[pairs[i].second] = sl;
-    // cout << "groupForSymb[" << pairs[i].second << "]=" << sl << endl;
+    // std::cout << "groupForSymb[" << pairs[i].second << "]=" << sl << std::endl;
     lenLength[sl] += pairs[i].first;
     maxLen = sl;
   }
@@ -150,7 +150,7 @@ SequenceAlphPart::SequenceAlphPart(const Array &seq, uint _cut,
   for (uint i = 0; (maxLen > cut) && i < maxLen - cut; i++) {
     seqs[i] = new uint[lenLength[i + cut + 1]];
     sum += lenLength[i + cut + 1];
-    // cout << "len=" << lenLength[i+cut+1] << " sum=" << sum << endl;
+    // std::cout << "len=" << lenLength[i+cut+1] << " sum=" << sum << std::endl;
   }
 
   // Lets compute the offsets
@@ -161,8 +161,8 @@ SequenceAlphPart::SequenceAlphPart(const Array &seq, uint _cut,
     if (groupForSymb[seq[i]] > cut) {
       seqs[groupForSymb[seq[i]] - cut - 1][lenLength[groupForSymb[seq[i]]]++] =
           offset(revPermFreq[seq[i]], cut, groupForSymb[seq[i]]);
-      // cout << "Group=" << groupForSymb[seq[i]] << " offset=" <<
-      // offset(revPermFreq[seq[i]],cut,groupForSymb[seq[i]]) << endl;
+      // std::cout << "Group=" << groupForSymb[seq[i]] << " offset=" <<
+      // offset(revPermFreq[seq[i]],cut,groupForSymb[seq[i]]) << std::endl;
     }
   }
 
@@ -206,11 +206,11 @@ SequenceAlphPart::SequenceAlphPart(uint *seq, size_t n, uint cut,
     occ[seq[i]]++;
 
   // Create pairs (frequency,symbol) and then sort by frequency
-  pair<size_t, uint> *pairs = new pair<size_t, uint>[sigma + 2];
+  std::pair<size_t, uint> *pairs = new std::pair<size_t, uint>[sigma + 2];
   for (uint i = 0; i <= sigma; i++)
-    pairs[i] = pair<size_t, uint>(occ[i], i);
-  pairs[sigma + 1] = pair<size_t, uint>(0, sigma + 1);
-  sort(pairs, pairs + sigma + 2, greater<pair<size_t, uint>>());
+    pairs[i] = std::pair<size_t, uint>(occ[i], i);
+  pairs[sigma + 1] = std::pair<size_t, uint>(0, sigma + 1);
+  sort(pairs, pairs + sigma + 2, greater<std::pair<size_t, uint>>());
 
   revPermFreq = new uint[sigma + 1];
   origsigma = sigma;
@@ -266,8 +266,8 @@ SequenceAlphPart::SequenceAlphPart(uint *seq, size_t n, uint cut,
     if (groupForSymb[seq[i]] > cut) {
       seqs[groupForSymb[seq[i]] - cut - 1][lenLength[groupForSymb[seq[i]]]++] =
           offset(revPermFreq[seq[i]], cut, groupForSymb[seq[i]]);
-      cout << "Group=" << groupForSymb[seq[i]] << " offset="
-           << offset(revPermFreq[seq[i]], cut, groupForSymb[seq[i]]) << endl;
+      std::cout << "Group=" << groupForSymb[seq[i]] << " offset="
+           << offset(revPermFreq[seq[i]], cut, groupForSymb[seq[i]]) << std::endl;
     }
   }
 
@@ -336,17 +336,17 @@ uint SequenceAlphPart::access(size_t i) const {
 size_t SequenceAlphPart::getSize() const {
   size_t ret = 0;
   for (uint i = 0; maxLen > cut && i < maxLen - cut; i++) {
-    cout << "i=" << i << " len=" << indexesByLength[i]->getLength()
-         << " size=" << indexesByLength[i]->getSize() << endl;
+    std::cout << "i=" << i << " len=" << indexesByLength[i]->getLength()
+         << " size=" << indexesByLength[i]->getSize() << std::endl;
     ret += indexesByLength[i]->getSize();
   }
   ret += groupsIndex->getSize();
-  cout << "groupsIndex->getSize()=" << groupsIndex->getSize() << endl;
+  std::cout << "groupsIndex->getSize()=" << groupsIndex->getSize() << std::endl;
   ret += sizeof(SequenceAlphPart);
   return ret;
 }
 
-void SequenceAlphPart::save(ofstream &fp) const {
+void SequenceAlphPart::save(std::ofstream &fp) const {
   uint type = ALPHPART_HDR;
   saveValue(fp, type);
   saveValue(fp, sigma);
@@ -360,7 +360,7 @@ void SequenceAlphPart::save(ofstream &fp) const {
     indexesByLength[i]->save(fp);
 }
 
-SequenceAlphPart *SequenceAlphPart::load(ifstream &fp) {
+SequenceAlphPart *SequenceAlphPart::load(std::ifstream &fp) {
   uint type = loadValue<uint>(fp);
   if (type != ALPHPART_HDR)
     return NULL;

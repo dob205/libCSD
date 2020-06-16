@@ -73,7 +73,7 @@
 #include <iterator>
 #include <map>
 #include <vector>
-using namespace std;
+
 
 #include <BitString.h>
 #include <libcdsBasics.h>
@@ -105,7 +105,7 @@ public:
       @param length: the substring length.
       @param dbits: the number of decoded bits
   */
-  void setSubstr(vector<uchar> *substr, uint length, uint dbits) {
+  void setSubstr(std::vector<uchar> *substr, uint length, uint dbits) {
     this->length = length;
     this->dbits = dbits;
     this->ptr = 0;
@@ -127,7 +127,7 @@ public:
       @param substr: the decodeable substring.
       @param length: the substring length.
   */
-  void setSpecialSubstr(vector<uchar> *substr, uint length) {
+  void setSpecialSubstr(std::vector<uchar> *substr, uint length) {
     this->length = length;
     this->dbits = 1;
     this->ptr = 0;
@@ -163,7 +163,7 @@ public:
   ~DecodeableSubstr() {}
 
 protected:
-  vector<uchar> substr; //! The decodeable susbtring
+  std::vector<uchar> substr; //! The decodeable susbtring
 
   uint length;  //! The substring length
   uint dbits;   //! The number of decoded bits
@@ -241,13 +241,13 @@ public:
   /** Stores the decoding table structure into an ofstream.
       @param out: the oftstream.
   */
-  void save(ofstream &out);
+  void save(std::ofstream &out);
 
   /** Loads a decoding table structure from an ifstream.
       @param in: the ifstream.
       @returns the loaded decoding table.
   */
-  static DecodingTable *load(ifstream &in);
+  static DecodingTable *load(std::ifstream &in);
 
   /** Generic destructor. */
   ~DecodingTable();

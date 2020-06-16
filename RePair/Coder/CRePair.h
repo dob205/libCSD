@@ -34,7 +34,7 @@
 using namespace cds_utils;
 using namespace cds_static;
 
-using namespace std;
+
 
 class CRePair {
 

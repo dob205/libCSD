@@ -86,8 +86,8 @@ public:
   virtual size_t getSize() const;
 
   /*load-save functions*/
-  virtual void save(ofstream &f) const;
-  static BitSequence375 *load(ifstream &f);
+  virtual void save(std::ofstream &f) const;
+  static BitSequence375 *load(std::ifstream &f);
 };
 
 } // namespace cds_static

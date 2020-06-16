@@ -30,7 +30,7 @@
 
 #include <fstream>
 #include <iostream>
-using namespace std;
+
 
 #include "StringDictionary.h"
 #include "iterators/IteratorDictStringPlain.h"
@@ -41,109 +41,109 @@ void checkFile(void);
 void useBuild(void);
 
 void checkDict() {
-  cerr << endl;
-  cerr << " *******************************************************************"
+  std::cerr << std::endl;
+  std::cerr << " *******************************************************************"
           "************* "
-       << endl;
-  cerr << " *** Checks the given file because it does not represent any valid "
+       << std::endl;
+  std::cerr << " *** Checks the given file because it does not represent any valid "
           "dictionary *** "
-       << endl;
-  cerr << " *******************************************************************"
+       << std::endl;
+  std::cerr << " *******************************************************************"
           "************* "
-       << endl;
-  cerr << endl;
+       << std::endl;
+  std::cerr << std::endl;
 }
 
 void checkFile() {
-  cerr << endl;
-  cerr << " ****************************************************************** "
-       << endl;
-  cerr << " *** Checks the given path because it does not contain any file *** "
-       << endl;
-  cerr << " ****************************************************************** "
-       << endl;
-  cerr << endl;
+  std::cerr << std::endl;
+  std::cerr << " ****************************************************************** "
+       << std::endl;
+  std::cerr << " *** Checks the given path because it does not contain any file *** "
+       << std::endl;
+  std::cerr << " ****************************************************************** "
+       << std::endl;
+  std::cerr << std::endl;
 }
 
 void useBuild() {
 
-  cerr << endl;
-  cerr << " *******************************************************************"
+  std::cerr << std::endl;
+  std::cerr << " *******************************************************************"
           "******* "
-       << endl;
-  cerr << " *** BUILD script for indexing string dictionaries in compressed "
+       << std::endl;
+  std::cerr << " *** BUILD script for indexing string dictionaries in compressed "
           "space. *** "
-       << endl;
-  cerr << " *******************************************************************"
+       << std::endl;
+  std::cerr << " *******************************************************************"
           "******* "
-       << endl;
-  cerr << endl;
-  cerr << " ----- ./Build <type> <parameters> <in> <out>" << endl;
+       << std::endl;
+  std::cerr << std::endl;
+  std::cerr << " ----- ./Build <type> <parameters> <in> <out>" << std::endl;
 
-  cerr << " type: 1 => Build HASH dictionary" << endl;
-  cerr << " \t <compress> : 'h' for Huffman; 'r' for RePair compression."
-       << endl;
-  cerr << " \t <overhead> : hash table overhead over the number of strings."
-       << endl;
-  cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << endl;
-  cerr << " \t <out> : output file for storing the dictionary." << endl;
-  cerr << endl;
+  std::cerr << " type: 1 => Build HASH dictionary" << std::endl;
+  std::cerr << " \t <compress> : 'h' for Huffman; 'r' for RePair compression."
+       << std::endl;
+  std::cerr << " \t <overhead> : hash table overhead over the number of strings."
+       << std::endl;
+  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
+       << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr << std::endl;
 
-  cerr << " type: 2 => Build HASHDAC dictionary" << endl;
-  cerr << " \t <compress> : 'h' for Huffman; 'r' for RePair compression."
-       << endl;
-  cerr << " \t <overhead> : hash table overhead over the number of strings."
-       << endl;
-  cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << endl;
-  cerr << " \t <out> : output file for storing the dictionary." << endl;
-  cerr << endl;
+  std::cerr << " type: 2 => Build HASHDAC dictionary" << std::endl;
+  std::cerr << " \t <compress> : 'h' for Huffman; 'r' for RePair compression."
+       << std::endl;
+  std::cerr << " \t <overhead> : hash table overhead over the number of strings."
+       << std::endl;
+  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
+       << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr << std::endl;
 
-  cerr << " type: 3 => Build PLAIN FRONT CODING dictionary" << endl;
-  cerr << " \t <compress> : 'p' for plain (uncompressed) representation; 'r' "
+  std::cerr << " type: 3 => Build PLAIN FRONT CODING dictionary" << std::endl;
+  std::cerr << " \t <compress> : 'p' for plain (uncompressed) representation; 'r' "
           "for RePair compression"
-       << endl;
-  cerr << " \t <bucketsize> : number of strings per bucket." << endl;
-  cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << endl;
-  cerr << " \t <out> : output file for storing the dictionary." << endl;
-  cerr << endl;
+       << std::endl;
+  std::cerr << " \t <bucketsize> : number of strings per bucket." << std::endl;
+  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
+       << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr << std::endl;
 
-  cerr << " type: 4 => Build HU-TUCKER FRONT CODING dictionary" << endl;
-  cerr << " \t <compress> : tecnique used for internal string compression."
-       << endl;
-  cerr << " \t              't' for HuTucker; 'h' for Huffman; 'r' for RePair "
+  std::cerr << " type: 4 => Build HU-TUCKER FRONT CODING dictionary" << std::endl;
+  std::cerr << " \t <compress> : tecnique used for internal string compression."
+       << std::endl;
+  std::cerr << " \t              't' for HuTucker; 'h' for Huffman; 'r' for RePair "
           "compression."
-       << endl;
-  cerr << " \t <bucketsize> : number of strings per bucket." << endl;
-  cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << endl;
-  cerr << " \t <out> : output file for storing the dictionary." << endl;
-  cerr << endl;
+       << std::endl;
+  std::cerr << " \t <bucketsize> : number of strings per bucket." << std::endl;
+  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
+       << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr << std::endl;
 
-  cerr << " type: 5 => Build RE-PAIR DAC dictionary" << endl;
-  cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << endl;
-  cerr << " \t <out> : output file for storing the dictionary." << endl;
-  cerr << endl;
+  std::cerr << " type: 5 => Build RE-PAIR DAC dictionary" << std::endl;
+  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
+       << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr << std::endl;
 
-  cerr << " type: 6 => Build FMINDEX dictionary" << endl;
-  cerr << " \t <compress> : 'p' for plain bitmaps; 'c' for compresed bitmaps."
-       << endl;
-  cerr << " \t <BS sampling> : sampling value for the bitmaps" << endl;
-  cerr << " \t <BWT sampling> : sampling step for the BWT (0 for no sampling)"
-       << endl;
-  cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << endl;
-  cerr << " \t <out> : output file for storing the dictionary." << endl;
-  cerr << endl;
+  std::cerr << " type: 6 => Build FMINDEX dictionary" << std::endl;
+  std::cerr << " \t <compress> : 'p' for plain bitmaps; 'c' for compresed bitmaps."
+       << std::endl;
+  std::cerr << " \t <BS sampling> : sampling value for the bitmaps" << std::endl;
+  std::cerr << " \t <BWT sampling> : sampling step for the BWT (0 for no sampling)"
+       << std::endl;
+  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
+       << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr << std::endl;
 
-  cerr << " type: 7 => Build XBW dictionary" << endl;
-  cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << endl;
-  cerr << " \t <out> : output file for storing the dictionary." << endl;
-  cerr << endl;
+  std::cerr << " type: 7 => Build XBW dictionary" << std::endl;
+  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
+       << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr << std::endl;
 }
 
 int main(int argc, char *argv[]) {
@@ -157,13 +157,13 @@ int main(int argc, char *argv[]) {
         break;
       }
 
-      ifstream in(argv[4]);
+      std::ifstream in(argv[4]);
 
       if (in.good()) {
 
-        in.seekg(0, ios_base::end);
+        in.seekg(0, std::ios_base::end);
         uint lenStr = in.tellg() / sizeof(uchar);
-        in.seekg(0, ios_base::beg);
+        in.seekg(0, std::ios_base::beg);
 
         uint overhead = atoi(argv[3]);
 
@@ -173,19 +173,19 @@ int main(int argc, char *argv[]) {
 
         IteratorDictString *it = new IteratorDictStringPlain(str, lenStr);
         StringDictionary *dict = NULL;
-        string filename = string(argv[5]);
+        std::string filename = std::string(argv[5]);
 
         if (argv[2][0] == 'h') {
           // Huffman compression
           dict = new StringDictionaryHASHHF(it, lenStr, overhead);
-          filename += string(".hashhf");
+          filename += std::string(".hashhf");
         } else {
           // RePair compression
           dict = new StringDictionaryHASHRPF(it, lenStr, overhead);
-          filename += string(".hashrpf");
+          filename += std::string(".hashrpf");
         }
 
-        ofstream out((char *)filename.c_str());
+        std::ofstream out((char *)filename.c_str());
         dict->save(out);
         out.close();
         delete dict;
@@ -201,12 +201,12 @@ int main(int argc, char *argv[]) {
         break;
       }
 
-      ifstream in(argv[4]);
+      std::ifstream in(argv[4]);
 
       if (in.good()) {
-        in.seekg(0, ios_base::end);
+        in.seekg(0, std::ios_base::end);
         uint lenStr = in.tellg() / sizeof(uchar);
-        in.seekg(0, ios_base::beg);
+        in.seekg(0, std::ios_base::beg);
 
         uint overhead = atoi(argv[3]);
 
@@ -216,19 +216,19 @@ int main(int argc, char *argv[]) {
 
         IteratorDictString *it = new IteratorDictStringPlain(str, lenStr);
         StringDictionary *dict = NULL;
-        string filename = string(argv[5]);
+        std::string filename = std::string(argv[5]);
 
         if (argv[2][0] == 'h') {
           // Huffman compression
           dict = new StringDictionaryHASHUFFDAC(it, lenStr, overhead);
-          filename += string(".hashuffdac");
+          filename += std::string(".hashuffdac");
         } else {
           // RePair compression
           dict = new StringDictionaryHASHRPDAC(it, lenStr, overhead);
-          filename += string(".hashrpdac");
+          filename += std::string(".hashrpdac");
         }
 
-        ofstream out((char *)filename.c_str());
+        std::ofstream out((char *)filename.c_str());
         dict->save(out);
         out.close();
         delete dict;
@@ -244,11 +244,11 @@ int main(int argc, char *argv[]) {
         break;
       }
 
-      ifstream in(argv[4]);
+      std::ifstream in(argv[4]);
       if (in.good()) {
-        in.seekg(0, ios_base::end);
+        in.seekg(0, std::ios_base::end);
         uint lenStr = in.tellg() / sizeof(uchar);
-        in.seekg(0, ios_base::beg);
+        in.seekg(0, std::ios_base::beg);
 
         uint bucketsize = atoi(argv[3]);
 
@@ -257,23 +257,23 @@ int main(int argc, char *argv[]) {
 
         IteratorDictString *it = new IteratorDictStringPlain(str, lenStr);
         StringDictionary *dict = NULL;
-        string filename = string(argv[5]);
+        std::string filename = std::string(argv[5]);
 
         if (argv[2][0] == 'p') {
           // Uncompressed internal string
           dict = new StringDictionaryPFC(it, bucketsize);
-          filename += string(".pfc");
+          filename += std::string(".pfc");
         } else if (argv[2][0] == 'r') {
           // RePair compression
           dict = new StringDictionaryRPFC(it, bucketsize);
-          filename += string(".rpfc");
+          filename += std::string(".rpfc");
         } else {
           useBuild();
           delete it;
           return 0;
         }
 
-        ofstream out((char *)filename.c_str());
+        std::ofstream out((char *)filename.c_str());
         dict->save(out);
         out.close();
         delete dict;
@@ -289,11 +289,11 @@ int main(int argc, char *argv[]) {
         break;
       }
 
-      ifstream in(argv[4]);
+      std::ifstream in(argv[4]);
       if (in.good()) {
-        in.seekg(0, ios_base::end);
+        in.seekg(0, std::ios_base::end);
         uint lenStr = in.tellg() / sizeof(uchar);
-        in.seekg(0, ios_base::beg);
+        in.seekg(0, std::ios_base::beg);
 
         uint bucketsize = atoi(argv[3]);
 
@@ -302,13 +302,13 @@ int main(int argc, char *argv[]) {
 
         IteratorDictString *it = new IteratorDictStringPlain(str, lenStr);
         StringDictionary *dict = NULL;
-        string filename = string(argv[5]);
+        std::string filename = std::string(argv[5]);
 
         switch (argv[2][0]) {
         case 't': {
           // HuTucker compression
           dict = new StringDictionaryHTFC(it, bucketsize);
-          filename += string(".htfc");
+          filename += std::string(".htfc");
           break;
         }
 
@@ -322,7 +322,7 @@ int main(int argc, char *argv[]) {
         case 'r': {
           // RePair compression
           dict = new StringDictionaryRPHTFC(it, bucketsize);
-          filename += string(".rphtfc");
+          filename += std::string(".rphtfc");
           break;
         }
 
@@ -333,7 +333,7 @@ int main(int argc, char *argv[]) {
         }
         }
 
-        ofstream out((char *)filename.c_str());
+        std::ofstream out((char *)filename.c_str());
         dict->save(out);
         out.close();
         delete dict;
@@ -349,20 +349,20 @@ int main(int argc, char *argv[]) {
         break;
       }
 
-      ifstream in(argv[2]);
+      std::ifstream in(argv[2]);
       if (in.good()) {
-        in.seekg(0, ios_base::end);
+        in.seekg(0, std::ios_base::end);
         uint lenStr = in.tellg() / sizeof(uchar);
-        in.seekg(0, ios_base::beg);
+        in.seekg(0, std::ios_base::beg);
 
         uchar *str = loadValue<uchar>(in, lenStr);
         IteratorDictString *it = new IteratorDictStringPlain(str, lenStr);
         in.close();
 
         StringDictionary *dict = new StringDictionaryRPDAC(it);
-        string filename = string(argv[3]) + string(".rpdac");
+        std::string filename = std::string(argv[3]) + std::string(".rpdac");
 
-        ofstream out((char *)filename.c_str());
+        std::ofstream out((char *)filename.c_str());
         dict->save(out);
         out.close();
         delete dict;
@@ -378,18 +378,18 @@ int main(int argc, char *argv[]) {
         break;
       }
 
-      ifstream in(argv[5]);
+      std::ifstream in(argv[5]);
       if (in.good()) {
-        in.seekg(0, ios_base::end);
+        in.seekg(0, std::ios_base::end);
         uint lenStr = in.tellg() / sizeof(uchar);
-        in.seekg(0, ios_base::beg);
+        in.seekg(0, std::ios_base::beg);
 
         uchar *str = loadValue<uchar>(in, lenStr);
         in.close();
 
         IteratorDictString *it = new IteratorDictStringPlain(str, lenStr);
         StringDictionary *dict = NULL;
-        string filename;
+        std::string filename;
 
         uint BWTsampling = atoi(argv[4]);
 
@@ -399,8 +399,8 @@ int main(int argc, char *argv[]) {
                                              BWTsampling);
           delete it;
 
-          filename = string(argv[6]) + string(".") + string(argv[3]) +
-                     string(".rg.fmi");
+          filename = std::string(argv[6]) + std::string(".") + std::string(argv[3]) +
+                     std::string(".rg.fmi");
 
         } else if (argv[2][0] == 'c') {
           // Compressed bitmaps
@@ -408,14 +408,14 @@ int main(int argc, char *argv[]) {
               new StringDictionaryFMINDEX(it, true, atoi(argv[3]), BWTsampling);
           delete it;
 
-          filename = string(argv[6]) + string(".") + string(argv[3]) +
-                     string(".rrr.fmi");
+          filename = std::string(argv[6]) + std::string(".") + std::string(argv[3]) +
+                     std::string(".rrr.fmi");
         } else {
           checkFile();
           break;
         }
 
-        ofstream out((char *)filename.c_str());
+        std::ofstream out((char *)filename.c_str());
         dict->save(out);
         out.close();
         delete dict;
@@ -431,11 +431,11 @@ int main(int argc, char *argv[]) {
         break;
       }
 
-      ifstream in(argv[2]);
+      std::ifstream in(argv[2]);
       if (in.good()) {
-        in.seekg(0, ios_base::end);
+        in.seekg(0, std::ios_base::end);
         uint lenStr = in.tellg() / sizeof(uchar);
-        in.seekg(0, ios_base::beg);
+        in.seekg(0, std::ios_base::beg);
 
         uchar *str = loadValue<uchar>(in, lenStr);
         IteratorDictString *it = new IteratorDictStringPlain(str, lenStr - 1);
@@ -444,8 +444,8 @@ int main(int argc, char *argv[]) {
         StringDictionary *dict = new StringDictionaryXBW(it);
         delete it;
 
-        string filename = string(argv[3]) + string(".xbw");
-        ofstream out((char *)filename.c_str());
+        std::string filename = std::string(argv[3]) + std::string(".xbw");
+        std::ofstream out((char *)filename.c_str());
         dict->save(out);
         out.close();
         delete dict;

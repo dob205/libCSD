@@ -80,7 +80,7 @@ public:
   size_t getSize();
 
   /** Loads a hash from a file*/
-  static Hashdh *load(ifstream &fp);
+  static Hashdh *load(std::ifstream &fp);
 
   virtual ~Hashdh();
 

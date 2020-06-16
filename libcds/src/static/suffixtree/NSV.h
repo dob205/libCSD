@@ -57,9 +57,9 @@ public:
   // memory use for NSV in bytes
   virtual size_t getSize() const;
 
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
-  static NSV *load(ifstream &fp);
+  static NSV *load(std::ifstream &fp);
 
   virtual ~NSV();
 };

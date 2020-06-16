@@ -18,15 +18,15 @@
 
 #include <SuffixTree.h>
 
-using namespace std;
+
 using namespace cds_utils;
 using namespace cds_static;
 
 SuffixTree *saveLoad(SuffixTree *bs) {
-  ofstream ofs("cst.tmp");
+  std::ofstream ofs("cst.tmp");
   bs->save(ofs);
   ofs.close();
-  ifstream ifs("cst.tmp");
+  std::ifstream ifs("cst.tmp");
   SuffixTree *ret = SuffixTree::load(ifs);
   ifs.close();
   return ret;
@@ -42,10 +42,10 @@ int main(int argc, char *argv[]) {
   size_t length;
 
   if (argc != 2) {
-    cout << "Checks if the SuffixTree of the file <arch> is save/load correctly"
+    std::cout << "Checks if the SuffixTree of the file <arch> is save/load correctly"
          << endl
-         << endl;
-    cout << "usage: " << argv[0] << " <arch>" << endl;
+         << std::endl;
+    std::cout << "usage: " << argv[0] << " <arch>" << std::endl;
     return 0;
   }
 
@@ -59,11 +59,11 @@ int main(int argc, char *argv[]) {
   SuffixTreeY csty(text, length, DAC, CN_NPR, 32);
   cst = saveLoad(&csty);
   if (!testSuffixTree(cst)) {
-    cerr << "ERROR TESTING SuffixTreeY" << endl;
+    std::cerr << "ERROR TESTING SuffixTreeY" << std::endl;
     return -1;
   }
   delete (SuffixTreeY *)cst;
-  cout << "SuffixTree_Y OK\n" << endl;
+  std::cout << "SuffixTree_Y OK\n" << std::endl;
 
   delete[] text;
   return 0;

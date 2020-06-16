@@ -124,7 +124,7 @@ size_t WaveletTree::getSize() const {
          c->getSize();
 }
 
-void WaveletTree::save(ofstream &fp) const {
+void WaveletTree::save(std::ofstream &fp) const {
   uint wr = WVTREE_HDR;
   saveValue(fp, wr);
   saveValue(fp, n);
@@ -133,7 +133,7 @@ void WaveletTree::save(ofstream &fp) const {
   root->save(fp);
 }
 
-WaveletTree *WaveletTree::load(ifstream &fp) {
+WaveletTree *WaveletTree::load(std::ifstream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != WVTREE_HDR)
     return NULL;

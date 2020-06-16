@@ -40,7 +40,7 @@
 #define _STRINGDICTIONARY_HASHRPF_H
 
 #include <iostream>
-using namespace std;
+
 
 #include <libcdsBasics.h>
 using namespace cds_utils;
@@ -137,13 +137,13 @@ public:
   /** Stores the dictionary into an ofstream.
       @param out: the oftstream.
   */
-  void save(ofstream &out);
+  void save(std::ofstream &out);
 
   /** Loads a dictionary from an ifstream.
       @param in: the ifstream.
       @returns the loaded dictionary.
   */
-  static StringDictionary *load(ifstream &in, uint technique = HASHUFF);
+  static StringDictionary *load(std::ifstream &in, uint technique = HASHUFF);
 
   /** Generic destructor. */
   ~StringDictionaryHASHRPF();

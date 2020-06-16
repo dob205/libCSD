@@ -45,10 +45,10 @@ BitSequenceRG::BitSequenceRG() {
 }
 
 BitSequenceRG::BitSequenceRG(const BitString &bs, uint _factor) {
-  /*cout << "*****" << endl;
-  cout << bitarray << endl;
-  cout << _n << endl;
-  cout << _factor << endl; */
+  /*cout << "*****" << std::endl;
+  std::cout << bitarray << std::endl;
+  std::cout << _n << std::endl;
+  std::cout << _factor << std::endl; */
   const uint *bitarray = bs.getData();
   size_t _n = bs.getLength();
   if (_factor == 0)
@@ -75,10 +75,10 @@ BitSequenceRG::BitSequenceRG(const BitString &bs, uint _factor) {
 }
 
 BitSequenceRG::BitSequenceRG(uint *bitarray, size_t _n, uint _factor) {
-  /*cout << "*****" << endl;
-  cout << bitarray << endl;
-  cout << _n << endl;
-  cout << _factor << endl; */
+  /*cout << "*****" << std::endl;
+  std::cout << bitarray << std::endl;
+  std::cout << _n << std::endl;
+  std::cout << _factor << std::endl; */
   if (_factor == 0)
     exit(-1);
   data = new uint[_n / W + 1];
@@ -148,7 +148,7 @@ bool BitSequenceRG::access(const size_t i) const {
   return (1u << (i % W)) & data[i / W];
 }
 
-void BitSequenceRG::save(ofstream &f) const {
+void BitSequenceRG::save(std::ofstream &f) const {
   uint wr = BRW32_HDR;
   saveValue(f, wr);
   saveValue(f, n);
@@ -157,7 +157,7 @@ void BitSequenceRG::save(ofstream &f) const {
   saveValue(f, Rs, n / s + 1);
 }
 
-BitSequenceRG *BitSequenceRG::load(ifstream &f) {
+BitSequenceRG *BitSequenceRG::load(std::ifstream &f) {
   assert(f.good());
   uint type = loadValue<uint>(f);
   if (type != BRW32_HDR) { // throw exception

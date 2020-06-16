@@ -59,9 +59,9 @@ public:
 
   virtual size_t getSize() const;
 
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
-  static NPR_FMN *load(ifstream &fp);
+  static NPR_FMN *load(std::ifstream &fp);
 };
 
 } // namespace cds_static

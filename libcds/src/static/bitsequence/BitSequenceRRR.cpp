@@ -21,6 +21,8 @@
 
 #include <BitSequenceRRR.h>
 
+using std::min;
+
 namespace cds_static {
 
 table_offset *BitSequenceRRR::E = NULL;
@@ -93,16 +95,16 @@ void BitSequenceRRR::build(const uint *bitseq, size_t len, uint sample_rate) {
 
 void BitSequenceRRR::create_sampling(uint sample_rate) {
   this->sample_rate = sample_rate;
-  /*cout << "===================" << endl;
-  cout << "length = " << length << endl;
-  cout << "ones = " << ones << endl;
-  cout << "C_len = " << C_len << endl;
-  cout << "C_field_bits = " << C_field_bits << endl;
-  cout << "O_len = " << O_len << endl;
-  cout << "O_bits_len = " << O_bits_len << endl;
-  cout << "sample_rate = " << sample_rate << endl;
-  cout << "C_alen = " << uint_len(C_len,C_field_bits) << endl;
-  cout << "O_alen = " << O_len << endl;*/
+  /*cout << "===================" << std::endl;
+  std::cout << "length = " << length << std::endl;
+  std::cout << "ones = " << ones << std::endl;
+  std::cout << "C_len = " << C_len << std::endl;
+  std::cout << "C_field_bits = " << C_field_bits << std::endl;
+  std::cout << "O_len = " << O_len << std::endl;
+  std::cout << "O_bits_len = " << O_bits_len << std::endl;
+  std::cout << "sample_rate = " << sample_rate << std::endl;
+  std::cout << "C_alen = " << uint_len(C_len,C_field_bits) << std::endl;
+  std::cout << "O_alen = " << O_len << std::endl;*/
 
   // Sampling for C
   C_sampling_len = C_len / sample_rate + 2;
@@ -354,17 +356,17 @@ BitSequenceRRR::~BitSequenceRRR() {
   E = E->unuse();
 }
 
-void BitSequenceRRR::save(ofstream &f) const {
-  /*cout << "===================" << endl;
-  cout << "length = " << length << endl;
-  cout << "ones = " << ones << endl;
-  cout << "C_len = " << C_len << endl;
-  cout << "C_field_bits = " << C_field_bits << endl;
-  cout << "O_len = " << O_len << endl;
-  cout << "O_bits_len = " << O_bits_len << endl;
-  cout << "sample_rate = " << sample_rate << endl;
-  cout << "C_alen = " << uint_len(C_len,C_field_bits) << endl;
-  cout << "O_alen = " << O_len << endl;*/
+void BitSequenceRRR::save(std::ofstream &f) const {
+  /*cout << "===================" << std::endl;
+  std::cout << "length = " << length << std::endl;
+  std::cout << "ones = " << ones << std::endl;
+  std::cout << "C_len = " << C_len << std::endl;
+  std::cout << "C_field_bits = " << C_field_bits << std::endl;
+  std::cout << "O_len = " << O_len << std::endl;
+  std::cout << "O_bits_len = " << O_bits_len << std::endl;
+  std::cout << "sample_rate = " << sample_rate << std::endl;
+  std::cout << "C_alen = " << uint_len(C_len,C_field_bits) << std::endl;
+  std::cout << "O_alen = " << O_len << std::endl;*/
   uint wr = RRR02_HDR;
   saveValue(f, wr);
   saveValue(f, length);
@@ -378,7 +380,7 @@ void BitSequenceRRR::save(ofstream &f) const {
   saveValue(f, O, O_len);
 }
 
-BitSequenceRRR *BitSequenceRRR::load(ifstream &f) {
+BitSequenceRRR *BitSequenceRRR::load(std::ifstream &f) {
   BitSequenceRRR *ret = NULL;
   try {
     ret = new BitSequenceRRR();
@@ -388,25 +390,25 @@ BitSequenceRRR *BitSequenceRRR::load(ifstream &f) {
       abort();
     }
     ret->length = loadValue<size_t>(f);
-    // cout << ret->length << endl;
+    // std::cout << ret->length << std::endl;
     ret->ones = loadValue<size_t>(f);
-    // cout << ret->ones << endl;
+    // std::cout << ret->ones << std::endl;
     ret->C_len = loadValue<uint>(f);
-    // cout << ret->C_len << endl;
+    // std::cout << ret->C_len << std::endl;
     ret->C_field_bits = loadValue<uint>(f);
-    // cout << ret->C_field_bits << endl;
+    // std::cout << ret->C_field_bits << std::endl;
     ret->O_len = loadValue<uint>(f);
-    // cout << ret->O_len << endl;
+    // std::cout << ret->O_len << std::endl;
     ret->O_bits_len = loadValue<uint>(f);
-    // cout << ret->O_bits_len << endl;
+    // std::cout << ret->O_bits_len << std::endl;
     ret->sample_rate = loadValue<uint>(f);
-    // cout << ret->sample_rate << endl;
+    // std::cout << ret->sample_rate << std::endl;
     // ret->length = loadValue<uint>(f);
     ret->C = loadValue<uint>(f, uint_len(ret->C_len, ret->C_field_bits));
     ret->O = loadValue<uint>(f, ret->O_len);
     ret->create_sampling(ret->sample_rate);
     return ret;
-  } catch (exception *e) {
+  } catch (std::exception *e) {
     delete ret;
   }
   return NULL;

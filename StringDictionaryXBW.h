@@ -49,7 +49,7 @@
 #include <algorithm>
 #include <iostream>
 #include <set>
-using namespace std;
+
 
 #include "StringDictionary.h"
 
@@ -143,13 +143,13 @@ public:
   /** Stores the dictionary into an ofstream.
       @param out: the oftstream.
   */
-  void save(ofstream &out);
+  void save(std::ofstream &out);
 
   /** Loads a dictionary from an ifstream.
       @param in: the ifstream.
       @returns the loaded dictionary.
   */
-  static StringDictionary *load(ifstream &in);
+  static StringDictionary *load(std::ifstream &in);
 
   /** Generic destructor. */
   ~StringDictionaryXBW();

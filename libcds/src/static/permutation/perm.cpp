@@ -145,7 +145,7 @@ uint getelemPerm(const perm P, uint i) {
   return get_field(P->elems, P->nbits, i);
 }
 
-uint savePerm(const perm P, ofstream &f) {
+uint savePerm(const perm P, std::ofstream &f) {
   uint aux;
   uint v;
 
@@ -170,7 +170,7 @@ uint savePerm(const perm P, ofstream &f) {
   return 0;
 }
 
-perm loadPerm(ifstream &f) {
+perm loadPerm(std::ifstream &f) {
   uint aux;
   perm P;
   uint v;

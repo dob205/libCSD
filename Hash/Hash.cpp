@@ -47,7 +47,7 @@ size_t Hash::insert(uchar *w, size_t len, size_t offset) {
         return hval;
       }
     }
-    cout << "Error Hash table full" << endl;
+    std::cout << "Error Hash table full" << std::endl;
     return (size_t)-1;
   }
 }
@@ -79,14 +79,14 @@ void Hash::finish(size_t length) {
 
 void Hash::setData(uchar *data) { this->data = data; }
 
-void Hash::save(ofstream &fp) {
+void Hash::save(std::ofstream &fp) {
   saveValue(fp, tsize);
   saveValue(fp, n);
   hash->save(fp);
   b_ht->save(fp);
 }
 
-Hash *Hash::load(ifstream &fp, int r) {
+Hash *Hash::load(std::ifstream &fp, int r) {
   switch (r) {
   // HASHUFF and HASHRP must be the same value
   case (HASHUFF):

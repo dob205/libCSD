@@ -18,6 +18,8 @@
 
 #include <LCP_naive.h>
 
+using std::min;
+
 namespace cds_static {
 
 LCP_naive::LCP_naive() {
@@ -34,7 +36,7 @@ LCP_naive::LCP_naive(TextIndex *csa, char *text, size_t n) {
   long long nb = 1;
   nb = (nb * b * n + W - 1) / W;
   if (nb > MAXINT) {
-    cout << "Memory limit excess (in LCP)" << endl;
+    std::cout << "Memory limit excess (in LCP)" << std::endl;
     exit(1);
   }
   lcp_array = new size_t[(size_t)nb];
@@ -66,7 +68,7 @@ size_t LCP_naive::getSize() const {
   return result + sizeof(LCP_naive);
 }
 
-void LCP_naive::save(ofstream &fp) const {
+void LCP_naive::save(std::ofstream &fp) const {
   size_t wr = NAIVE;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -74,7 +76,7 @@ void LCP_naive::save(ofstream &fp) const {
   saveValue(fp, lcp_array, ((b * length + W - 1) / W));
 }
 
-LCP_naive *LCP_naive::load(ifstream &fp) {
+LCP_naive *LCP_naive::load(std::ifstream &fp) {
   LCP_naive *lcp = new LCP_naive();
   size_t type = loadValue<size_t>(fp);
   if (type != NAIVE) {

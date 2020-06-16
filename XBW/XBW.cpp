@@ -27,7 +27,7 @@
 
 #include "XBW.h"
 
-XBW::XBW(ifstream &input) {
+XBW::XBW(std::ifstream &input) {
   // Read the number of nodes
   input.read((char *)&nodesCount, sizeof(uint));
 

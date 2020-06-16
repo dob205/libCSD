@@ -2,7 +2,7 @@
 #define _BASICS_TREES_H
 
 #include <libcdsBasics.h>
-using namespace std;
+
 
 #define MAX(i, j) (((i) > (j)) ? (i) : (j))
 
@@ -105,13 +105,13 @@ inline void bitwrite(uint *e, uint p, uint len, uint s) {
 
 inline size_t loadText(char *filename, char **textt, size_t *length) {
   char *text;
-  ifstream in(filename);
+  std::ifstream in(filename);
   if (!in.good())
     return 1;
-  in.seekg(0, ios_base::end);
+  in.seekg(0, std::ios_base::end);
   size_t len = in.tellg();
   text = new char[len + 1];
-  in.seekg(0, ios_base::beg);
+  in.seekg(0, std::ios_base::beg);
   in.read(text, len);
   in.close();
   text[len] = '\0';

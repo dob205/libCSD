@@ -46,8 +46,8 @@ StringDictionaryRPHTFC::StringDictionaryRPHTFC(IteratorDictString *it,
   this->type = RPHTFC;
 
   if (bucketsize < 2) {
-    cerr << "[WARNING] The bucketsize value must be greater than 1. ";
-    cerr << "The dictionary is built using buckets of size 2" << endl;
+    std::cerr << "[WARNING] The bucketsize value must be greater than 1. ";
+    std::cerr << "The dictionary is built using buckets of size 2" << std::endl;
     this->bucketsize = 2;
   } else
     this->bucketsize = bucketsize;
@@ -63,7 +63,7 @@ StringDictionaryRPHTFC::StringDictionaryRPHTFC(IteratorDictString *it,
   //    and the Re-Pair encoding of the internal strings.
   uint *freqs = new uint[256];
 
-  vector<vector<uchar>> headers(dict->buckets + 1);
+  std::vector<std::vector<uchar>> headers(dict->buckets + 1);
   size_t reservedInts = elements;
   int *rpdict = new int[reservedInts];
 
@@ -138,8 +138,8 @@ StringDictionaryRPHTFC::StringDictionaryRPHTFC(IteratorDictString *it,
   rp = new RePair(rpdict, ptrpdict, 255);
   bitsrp = rp->getBits();
 
-  vector<size_t> intStrings;              // Encoded internal strings
-  vector<size_t> beginnings(buckets + 1); // Bucket beginnings
+  std::vector<size_t> intStrings;              // Encoded internal strings
+  std::vector<size_t> beginnings(buckets + 1); // Bucket beginnings
 
   size_t ibytes = 0;
   uint io = 0, strings = 0;
@@ -171,7 +171,7 @@ StringDictionaryRPHTFC::StringDictionaryRPHTFC(IteratorDictString *it,
 
   // 3) Compressing the dictionary and building the decoding table
   {
-    vector<size_t> xblStrings;
+    std::vector<size_t> xblStrings;
     size_t ptrB = 0, ptrE = 0;
     uint offset = 0, bytes = 0;
     uchar *tmp = new uchar[4 * maxlength];
@@ -185,8 +185,8 @@ StringDictionaryRPHTFC::StringDictionaryRPHTFC(IteratorDictString *it,
 
     // Auxiliar variables for managing the substrings indexed in
     // the Decoding Table.
-    vector<uchar> textSubstr;
-    vector<ushort> lenSubstr;
+    std::vector<uchar> textSubstr;
+    std::vector<ushort> lenSubstr;
     ushort ptrSubstr = 0;
     uint codeSubstr = 0;
 
@@ -463,7 +463,7 @@ IteratorDictID *StringDictionaryRPHTFC::locatePrefix(uchar *str, uint strLen) {
 }
 
 IteratorDictID *StringDictionaryRPHTFC::locateSubstr(uchar *, uint) {
-  cerr << "This dictionary does not provide substring location" << endl;
+  std::cerr << "This dictionary does not provide substring location" << std::endl;
   return NULL;
 }
 
@@ -492,7 +492,7 @@ IteratorDictString *StringDictionaryRPHTFC::extractPrefix(uchar *str,
 }
 
 IteratorDictString *StringDictionaryRPHTFC::extractSubstr(uchar *, uint) {
-  cerr << "This dictionary does not provide substring extraction" << endl;
+  std::cerr << "This dictionary does not provide substring extraction" << std::endl;
   return 0;
 }
 
@@ -512,7 +512,7 @@ size_t StringDictionaryRPHTFC::getSize() {
          sizeof(StringDictionaryRPHTFC);
 }
 
-void StringDictionaryRPHTFC::save(ofstream &out) {
+void StringDictionaryRPHTFC::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -531,7 +531,7 @@ void StringDictionaryRPHTFC::save(ofstream &out) {
   rp->save(out);
 }
 
-StringDictionary *StringDictionaryRPHTFC::load(ifstream &in) {
+StringDictionary *StringDictionaryRPHTFC::load(std::ifstream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != RPHTFC)
     return NULL;

@@ -27,7 +27,7 @@
 
 #include "StringDictionary.h"
 
-StringDictionary *StringDictionary::load(ifstream &fp, uint opt) {
+StringDictionary *StringDictionary::load(std::ifstream &fp, uint opt) {
   size_t r = loadValue<uint32_t>(fp);
   fp.seekg(0, fp.beg);
 

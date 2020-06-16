@@ -6,14 +6,14 @@
 #include <Sequence.h>
 #include <libcdsBasics.h>
 
-using namespace std;
+
 using namespace cds_static;
 
 void testSequence(Array &a, Sequence &bs) {
-  ofstream outfs("sequence.tmp");
+  std::ofstream outfs("sequence.tmp");
   bs.save(outfs);
   outfs.close();
-  ifstream infs("sequence.tmp");
+  std::ifstream infs("sequence.tmp");
   Sequence *seq = Sequence::load(infs);
   infs.close();
   uint maxv = a.getMax();
@@ -24,22 +24,22 @@ void testSequence(Array &a, Sequence &bs) {
     count[a[i]]++;
     for (uint j = a[i]; j <= a[i]; j++) {
       if (seq->rank(j, i) != count[j]) {
-        cerr << "ERROR RANK " << endl;
-        cerr << " Rank result: " << bs.rank(j, i) << " count=" << count[j]
-             << endl;
-        cerr << " symbol=" << j << " position=" << i << endl;
+        std::cerr << "ERROR RANK " << std::endl;
+        std::cerr << " Rank result: " << bs.rank(j, i) << " count=" << count[j]
+             << std::endl;
+        std::cerr << " symbol=" << j << " position=" << i << std::endl;
         exit(-1);
       }
     }
     if (seq->select(a[i], count[a[i]]) != i) {
-      cerr << "ERROR SELECT " << endl;
-      cerr << "a[i]=" << a[i] << " maxv=" << maxv << endl;
-      cerr << "bs.select=" << bs.select(a[i], count[a[i]]) << " i=" << i
-           << endl;
+      std::cerr << "ERROR SELECT " << std::endl;
+      std::cerr << "a[i]=" << a[i] << " maxv=" << maxv << std::endl;
+      std::cerr << "bs.select=" << bs.select(a[i], count[a[i]]) << " i=" << i
+           << std::endl;
       exit(-2);
     }
     if (a[i] != seq->access(i)) {
-      cerr << "ERROR ACCESS" << endl;
+      std::cerr << "ERROR ACCESS" << std::endl;
       exit(-3);
     }
   }
@@ -49,11 +49,11 @@ void testSequence(Array &a, Sequence &bs) {
 int main(int argc, char **argv) {
 
   if (argc != 4) {
-    cout << "Checks the array class generating <length> elements between 0 and "
+    std::cout << "Checks the array class generating <length> elements between 0 and "
             "<maxv> using <seed> as seed for the numbers generation"
          << endl
-         << endl;
-    cout << "usage: " << argv[0] << " <seed> <length> <maxv>" << endl;
+         << std::endl;
+    std::cout << "usage: " << argv[0] << " <seed> <length> <maxv>" << std::endl;
     return 0;
   }
 
@@ -61,8 +61,8 @@ int main(int argc, char **argv) {
   uint len = transform(string(argv[2]));
   uint maxv = transform(string(argv[3]));
 
-  // cout << "maxv = " << maxv << endl;
-  // cout << "len  = " << len << endl;
+  // std::cout << "maxv = " << maxv << std::endl;
+  // std::cout << "len  = " << len << std::endl;
 
   Array a(len, maxv);
   for (uint i = 0; i < len; i++) {
@@ -76,15 +76,15 @@ int main(int argc, char **argv) {
   Mapper *mapper2 = new MapperNone();
   mapper->use();
   mapper2->use();
-  cout << "Test 1 : Wavelet tree with pointers" << endl;
+  std::cout << "Test 1 : Wavelet tree with pointers" << std::endl;
   WaveletTree wt1(a, new wt_coder_huff(a, mapper), new BitSequenceBuilderRG(20),
                   mapper);
-  cout << "bs.size() = " << wt1.getSize() << endl;
+  std::cout << "bs.size() = " << wt1.getSize() << std::endl;
   testSequence(a, wt1);
 
-  cout << "Test 2 : Wavelet tree without pointers" << endl;
+  std::cout << "Test 2 : Wavelet tree without pointers" << std::endl;
   WaveletTreeNoptrs wt3(a, new BitSequenceBuilderRRR(32), mapper);
-  cout << "bs.size() = " << wt3.getSize() << endl;
+  std::cout << "bs.size() = " << wt3.getSize() << std::endl;
   testSequence(a, wt3);
   mapper->unuse();
   mapper2->unuse();

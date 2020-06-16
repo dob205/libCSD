@@ -35,7 +35,7 @@
 #define _HUTUCKER_H
 
 #include <iostream>
-using namespace std;
+
 
 #include <BitString.h>
 #include <libcdsBasics.h>
@@ -138,8 +138,8 @@ protected:
         representation.
       @param symbols: symbols stored in the tree leafs.
   */
-  void retrieveSubtree(BinaryNode *node, vector<uint> *tree, uint *bits,
-                       vector<uint> *symbols);
+  void retrieveSubtree(BinaryNode *node, std::vector<uint> *tree, uint *bits,
+                       std::vector<uint> *symbols);
 
   /** Free the memory reserved for the node management
       @para node: the node to be deleted.

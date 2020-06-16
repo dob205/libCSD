@@ -57,9 +57,9 @@ public:
   // Memory use for PSV in bytes
   virtual size_t getSize() const;
 
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
-  static PSV *load(ifstream &fp);
+  static PSV *load(std::ifstream &fp);
 
   virtual ~PSV();
 };

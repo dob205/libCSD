@@ -30,7 +30,7 @@
 #define _ITERATORDICTIDDUPLICATES_H
 
 #include <iostream>
-using namespace std;
+
 
 class IteratorDictIDDuplicates : public IteratorDictID {
 public:

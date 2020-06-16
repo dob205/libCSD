@@ -99,10 +99,10 @@ public:
   virtual size_t getSize() const;
 
   /** Stores the text index in the  given a file pointer*/
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
   /** Reads a text index determining the type */
-  static TextIndexCSA *load(ifstream &fp);
+  static TextIndexCSA *load(std::ifstream &fp);
 };
 } // namespace cds_static
 #endif

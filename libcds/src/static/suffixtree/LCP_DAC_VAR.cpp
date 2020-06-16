@@ -139,11 +139,11 @@ void LCP_DAC_VAR::calc_kvalues(uint max_lcp, uint *frec_acu, ushort **kvalues,
 
   *nkvalues = tableNLevels[nBits];
   ushort *_kvalues = new ushort[*nkvalues];
-  cout << endl;
+  std::cout << std::endl;
   for (j = 0; j < tableNLevels[nBits]; j++) {
     bitsCount = tableKvalues[nBits][tableNLevels[nBits] - 1 - j];
     _kvalues[j] = bitsCount;
-    // cout << "kvalue[" << j << "] : " << _kvalues[j] << endl;
+    // std::cout << "kvalue[" << j << "] : " << _kvalues[j] << std::endl;
     bitCountInf += bitsCount;
   }
 
@@ -179,13 +179,13 @@ size_t LCP_DAC_VAR::getSize() const {
   return mem;
 }
 
-void LCP_DAC_VAR::save(ofstream &fp) const {
+void LCP_DAC_VAR::save(std::ofstream &fp) const {
   saveValue(fp, lcp_type);
   saveValue(fp, n);
   rep->save(fp);
 }
 
-LCP_DAC_VAR *LCP_DAC_VAR::load(ifstream &fp) {
+LCP_DAC_VAR *LCP_DAC_VAR::load(std::ifstream &fp) {
   LCP_DAC_VAR *lcp = new LCP_DAC_VAR();
   size_t type = loadValue<size_t>(fp);
   if (type != DAC_VAR) {

@@ -31,7 +31,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
-using namespace std;
+
 
 #include "../XBW/XBW.h"
 
@@ -98,8 +98,8 @@ protected:
 
   XBW *xbw; // The XBW
 
-  vector<uint> queue;   // Vector storing data about non-processed nodes
-  vector<uint> results; // Vector storing results
+  std::vector<uint> queue;   // Vector storing data about non-processed nodes
+  std::vector<uint> results; // Vector storing results
 
   /** Extracts the next ID in the stream.
   @returns the next ID.

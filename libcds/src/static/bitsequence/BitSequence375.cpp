@@ -103,7 +103,7 @@ bool BitSequence375::access(const size_t i) const {
   return (1u << (i % W)) & data[i / W];
 }
 
-void BitSequence375::save(ofstream &f) const {
+void BitSequence375::save(std::ofstream &f) const {
   uint wr = BRW32_375;
   saveValue(f, wr);
 
@@ -117,7 +117,7 @@ void BitSequence375::save(ofstream &f) const {
   saveValue(f, n);
 }
 
-BitSequence375 *BitSequence375::load(ifstream &f) {
+BitSequence375 *BitSequence375::load(std::ifstream &f) {
   assert(f.good());
   uint type = loadValue<uint>(f);
   if (type != BRW32_375) { // throw exception
@@ -141,12 +141,12 @@ size_t BitSequence375::getSize() const {
 }
 
 size_t BitSequence375::selectPrev1(const size_t) const {
-  cout << "Not implemented SELECTPREV1" << endl;
+  std::cout << "Not implemented SELECTPREV1" << std::endl;
   return 0;
 }
 
 size_t BitSequence375::selectNext1(const size_t) const {
-  cout << "Not implemented SELECTNEXT1" << endl;
+  std::cout << "Not implemented SELECTNEXT1" << std::endl;
   return 0;
 }
 

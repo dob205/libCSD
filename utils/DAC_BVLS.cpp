@@ -43,8 +43,8 @@ DAC_BVLS::DAC_BVLS() {
   rankLevels = NULL;
 }
 
-DAC_BVLS::DAC_BVLS(uint tamCode, uint nLevels, vector<uint> *levelsIndex,
-                   vector<uint> *rankLevels, uchar *levels, BitString *bS) {
+DAC_BVLS::DAC_BVLS(uint tamCode, uint nLevels, std::vector<uint> *levelsIndex,
+                   std::vector<uint> *rankLevels, uchar *levels, BitString *bS) {
   this->tamCode = tamCode;
   this->nLevels = nLevels;
   this->levels = levels;
@@ -113,7 +113,7 @@ uint DAC_BVLS::getSize() const {
   return mem;
 }
 
-void DAC_BVLS::save(ofstream &fp) const {
+void DAC_BVLS::save(std::ofstream &fp) const {
   saveValue(fp, tamCode);
   saveValue(fp, nLevels);
   saveValue(fp, levelsIndex, nLevels + 1);
@@ -122,7 +122,7 @@ void DAC_BVLS::save(ofstream &fp) const {
   bS->save(fp);
 }
 
-DAC_BVLS *DAC_BVLS::load(ifstream &fp) {
+DAC_BVLS *DAC_BVLS::load(std::ifstream &fp) {
   DAC_BVLS *rep = new DAC_BVLS();
   rep->tamCode = loadValue<uint>(fp);
   rep->nLevels = loadValue<uint>(fp);

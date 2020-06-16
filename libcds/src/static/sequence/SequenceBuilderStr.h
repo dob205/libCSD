@@ -30,7 +30,7 @@
 namespace cds_static {
 class SequenceBuilderStr : public SequenceBuilder {
 public:
-  SequenceBuilderStr(const string &options);
+  SequenceBuilderStr(const std::string &options);
   virtual ~SequenceBuilderStr();
   virtual Sequence *build(uint *seq, size_t len);
   virtual Sequence *build(const Array &seq);
@@ -38,7 +38,7 @@ public:
 protected:
   virtual SequenceBuilder *getBuilder(const Array &seq);
 
-  string str;
+  std::string str;
 };
 } // namespace cds_static
 

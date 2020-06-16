@@ -233,7 +233,7 @@ RMQ_succinct::RMQ_succinct(int *a, unsigned int n) {
   // data structure, because simpler methods are faster and less space
   // consuming.
   if (nb < sprimeprime / (2 * sprime)) {
-    cerr << "Array too small...exit\n";
+    std::cerr << "Array too small...exit\n";
     exit(-1);
   }
   // Type-calculation for the microblocks and pre-computation of
@@ -380,7 +380,7 @@ uint RMQ_succinct::getSize() {
   return mem;
 }
 
-void RMQ_succinct::save(ofstream &fp) {
+void RMQ_succinct::save(std::ofstream &fp) {
   saveValue(fp, n);
   saveValue(fp, a, n);
   saveValue(fp, type, nmb);
@@ -392,7 +392,7 @@ void RMQ_succinct::save(ofstream &fp) {
     saveValue(fp, Prec[i], s);
 }
 
-RMQ_succinct *RMQ_succinct::load(ifstream &fp) {
+RMQ_succinct *RMQ_succinct::load(std::ifstream &fp) {
   RMQ_succinct *rmq = new RMQ_succinct();
   rmq->s = 1 << 3;
   rmq->sprime = 1 << 4;

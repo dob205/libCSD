@@ -66,7 +66,7 @@ size_t decodeHuff(const THuff H, uint *symb, uint *stream, size_t ptr);
  *
  *  @author Gonzalo Navarro
  */
-void saveHuff(const THuff H, ofstream &f);
+void saveHuff(const THuff H, std::ofstream &f);
 
 /** Size of H written on file
  *
@@ -85,7 +85,7 @@ void freeHuff(THuff H);
  *
  *  @author Gonzalo Navarro
  */
-THuff loadHuff(ifstream &f, int enc);
+THuff loadHuff(std::ifstream &f, int enc);
 
 } // namespace cds_static
 #endif

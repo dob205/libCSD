@@ -45,8 +45,8 @@ public:
   virtual size_t rank0(size_t i) const;
   virtual size_t rank1(size_t i) const;
   virtual size_t getSize() const;
-  virtual void save(ofstream &fp) const;
-  static BitSequenceDArray *load(ifstream &fp);
+  virtual void save(std::ofstream &fp) const;
+  static BitSequenceDArray *load(std::ifstream &fp);
 
 protected:
   uint m; // number of 1's

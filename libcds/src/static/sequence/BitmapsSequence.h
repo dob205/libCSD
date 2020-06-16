@@ -54,10 +54,10 @@ public:
 
   virtual size_t getSize() const;
 
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
   /** Reads a bitmap determining the type */
-  static BitmapsSequence *load(ifstream &fp);
+  static BitmapsSequence *load(std::ifstream &fp);
 
 protected:
   uint sigma;

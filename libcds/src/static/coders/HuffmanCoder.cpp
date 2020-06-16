@@ -79,12 +79,12 @@ size_t HuffmanCoder::decode(uint *symb, uint *stream, size_t pos) const {
   return decodeHuff(huff_table, symb, stream, pos);
 }
 
-void HuffmanCoder::save(ofstream &fp) const {
+void HuffmanCoder::save(std::ofstream &fp) const {
   saveValue<uint>(fp, HUFF_HDR);
   saveHuff(huff_table, fp);
 }
 
-HuffmanCoder *HuffmanCoder::load(ifstream &fp) {
+HuffmanCoder *HuffmanCoder::load(std::ifstream &fp) {
   uint type = loadValue<uint>(fp);
   if (type != HUFF_HDR) { // throw exception
     return NULL;

@@ -31,10 +31,10 @@ SuffixTreeY::SuffixTreeY() {
 SuffixTreeY::SuffixTreeY(char *text, size_t n, size_t lcp_type, size_t npr_type,
                          size_t b) {
   length = n;
-  cout << "Text length: " << n << endl;
+  std::cout << "Text length: " << n << std::endl;
   /*create the index*/
   csa = new TextIndexCSA((uchar *)text, (ulong)length, NULL);
-  cout << "TextIndex bits/c: " << csa->getSize() * 8.0 / length << endl;
+  std::cout << "TextIndex bits/c: " << csa->getSize() * 8.0 / length << std::endl;
   switch (lcp_type) {
   case NAIVE:
     lcp = new LCP_naive(csa, text, length);
@@ -60,7 +60,7 @@ SuffixTreeY::SuffixTreeY(char *text, size_t n, size_t lcp_type, size_t npr_type,
   default:
     exit(0);
   }
-  cout << "LCP bits/c: " << lcp->getSize() * 8.0 / length << endl;
+  std::cout << "LCP bits/c: " << lcp->getSize() * 8.0 / length << std::endl;
   switch (npr_type) {
   case FMN_NPR:
     npr = new NPR_FMN(lcp, b, csa);
@@ -71,17 +71,17 @@ SuffixTreeY::SuffixTreeY(char *text, size_t n, size_t lcp_type, size_t npr_type,
   default:
     exit(0);
   }
-  cout << "NPR bits/c: " << npr->getSize() * 8.0 / length << endl;
+  std::cout << "NPR bits/c: " << npr->getSize() * 8.0 / length << std::endl;
   /*here you can free the text*/
 }
 
 SuffixTreeY::SuffixTreeY(LCP *_lcp, NPR *_npr, TextIndex *_csa) {
   csa = _csa;
-  cout << "TextIndex bits/c: " << csa->getSize() * 8.0 / length << endl;
+  std::cout << "TextIndex bits/c: " << csa->getSize() * 8.0 / length << std::endl;
   lcp = _lcp;
-  cout << "LCP bits/c: " << lcp->getSize() * 8.0 / length << endl;
+  std::cout << "LCP bits/c: " << lcp->getSize() * 8.0 / length << std::endl;
   npr = _npr;
-  cout << "NPR bits/c: " << npr->getSize() * 8.0 / length << endl;
+  std::cout << "NPR bits/c: " << npr->getSize() * 8.0 / length << std::endl;
 }
 
 bool SuffixTreeY::isRoot(size_t vl, size_t vr) const {
@@ -289,8 +289,8 @@ void SuffixTreeY::Child(size_t vl, size_t vr, char a, size_t *child_l,
   size_t aux_l, aux_r;
   size_t res_l = (size_t)-1;
   size_t res_r = (size_t)-1;
-  vector<size_t> children_l;
-  vector<size_t> children_r;
+  std::vector<size_t> children_l;
+  std::vector<size_t> children_r;
   if (vl == vr) { // is a leaf
     *child_l = (size_t)-1;
     *child_r = (size_t)-1;
@@ -437,7 +437,7 @@ size_t SuffixTreeY::getSize() const {
   return mem;
 }
 
-void SuffixTreeY::save(ofstream &fp) const {
+void SuffixTreeY::save(std::ofstream &fp) const {
   size_t wr = CSTY;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -446,7 +446,7 @@ void SuffixTreeY::save(ofstream &fp) const {
   csa->save(fp);
 }
 
-SuffixTreeY *SuffixTreeY::load(ifstream &fp) {
+SuffixTreeY *SuffixTreeY::load(std::ifstream &fp) {
   SuffixTreeY *cst = new SuffixTreeY();
   size_t type = loadValue<size_t>(fp);
   if (type != CSTY) {

@@ -156,13 +156,13 @@ size_t wt_node_internal::rank(uint symbol, size_t pos, uint l,
   bool is_set = c->is_set(symbol, l);
   if (!is_set) {
     if (left_child == NULL) {
-      cout << "symbol1=" << symbol << endl;
+      std::cout << "symbol1=" << symbol << std::endl;
       return 0;
     }
     return left_child->rank(symbol, bitmap->rank0(pos) - 1, l + 1, c);
   } else {
     if (right_child == NULL) {
-      cout << "symbol2=" << symbol << endl;
+      std::cout << "symbol2=" << symbol << std::endl;
       return 0;
     }
     return right_child->rank(symbol, bitmap->rank1(pos) - 1, l + 1, c);
@@ -227,7 +227,7 @@ size_t wt_node_internal::getSize() const {
   return s;
 }
 
-void wt_node_internal::save(ofstream &fp) const {
+void wt_node_internal::save(std::ofstream &fp) const {
   uint wr = WT_NODE_INTERNAL_HDR;
   saveValue(fp, wr);
   bitmap->save(fp);
@@ -245,7 +245,7 @@ void wt_node_internal::save(ofstream &fp) const {
   }
 }
 
-wt_node_internal *wt_node_internal::load(ifstream &fp) {
+wt_node_internal *wt_node_internal::load(std::ifstream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != WT_NODE_INTERNAL_HDR)
     return NULL;

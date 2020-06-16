@@ -64,11 +64,11 @@ int selects3_rank(const selects3 *select, const int i);
 int selects3_selectnext(const selects3 *select, const int i);
 
 void make___selecttbl(void);
-void selectd2_save(const selectd2 *s, ofstream &fp);
-void selects3_save(const selects3 *s, ofstream &fp);
+void selectd2_save(const selectd2 *s, std::ofstream &fp);
+void selects3_save(const selects3 *s, std::ofstream &fp);
 
-void selectd2_load(selectd2 *s, ifstream &fp);
-void selects3_load(selects3 *s, ifstream &fp);
+void selectd2_load(selectd2 *s, std::ifstream &fp);
+void selects3_load(selects3 *s, std::ifstream &fp);
 
 void selectd2_free(selectd2 *s);
 void selects3_free(selects3 *s);

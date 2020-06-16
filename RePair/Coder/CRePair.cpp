@@ -102,9 +102,9 @@ bool CRePair::compress_pair_table() {
     // OBTAINING THE FINAL SEQUENCE
     for (i = 0; i < m; i++) {
       if (symbols[i] > max_value) {
-        cout << symbols[i] << " -> "
+        std::cout << symbols[i] << " -> "
              << symbols_new_value[symbols[i] - max_value - 1] + max_value
-             << endl;
+             << std::endl;
         symbols[i] = symbols_new_value[symbols[i] - max_value - 1] + max_value;
       }
     }
@@ -127,12 +127,12 @@ bool CRePair::compress_pair_table() {
 
     uint max_nd = symbols_new[0];
     for (uint k = 1; k < symbols_new_len; k++) {
-      cerr << symbols_new[k] << endl;
+      std::cerr << symbols_new[k] << std::endl;
       if (max_nd < symbols_new[k])
         max_nd = symbols_new[k];
     }
 
-    cerr << "**** " << symbols_new_len << " (" << max_nd << ") ***" << endl;
+    std::cerr << "**** " << symbols_new_len << " (" << max_nd << ") ***" << std::endl;
 
     final_symbols_dict = new Array(symbols_new_len, max_nd);
     for (uint k = 0; k < symbols_new_len; k++)

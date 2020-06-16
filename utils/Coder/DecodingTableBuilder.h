@@ -32,7 +32,7 @@
 #define TABLEBITSO 16
 
 #include <vector>
-using namespace std;
+
 
 #include <libcdsBasics.h>
 #include <string.h>
@@ -93,13 +93,13 @@ public:
         symbol previosuly processed.
   */
   void insertDecodeableSubstr(uchar symbol, uint *seq, ushort *ptr,
-                              vector<uchar> *substr, vector<ushort> *lenSubstr);
+                              std::vector<uchar> *substr, std::vector<ushort> *lenSubstr);
 
   /** Similar than insertDecodeableSubstr, but it fills the
       sequence with 0s and inserts it in the table using as
       decoding information that currently stored in the queues */
-  void insertEndingSubstr(uint *seq, ushort *ptr, vector<uchar> *substr,
-                          vector<ushort> *lenSubstr);
+  void insertEndingSubstr(uint *seq, ushort *ptr, std::vector<uchar> *substr,
+                          std::vector<ushort> *lenSubstr);
 
   // Generic destructor
   ~DecodingTableBuilder();

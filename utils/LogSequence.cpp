@@ -44,7 +44,7 @@ LogSequence::LogSequence(unsigned int numbits, size_t capacity) {
     array[i] = 0;
 }
 
-LogSequence::LogSequence(vector<size_t> *v, unsigned int numbits) {
+LogSequence::LogSequence(std::vector<size_t> *v, unsigned int numbits) {
   this->numbits = numbits;
   this->numentries = v->size();
   this->maxval = maxVal(numbits);
@@ -58,7 +58,7 @@ LogSequence::LogSequence(vector<size_t> *v, unsigned int numbits) {
     setField(i, (*v)[i]);
 }
 
-LogSequence::LogSequence(ifstream &in) {
+LogSequence::LogSequence(std::ifstream &in) {
   numbits = loadValue<uchar>(in);
   numentries = loadValue<size_t>(in);
 
@@ -96,10 +96,10 @@ void LogSequence::setField(size_t position, size_t value) {
 
 size_t LogSequence::getSize() {
   return numBytesFor(numbits, numentries) + sizeof(LogSequence) +
-         sizeof(vector<size_t>);
+         sizeof(std::vector<size_t>);
 }
 
-void LogSequence::save(ofstream &out) {
+void LogSequence::save(std::ofstream &out) {
   saveValue<uchar>(out, numbits);
   saveValue<size_t>(out, numentries);
 

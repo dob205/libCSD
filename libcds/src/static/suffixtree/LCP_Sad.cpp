@@ -28,7 +28,7 @@ LCP_Sad::LCP_Sad() {
 
 LCP_Sad::LCP_Sad(TextIndex *csa, char *text, size_t n, size_t op_rs) {
   if (op_rs != BRW32_HDR && op_rs != DARRAY_HDR) {
-    cout << "Error: op_rs must be BRW32_HDR or DARRAY_HDR\n" << endl;
+    std::cout << "Error: op_rs must be BRW32_HDR or DARRAY_HDR\n" << std::endl;
     exit(1);
   }
   lcp_type = SAD_GON_OS;
@@ -39,7 +39,7 @@ LCP_Sad::LCP_Sad(TextIndex *csa, char *text, size_t n, size_t op_rs) {
   long long nb = 1;
   nb = (nb * 2 * n + W - 1) / W;
   if (nb > MAXINT) {
-    cout << "Memory limit excess (in LCP)" << endl;
+    std::cout << "Memory limit excess (in LCP)" << std::endl;
     exit(1);
   }
   uint *S = new uint[(uint)nb];
@@ -68,7 +68,7 @@ LCP_Sad::LCP_Sad(TextIndex *csa, char *text, size_t n, size_t op_rs) {
 
 LCP_Sad::LCP_Sad(LCP *lcp, TextIndex *csa, size_t n, size_t op_rs) {
   if (op_rs != BRW32_HDR && op_rs != DARRAY_HDR) {
-    cout << "Error: op_rs must be BRW32_HDR or DARRAY_HDR\n" << endl;
+    std::cout << "Error: op_rs must be BRW32_HDR or DARRAY_HDR\n" << std::endl;
     exit(1);
   }
   lcp_type = SAD_GON_OS;
@@ -78,7 +78,7 @@ LCP_Sad::LCP_Sad(LCP *lcp, TextIndex *csa, size_t n, size_t op_rs) {
   long long nb = 1;
   nb = (nb * 2 * n + W - 1) / W;
   if (nb > MAXINT) {
-    cout << "Memory limit excess (in LCP)" << endl;
+    std::cout << "Memory limit excess (in LCP)" << std::endl;
     exit(1);
   }
   uint *S = new uint[(uint)nb];
@@ -118,14 +118,14 @@ size_t LCP_Sad::get_seq_LCP(size_t i, TextIndex *csa, size_t **, size_t *,
 
 size_t LCP_Sad::getSize() const { return U->getSize() + sizeof(LCP_Sad); }
 
-void LCP_Sad::save(ofstream &fp) const {
+void LCP_Sad::save(std::ofstream &fp) const {
   saveValue(fp, lcp_type);
   saveValue(fp, U_type);
   saveValue(fp, U_length);
   U->save(fp);
 }
 
-LCP_Sad *LCP_Sad::load(ifstream &fp) {
+LCP_Sad *LCP_Sad::load(std::ifstream &fp) {
   LCP_Sad *lcp = new LCP_Sad();
   size_t type = loadValue<size_t>(fp);
   if (type != SAD_GON_OS) {

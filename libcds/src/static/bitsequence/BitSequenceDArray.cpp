@@ -18,6 +18,7 @@
 
 #include <BitSequenceDArray.h>
 
+using std::min;
 namespace cds_static {
 
 static unsigned int __selecttbl_D[8 * 256];
@@ -96,7 +97,7 @@ void BitSequenceDArray::build(uint *buf, size_t n) {
   make___selecttbl_D();
 
   if (L / LLL == 0) {
-    cout << "ERROR: L=" << L << "  LLL=" << LLL << endl;
+    std::cout << "ERROR: L=" << L << "  LLL=" << LLL << std::endl;
     exit(1);
   }
 
@@ -281,7 +282,7 @@ size_t BitSequenceDArray::getSize() const {
   return mem;
 }
 
-void BitSequenceDArray::save(ofstream &fp) const {
+void BitSequenceDArray::save(std::ofstream &fp) const {
   uint wr = DARRAY_HDR;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -301,7 +302,7 @@ void BitSequenceDArray::save(ofstream &fp) const {
   saveValue(fp, rs, (length / RRR + 2));
 }
 
-BitSequenceDArray *BitSequenceDArray::load(ifstream &fp) {
+BitSequenceDArray *BitSequenceDArray::load(std::ifstream &fp) {
   uint id = loadValue<uint>(fp);
   if (id != DARRAY_HDR)
     return NULL;

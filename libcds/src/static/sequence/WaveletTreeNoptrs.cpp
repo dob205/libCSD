@@ -21,6 +21,8 @@
 
 #include <WaveletTreeNoptrs.h>
 
+using std::min;
+
 namespace cds_static {
 WaveletTreeNoptrs::WaveletTreeNoptrs(const Array &a, BitSequenceBuilder *bmb,
                                      Mapper *am)
@@ -252,7 +254,7 @@ WaveletTreeNoptrs::~WaveletTreeNoptrs() {
     am->unuse();
 }
 
-void WaveletTreeNoptrs::save(ofstream &fp) const {
+void WaveletTreeNoptrs::save(std::ofstream &fp) const {
   uint wr = WVTREE_NOPTRS_HDR;
   saveValue(fp, wr);
   saveValue<size_t>(fp, n);
@@ -264,7 +266,7 @@ void WaveletTreeNoptrs::save(ofstream &fp) const {
   occ->save(fp);
 }
 
-WaveletTreeNoptrs *WaveletTreeNoptrs::load(ifstream &fp) {
+WaveletTreeNoptrs *WaveletTreeNoptrs::load(std::ifstream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != WVTREE_NOPTRS_HDR)
     return NULL;
@@ -284,7 +286,7 @@ WaveletTreeNoptrs *WaveletTreeNoptrs::load(ifstream &fp) {
   for (uint i = 0; i < ret->height; i++) {
     ret->bitstring[i] = BitSequence::load(fp);
     if (ret->bitstring[i] == NULL) {
-      cout << "damn" << i << " " << ret->height << endl;
+      std::cout << "damn" << i << " " << ret->height << std::endl;
       delete ret;
       return NULL;
     }

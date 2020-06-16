@@ -35,7 +35,7 @@ void LCP_FMN::generate_OZ(BitSequence *U, uint **O, uint **Z, uint length) {
   long long nb = 1;
   nb = (nb * length + W - 1) / W;
   if (nb > MAXINT) {
-    cout << "Memory limit excess (in LCP)" << endl;
+    std::cout << "Memory limit excess (in LCP)" << std::endl;
     exit(1);
   }
   o = new uint[(uint)nb];
@@ -74,7 +74,7 @@ void LCP_FMN::generate_OZ(BitSequence *U, uint **O, uint **Z, uint length) {
 
 LCP_FMN::LCP_FMN(TextIndex *csa, char *text, size_t n, size_t op_rs) {
   if (op_rs != RRR02_HDR && op_rs != SDARRAY_HDR) {
-    cout << "Error: op_rs must be RRR02_HDR or SDARRAY_HDR\n" << endl;
+    std::cout << "Error: op_rs must be RRR02_HDR or SDARRAY_HDR\n" << std::endl;
     exit(1);
   }
   lcp_type = FMN_RRR_OS;
@@ -98,7 +98,7 @@ LCP_FMN::LCP_FMN(TextIndex *csa, char *text, size_t n, size_t op_rs) {
 LCP_FMN::LCP_FMN(LCP *lcp, TextIndex *csa, size_t n, size_t op_rs) {
   uint *O_aux, *Z_aux;
   if (op_rs != RRR02_HDR && op_rs != SDARRAY_HDR) {
-    cout << "Error: op_rs must be RRR02_HDR or SDARRAY_HDR\n" << endl;
+    std::cout << "Error: op_rs must be RRR02_HDR or SDARRAY_HDR\n" << std::endl;
     exit(1);
   }
   lcp_type = FMN_RRR_OS;
@@ -137,7 +137,7 @@ size_t LCP_FMN::getSize() const {
   return O->getSize() + Z->getSize() + sizeof(LCP_FMN);
 }
 
-void LCP_FMN::save(ofstream &fp) const {
+void LCP_FMN::save(std::ofstream &fp) const {
   saveValue(fp, lcp_type);
   saveValue(fp, b_length);
   saveValue(fp, OZ_type);
@@ -145,7 +145,7 @@ void LCP_FMN::save(ofstream &fp) const {
   Z->save(fp);
 }
 
-LCP_FMN *LCP_FMN::load(ifstream &fp) {
+LCP_FMN *LCP_FMN::load(std::ifstream &fp) {
   LCP_FMN *lcp = new LCP_FMN();
   size_t type = loadValue<size_t>(fp);
   if (type != FMN_RRR_OS) {

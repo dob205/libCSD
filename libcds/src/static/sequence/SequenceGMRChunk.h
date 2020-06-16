@@ -32,7 +32,7 @@
 #include <libcdsBasics.h>
 
 namespace cds_static {
-// using namespace std;
+// 
 
 /** Implementation of the Chunk of Golynski et al's rank/select
  * data structure [1].
@@ -63,8 +63,8 @@ public:
   virtual size_t select(uint i, size_t j) const;
   virtual size_t rank(uint i, size_t j) const;
   virtual size_t getSize() const;
-  virtual void save(ofstream &fp) const;
-  static SequenceGMRChunk *load(ifstream &fp);
+  virtual void save(std::ofstream &fp) const;
+  static SequenceGMRChunk *load(std::ifstream &fp);
 
 protected:
   /** Bitmap */

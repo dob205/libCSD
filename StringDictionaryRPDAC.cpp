@@ -65,8 +65,8 @@ StringDictionaryRPDAC::StringDictionaryRPDAC(IteratorDictString *it) {
   uint io = 0, ic = 0, strings = 0;
   uint maxseq = 0, currentseq = 0;
 
-  cerr << "### Writing seq [BEGIN]" << endl;
-  cerr.flush();
+  std::cerr << "### Writing seq [BEGIN]" << std::endl;
+  std::cerr.flush();
   while (io < processed) {
     if (dict[io] >= 0) {
       if (dict[io] == 0) {
@@ -219,7 +219,7 @@ IteratorDictID *StringDictionaryRPDAC::locatePrefix(uchar *str, uint strLen) {
 }
 
 IteratorDictID *StringDictionaryRPDAC::locateSubstr(uchar *, uint) {
-  cout << "This dictionary does not provide substring location" << endl;
+  std::cout << "This dictionary does not provide substring location" << std::endl;
   return NULL;
 }
 
@@ -239,7 +239,7 @@ IteratorDictString *StringDictionaryRPDAC::extractPrefix(uchar *str,
 }
 
 IteratorDictString *StringDictionaryRPDAC::extractSubstr(uchar *, uint) {
-  cout << "This dictionary does not provide substring extraction" << endl;
+  std::cout << "This dictionary does not provide substring extraction" << std::endl;
   return 0;
 }
 
@@ -256,14 +256,14 @@ size_t StringDictionaryRPDAC::getSize() {
   return rp->getSize() + sizeof(StringDictionaryRPDAC);
 }
 
-void StringDictionaryRPDAC::save(ofstream &out) {
+void StringDictionaryRPDAC::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
   rp->save(out, RPDAC);
 }
 
-StringDictionary *StringDictionaryRPDAC::load(ifstream &in) {
+StringDictionary *StringDictionaryRPDAC::load(std::ifstream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != RPDAC)
     return NULL;

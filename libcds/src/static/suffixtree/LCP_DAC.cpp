@@ -61,13 +61,13 @@ size_t LCP_DAC::getSize() const {
   return mem;
 }
 
-void LCP_DAC::save(ofstream &fp) const {
+void LCP_DAC::save(std::ofstream &fp) const {
   saveValue(fp, lcp_type);
   saveValue(fp, n);
   rep->save(fp);
 }
 
-LCP_DAC *LCP_DAC::load(ifstream &fp) {
+LCP_DAC *LCP_DAC::load(std::ifstream &fp) {
   LCP_DAC *lcp = new LCP_DAC();
   size_t type = loadValue<size_t>(fp);
   if (type != DAC) {

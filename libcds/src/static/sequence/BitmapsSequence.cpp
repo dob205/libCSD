@@ -74,9 +74,9 @@ BitmapsSequence::BitmapsSequence(const Array &a, Mapper *am,
     : Sequence(0) {
   bsb->use();
   length = a.getLength();
-  // cout << "length=" << length << endl;
+  // std::cout << "length=" << length << std::endl;
   sigma = a.getMax() + 1;
-  // cout << "sigma=" << sigma << endl;
+  // std::cout << "sigma=" << sigma << std::endl;
   this->am = am;
   am->use();
   uint *occ = new uint[sigma + 1];
@@ -101,7 +101,7 @@ BitmapsSequence::BitmapsSequence(const Array &a, Mapper *am,
       bitset(bm, pos[pp]);
       pp++;
     }
-    // cout << "build " << bm << " len=" << length << " i=" << i << endl;
+    // std::cout << "build " << bm << " len=" << length << " i=" << i << std::endl;
     bitmaps[i] = bsb->build(bm, length);
   }
   delete[] bm;
@@ -130,11 +130,11 @@ size_t BitmapsSequence::rank(uint c, size_t i) const {
 
 size_t BitmapsSequence::select(uint c, size_t i) const {
   if (am->map(c) >= sigma) {
-    // cout << "c=" << c << " i=" << i << endl;
+    // std::cout << "c=" << c << " i=" << i << std::endl;
     return (size_t)-1;
   }
-  // cout << "c=" << c << " select=" << bitmaps[am->map(c)]->select1(i) << "
-  // rank=" << bitmaps[am->map(c)]->rank1(length-1) << " i=" << i << endl;
+  // std::cout << "c=" << c << " select=" << bitmaps[am->map(c)]->select1(i) << "
+  // rank=" << bitmaps[am->map(c)]->rank1(length-1) << " i=" << i << std::endl;
   return bitmaps[am->map(c)]->select1(i);
 }
 
@@ -159,7 +159,7 @@ size_t BitmapsSequence::getSize() const {
   return size;
 }
 
-void BitmapsSequence::save(ofstream &fp) const {
+void BitmapsSequence::save(std::ofstream &fp) const {
   uint wr = BS_HDR;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -169,7 +169,7 @@ void BitmapsSequence::save(ofstream &fp) const {
   am->save(fp);
 }
 
-BitmapsSequence *BitmapsSequence::load(ifstream &fp) {
+BitmapsSequence *BitmapsSequence::load(std::ifstream &fp) {
   uint __attribute__((unused)) type = loadValue<uint>(fp);
   if (type != BS_HDR) {
     abort();

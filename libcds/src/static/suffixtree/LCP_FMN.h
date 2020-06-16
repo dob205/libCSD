@@ -59,10 +59,10 @@ public:
   virtual size_t getSize() const;
 
   /** Stores the structure given a file pointer, return 0 in case of success */
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
   /** Reads a LCP determining the type */
-  static LCP_FMN *load(ifstream &fp);
+  static LCP_FMN *load(std::ifstream &fp);
 
   virtual ~LCP_FMN();
 };

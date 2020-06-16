@@ -154,8 +154,8 @@ IteratorDictID *StringDictionaryFMINDEX::locatePrefix(uchar *str, uint strLen) {
 
 IteratorDictID *StringDictionaryFMINDEX::locateSubstr(uchar *str, uint strLen) {
   if (BWTsampling == 0) {
-    cout << "This dictionary configuration does not provide substring location"
-         << endl;
+    std::cout << "This dictionary configuration does not provide substring location"
+         << std::endl;
     return NULL;
   }
 
@@ -164,7 +164,7 @@ IteratorDictID *StringDictionaryFMINDEX::locateSubstr(uchar *str, uint strLen) {
   num_occ = fm_index->locate(str, (uint)strLen, &occs);
 
   if (num_occ > 0) {
-    sort(&(occs[0]), &(occs[num_occ]));
+    std::sort(&(occs[0]), &(occs[num_occ]));
     occs[num_occ] = 0;
 
     return new IteratorDictIDDuplicates(occs, num_occ);
@@ -195,9 +195,9 @@ IteratorDictString *StringDictionaryFMINDEX::extractPrefix(uchar *str,
 IteratorDictString *StringDictionaryFMINDEX::extractSubstr(uchar *str,
                                                            uint strLen) {
   if (BWTsampling == 0) {
-    cout
+    std::cout
         << "This dictionary configuration does not provide substring extraction"
-        << endl;
+        << std::endl;
     return NULL;
   }
 
@@ -206,7 +206,7 @@ IteratorDictString *StringDictionaryFMINDEX::extractSubstr(uchar *str,
   num_occ = fm_index->locate(str, (uint)strLen, &occs);
 
   if (num_occ > 0) {
-    sort(&(occs[0]), &(occs[num_occ]));
+    std::sort(&(occs[0]), &(occs[num_occ]));
     occs[num_occ] = 0;
 
     return new IteratorDictStringFMINDEXDuplicates(fm_index, occs, num_occ,
@@ -229,14 +229,14 @@ size_t StringDictionaryFMINDEX::getSize() {
   return size;
 }
 
-void StringDictionaryFMINDEX::save(ofstream &out) {
+void StringDictionaryFMINDEX::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
   fm_index->save(out);
 }
 
-StringDictionary *StringDictionaryFMINDEX::load(ifstream &in) {
+StringDictionary *StringDictionaryFMINDEX::load(std::ifstream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != FMINDEX)
     return NULL;

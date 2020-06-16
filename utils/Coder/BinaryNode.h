@@ -29,7 +29,7 @@
 #define _BINARYNODE_H
 
 #include <iostream>
-using namespace std;
+
 
 #include <libcdsBasics.h>
 using namespace cds_utils;

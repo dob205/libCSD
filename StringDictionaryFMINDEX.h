@@ -40,7 +40,7 @@
 #define _STRINGDICTIONARYFMINDEX_H_
 
 #include <iostream>
-using namespace std;
+
 
 #include <libcdsBasics.h>
 using namespace cds_utils;
@@ -144,13 +144,13 @@ public:
   /** Stores the dictionary into an ofstream.
   @param out: the oftstream.
   */
-  void save(ofstream &out);
+  void save(std::ofstream &out);
 
   /** Loads a dictionary from an ifstream.
   @param in: the ifstream.
   @returns the loaded dictionary.
   */
-  static StringDictionary *load(ifstream &in);
+  static StringDictionary *load(std::ifstream &in);
 
   /** Generic destructor. */
   ~StringDictionaryFMINDEX();

@@ -30,7 +30,7 @@
 
 #include <iostream>
 #include <vector>
-using namespace std;
+
 
 #include "../XBW/XBW.h"
 
@@ -94,7 +94,7 @@ protected:
 
   XBW *xbw; // The XBW
 
-  vector<uint> queue; // Vector storing data about non-processed nodes
+  std::vector<uint> queue; // std::vector storing data about non-processed nodes
 };
 
 #endif

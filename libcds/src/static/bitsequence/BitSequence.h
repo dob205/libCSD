@@ -35,7 +35,7 @@
 #include <cppUtils.h>
 #include <libcdsBasics.h>
 
-using namespace std;
+
 using namespace cds_utils;
 
 namespace cds_static {
@@ -105,10 +105,10 @@ public:
   virtual size_t getSize() const = 0;
 
   /** Stores the bitmap given a file pointer*/
-  virtual void save(ofstream &fp) const = 0;
+  virtual void save(std::ofstream &fp) const = 0;
 
   /** Reads a bitmap determining the type */
-  static BitSequence *load(ifstream &fp);
+  static BitSequence *load(std::ifstream &fp);
 
 protected:
   /** Length of the bitstring */

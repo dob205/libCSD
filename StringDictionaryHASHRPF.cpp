@@ -69,7 +69,7 @@ StringDictionaryHASHRPF::StringDictionaryHASHRPF(IteratorDictString *it, uint,
   }
 
   // Performing Tdict reorganization
-  vector<SortString> sorting(elements);
+  std::vector<SortString> sorting(elements);
 
   uchar *strCurrent;
   uint lenCurrent = 0;
@@ -117,7 +117,7 @@ StringDictionaryHASHRPF::StringDictionaryHASHRPF(IteratorDictString *it, uint,
 
   {
     // Compacting the sequence
-    vector<size_t> textStrings;
+    std::vector<size_t> textStrings;
     size_t bytesStrings = 0;
     uint io = 0, strings = 0;
 
@@ -213,37 +213,37 @@ uchar *StringDictionaryHASHRPF::extract(size_t id, uint *strLen) {
 }
 
 IteratorDictID *StringDictionaryHASHRPF::locatePrefix(uchar *, uint) {
-  cout << "This dictionary does not provide prefix location" << endl;
+  std::cout << "This dictionary does not provide prefix location" << std::endl;
   return NULL;
 }
 
 IteratorDictID *StringDictionaryHASHRPF::locateSubstr(uchar *, uint) {
-  cout << "This dictionary does not provide substring location" << endl;
+  std::cout << "This dictionary does not provide substring location" << std::endl;
   return NULL;
 }
 
 uint StringDictionaryHASHRPF::locateRank(uint) {
-  cout << "This dictionary does not provide rank location" << endl;
+  std::cout << "This dictionary does not provide rank location" << std::endl;
   return 0;
 }
 
 IteratorDictString *StringDictionaryHASHRPF::extractPrefix(uchar *, uint) {
-  cout << "This dictionary does not provide prefix extraction" << endl;
+  std::cout << "This dictionary does not provide prefix extraction" << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHRPF::extractSubstr(uchar *, uint) {
-  cout << "This dictionary does not provide substring extraction" << endl;
+  std::cout << "This dictionary does not provide substring extraction" << std::endl;
   return NULL;
 }
 
 uchar *StringDictionaryHASHRPF::extractRank(uint, uint *) {
-  cout << "This dictionary does not provide rank extraction" << endl;
+  std::cout << "This dictionary does not provide rank extraction" << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHRPF::extractTable() {
-  vector<uchar *> tabledec(elements);
+  std::vector<uchar *> tabledec(elements);
   uint strLen;
 
   for (uint i = 1; i <= elements; i++)
@@ -256,7 +256,7 @@ size_t StringDictionaryHASHRPF::getSize() {
   return hash->getSize() + rp->getSize() + sizeof(StringDictionaryHASHRPF);
 }
 
-void StringDictionaryHASHRPF::save(ofstream &out) {
+void StringDictionaryHASHRPF::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -265,7 +265,7 @@ void StringDictionaryHASHRPF::save(ofstream &out) {
   hash->save(out);
 }
 
-StringDictionary *StringDictionaryHASHRPF::load(ifstream &in, uint technique) {
+StringDictionary *StringDictionaryHASHRPF::load(std::ifstream &in, uint technique) {
   size_t type = loadValue<uint32_t>(in);
 
   if (type != HASHRPF)

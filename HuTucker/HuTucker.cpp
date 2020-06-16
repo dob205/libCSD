@@ -77,8 +77,8 @@ DecodingTree *HuTucker::obtainSubtree(uint symbol, uint k) {
   }
 
   // Retrieving the subtree
-  vector<uint> xTree;
-  vector<uint> symbols;
+  std::vector<uint> xTree;
+  std::vector<uint> symbols;
   uint bits = 0;
   retrieveSubtree(node, &xTree, &bits, &symbols);
 
@@ -229,8 +229,8 @@ void HuTucker::encodeNode(BinaryNode *node, uint level, uint codeword,
   }
 }
 
-void HuTucker::retrieveSubtree(BinaryNode *node, vector<uint> *tree, uint *bits,
-                               vector<uint> *symbols) {
+void HuTucker::retrieveSubtree(BinaryNode *node, std::vector<uint> *tree, uint *bits,
+                               std::vector<uint> *symbols) {
   (*bits)++;
 
   if (node->leftChild != NULL) {

@@ -35,7 +35,7 @@ TrieNode::TrieNode(char symbol) {
 }
 
 void TrieNode::insert(const uchar *str, int len, int *occ,
-                      vector<TrieNode *> *nodes) {
+                      std::vector<TrieNode *> *nodes) {
   if (len >= 0) {
     leaf = false;
     TrieNode *next = children[str[0]];

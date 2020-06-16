@@ -46,8 +46,8 @@ StringDictionaryHTFC::StringDictionaryHTFC(IteratorDictString *it,
   this->type = HTFC;
 
   if (bucketsize < 2) {
-    cerr << "[WARNING] The bucketsize value must be greater than 1. ";
-    cerr << "The dictionary is built using buckets of size 2" << endl;
+    std::cerr << "[WARNING] The bucketsize value must be greater than 1. ";
+    std::cerr << "The dictionary is built using buckets of size 2" << std::endl;
     this->bucketsize = 2;
   } else
     this->bucketsize = bucketsize;
@@ -80,7 +80,7 @@ StringDictionaryHTFC::StringDictionaryHTFC(IteratorDictString *it,
 
   // 3) Compressing the dictionary and building the decoding table
   {
-    vector<size_t> xblStrings;
+    std::vector<size_t> xblStrings;
     size_t ptr = 0;
     uint offset = 0, bytes = 0;
     uchar *tmp = new uchar[4 * maxlength];
@@ -94,8 +94,8 @@ StringDictionaryHTFC::StringDictionaryHTFC(IteratorDictString *it,
 
     // Auxiliar variables for managing the substrings indexed in
     // the Decoding Table.
-    vector<uchar> textSubstr;
-    vector<ushort> lenSubstr;
+    std::vector<uchar> textSubstr;
+    std::vector<ushort> lenSubstr;
     ushort ptrSubstr = 0;
     uint codeSubstr = 0;
 
@@ -470,7 +470,7 @@ IteratorDictID *StringDictionaryHTFC::locatePrefix(uchar *str, uint strLen) {
 }
 
 IteratorDictID *StringDictionaryHTFC::locateSubstr(uchar *, uint) {
-  cerr << "This dictionary does not provide substring location" << endl;
+  std::cerr << "This dictionary does not provide substring location" << std::endl;
   return NULL;
 }
 
@@ -499,7 +499,7 @@ IteratorDictString *StringDictionaryHTFC::extractPrefix(uchar *str,
 }
 
 IteratorDictString *StringDictionaryHTFC::extractSubstr(uchar *, uint) {
-  cerr << "This dictionary does not provide substring extraction" << endl;
+  std::cerr << "This dictionary does not provide substring extraction" << std::endl;
   return 0;
 }
 
@@ -519,7 +519,7 @@ size_t StringDictionaryHTFC::getSize() {
          sizeof(StringDictionaryHTFC);
 }
 
-void StringDictionaryHTFC::save(ofstream &out) {
+void StringDictionaryHTFC::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -535,7 +535,7 @@ void StringDictionaryHTFC::save(ofstream &out) {
   table->save(out);
 }
 
-StringDictionary *StringDictionaryHTFC::load(ifstream &in) {
+StringDictionary *StringDictionaryHTFC::load(std::ifstream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != HTFC)
     return NULL;

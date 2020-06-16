@@ -61,10 +61,10 @@ public:
   virtual size_t getSize();
 
   /** Saves the coder to a file */
-  virtual void save(ofstream &fp);
+  virtual void save(std::ofstream &fp);
 
   /** Loads a coder from a file*/
-  static Huffman *load(ifstream &fp);
+  static Huffman *load(std::ifstream &fp);
 
   /** Retrieves the codeword assignment.
       @return a reference to an array containing the codeword
@@ -94,8 +94,8 @@ protected:
           representation.
       @param symbols: symbols stored in the tree leafs.
   */
-  void retrieveSubtree(BinaryNode *node, vector<uint> *tree, uint *bits,
-                       vector<uint> *symbols);
+  void retrieveSubtree(BinaryNode *node, std::vector<uint> *tree, uint *bits,
+                       std::vector<uint> *symbols);
 
   /** Free the memory reserved for the node management
       @para node: the node to be deleted.

@@ -37,8 +37,8 @@ void DecodingTable::setDecodingTable(uint k, DecodeableSubstr *substrs) {
   uint entries = pow(2, this->k);
   endings = new BitString(entries);
 
-  map<vector<uchar>, uint> tmp;
-  map<vector<uchar>, uint>::iterator it;
+  std::map<std::vector<uchar>, uint> tmp;
+  std::map<std::vector<uchar>, uint>::iterator it;
 
   // Collecting all different decodeable substrings in the representation
   for (uint i = 0; i < entries; i++) {
@@ -48,7 +48,7 @@ void DecodingTable::setDecodingTable(uint k, DecodeableSubstr *substrs) {
 
       if (it == tmp.end()) {
         // New substring
-        tmp.insert(pair<vector<uchar>, uint>(substrs[i].substr, i));
+        tmp.insert(std::pair<std::vector<uchar>, uint>(substrs[i].substr, i));
       } else {
         // Although the substring was found, we must
         // check its jumping information because an
@@ -56,7 +56,7 @@ void DecodingTable::setDecodingTable(uint k, DecodeableSubstr *substrs) {
         // one and its information must prevail
         if (substrs[it->second].special) {
           tmp.erase(substrs[i].substr);
-          tmp.insert(pair<vector<uchar>, uint>(substrs[i].substr, i));
+          tmp.insert(std::pair<std::vector<uchar>, uint>(substrs[i].substr, i));
         }
       }
     }
@@ -217,7 +217,7 @@ size_t DecodingTable::getSize() {
          endings->getSize() + treesize + sizeof(DecodingTable);
 }
 
-void DecodingTable::save(ofstream &out) {
+void DecodingTable::save(std::ofstream &out) {
   saveValue<uint32_t>(out, k);
 
   saveValue<uint64_t>(out, bytesStream);
@@ -231,7 +231,7 @@ void DecodingTable::save(ofstream &out) {
     subtrees[i]->save(out);
 }
 
-DecodingTable *DecodingTable::load(ifstream &in) {
+DecodingTable *DecodingTable::load(std::ifstream &in) {
   DecodingTable *table = new DecodingTable();
 
   table->k = loadValue<uint32_t>(in);

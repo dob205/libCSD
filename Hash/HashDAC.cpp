@@ -63,7 +63,7 @@ size_t HashDAC::insert(uchar *w, size_t len, size_t offset) {
         return hval;
       }
     }
-    cout << "Error Hash table full" << endl;
+    std::cout << "Error Hash table full" << std::endl;
     return (size_t)-1;
   }
 }
@@ -121,13 +121,13 @@ size_t HashDAC::getSize() {
   return mem;
 }
 
-void HashDAC::save(ofstream &fp) {
+void HashDAC::save(std::ofstream &fp) {
   saveValue(fp, tsize);
   saveValue(fp, n);
   b_ht->save(fp);
 }
 
-HashDAC *HashDAC::load(ifstream &fp) {
+HashDAC *HashDAC::load(std::ifstream &fp) {
   HashDAC *h_new = new HashDAC();
 
   h_new->tsize = loadValue<size_t>(fp);

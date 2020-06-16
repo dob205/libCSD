@@ -125,9 +125,9 @@ public:
   // Memory use in bytes
   virtual size_t getSize() const;
 
-  virtual void save(ofstream &fp) const;
+  virtual void save(std::ofstream &fp) const;
 
-  static SuffixTreeY *load(ifstream &fp);
+  static SuffixTreeY *load(std::ifstream &fp);
 
   virtual ~SuffixTreeY();
 };

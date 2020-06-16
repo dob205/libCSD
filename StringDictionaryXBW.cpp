@@ -46,7 +46,7 @@ StringDictionaryXBW::StringDictionaryXBW(IteratorDictString *it) {
 
   this->xbw = NULL;
 
-  vector<TrieNode *> nodes;
+  std::vector<TrieNode *> nodes;
   int *occ = new int[257];
 
   for (uint i = 0; i < 256; i++)
@@ -82,7 +82,7 @@ StringDictionaryXBW::StringDictionaryXBW(IteratorDictString *it) {
   for (uint i = 0; i < len; i++)
     assert(nodes[i] != NULL);
 
-  sort(nodes.begin(), nodes.end(), compare);
+  std::sort(nodes.begin(), nodes.end(), compare);
 
   assert(nodes[0] == root2);
   assert(nodes[1] == root);
@@ -218,7 +218,7 @@ uchar *StringDictionaryXBW::extractRank(uint rank, uint *strLen) {
 }
 
 IteratorDictString *StringDictionaryXBW::extractTable() {
-  cerr << "TO BE IMPLEMENTED" << endl;
+  std::cerr << "TO BE IMPLEMENTED" << std::endl;
   return NULL;
 }
 
@@ -226,7 +226,7 @@ size_t StringDictionaryXBW::getSize() {
   return xbw->size() + sizeof(StringDictionaryXBW);
 }
 
-void StringDictionaryXBW::save(ofstream &out) {
+void StringDictionaryXBW::save(std::ofstream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -238,7 +238,7 @@ void StringDictionaryXBW::save(ofstream &out) {
   out.write((char *)A, (len / W + 2) * sizeof(uint));
 }
 
-StringDictionary *StringDictionaryXBW::load(ifstream &in) {
+StringDictionary *StringDictionaryXBW::load(std::ifstream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != DXBW)
     return NULL;

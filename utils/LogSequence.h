@@ -35,7 +35,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-using namespace std;
+
 
 #include <libcdsBasics.h>
 using namespace cds_utils;
@@ -47,7 +47,7 @@ public:
   /** Loads a stream from an InputStream
    *  @param input: the InputStream to load from
    */
-  LogSequence(ifstream &in);
+  LogSequence(std::ifstream &in);
 
   /** Create a data structure where each entry needs numbits, reserve
       enough space to store capacity entries.
@@ -57,7 +57,7 @@ public:
   /** Create a data structure for storing the given vector using numbits
       for each entry.
    */
-  LogSequence(vector<size_t> *v, unsigned int numbits);
+  LogSequence(std::vector<size_t> *v, unsigned int numbits);
 
   /** Gets the element in a specific position
    *  @param position: the position of the element to be returned
@@ -82,7 +82,7 @@ public:
   /** Saves the stream
    *  @param output: the OutputStream to be saved to
    */
-  void save(ofstream &out);
+  void save(std::ofstream &out);
 
   /** Returns the number of bits effectively used for each position
    */

@@ -29,7 +29,7 @@
 #include "DecodingTree.h"
 
 DecodingTree::DecodingTree(uint codeword, BitString *partree,
-                           vector<uint> *symbols) {
+                           std::vector<uint> *symbols) {
   this->codeword = codeword;
   this->partree = partree;
   this->symbols = *symbols;
@@ -43,7 +43,7 @@ size_t DecodingTree::getSize() {
          leaves * sizeof(uint);
 }
 
-void DecodingTree::save(ofstream &out) {
+void DecodingTree::save(std::ofstream &out) {
   saveValue<uint>(out, codeword);
   saveValue<uint>(out, leaves);
   partree->save(out);
@@ -53,7 +53,7 @@ void DecodingTree::save(ofstream &out) {
   delete partree;
 }
 
-DecodingTree *DecodingTree::load(ifstream &in) {
+DecodingTree *DecodingTree::load(std::ifstream &in) {
   DecodingTree *table = new DecodingTree();
 
   table->codeword = loadValue<uint>(in);
@@ -74,7 +74,7 @@ void DecodingTree::buildTree(uint bits) {
   tree = new TreeNode[nodes];
 
   uint xNodes = 0, ptr = 0;
-  vector<uint> queue;
+  std::vector<uint> queue;
 
   while (ptr < bits) {
     if (partree->getBit(ptr) == 0) {

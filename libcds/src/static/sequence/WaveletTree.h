@@ -32,7 +32,7 @@
 #include <wt_coder_binary.h>
 #include <wt_node_internal.h>
 
-using namespace std;
+
 
 namespace cds_static {
 
@@ -83,8 +83,8 @@ public:
 
   virtual size_t getSize() const;
 
-  virtual void save(ofstream &fp) const;
-  static WaveletTree *load(ifstream &fp);
+  virtual void save(std::ofstream &fp) const;
+  static WaveletTree *load(std::ifstream &fp);
 
 protected:
   WaveletTree();
