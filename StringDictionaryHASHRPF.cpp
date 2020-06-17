@@ -148,8 +148,8 @@ StringDictionaryHASHRPF::StringDictionaryHASHRPF(IteratorDictString *it, uint,
   }
 }
 
-uint StringDictionaryHASHRPF::locate(uchar *str, uint strLen) {
-  uint id = NORESULT;
+unsigned long StringDictionaryHASHRPF::locate(uchar *str, uint strLen) {
+  unsigned long id = NORESULT;
 
   size_t hval = bitwisehash(str, strLen, hash->tsize);
   size_t next;
@@ -163,7 +163,7 @@ uint StringDictionaryHASHRPF::locate(uchar *str, uint strLen) {
   // using double hashing
   size_t h2 = step_value(str, strLen, hash->tsize);
 
-  for (uint i = 1; i < hash->tsize; i++) {
+  for (unsigned long i = 1; i < hash->tsize; i++) {
     next = (hval + i * h2) % hash->tsize;
 
     if (!hash->b_ht->access(next))

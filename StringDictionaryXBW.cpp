@@ -128,7 +128,7 @@ StringDictionaryXBW::StringDictionaryXBW(IteratorDictString *it) {
   delete[] occ;
 }
 
-uint StringDictionaryXBW::locate(uchar *str, uint strLen) {
+unsigned long StringDictionaryXBW::locate(uchar *str, uint strLen) {
   uchar *qry = new uchar[strLen + 1];
   qry[0] = 0;
   strncpy((char *)qry + 1, (char *)str, strLen);

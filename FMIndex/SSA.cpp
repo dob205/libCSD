@@ -260,7 +260,7 @@ void SSA::build_sa() {
     assert(cmp((uint)_sa[i], (uint)_sa[i + 1]) <= 0);
 }
 
-uint SSA::locate_id(uchar *pattern, uint m) {
+unsigned long SSA::locate_id(uchar *pattern, uint m) {
   ulong i = m - 1;
   uint c = pattern[i];
   uint sp = occ[c];
@@ -279,12 +279,12 @@ uint SSA::locate_id(uchar *pattern, uint m) {
     return 0;
 }
 
-uint SSA::locateP(uchar *pattern, uint m, size_t *left, size_t *right,
+unsigned long SSA::locateP(uchar *pattern, uint m, size_t *left, size_t *right,
                   size_t) { // elements
   ulong i = m - 1;
   uint c = pattern[i];
-  uint sp = occ[c];
-  uint ep = occ[c + 1] - 1;
+  unsigned long sp = occ[c];
+  unsigned long ep = occ[c + 1] - 1;
   while (sp <= ep && i >= 1) {
     c = pattern[--i];
     if (!alphabet[c]) {
@@ -303,15 +303,15 @@ uint SSA::locateP(uchar *pattern, uint m, size_t *left, size_t *right,
     return 0;
 }
 
-uint SSA::locate(uchar *pattern, uint m, size_t **occs) {
+unsigned long SSA::locate(uchar *pattern, uint m, size_t **occs) {
   if (samplesuff == 0) {
     *occs = NULL;
     return 0;
   }
   ulong i = m - 1;
   uint c = pattern[i];
-  uint sp = occ[c];
-  uint ep = occ[c + 1] - 1;
+  unsigned long sp = occ[c];
+  unsigned long ep = occ[c + 1] - 1;
   while (sp <= ep && i >= 1) {
     c = pattern[--i];
     if (!alphabet[c]) {
@@ -322,10 +322,10 @@ uint SSA::locate(uchar *pattern, uint m, size_t **occs) {
   }
 
   if (sp <= ep) {
-    uint matches = ep - sp + 1;
+    unsigned long matches = ep - sp + 1;
     *occs = new size_t[matches + 1];
-    uint i = sp;
-    uint j, dist;
+    unsigned long i = sp;
+    unsigned long j, dist;
     size_t rank_tmp;
 
     while (i <= ep) {

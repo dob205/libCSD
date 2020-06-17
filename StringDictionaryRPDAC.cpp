@@ -100,7 +100,7 @@ StringDictionaryRPDAC::StringDictionaryRPDAC(IteratorDictString *it) {
   delete[] cdict;
 }
 
-uint StringDictionaryRPDAC::locate(uchar *str, uint strLen) {
+unsigned long StringDictionaryRPDAC::locate(uchar *str, uint strLen) {
   // Binary search comparing s with respect to the corresponding
   // pivot rule.
   size_t left = 1, right = elements, center = 0;

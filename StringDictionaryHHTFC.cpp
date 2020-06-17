@@ -366,8 +366,8 @@ StringDictionaryHHTFC::StringDictionaryHHTFC(IteratorDictString *it,
   delete builderHU;
 }
 
-uint StringDictionaryHHTFC::locate(uchar *str, uint strLen) {
-  uint id = NORESULT;
+unsigned long StringDictionaryHHTFC::locate(uchar *str, uint strLen) {
+  unsigned long id = NORESULT;
   // Encoding the string
   uint encLen, offset;
   uchar *encoded = coderHT->encodeString(str, strLen + 1, &encLen, &offset);

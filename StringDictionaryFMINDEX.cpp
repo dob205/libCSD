@@ -104,9 +104,9 @@ StringDictionaryFMINDEX::StringDictionaryFMINDEX(IteratorDictString *it,
   delete[] text;
 }
 
-uint StringDictionaryFMINDEX::locate(uchar *str, uint strLen) {
+unsigned long StringDictionaryFMINDEX::locate(uchar *str, uint strLen) {
   uchar *n_s = new uchar[strLen + 2];
-  uint o;
+  unsigned long o;
   n_s[0] = '\1';
   for (size_t i = 1; i <= strLen; i++)
     n_s[i] = str[i - 1];

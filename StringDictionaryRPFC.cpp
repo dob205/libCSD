@@ -210,8 +210,8 @@ StringDictionaryRPFC::StringDictionaryRPFC(IteratorDictString *it,
   }
 }
 
-uint StringDictionaryRPFC::locate(uchar *str, uint) {
-  uint id = NORESULT;
+unsigned long StringDictionaryRPFC::locate(uchar *str, uint) {
+  unsigned long id = NORESULT;
 
   // Locating the candidate bucket for the string
   size_t idbucket;

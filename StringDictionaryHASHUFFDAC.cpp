@@ -218,8 +218,8 @@ StringDictionaryHASHUFFDAC::StringDictionaryHASHUFFDAC(IteratorDictString *it,
   delete builder;
 }
 
-uint StringDictionaryHASHUFFDAC::locate(uchar *str, uint strLen) {
-  uint id = NORESULT;
+unsigned long StringDictionaryHASHUFFDAC::locate(uchar *str, uint strLen) {
+  unsigned long id = NORESULT;
 
   // Encoding the string
   uint encLen, offset;

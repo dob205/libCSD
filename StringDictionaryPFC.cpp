@@ -117,8 +117,8 @@ StringDictionaryPFC::StringDictionaryPFC(IteratorDictString *it,
   blStrings = new LogSequence(&xblStrings, bits(bytesStrings));
 }
 
-uint StringDictionaryPFC::locate(uchar *str, uint) {
-  uint id = NORESULT;
+unsigned long StringDictionaryPFC::locate(uchar *str, uint) {
+  unsigned long id = NORESULT;
 
   // Locating the candidate bucket for the string
   size_t idbucket;

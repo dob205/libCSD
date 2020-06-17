@@ -300,8 +300,8 @@ StringDictionaryRPHTFC::StringDictionaryRPHTFC(IteratorDictString *it,
   delete builderHT;
 }
 
-uint StringDictionaryRPHTFC::locate(uchar *str, uint strLen) {
-  uint id = NORESULT;
+unsigned long StringDictionaryRPHTFC::locate(uchar *str, uint strLen) {
+  unsigned long id = NORESULT;
 
   // Encoding the string
   uint encLen, offset;

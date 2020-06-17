@@ -42,7 +42,7 @@ public:
       @param strLen: the string length.
       @returns the ID (or NORESULT if it is not in the dictionary).
   */
-  virtual uint locate(uchar *str, uint strLen) = 0;
+  virtual unsigned long locate(uchar *str, uint strLen) = 0;
 
   /** Obtains the string associated with the given ID.
       @param id: the ID to be extracted.

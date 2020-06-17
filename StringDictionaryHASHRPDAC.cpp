@@ -157,8 +157,8 @@ StringDictionaryHASHRPDAC::StringDictionaryHASHRPDAC(IteratorDictString *it,
   }
 }
 
-uint StringDictionaryHASHRPDAC::locate(uchar *str, uint strLen) {
-  uint id = NORESULT;
+unsigned long StringDictionaryHASHRPDAC::locate(uchar *str, uint strLen) {
+  unsigned long id = NORESULT;
 
   size_t hval = bitwisehash(str, strLen, hash->tsize);
   size_t next;
@@ -166,7 +166,7 @@ uint StringDictionaryHASHRPDAC::locate(uchar *str, uint strLen) {
   if (!hash->b_ht->access(hval))
     return id;
 
-  uint pos = hash->b_ht->rank1(hval);
+  unsigned long pos = hash->b_ht->rank1(hval);
 
   if (rp->extractStringAndCompareDAC(pos, str, strLen) == 0)
     return pos;

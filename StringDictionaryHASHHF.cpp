@@ -251,8 +251,8 @@ StringDictionaryHASHHF::StringDictionaryHASHHF(IteratorDictString *it, uint len,
   delete builder;
 }
 
-uint StringDictionaryHASHHF::locate(uchar *str, uint strLen) {
-  uint id = NORESULT;
+unsigned long StringDictionaryHASHHF::locate(uchar *str, uint strLen) {
+  unsigned long id = NORESULT;
 
   // Encoding the string
   uint encLen, offset;
