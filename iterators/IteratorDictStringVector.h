@@ -34,6 +34,7 @@
 #include <iostream>
 #include <vector>
 
+using uchar = unsigned char;
 
 class IteratorDictStringVector : public IteratorDictString {
 public:
