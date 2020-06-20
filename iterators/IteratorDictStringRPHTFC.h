@@ -40,6 +40,8 @@
 #include "../utils/Utils.h"
 #include "../utils/VByte.h"
 
+using uchar = unsigned char;
+
 class IteratorDictStringRPHTFC : public IteratorDictString {
 public:
   /** HHTFC Iterator Constructor designed for scanning a Hu-Tucker

@@ -33,6 +33,7 @@
 
 #include <iostream>
 
+using uchar = unsigned char;
 
 class IteratorDictStringPlain : public IteratorDictString {
 public:

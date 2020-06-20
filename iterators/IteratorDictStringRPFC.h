@@ -39,6 +39,9 @@
 #include "../utils/Utils.h"
 #include "../utils/VByte.h"
 
+using uchar = unsigned char;
+
+
 class IteratorDictStringRPFC : public IteratorDictString {
 public:
   /** RPFC Iterator Constructor designed for scanning a Plain

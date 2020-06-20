@@ -36,6 +36,8 @@
 #include "../utils/DAC_VLS.h"
 #include "../utils/LogSequence.h"
 
+using uchar = unsigned char;
+
 class IteratorDictStringRPDAC : public IteratorDictString {
 public:
   /** RPDAC Iterator Constructor designed for scanning a

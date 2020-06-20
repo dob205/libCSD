@@ -35,6 +35,8 @@
 
 #include "../XBW/XBW.h"
 
+using uchar = unsigned char;
+
 class IteratorDictStringXBW : public IteratorDictString {
 public:
   /** ID Iterator Constructor for streams of contiguous elements.

@@ -36,6 +36,8 @@
 #include "../utils/Utils.h"
 #include "../utils/VByte.h"
 
+using uchar = unsigned char;
+
 class IteratorDictStringPFC : public IteratorDictString {
 public:
   /** PFC Iterator Constructor designed for scanning a Plain
