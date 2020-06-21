@@ -36,6 +36,7 @@
 #include "../XBW/XBW.h"
 
 using uchar = unsigned char;
+using uint = unsigned int;
 
 class IteratorDictStringXBW : public IteratorDictString {
 public:

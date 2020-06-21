@@ -37,6 +37,7 @@
 #include "../utils/LogSequence.h"
 
 using uchar = unsigned char;
+using uint = unsigned int;
 
 class IteratorDictStringRPDAC : public IteratorDictString {
 public:

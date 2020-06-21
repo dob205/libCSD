@@ -35,6 +35,8 @@
 
 #include "../FMIndex/SSA.h"
 
+using uint = unsigned int;
+
 class IteratorDictStringFMINDEXDuplicates : public IteratorDictString {
 public:
   /** Iterator Constructor designed for scanning a FMIndex dictionary.

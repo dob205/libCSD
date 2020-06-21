@@ -35,6 +35,7 @@
 #include <vector>
 
 using uchar = unsigned char;
+using uint = unsigned int;
 
 class IteratorDictStringVector : public IteratorDictString {
 public:

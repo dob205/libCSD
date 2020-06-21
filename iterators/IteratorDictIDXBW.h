@@ -34,6 +34,8 @@
 
 #include "../XBW/XBW.h"
 
+using uint = unsigned int;
+
 class IteratorDictIDXBW : public IteratorDictID {
 public:
   /** ID Iterator Constructor for streams of contiguous elements.

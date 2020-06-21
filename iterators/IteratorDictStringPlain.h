@@ -34,6 +34,7 @@
 #include <iostream>
 
 using uchar = unsigned char;
+using uint = unsigned int;
 
 class IteratorDictStringPlain : public IteratorDictString {
 public:

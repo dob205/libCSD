@@ -4,7 +4,7 @@ FLAGS=-Wall -Wextra -std=c++11 -pedantic -Werror -O3 -I libcds/includes/
 CLANG_EXTRA_FLAGS=-Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition
 
 ifeq ($(CXX),clang)
-	CPPFLAGS += $(CLANG_EXTRA_FLAGS)
+	FLAGS += $(CLANG_EXTRA_FLAGS)
 endif
 
 LIB=libcds/lib/libcds.a

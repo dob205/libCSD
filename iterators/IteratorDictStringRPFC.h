@@ -40,6 +40,7 @@
 #include "../utils/VByte.h"
 
 using uchar = unsigned char;
+using uint = unsigned int;
 
 
 class IteratorDictStringRPFC : public IteratorDictString {

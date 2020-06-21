@@ -33,6 +33,7 @@
 #include <cassert>
 #include <iostream>
 
+using uint = unsigned int;
 
 class IteratorDictString {
 public:

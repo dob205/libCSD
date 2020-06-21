@@ -37,6 +37,7 @@
 #include "../utils/VByte.h"
 
 using uchar = unsigned char;
+using uint = unsigned int;
 
 class IteratorDictStringPFC : public IteratorDictString {
 public:

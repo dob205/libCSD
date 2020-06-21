@@ -41,6 +41,7 @@
 #include "../utils/VByte.h"
 
 using uchar = unsigned char;
+using uint = unsigned int;
 
 class IteratorDictStringHHTFC : public IteratorDictString {
 public:
