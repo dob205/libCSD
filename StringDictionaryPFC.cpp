@@ -360,9 +360,8 @@ inline uchar *StringDictionaryPFC::getHeader(size_t idbucket, uchar **str,
   *strLen = strlen((char *)ptr);
 
   *str = new uchar[maxlength];
-  memcpy((char *)*str, (char *)ptr, *strLen);
-  (*str)[*strLen] = 0; // add a zero after the last character
-
+  memcpy((char *)*str, (char *)ptr, *strLen + 1);
+  
   return ptr + (*strLen) + 1;
 }
 
@@ -372,8 +371,7 @@ void StringDictionaryPFC::decodeNextString(uchar **ptr, uint lenPrefix,
 
   lenSuffix = strlen((char *)*ptr);
 
-  memcpy((char *)(str + lenPrefix), (char *)*ptr, lenSuffix);
-  (str + lenPrefix)[lenSuffix] = 0; // add a zero after the last character
+  memcpy((char *)(str + lenPrefix), (char *)*ptr, lenSuffix + 1);
 
   *ptr += lenSuffix + 1;
   *strLen = lenPrefix + lenSuffix;
