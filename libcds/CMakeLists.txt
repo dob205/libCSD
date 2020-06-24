@@ -105,7 +105,7 @@ src/utils/cppUtils.cpp
 
 include_directories(includes)
 
-add_library(csd STATIC 
+add_library(cds STATIC 
 ${bitsequence_srcs}
 ${coders_srcs}
 ${mapper_srcs}

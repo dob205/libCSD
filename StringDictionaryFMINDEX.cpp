@@ -30,6 +30,8 @@
 #include "iterators/IteratorDictStringFMINDEX.h"
 #include "iterators/IteratorDictStringFMINDEXDuplicates.h"
 
+#include <SequenceBuilderWaveletTree.h>
+
 StringDictionaryFMINDEX::StringDictionaryFMINDEX() {
   this->type = FMINDEX;
   this->elements = 0;

@@ -25,6 +25,8 @@
 
 #include "SSA.h"
 
+#include <SequenceBuilderWaveletTreeNoptrs.h>
+
 SSA::SSA(uchar *text, uint n, bool free_text, uint samplesuff) {
   assert(n > 0);
 
