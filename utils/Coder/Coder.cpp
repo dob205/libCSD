@@ -29,8 +29,8 @@
 #include "Coder.h"
 
 uint Coder::encodeSymbol(uchar symbol, uchar *text, uint *offset) {
-  uint codeword = codewords[(int)symbol].codeword;
-  uint bits = codewords[(int)symbol].bits;
+  uint codeword = codewords[(int)symbol].get_codeword();
+  uint bits = codewords[(int)symbol].get_bits();
 
   uint processed = 0;
   uint bytes = 0;

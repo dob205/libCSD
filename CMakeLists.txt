@@ -62,6 +62,24 @@ RePair/Coder/records.cpp
 RePair/RePair.cpp
 )
 
+set(utils_srcs
+utils/DAC_BVLS.cpp
+utils/DAC_VLS.cpp
+utils/LogSequence.cpp
+utils/VByte.cpp
+
+utils/Coder/BinaryNode.cpp
+utils/Coder/Coder.cpp
+utils/Coder/DecodingTableBuilder.cpp
+utils/Coder/DecodingTable.cpp
+utils/Coder/DecodingTree.cpp
+utils/Coder/StatCoder.cpp
+)
+
+set(xbw_srcs
+XBW/TrieNode.cpp
+XBW/XBW.cpp
+)
 
 add_library(CSD
 ${base_srcs}
@@ -70,6 +88,8 @@ ${hash_srcs}
 ${huffman_srcs}
 ${hutucker_srcs}
 ${repair_srcs}
+${utils_srcs}
+${xbw_srcs}
 )
 
 add_dependencies(CSD cds)

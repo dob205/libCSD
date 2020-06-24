@@ -48,6 +48,14 @@ public:
   /** Generic Destructor */
   ~Codeword(){};
 
+  uint get_codeword(){
+    return codeword;
+  }
+
+  uint get_bits(){
+    return bits;
+  }
+
 protected:
   uint codeword; // Codeword (right-aligned)
   uint bits;     // Codeword length in number of bits
