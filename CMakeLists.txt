@@ -11,6 +11,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 add_subdirectory(libcds)
 include_directories(libcds/includes)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 set(base_srcs 
 StringDictionary.cpp
@@ -93,3 +94,5 @@ ${xbw_srcs}
 )
 
 add_dependencies(CSD cds)
+
+add_subdirectory(test)
