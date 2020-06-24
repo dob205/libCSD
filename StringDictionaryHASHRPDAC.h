@@ -49,6 +49,9 @@ using namespace cds_utils;
 #include "RePair/RePair.h"
 #include "StringDictionary.h"
 
+#include "iterators/IteratorDictStringPlain.h"
+#include "iterators/IteratorDictStringVector.h"
+
 class StringDictionaryHASHRPDAC : public StringDictionary {
 public:
   /** Generic Constructor. */

@@ -29,6 +29,8 @@
 
 #include "StringDictionaryHHTFC.h"
 
+#include "iterators/IteratorDictStringHHTFC.h"
+
 StringDictionaryHHTFC::StringDictionaryHHTFC() {
   this->type = HHTFC;
   this->elements = 0;

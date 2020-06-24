@@ -60,18 +60,4 @@ protected:
   uint maxlength;    // Largest string length
 };
 
-#include "IteratorDictStringPlain.h"
-#include "IteratorDictStringVector.h"
-
-#include "IteratorDictStringFMINDEX.h"
-#include "IteratorDictStringFMINDEXDuplicates.h"
-#include "IteratorDictStringHHTFC.h"
-#include "IteratorDictStringHTFC.h"
-#include "IteratorDictStringPFC.h"
-#include "IteratorDictStringRPDAC.h"
-#include "IteratorDictStringRPFC.h"
-#include "IteratorDictStringRPHTFC.h"
-#include "IteratorDictStringXBW.h"
-#include "IteratorDictStringXBWDuplicates.h"
-
 #endif

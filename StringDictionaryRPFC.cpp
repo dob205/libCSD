@@ -29,6 +29,9 @@
 
 #include "StringDictionaryRPFC.h"
 
+
+#include "iterators/IteratorDictStringRPFC.h"
+
 StringDictionaryRPFC::StringDictionaryRPFC() {
   this->type = RPFC;
   this->elements = 0;

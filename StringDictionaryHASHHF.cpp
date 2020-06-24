@@ -26,6 +26,8 @@
  */
 
 #include "StringDictionaryHASHHF.h"
+#include "iterators/IteratorDictStringPlain.h"
+#include "iterators/IteratorDictStringVector.h"
 
 StringDictionaryHASHHF::StringDictionaryHASHHF() {
   this->type = HASHHF;

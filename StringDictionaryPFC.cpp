@@ -28,6 +28,9 @@
 
 #include "StringDictionaryPFC.h"
 
+
+#include "iterators/IteratorDictStringPFC.h"
+
 StringDictionaryPFC::StringDictionaryPFC() {
   this->type = PFC;
   this->elements = 0;

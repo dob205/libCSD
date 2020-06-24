@@ -27,6 +27,8 @@
  */
 
 #include "StringDictionaryFMINDEX.h"
+#include "iterators/IteratorDictStringFMINDEX.h"
+#include "iterators/IteratorDictStringFMINDEXDuplicates.h"
 
 StringDictionaryFMINDEX::StringDictionaryFMINDEX() {
   this->type = FMINDEX;

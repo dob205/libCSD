@@ -27,6 +27,8 @@
  */
 
 #include "StringDictionaryXBW.h"
+#include "iterators/IteratorDictStringXBW.h"
+#include "iterators/IteratorDictStringXBWDuplicates.h"
 
 StringDictionaryXBW::StringDictionaryXBW() {
   this->type = DXBW;

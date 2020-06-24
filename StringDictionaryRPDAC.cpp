@@ -27,6 +27,7 @@
  */
 
 #include "StringDictionaryRPDAC.h"
+#include "iterators/IteratorDictStringRPDAC.h"
 
 StringDictionaryRPDAC::StringDictionaryRPDAC() {
   this->type = RPDAC;

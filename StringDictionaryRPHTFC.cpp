@@ -28,6 +28,7 @@
  */
 
 #include "StringDictionaryRPHTFC.h"
+#include "iterators/IteratorDictStringRPHTFC.h"
 
 StringDictionaryRPHTFC::StringDictionaryRPHTFC() {
   this->type = RPHTFC;

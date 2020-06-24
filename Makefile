@@ -23,15 +23,16 @@ EXES=Build.o Test.o
 
 BIN=Build Test
 
+all-but-clean: lib $(OBJECTS) $(EXES) $(BIN) merge
+	@echo " [MSG] Done compiling tests"
+	@echo " [FLG] $(FLAGS)"
+
+
 %.o: %.cpp
 	@echo " [C++] Compiling $<"
 	@$(CPP) $(FLAGS) -c $< -o $@
 
-all-but-clean: lib $(OBJECTS) $(EXES) $(BIN)
-	@echo " [MSG] Done compiling tests"
-	@echo " [FLG] $(FLAGS)"
-
-all: clean all-but-clean
+all: clean-all all-but-clean
 
 lib:
 	cd libcds && make libcompact
@@ -48,7 +49,8 @@ clean:
 	@rm -f  $(BIN) $(OBJECTS) $(EXES) *~ iterators/*~ FMIndex/*~ Hash/*~ Huffman/*~ RePair/*~ utils/*~ XBW/*~ 
 
 clean-all: clean
-	cd libcds && make clean
+	rm -rf libCSD.a
+	cd libcds && make clean && rm -rf lib/libcds.a
 
 merge: libCSD.a
 
