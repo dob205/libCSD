@@ -20,6 +20,59 @@ char *get_plain(std::vector<std::string> &data, size_t &total_size) {
   return buf;
 }
 
+TEST(StringDictionaryHASHRPDACBlocksTests, can_serialize) {
+  std::vector<std::string> data;
+
+  data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB");
+  data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC");
+  data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD");
+  data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE");
+  data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF");
+  data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG");
+  data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
+  data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI");
+  data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ");
+
+  std::sort(data.begin(), data.end());
+
+  size_t total_size = 0;
+  auto *plain_data = get_plain(data, total_size);
+
+  auto *it = new IteratorDictStringPlain(
+      reinterpret_cast<unsigned char *>(plain_data), total_size);
+
+  StringDictionaryHASHRPDACBlocks sd(it, total_size, 25);
+
+  std::string filename =
+      "StringDictionaryHASHRPDACBlocksTests_can_serialize.bin";
+
+  {
+    std::ofstream ofs(filename, std::ios::out | std::ios::binary);
+    sd.save(ofs);
+  }
+
+  StringDictionary *deserialized;
+  {
+    std::ifstream ifs(filename, std::ios::in | std::ios::binary);
+    deserialized = StringDictionaryHASHRPDACBlocks::load(ifs);
+  }
+
+  for (auto &s : data) {
+    auto i = deserialized->locate(
+        reinterpret_cast<unsigned char *>(const_cast<char *>(s.c_str())),
+        s.size());
+    ASSERT_GE(i, 0) << "not found string '" << s << "' on deserialization";
+    unsigned int strlen;
+    auto *se = deserialized->extract(i, &strlen);
+    ASSERT_TRUE(se) << i << " corresponding to " << s
+                    << " was not found on extract";
+    std::string se_str(reinterpret_cast<char *>(se), strlen);
+    ASSERT_EQ(se_str, s) << "Extracted str '" << se_str << "' is different to '"
+                         << s << "'";
+  }
+}
+
 TEST(StringDictionaryHASHRPDACBlocksTests, can_create) {
 
   std::vector<std::string> data;

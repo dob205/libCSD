@@ -117,7 +117,7 @@ void StringDictionaryHASHRPDACBlocks::save(std::ofstream &out) {
     saveValue<char>(out, s.c_str(), s.size());
   }
 
-  for (uint i = 1; i < starting_indexes.size(); i++) {
+  for (uint i = 0; i < starting_indexes.size(); i++) {
     saveValue<uint64_t>(out, starting_indexes[i]);
   }
 
@@ -139,7 +139,7 @@ StringDictionary *StringDictionaryHASHRPDACBlocks::load(std::ifstream &in,
     _cut_samples.emplace_back(cut_sample_buf, cut_sample_sz);
   }
   for (uint i = 0; i < parts_sz; i++) {
-    loadValue<uint64_t>(in);
+    _starting_indexes.push_back(loadValue<uint64_t>(in));
   }
 
   for (uint i = 0; i < parts_sz; i++) {
