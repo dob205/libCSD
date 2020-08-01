@@ -26,8 +26,6 @@
 
 #include <libcdsBasics.h>
 
-
-
 namespace cds_utils {
 /** BitString class
  * @author Francisco Claude

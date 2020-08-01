@@ -30,8 +30,6 @@
 #include <iostream>
 #include <libcdsBasics.h>
 
-
-
 namespace cds_static {
 
 class WaveletTreeNoptrs : public Sequence {

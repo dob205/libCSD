@@ -26,8 +26,6 @@
 #include <libcdsBasics.h>
 #include <wt_coder.h>
 
-
-
 namespace cds_static {
 
 /** Considers the binary representation of the symbols as the code

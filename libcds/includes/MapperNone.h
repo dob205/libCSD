@@ -27,8 +27,6 @@
 #include <Mapper.h>
 #include <libcdsBasics.h>
 
-
-
 namespace cds_static {
 
 /** Mapper that doesn't change the value (identity)

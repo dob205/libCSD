@@ -49,8 +49,6 @@ using namespace cds_utils;
 
 namespace cds_static {
 
-
-
 typedef struct csa {
   int n, m;
   int l, two, two2;

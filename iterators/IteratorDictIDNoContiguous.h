@@ -30,7 +30,6 @@
 
 #include <iostream>
 
-
 class IteratorDictIDNoContiguous : public IteratorDictID {
 public:
   /** ID Iterator Constructor for streams of contiguous elements.

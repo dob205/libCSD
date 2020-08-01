@@ -144,7 +144,8 @@ void SSA::print_stats() {
   std::cout << " bwt         : " << bwt->getSize() << std::endl;
 
   if (samplesuff > 0) {
-    std::cout << " suff sample : " << sizeof(uint) * (1 + n / samplesuff) << std::endl;
+    std::cout << " suff sample : " << sizeof(uint) * (1 + n / samplesuff)
+              << std::endl;
     std::cout << " sampled: " << sampled->getSize() << std::endl;
   }
   std::cout << " occ         : " << (maxV + 1) * sizeof(uint) << std::endl;
@@ -282,7 +283,7 @@ unsigned long SSA::locate_id(uchar *pattern, uint m) {
 }
 
 unsigned long SSA::locateP(uchar *pattern, uint m, size_t *left, size_t *right,
-                  size_t) { // elements
+                           size_t) { // elements
   ulong i = m - 1;
   uint c = pattern[i];
   unsigned long sp = occ[c];

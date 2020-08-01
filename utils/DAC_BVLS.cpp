@@ -44,7 +44,8 @@ DAC_BVLS::DAC_BVLS() {
 }
 
 DAC_BVLS::DAC_BVLS(uint tamCode, uint nLevels, std::vector<uint> *levelsIndex,
-                   std::vector<uint> *rankLevels, uchar *levels, BitString *bS) {
+                   std::vector<uint> *rankLevels, uchar *levels,
+                   BitString *bS) {
   this->tamCode = tamCode;
   this->nLevels = nLevels;
   this->levels = levels;

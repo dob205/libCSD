@@ -27,7 +27,6 @@
 
 using namespace cds_utils;
 
-
 namespace cds_static {
 
 #define BS_HDR 1

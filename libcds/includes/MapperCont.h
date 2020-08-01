@@ -30,7 +30,6 @@
 #include <BitSequenceBuilder.h>
 #include <Mapper.h>
 
-
 using namespace cds_utils;
 
 namespace cds_static {

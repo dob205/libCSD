@@ -101,7 +101,8 @@ BitmapsSequence::BitmapsSequence(const Array &a, Mapper *am,
       bitset(bm, pos[pp]);
       pp++;
     }
-    // std::cout << "build " << bm << " len=" << length << " i=" << i << std::endl;
+    // std::cout << "build " << bm << " len=" << length << " i=" << i <<
+    // std::endl;
     bitmaps[i] = bsb->build(bm, length);
   }
   delete[] bm;
@@ -133,8 +134,9 @@ size_t BitmapsSequence::select(uint c, size_t i) const {
     // std::cout << "c=" << c << " i=" << i << std::endl;
     return (size_t)-1;
   }
-  // std::cout << "c=" << c << " select=" << bitmaps[am->map(c)]->select1(i) << "
-  // rank=" << bitmaps[am->map(c)]->rank1(length-1) << " i=" << i << std::endl;
+  // std::cout << "c=" << c << " select=" << bitmaps[am->map(c)]->select1(i) <<
+  // " rank=" << bitmaps[am->map(c)]->rank1(length-1) << " i=" << i <<
+  // std::endl;
   return bitmaps[am->map(c)]->select1(i);
 }
 

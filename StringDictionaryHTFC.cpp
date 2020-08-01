@@ -31,7 +31,6 @@
 
 #include "iterators/IteratorDictStringHTFC.h"
 
-
 StringDictionaryHTFC::StringDictionaryHTFC() {
   this->type = HTFC;
   this->elements = 0;
@@ -473,7 +472,8 @@ IteratorDictID *StringDictionaryHTFC::locatePrefix(uchar *str, uint strLen) {
 }
 
 IteratorDictID *StringDictionaryHTFC::locateSubstr(uchar *, uint) {
-  std::cerr << "This dictionary does not provide substring location" << std::endl;
+  std::cerr << "This dictionary does not provide substring location"
+            << std::endl;
   return NULL;
 }
 
@@ -502,7 +502,8 @@ IteratorDictString *StringDictionaryHTFC::extractPrefix(uchar *str,
 }
 
 IteratorDictString *StringDictionaryHTFC::extractSubstr(uchar *, uint) {
-  std::cerr << "This dictionary does not provide substring extraction" << std::endl;
+  std::cerr << "This dictionary does not provide substring extraction"
+            << std::endl;
   return 0;
 }
 

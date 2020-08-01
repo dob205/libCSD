@@ -33,7 +33,6 @@
 
 #include <iostream>
 
-
 #include "../utils/Coder/Codeword.h"
 #include "../utils/Coder/DecodingTable.h"
 #include "../utils/LogSequence.h"

@@ -23,7 +23,6 @@
 #include <libcdsBasics.h>
 using namespace cds_utils;
 
-
 #ifndef uchar
 #define uchar unsigned char
 #endif

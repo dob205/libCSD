@@ -32,7 +32,6 @@
 #include <iostream>
 #include <vector>
 
-
 #include "../XBW/XBW.h"
 
 using uchar = unsigned char;
@@ -126,7 +125,7 @@ protected:
   XBW *xbw; // The XBW
 
   std::vector<uint> queue; // Vector storing data about non-processed nodes
-  uint pos;           // Auxiliar pos
+  uint pos;                // Auxiliar pos
 
   void idToStr(uint id, uint cnt) {
     if (id == processed) {

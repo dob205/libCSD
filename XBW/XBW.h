@@ -32,8 +32,6 @@
 #include <fstream>
 #include <iostream>
 
-
-
 extern bool printing;
 
 #include <BitSequence.h>

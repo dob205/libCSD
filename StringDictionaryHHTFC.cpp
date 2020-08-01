@@ -527,7 +527,8 @@ IteratorDictID *StringDictionaryHHTFC::locatePrefix(uchar *str, uint strLen) {
 }
 
 IteratorDictID *StringDictionaryHHTFC::locateSubstr(uchar *, uint) {
-  std::cerr << "This dictionary does not provide substring location" << std::endl;
+  std::cerr << "This dictionary does not provide substring location"
+            << std::endl;
   return NULL;
 }
 
@@ -556,7 +557,8 @@ IteratorDictString *StringDictionaryHHTFC::extractPrefix(uchar *str,
 }
 
 IteratorDictString *StringDictionaryHHTFC::extractSubstr(uchar *, uint) {
-  std::cerr << "This dictionary does not provide substring extraction" << std::endl;
+  std::cerr << "This dictionary does not provide substring extraction"
+            << std::endl;
   return 0;
 }
 

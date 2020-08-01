@@ -30,7 +30,6 @@
 
 #include <iostream>
 
-
 #include <BitSequence.h>
 #include <libcdsBasics.h>
 using namespace cds_static;

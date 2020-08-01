@@ -32,7 +32,6 @@
 #include <iostream>
 #include <vector>
 
-
 #include "../XBW/XBW.h"
 
 using uchar = unsigned char;

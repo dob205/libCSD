@@ -34,7 +34,8 @@ SuffixTreeY::SuffixTreeY(char *text, size_t n, size_t lcp_type, size_t npr_type,
   std::cout << "Text length: " << n << std::endl;
   /*create the index*/
   csa = new TextIndexCSA((uchar *)text, (ulong)length, NULL);
-  std::cout << "TextIndex bits/c: " << csa->getSize() * 8.0 / length << std::endl;
+  std::cout << "TextIndex bits/c: " << csa->getSize() * 8.0 / length
+            << std::endl;
   switch (lcp_type) {
   case NAIVE:
     lcp = new LCP_naive(csa, text, length);
@@ -77,7 +78,8 @@ SuffixTreeY::SuffixTreeY(char *text, size_t n, size_t lcp_type, size_t npr_type,
 
 SuffixTreeY::SuffixTreeY(LCP *_lcp, NPR *_npr, TextIndex *_csa) {
   csa = _csa;
-  std::cout << "TextIndex bits/c: " << csa->getSize() * 8.0 / length << std::endl;
+  std::cout << "TextIndex bits/c: " << csa->getSize() * 8.0 / length
+            << std::endl;
   lcp = _lcp;
   std::cout << "LCP bits/c: " << lcp->getSize() * 8.0 / length << std::endl;
   npr = _npr;

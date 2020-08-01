@@ -35,13 +35,13 @@ public:
    * @param text The text.
    * @param length Length of the text.
    * @param build_options The options could be:
-   * 												free_text: The text will
-   *be freed immediately after using it. samplerate=<number>: samplerate will be
-   *interval between two indices of the suffix array stored explicitly. That is,
-   * 												                     SA[i*samplerate]
-   *is stored explicitly. The default value is 16. samplepsi=<number>: samplepsi
-   *will be interval between two indices of the psi function stored explicitly.
-   *That is, Psi[i*samplepsi] is stored explicitly. The default value is 128.
+   * 												free_text: The
+   *text will be freed immediately after using it. samplerate=<number>:
+   *samplerate will be interval between two indices of the suffix array stored
+   *explicitly. That is, SA[i*samplerate] is stored explicitly. The default
+   *value is 16. samplepsi=<number>: samplepsi will be interval between two
+   *indices of the psi function stored explicitly. That is, Psi[i*samplepsi] is
+   *stored explicitly. The default value is 128.
    **/
   TextIndexCSA(uchar *text, ulong length, char *build_options);
 

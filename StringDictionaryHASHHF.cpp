@@ -293,7 +293,8 @@ IteratorDictID *StringDictionaryHASHHF::locatePrefix(uchar *, uint) {
 }
 
 IteratorDictID *StringDictionaryHASHHF::locateSubstr(uchar *, uint) {
-  std::cout << "This dictionary does not provide substring location" << std::endl;
+  std::cout << "This dictionary does not provide substring location"
+            << std::endl;
   return NULL;
 }
 
@@ -303,12 +304,14 @@ uint StringDictionaryHASHHF::locateRank(uint) {
 }
 
 IteratorDictString *StringDictionaryHASHHF::extractPrefix(uchar *, uint) {
-  std::cout << "This dictionary does not provide prefix extraction" << std::endl;
+  std::cout << "This dictionary does not provide prefix extraction"
+            << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHHF::extractSubstr(uchar *, uint) {
-  std::cout << "This dictionary does not provide substring extraction" << std::endl;
+  std::cout << "This dictionary does not provide substring extraction"
+            << std::endl;
   return NULL;
 }
 
@@ -361,7 +364,8 @@ void StringDictionaryHASHHF::save(std::ofstream &out) {
   table->save(out);
 }
 
-StringDictionary *StringDictionaryHASHHF::load(std::ifstream &in, uint technique) {
+StringDictionary *StringDictionaryHASHHF::load(std::ifstream &in,
+                                               uint technique) {
   size_t type = loadValue<uint32_t>(in);
 
   if (type != HASHHF)

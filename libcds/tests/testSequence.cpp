@@ -6,7 +6,6 @@
 #include <Sequence.h>
 #include <libcdsBasics.h>
 
-
 using namespace cds_static;
 
 void testSequence(Array &a, Sequence &bs) {
@@ -26,7 +25,7 @@ void testSequence(Array &a, Sequence &bs) {
       if (seq->rank(j, i) != count[j]) {
         std::cerr << "ERROR RANK " << std::endl;
         std::cerr << " Rank result: " << bs.rank(j, i) << " count=" << count[j]
-             << std::endl;
+                  << std::endl;
         std::cerr << " symbol=" << j << " position=" << i << std::endl;
         exit(-1);
       }
@@ -35,7 +34,7 @@ void testSequence(Array &a, Sequence &bs) {
       std::cerr << "ERROR SELECT " << std::endl;
       std::cerr << "a[i]=" << a[i] << " maxv=" << maxv << std::endl;
       std::cerr << "bs.select=" << bs.select(a[i], count[a[i]]) << " i=" << i
-           << std::endl;
+                << std::endl;
       exit(-2);
     }
     if (a[i] != seq->access(i)) {
@@ -49,10 +48,11 @@ void testSequence(Array &a, Sequence &bs) {
 int main(int argc, char **argv) {
 
   if (argc != 4) {
-    std::cout << "Checks the array class generating <length> elements between 0 and "
-            "<maxv> using <seed> as seed for the numbers generation"
-         << endl
-         << std::endl;
+    std::cout
+        << "Checks the array class generating <length> elements between 0 and "
+           "<maxv> using <seed> as seed for the numbers generation"
+        << endl
+        << std::endl;
     std::cout << "usage: " << argv[0] << " <seed> <length> <maxv>" << std::endl;
     return 0;
   }

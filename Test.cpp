@@ -32,7 +32,6 @@
 #include <fstream>
 #include <iostream>
 
-
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
@@ -56,40 +55,49 @@ void generateS(StringDictionary *dict, uint mean, char *out);
 
 void checkDict() {
   std::cerr << std::endl;
-  std::cerr << " *******************************************************************"
-          "************* "
-       << std::endl;
-  std::cerr << " *** Checks the given file because it does not represent any valid "
-          "dictionary *** "
-       << std::endl;
-  std::cerr << " *******************************************************************"
-          "************* "
-       << std::endl;
+  std::cerr
+      << " *******************************************************************"
+         "************* "
+      << std::endl;
+  std::cerr
+      << " *** Checks the given file because it does not represent any valid "
+         "dictionary *** "
+      << std::endl;
+  std::cerr
+      << " *******************************************************************"
+         "************* "
+      << std::endl;
   std::cerr << std::endl;
 }
 
 void checkFile() {
   std::cerr << std::endl;
-  std::cerr << " ****************************************************************** "
-       << std::endl;
-  std::cerr << " *** Checks the given path because it does not contain any file *** "
-       << std::endl;
-  std::cerr << " ****************************************************************** "
-       << std::endl;
+  std::cerr
+      << " ****************************************************************** "
+      << std::endl;
+  std::cerr
+      << " *** Checks the given path because it does not contain any file *** "
+      << std::endl;
+  std::cerr
+      << " ****************************************************************** "
+      << std::endl;
   std::cerr << std::endl;
 }
 
 void useTest() {
   std::cerr << std::endl;
-  std::cerr << " *******************************************************************"
-          "************* "
-       << std::endl;
-  std::cerr << " *** Test script for the library of Compressed String Dictionaries "
-          "(libCSD). *** "
-       << std::endl;
-  std::cerr << " *******************************************************************"
-          "************* "
-       << std::endl;
+  std::cerr
+      << " *******************************************************************"
+         "************* "
+      << std::endl;
+  std::cerr
+      << " *** Test script for the library of Compressed String Dictionaries "
+         "(libCSD). *** "
+      << std::endl;
+  std::cerr
+      << " *******************************************************************"
+         "************* "
+      << std::endl;
   std::cerr << std::endl;
   std::cerr << " ----- test <mode> <opt> <in> <file>" << std::endl;
   std::cerr << std::endl;
@@ -107,10 +115,11 @@ void useTest() {
   std::cerr << " <mode> s : Generate the substring testbed." << std::endl;
   std::cerr << "    <opt> mean string length." << std::endl;
   std::cerr << " <in> : input file containing the compressed string dictionary."
-       << std::endl;
-  std::cerr << " <file> : file from which the patterns are loaded or in which are "
-          "saved."
-       << std::endl;
+            << std::endl;
+  std::cerr
+      << " <file> : file from which the patterns are loaded or in which are "
+         "saved."
+      << std::endl;
   std::cerr << std::endl;
 }
 
@@ -159,8 +168,8 @@ void runLocate(StringDictionary *dict, char *in) {
   std::cerr << dict->getSize() << ";";
   std::cerr << ";;;" << (total * SEC_TIME_DIVIDER);
   std::cerr << ";;;" << (avgrun * SEC_TIME_DIVIDER);
-  std::cerr << ";;;" << (avgpattern * MCSEC_TIME_DIVIDER) << " " << MCSEC_TIME_UNIT
-       << std::endl;
+  std::cerr << ";;;" << (avgpattern * MCSEC_TIME_DIVIDER) << " "
+            << MCSEC_TIME_UNIT << std::endl;
 
   for (uint i = 0; i < patterns; i++)
     delete[] strings[i];
@@ -206,8 +215,8 @@ void runExtract(StringDictionary *dict, char *in) {
   std::cerr << dict->getSize() << ";";
   std::cerr << ";;;" << (total * SEC_TIME_DIVIDER);
   std::cerr << ";;;" << (avgrun * SEC_TIME_DIVIDER);
-  std::cerr << ";;;" << (avgpattern * MCSEC_TIME_DIVIDER) << " " << MCSEC_TIME_UNIT
-       << std::endl;
+  std::cerr << ";;;" << (avgpattern * MCSEC_TIME_DIVIDER) << " "
+            << MCSEC_TIME_UNIT << std::endl;
 }
 
 void runLocatePrefix(StringDictionary *dict, char *in) {
@@ -259,9 +268,10 @@ void runLocatePrefix(StringDictionary *dict, char *in) {
 
   std::cerr << ";;;" << (total * SEC_TIME_DIVIDER);
   std::cerr << ";;;" << (avgrun * SEC_TIME_DIVIDER);
-  std::cerr << ";;;" << (avgpattern * MCSEC_TIME_DIVIDER) << " " << MCSEC_TIME_UNIT
-       << std::endl;
-  std::cerr << (avgpattern * MCSEC_TIME_DIVIDER) << "  " << located << std::endl;
+  std::cerr << ";;;" << (avgpattern * MCSEC_TIME_DIVIDER) << " "
+            << MCSEC_TIME_UNIT << std::endl;
+  std::cerr << (avgpattern * MCSEC_TIME_DIVIDER) << "  " << located
+            << std::endl;
 
   for (uint i = 0; i < patterns; i++)
     delete[] strings[i];
@@ -321,9 +331,10 @@ void runExtractPrefix(StringDictionary *dict, char *in) {
 
   std::cerr << ";;;" << (total * SEC_TIME_DIVIDER);
   std::cerr << ";;;" << (avgrun * SEC_TIME_DIVIDER);
-  std::cerr << ";;;" << (avgpattern * MCSEC_TIME_DIVIDER) << " " << MCSEC_TIME_UNIT
-       << std::endl;
-  std::cerr << " " << (avgpattern * MCSEC_TIME_DIVIDER) << "  " << extracted << std::endl;
+  std::cerr << ";;;" << (avgpattern * MCSEC_TIME_DIVIDER) << " "
+            << MCSEC_TIME_UNIT << std::endl;
+  std::cerr << " " << (avgpattern * MCSEC_TIME_DIVIDER) << "  " << extracted
+            << std::endl;
 }
 
 void runLocateSubstring(StringDictionary *dict, char *in) {
@@ -438,7 +449,8 @@ void runExtractSubstring(StringDictionary *dict, char *in) {
 
   std::cerr << std::endl;
   double avgrun = total / RUNS;
-  std::cerr << dict->getSize() << ";" << avgrun << ";" << extracted << std::endl;
+  std::cerr << dict->getSize() << ";" << avgrun << ";" << extracted
+            << std::endl;
 
   for (uint i = 0; i < patterns; i++)
     delete[] strings[i];
@@ -499,7 +511,8 @@ void generateP(StringDictionary *dict, uint mean, char *out) {
   for (uint i = 0; i <= 9; i++) {
     char len[10];
     sprintf(len, "%d", lens[i]);
-    std::string name = std::string(out) + std::string(".") + std::string(len) + std::string(".prefixes");
+    std::string name = std::string(out) + std::string(".") + std::string(len) +
+                       std::string(".prefixes");
 
     std::ofstream outPrefixes((char *)name.c_str());
 
@@ -557,8 +570,8 @@ void generateS(StringDictionary *dict, uint mean, char *out) {
   for (uint i = 0; i < lens.size(); i++) {
     char len[10];
     sprintf(len, "%d", lens[i]);
-    std::string name =
-        std::string(out) + std::string(".") + std::string(len) + std::string(".substrings");
+    std::string name = std::string(out) + std::string(".") + std::string(len) +
+                       std::string(".substrings");
 
     std::ofstream outSubstrings((char *)name.c_str());
 

@@ -33,7 +33,6 @@
 
 #include <iostream>
 
-
 #include "../FMIndex/SSA.h"
 
 using uint = unsigned int;

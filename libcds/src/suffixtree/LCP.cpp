@@ -22,8 +22,8 @@ namespace cds_static {
 
 uint *LCP::create_lcp(TextIndex *csa, char *text, uint n, int q) const {
   if (q > (int)n) {
-    std::cout << "Specified q (" << q << ") greater than string length (" << n << ")"
-         << std::endl;
+    std::cout << "Specified q (" << q << ") greater than string length (" << n
+              << ")" << std::endl;
     return NULL;
   }
   int i, h, j, k, m;

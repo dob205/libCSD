@@ -31,7 +31,6 @@
 #include <fstream>
 #include <iostream>
 
-
 #include "StringDictionary.h"
 #include "iterators/IteratorDictStringPlain.h"
 #include "utils/LogSequence.h"
@@ -42,107 +41,138 @@ void useBuild(void);
 
 void checkDict() {
   std::cerr << std::endl;
-  std::cerr << " *******************************************************************"
-          "************* "
-       << std::endl;
-  std::cerr << " *** Checks the given file because it does not represent any valid "
-          "dictionary *** "
-       << std::endl;
-  std::cerr << " *******************************************************************"
-          "************* "
-       << std::endl;
+  std::cerr
+      << " *******************************************************************"
+         "************* "
+      << std::endl;
+  std::cerr
+      << " *** Checks the given file because it does not represent any valid "
+         "dictionary *** "
+      << std::endl;
+  std::cerr
+      << " *******************************************************************"
+         "************* "
+      << std::endl;
   std::cerr << std::endl;
 }
 
 void checkFile() {
   std::cerr << std::endl;
-  std::cerr << " ****************************************************************** "
-       << std::endl;
-  std::cerr << " *** Checks the given path because it does not contain any file *** "
-       << std::endl;
-  std::cerr << " ****************************************************************** "
-       << std::endl;
+  std::cerr
+      << " ****************************************************************** "
+      << std::endl;
+  std::cerr
+      << " *** Checks the given path because it does not contain any file *** "
+      << std::endl;
+  std::cerr
+      << " ****************************************************************** "
+      << std::endl;
   std::cerr << std::endl;
 }
 
 void useBuild() {
 
   std::cerr << std::endl;
-  std::cerr << " *******************************************************************"
-          "******* "
-       << std::endl;
-  std::cerr << " *** BUILD script for indexing string dictionaries in compressed "
-          "space. *** "
-       << std::endl;
-  std::cerr << " *******************************************************************"
-          "******* "
-       << std::endl;
+  std::cerr
+      << " *******************************************************************"
+         "******* "
+      << std::endl;
+  std::cerr
+      << " *** BUILD script for indexing string dictionaries in compressed "
+         "space. *** "
+      << std::endl;
+  std::cerr
+      << " *******************************************************************"
+         "******* "
+      << std::endl;
   std::cerr << std::endl;
   std::cerr << " ----- ./Build <type> <parameters> <in> <out>" << std::endl;
 
   std::cerr << " type: 1 => Build HASH dictionary" << std::endl;
   std::cerr << " \t <compress> : 'h' for Huffman; 'r' for RePair compression."
-       << std::endl;
-  std::cerr << " \t <overhead> : hash table overhead over the number of strings."
-       << std::endl;
-  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << std::endl;
-  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+            << std::endl;
+  std::cerr
+      << " \t <overhead> : hash table overhead over the number of strings."
+      << std::endl;
+  std::cerr
+      << " \t <in> : input file containing the set of '\\0'-delimited strings."
+      << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary."
+            << std::endl;
   std::cerr << std::endl;
 
   std::cerr << " type: 2 => Build HASHDAC dictionary" << std::endl;
   std::cerr << " \t <compress> : 'h' for Huffman; 'r' for RePair compression."
-       << std::endl;
-  std::cerr << " \t <overhead> : hash table overhead over the number of strings."
-       << std::endl;
-  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << std::endl;
-  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+            << std::endl;
+  std::cerr
+      << " \t <overhead> : hash table overhead over the number of strings."
+      << std::endl;
+  std::cerr
+      << " \t <in> : input file containing the set of '\\0'-delimited strings."
+      << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary."
+            << std::endl;
   std::cerr << std::endl;
 
   std::cerr << " type: 3 => Build PLAIN FRONT CODING dictionary" << std::endl;
-  std::cerr << " \t <compress> : 'p' for plain (uncompressed) representation; 'r' "
-          "for RePair compression"
-       << std::endl;
+  std::cerr
+      << " \t <compress> : 'p' for plain (uncompressed) representation; 'r' "
+         "for RePair compression"
+      << std::endl;
   std::cerr << " \t <bucketsize> : number of strings per bucket." << std::endl;
-  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << std::endl;
-  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr
+      << " \t <in> : input file containing the set of '\\0'-delimited strings."
+      << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary."
+            << std::endl;
   std::cerr << std::endl;
 
-  std::cerr << " type: 4 => Build HU-TUCKER FRONT CODING dictionary" << std::endl;
+  std::cerr << " type: 4 => Build HU-TUCKER FRONT CODING dictionary"
+            << std::endl;
   std::cerr << " \t <compress> : tecnique used for internal string compression."
-       << std::endl;
-  std::cerr << " \t              't' for HuTucker; 'h' for Huffman; 'r' for RePair "
-          "compression."
-       << std::endl;
+            << std::endl;
+  std::cerr
+      << " \t              't' for HuTucker; 'h' for Huffman; 'r' for RePair "
+         "compression."
+      << std::endl;
   std::cerr << " \t <bucketsize> : number of strings per bucket." << std::endl;
-  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << std::endl;
-  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr
+      << " \t <in> : input file containing the set of '\\0'-delimited strings."
+      << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary."
+            << std::endl;
   std::cerr << std::endl;
 
   std::cerr << " type: 5 => Build RE-PAIR DAC dictionary" << std::endl;
-  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << std::endl;
-  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr
+      << " \t <in> : input file containing the set of '\\0'-delimited strings."
+      << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary."
+            << std::endl;
   std::cerr << std::endl;
 
   std::cerr << " type: 6 => Build FMINDEX dictionary" << std::endl;
-  std::cerr << " \t <compress> : 'p' for plain bitmaps; 'c' for compresed bitmaps."
-       << std::endl;
-  std::cerr << " \t <BS sampling> : sampling value for the bitmaps" << std::endl;
-  std::cerr << " \t <BWT sampling> : sampling step for the BWT (0 for no sampling)"
-       << std::endl;
-  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << std::endl;
-  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr
+      << " \t <compress> : 'p' for plain bitmaps; 'c' for compresed bitmaps."
+      << std::endl;
+  std::cerr << " \t <BS sampling> : sampling value for the bitmaps"
+            << std::endl;
+  std::cerr
+      << " \t <BWT sampling> : sampling step for the BWT (0 for no sampling)"
+      << std::endl;
+  std::cerr
+      << " \t <in> : input file containing the set of '\\0'-delimited strings."
+      << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary."
+            << std::endl;
   std::cerr << std::endl;
 
   std::cerr << " type: 7 => Build XBW dictionary" << std::endl;
-  std::cerr << " \t <in> : input file containing the set of '\\0'-delimited strings."
-       << std::endl;
-  std::cerr << " \t <out> : output file for storing the dictionary." << std::endl;
+  std::cerr
+      << " \t <in> : input file containing the set of '\\0'-delimited strings."
+      << std::endl;
+  std::cerr << " \t <out> : output file for storing the dictionary."
+            << std::endl;
   std::cerr << std::endl;
 }
 
@@ -399,8 +429,8 @@ int main(int argc, char *argv[]) {
                                              BWTsampling);
           delete it;
 
-          filename = std::string(argv[6]) + std::string(".") + std::string(argv[3]) +
-                     std::string(".rg.fmi");
+          filename = std::string(argv[6]) + std::string(".") +
+                     std::string(argv[3]) + std::string(".rg.fmi");
 
         } else if (argv[2][0] == 'c') {
           // Compressed bitmaps
@@ -408,8 +438,8 @@ int main(int argc, char *argv[]) {
               new StringDictionaryFMINDEX(it, true, atoi(argv[3]), BWTsampling);
           delete it;
 
-          filename = std::string(argv[6]) + std::string(".") + std::string(argv[3]) +
-                     std::string(".rrr.fmi");
+          filename = std::string(argv[6]) + std::string(".") +
+                     std::string(argv[3]) + std::string(".rrr.fmi");
         } else {
           checkFile();
           break;

@@ -42,7 +42,6 @@
 
 #include <iostream>
 
-
 #include <libcdsBasics.h>
 using namespace cds_utils;
 
@@ -52,7 +51,6 @@ using namespace cds_utils;
 #include "utils/Coder/DecodingTable.h"
 #include "utils/Coder/DecodingTableBuilder.h"
 #include "utils/Coder/StatCoder.h"
-
 
 class StringDictionaryHASHHF : public StringDictionary {
 public:

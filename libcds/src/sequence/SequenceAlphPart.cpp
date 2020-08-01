@@ -23,8 +23,6 @@
 #include <algorithm>
 #include <iostream>
 
-
-
 namespace cds_static {
 
 /*    inline uint group(uint pos, uint cut) {
@@ -37,12 +35,9 @@ namespace cds_static {
     }
 
     inline uint offset(uint pos, uint cut, uint group) {
-        //cout << "pos=" << pos << " cut=" << cut << " grp=" << group << std::endl;
-        uint ret = 0;
-        if(pos<=cut)
-            ret = 0;
-        else
-            ret = pos-cut-(1<<(group-cut-1));
+        //cout << "pos=" << pos << " cut=" << cut << " grp=" << group <<
+   std::endl; uint ret = 0; if(pos<=cut) ret = 0; else ret =
+   pos-cut-(1<<(group-cut-1));
         //cout << "ret=" << ret << std::endl;
         return ret;
     }
@@ -132,7 +127,8 @@ SequenceAlphPart::SequenceAlphPart(const Array &seq, uint _cut,
     alphSortedByFreq[i] = pairs[i].second;
     uint sl = group(i, cut);
     groupForSymb[pairs[i].second] = sl;
-    // std::cout << "groupForSymb[" << pairs[i].second << "]=" << sl << std::endl;
+    // std::cout << "groupForSymb[" << pairs[i].second << "]=" << sl <<
+    // std::endl;
     lenLength[sl] += pairs[i].first;
     maxLen = sl;
   }
@@ -267,7 +263,8 @@ SequenceAlphPart::SequenceAlphPart(uint *seq, size_t n, uint cut,
       seqs[groupForSymb[seq[i]] - cut - 1][lenLength[groupForSymb[seq[i]]]++] =
           offset(revPermFreq[seq[i]], cut, groupForSymb[seq[i]]);
       std::cout << "Group=" << groupForSymb[seq[i]] << " offset="
-           << offset(revPermFreq[seq[i]], cut, groupForSymb[seq[i]]) << std::endl;
+                << offset(revPermFreq[seq[i]], cut, groupForSymb[seq[i]])
+                << std::endl;
     }
   }
 
@@ -337,7 +334,7 @@ size_t SequenceAlphPart::getSize() const {
   size_t ret = 0;
   for (uint i = 0; maxLen > cut && i < maxLen - cut; i++) {
     std::cout << "i=" << i << " len=" << indexesByLength[i]->getLength()
-         << " size=" << indexesByLength[i]->getSize() << std::endl;
+              << " size=" << indexesByLength[i]->getSize() << std::endl;
     ret += indexesByLength[i]->getSize();
   }
   ret += groupsIndex->getSize();

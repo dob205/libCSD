@@ -18,7 +18,6 @@
 
 #include <SuffixTree.h>
 
-
 using namespace cds_utils;
 using namespace cds_static;
 
@@ -42,9 +41,10 @@ int main(int argc, char *argv[]) {
   size_t length;
 
   if (argc != 2) {
-    std::cout << "Checks if the SuffixTree of the file <arch> is save/load correctly"
-         << endl
-         << std::endl;
+    std::cout
+        << "Checks if the SuffixTree of the file <arch> is save/load correctly"
+        << endl
+        << std::endl;
     std::cout << "usage: " << argv[0] << " <arch>" << std::endl;
     return 0;
   }

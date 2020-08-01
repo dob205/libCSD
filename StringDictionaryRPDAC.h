@@ -52,7 +52,6 @@
 
 #include <iostream>
 
-
 #include "RePair/Coder/IRePair.h"
 #include "StringDictionary.h"
 #include "utils/DAC_VLS.h"

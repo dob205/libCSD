@@ -74,7 +74,6 @@
 #include <map>
 #include <vector>
 
-
 #include <BitString.h>
 #include <libcdsBasics.h>
 using namespace cds_utils;

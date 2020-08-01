@@ -25,8 +25,6 @@
 #include <fstream>
 #include <libcdsBasics.h>
 
-
-
 namespace cds_static {
 
 #define WT_CODER_HUFF_HDR 2

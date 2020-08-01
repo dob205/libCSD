@@ -30,7 +30,6 @@
 
 #include <iostream>
 
-
 class IteratorDictID {
 public:
   /** Checks for non-processed IDs in the stream.

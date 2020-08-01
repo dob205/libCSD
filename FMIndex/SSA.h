@@ -36,7 +36,6 @@
 
 #include "SuffixArray.h"
 
-
 using namespace cds_static;
 
 class SSA {
@@ -58,7 +57,7 @@ public:
   unsigned long locate_id(uchar *pattern, uint m);
   unsigned long locate(uchar *pattern, uint m, size_t **occs);
   unsigned long locateP(uchar *pattern, uint m, size_t *left, size_t *right,
-               size_t last);
+                        size_t last);
 
   uchar *extract_id(uint id, uint *strLen, uint max_len);
   static SSA *load(std::ifstream &fp);

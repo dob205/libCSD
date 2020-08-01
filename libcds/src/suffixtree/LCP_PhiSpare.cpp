@@ -29,7 +29,7 @@ LCP_PhiSpare::LCP_PhiSpare() {
 LCP_PhiSpare::LCP_PhiSpare(TextIndex *csa, char *text, size_t _n, int _q) {
   if (_q > (int)_n) {
     std::cout << "Specified q (" << _q << ") greater than string length (" << _n
-         << ")" << std::endl;
+              << ")" << std::endl;
     exit(1);
   }
   lcp_type = PHI;

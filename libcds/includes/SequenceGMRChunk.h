@@ -32,7 +32,7 @@
 #include <libcdsBasics.h>
 
 namespace cds_static {
-// 
+//
 
 /** Implementation of the Chunk of Golynski et al's rank/select
  * data structure [1].

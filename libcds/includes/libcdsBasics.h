@@ -39,7 +39,6 @@
 
 namespace cds_utils {
 
-
 typedef unsigned char uchar;
 
 /** mask for obtaining the first 5 bits */

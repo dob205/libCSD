@@ -31,7 +31,6 @@
 
 #include <iostream>
 
-
 class IteratorDictIDDuplicates : public IteratorDictID {
 public:
   /** ID Iterator Constructor for streams of duplicated elements.

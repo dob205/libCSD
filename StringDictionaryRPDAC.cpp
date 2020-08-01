@@ -220,7 +220,8 @@ IteratorDictID *StringDictionaryRPDAC::locatePrefix(uchar *str, uint strLen) {
 }
 
 IteratorDictID *StringDictionaryRPDAC::locateSubstr(uchar *, uint) {
-  std::cout << "This dictionary does not provide substring location" << std::endl;
+  std::cout << "This dictionary does not provide substring location"
+            << std::endl;
   return NULL;
 }
 
@@ -240,7 +241,8 @@ IteratorDictString *StringDictionaryRPDAC::extractPrefix(uchar *str,
 }
 
 IteratorDictString *StringDictionaryRPDAC::extractSubstr(uchar *, uint) {
-  std::cout << "This dictionary does not provide substring extraction" << std::endl;
+  std::cout << "This dictionary does not provide substring extraction"
+            << std::endl;
   return 0;
 }
 

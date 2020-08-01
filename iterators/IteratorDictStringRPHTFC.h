@@ -33,7 +33,6 @@
 
 #include <iostream>
 
-
 #include "../RePair/RePair.h"
 #include "../utils/Coder/DecodingTable.h"
 #include "../utils/LogSequence.h"

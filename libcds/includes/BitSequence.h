@@ -35,7 +35,6 @@
 #include <cppUtils.h>
 #include <libcdsBasics.h>
 
-
 using namespace cds_utils;
 
 namespace cds_static {

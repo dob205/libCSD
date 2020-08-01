@@ -25,8 +25,6 @@
 #include <iostream>
 #include <libcdsBasics.h>
 
-
-
 namespace cds_static {
 
 #define MAPPER_NONE_HDR 2

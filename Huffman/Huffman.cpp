@@ -154,8 +154,8 @@ DecodingTree *Huffman::obtainSubtree(uint symbol, uint k) {
   return new DecodingTree(symbol, tree, &symbols);
 }
 
-void Huffman::retrieveSubtree(BinaryNode *node, std::vector<uint> *tree, uint *bits,
-                              std::vector<uint> *symbols) {
+void Huffman::retrieveSubtree(BinaryNode *node, std::vector<uint> *tree,
+                              uint *bits, std::vector<uint> *symbols) {
   (*bits)++;
 
   // Left child

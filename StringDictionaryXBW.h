@@ -50,7 +50,6 @@
 #include <iostream>
 #include <set>
 
-
 #include "StringDictionary.h"
 
 #include "XBW/TrieNode.h"

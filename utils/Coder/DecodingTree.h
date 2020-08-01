@@ -35,7 +35,6 @@
 #include <fstream>
 #include <iostream>
 
-
 #include <BitString.h>
 #include <libcdsBasics.h>
 using namespace cds_utils;

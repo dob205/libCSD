@@ -20,7 +20,6 @@
 #include <TextIndex.h>
 #include <libcdsTrees.h>
 
-
 using namespace cds_utils;
 using namespace cds_static;
 
@@ -60,8 +59,8 @@ int main(int argc, char *argv[]) {
 
   if (argc != 2) {
     std::cout << "Checks if the LCP of the file <arch> is save/load correctly"
-         << endl
-         << std::endl;
+              << endl
+              << std::endl;
     std::cout << "usage: " << argv[0] << " <arch>" << std::endl;
     return 0;
   }

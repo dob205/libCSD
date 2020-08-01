@@ -52,7 +52,6 @@
 #include <iostream>
 #include <vector>
 
-
 #include <libcdsBasics.h>
 using namespace cds_utils;
 
@@ -291,7 +290,8 @@ protected:
   /** Similar than insertDecodeableSubstr, but it fills the
       sequence with 0s and inserts it in the table using as
       decoding information that currently stored in the queues */
-  inline void insertEndingSubstr(uint *seq, ushort *ptr, std::vector<uchar> *substr,
+  inline void insertEndingSubstr(uint *seq, ushort *ptr,
+                                 std::vector<uchar> *substr,
                                  std::vector<ushort> *lenSubstr,
                                  DecodeableSubstr *tableSubstr);
 };

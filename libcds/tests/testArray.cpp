@@ -7,7 +7,6 @@
 #include <cppUtils.h>
 #include <libcdsBasics.h>
 
-
 using namespace cds_utils;
 
 bool compare(Array *a1, Array *a2) {

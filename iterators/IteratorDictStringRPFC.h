@@ -33,7 +33,6 @@
 
 #include <iostream>
 
-
 #include "../RePair/RePair.h"
 #include "../utils/LogSequence.h"
 #include "../utils/Utils.h"
@@ -41,7 +40,6 @@
 
 using uchar = unsigned char;
 using uint = unsigned int;
-
 
 class IteratorDictStringRPFC : public IteratorDictString {
 public:

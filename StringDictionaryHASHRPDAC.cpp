@@ -222,7 +222,8 @@ IteratorDictID *StringDictionaryHASHRPDAC::locatePrefix(uchar *, uint) {
 }
 
 IteratorDictID *StringDictionaryHASHRPDAC::locateSubstr(uchar *, uint) {
-  std::cout << "This dictionary does not provide substring location" << std::endl;
+  std::cout << "This dictionary does not provide substring location"
+            << std::endl;
   return NULL;
 }
 
@@ -232,12 +233,14 @@ uint StringDictionaryHASHRPDAC::locateRank(uint) {
 }
 
 IteratorDictString *StringDictionaryHASHRPDAC::extractPrefix(uchar *, uint) {
-  std::cout << "This dictionary does not provide prefix extraction" << std::endl;
+  std::cout << "This dictionary does not provide prefix extraction"
+            << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHRPDAC::extractSubstr(uchar *, uint) {
-  std::cout << "This dictionary does not provide substring extraction" << std::endl;
+  std::cout << "This dictionary does not provide substring extraction"
+            << std::endl;
   return NULL;
 }
 

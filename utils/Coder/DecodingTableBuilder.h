@@ -33,7 +33,6 @@
 
 #include <vector>
 
-
 #include <libcdsBasics.h>
 #include <string.h>
 using namespace cds_utils;
@@ -93,7 +92,8 @@ public:
         symbol previosuly processed.
   */
   void insertDecodeableSubstr(uchar symbol, uint *seq, ushort *ptr,
-                              std::vector<uchar> *substr, std::vector<ushort> *lenSubstr);
+                              std::vector<uchar> *substr,
+                              std::vector<ushort> *lenSubstr);
 
   /** Similar than insertDecodeableSubstr, but it fills the
       sequence with 0s and inserts it in the table using as

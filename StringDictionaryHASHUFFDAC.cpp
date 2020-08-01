@@ -77,10 +77,10 @@ StringDictionaryHASHUFFDAC::StringDictionaryHASHUFFDAC(IteratorDictString *it,
   uint codeSubstr = 0;
 
   // Variables for the DAC representation
-  uint tamCode = 0;         // DAC length
-  uint nLevels = 0;         // DAC height
-  uchar *dacseq;            // Byte sequence
-  BitString *bS;            // Bistring drawing the DAC structure
+  uint tamCode = 0;              // DAC length
+  uint nLevels = 0;              // DAC height
+  uchar *dacseq;                 // Byte sequence
+  BitString *bS;                 // Bistring drawing the DAC structure
   std::vector<uint> levelsIndex; // Starting position for each level
 
   // Simulating the hash representation
@@ -135,7 +135,8 @@ StringDictionaryHASHUFFDAC::StringDictionaryHASHUFFDAC(IteratorDictString *it,
   for (uint i = 0; i < nLevels; i++)
     levelsIndex[i] = xLevels[i];
 
-  std::vector<uint> rankLevels(nLevels + 1, 0); // Ranks until the level beginnings
+  std::vector<uint> rankLevels(nLevels + 1,
+                               0); // Ranks until the level beginnings
 
   // Sorting Tdict into Tdict*
   std::sort(sorting.begin(), sorting.end(), sortTdict);
@@ -245,7 +246,8 @@ IteratorDictID *StringDictionaryHASHUFFDAC::locatePrefix(uchar *, uint) {
 }
 
 IteratorDictID *StringDictionaryHASHUFFDAC::locateSubstr(uchar *, uint) {
-  std::cout << "This dictionary does not provide substring location" << std::endl;
+  std::cout << "This dictionary does not provide substring location"
+            << std::endl;
   return NULL;
 }
 
@@ -255,12 +257,14 @@ uint StringDictionaryHASHUFFDAC::locateRank(uint) {
 }
 
 IteratorDictString *StringDictionaryHASHUFFDAC::extractPrefix(uchar *, uint) {
-  std::cout << "This dictionary does not provide prefix extraction" << std::endl;
+  std::cout << "This dictionary does not provide prefix extraction"
+            << std::endl;
   return NULL;
 }
 
 IteratorDictString *StringDictionaryHASHUFFDAC::extractSubstr(uchar *, uint) {
-  std::cout << "This dictionary does not provide substring extraction" << std::endl;
+  std::cout << "This dictionary does not provide substring extraction"
+            << std::endl;
   return NULL;
 }
 

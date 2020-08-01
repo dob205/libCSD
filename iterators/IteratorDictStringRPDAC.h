@@ -32,7 +32,6 @@
 
 #include <iostream>
 
-
 #include "../utils/DAC_VLS.h"
 #include "../utils/LogSequence.h"
 

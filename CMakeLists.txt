@@ -5,7 +5,7 @@ project(CSD)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra")
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 
@@ -27,6 +27,7 @@ StringDictionaryRPDAC.cpp
 StringDictionaryRPFC.cpp
 StringDictionaryRPHTFC.cpp
 StringDictionaryXBW.cpp
+StringDictionaryHASHRPDACBlocks.cpp
 )
 
 set(fmindex_srcs

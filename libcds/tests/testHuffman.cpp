@@ -4,17 +4,17 @@
 #include <Coder.h>
 #include <libcdsBasics.h>
 
-
 using namespace cds_utils;
 using namespace cds_static;
 
 int main(int argc, char **argv) {
 
   if (argc != 4) {
-    std::cout << "Checks the array class generating <length> elements between 0 and "
-            "<maxv> using <seed> as seed for the numbers generation"
-         << endl
-         << std::endl;
+    std::cout
+        << "Checks the array class generating <length> elements between 0 and "
+           "<maxv> using <seed> as seed for the numbers generation"
+        << endl
+        << std::endl;
     std::cout << "usage: " << argv[0] << " <seed> <length> <maxv>" << std::endl;
     return 0;
   }

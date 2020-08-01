@@ -229,8 +229,8 @@ void HuTucker::encodeNode(BinaryNode *node, uint level, uint codeword,
   }
 }
 
-void HuTucker::retrieveSubtree(BinaryNode *node, std::vector<uint> *tree, uint *bits,
-                               std::vector<uint> *symbols) {
+void HuTucker::retrieveSubtree(BinaryNode *node, std::vector<uint> *tree,
+                               uint *bits, std::vector<uint> *symbols) {
   (*bits)++;
 
   if (node->leftChild != NULL) {

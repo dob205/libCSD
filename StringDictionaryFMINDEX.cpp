@@ -158,8 +158,9 @@ IteratorDictID *StringDictionaryFMINDEX::locatePrefix(uchar *str, uint strLen) {
 
 IteratorDictID *StringDictionaryFMINDEX::locateSubstr(uchar *str, uint strLen) {
   if (BWTsampling == 0) {
-    std::cout << "This dictionary configuration does not provide substring location"
-         << std::endl;
+    std::cout
+        << "This dictionary configuration does not provide substring location"
+        << std::endl;
     return NULL;
   }
 

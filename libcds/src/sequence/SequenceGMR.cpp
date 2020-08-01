@@ -186,7 +186,8 @@ uint SequenceGMR::access(size_t j) const {
 }
 
 size_t SequenceGMR::getSize() const {
-  std::cout << "chunk_length=" << chunk_length << " sigma=" << sigma << std::endl;
+  std::cout << "chunk_length=" << chunk_length << " sigma=" << sigma
+            << std::endl;
   uint s = 0;
   for (uint i = 0; i < length / chunk_length; i++)
     s += sizeof(void *) + chunk[i]->getSize();

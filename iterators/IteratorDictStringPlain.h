@@ -42,12 +42,10 @@ public:
       @arr: the array of strings.
       @scanneable: stream size (in bytes).
   */
-  IteratorDictStringPlain(uchar *arr, size_t scanneable) {
-    this->arr = arr;
-    this->scanneable = scanneable;
-    this->pos = 0;
-
+  IteratorDictStringPlain(uchar *arr, size_t scanneable)
+      : pos(0), arr(arr), delete_buffer(true) {
     this->processed = 0;
+    this->scanneable = scanneable;
   }
 
   /** Extracts the next string in the stream.
@@ -80,12 +78,18 @@ public:
     processed = 0;
   }
 
+  void keep_buffer() { delete_buffer = false; }
+
   /** Generic destructor. */
-  ~IteratorDictStringPlain() { delete[] arr; }
+  ~IteratorDictStringPlain() {
+    if (delete_buffer)
+      delete[] arr;
+  }
 
 protected:
   size_t pos; // Pointer to the current position in the scanning
   uchar *arr; // The array of strings
+  bool delete_buffer;
 };
 
 #endif

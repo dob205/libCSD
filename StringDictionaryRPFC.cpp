@@ -29,7 +29,6 @@
 
 #include "StringDictionaryRPFC.h"
 
-
 #include "iterators/IteratorDictStringRPFC.h"
 
 StringDictionaryRPFC::StringDictionaryRPFC() {
@@ -378,7 +377,8 @@ IteratorDictID *StringDictionaryRPFC::locatePrefix(uchar *str, uint strLen) {
 }
 
 IteratorDictID *StringDictionaryRPFC::locateSubstr(uchar *, uint) {
-  std::cerr << "This dictionary does not provide substring location" << std::endl;
+  std::cerr << "This dictionary does not provide substring location"
+            << std::endl;
   return NULL;
 }
 
@@ -408,7 +408,8 @@ IteratorDictString *StringDictionaryRPFC::extractPrefix(uchar *str,
 }
 
 IteratorDictString *StringDictionaryRPFC::extractSubstr(uchar *, uint) {
-  std::cerr << "This dictionary does not provide substring extraction" << std::endl;
+  std::cerr << "This dictionary does not provide substring extraction"
+            << std::endl;
   return 0;
 }
 

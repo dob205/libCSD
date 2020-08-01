@@ -8,7 +8,6 @@
 #include <BitString.h>
 #include <libcdsBasics.h>
 
-
 using namespace cds_utils;
 using namespace cds_static;
 
@@ -61,10 +60,11 @@ bool testBitSequence(BitString &a, BitSequence *bs) {
 int main(int argc, char **argv) {
 
   if (argc != 4) {
-    std::cout << "Checks the bitsequence classes generating <length> bitmaps with "
-            "density <dens> using <seed> as seed for the numbers generation"
-         << endl
-         << std::endl;
+    std::cout
+        << "Checks the bitsequence classes generating <length> bitmaps with "
+           "density <dens> using <seed> as seed for the numbers generation"
+        << endl
+        << std::endl;
     std::cout << "usage: " << argv[0] << " <seed> <length> <dens>" << std::endl;
     return 0;
   }

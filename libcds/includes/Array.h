@@ -70,8 +70,8 @@ public:
    * @param fin final position
    * @bpe bits per element
    */
-  Array(const std::vector<uint>::iterator &ini, const std::vector<uint>::iterator &fin,
-        uint bpe = 0);
+  Array(const std::vector<uint>::iterator &ini,
+        const std::vector<uint>::iterator &fin, uint bpe = 0);
 
   /** Creates an array copying part of a previously existing array
    * @param A source array

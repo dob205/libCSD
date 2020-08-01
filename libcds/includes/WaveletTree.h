@@ -32,8 +32,6 @@
 #include <wt_coder_binary.h>
 #include <wt_node_internal.h>
 
-
-
 namespace cds_static {
 
 /** Wavelet tree implementation using pointers.

@@ -34,8 +34,6 @@
 using namespace cds_utils;
 using namespace cds_static;
 
-
-
 class CRePair {
 
 public:
