@@ -1,8 +1,12 @@
 #include "StringDictionaryHASHRPDACBlocks.h"
 
+#include "parallel/Worker.hpp"
 #include <algorithm>
+#include <condition_variable>
 #include <cppUtils.h>
+#include <iostream>
 #include <memory>
+#include <mutex>
 #include <string_view>
 
 template <class T, class U>
@@ -25,9 +29,19 @@ StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
     IteratorDictStringPlain *it, unsigned long len, int overhead)
     : StringDictionaryHASHRPDACBlocks(it, len, overhead, DEFAULT_CUT_SIZE) {}
 
+StringDictionary *process_iterator_work(IteratorDictStringPlain *it,
+                                        int overhead) {
+  return new StringDictionaryHASHRPDAC(it, 0, overhead);
+}
+
+StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
+    IteratorDictStringPlain *it, unsigned long len, int overhead,
+    unsigned long cut_size)
+    : StringDictionaryHASHRPDACBlocks(it, len, overhead, cut_size, 1) {}
+
 StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
     IteratorDictStringPlain *it, unsigned long, int overhead,
-    unsigned long cut_size)
+    unsigned long cut_size, int thread_count)
     : cut_size(cut_size), strings_qty(0) {
 
   this->type = HASHRPDACBlocks;
@@ -37,6 +51,12 @@ StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
 
   bool sample_next = true;
   this->maxlength = 0;
+
+  WorkerPool wpool(thread_count);
+
+  std::mutex m;
+  std::condition_variable cv;
+  uint parts_done = 0;
 
   while (it->hasNext()) {
     unsigned int next_string_length;
@@ -61,7 +81,19 @@ StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
           new IteratorDictStringPlain(it->getPlainText() + offset, acc_size);
       sub_it->keep_buffer();
 
-      parts.push_back(new StringDictionaryHASHRPDAC(sub_it, 0, overhead));
+      auto next_part_index = parts.size();
+      parts.push_back(nullptr);
+      wpool.add_task(
+          [this, next_part_index, sub_it, overhead, &m, &parts_done, &cv]() {
+            StringDictionary *sd =
+                new StringDictionaryHASHRPDAC(sub_it, 0, overhead);
+            {
+              std::lock_guard lg(m);
+              parts[next_part_index] = sd;
+              parts_done++;
+            }
+            cv.notify_all();
+          });
 
       offset += acc_size;
 
@@ -69,6 +101,10 @@ StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
       sample_next = true;
     }
   }
+  std::unique_lock<std::mutex> ul(m);
+  cv.wait(ul, [this, &parts_done]() { return parts_done == parts.size(); });
+  wpool.stop_all_workers();
+  wpool.wait_workers();
   delete it;
   this->elements = strings_qty;
 }

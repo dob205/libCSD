@@ -15,4 +15,9 @@ target_link_libraries(pfc_test  CSD cds  ${GTEST_BOTH_LIBRARIES} pthread)
 
 add_executable(hrpdac_blocks_test hrpdac_blocks_test.cpp)
 target_link_libraries(hrpdac_blocks_test  CSD cds  ${GTEST_BOTH_LIBRARIES} pthread)
+
+
+add_executable(parallel_test parallel_test.cpp)
+target_link_libraries(parallel_test  CSD cds  ${GTEST_BOTH_LIBRARIES} pthread)
+
 endif()

@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-constexpr unsigned long DEFAULT_CUT_SIZE = 1 << 30;
+constexpr unsigned long DEFAULT_CUT_SIZE = 1 << 27;
 
 class StringDictionaryHASHRPDACBlocks : public StringDictionary {
 public:
@@ -18,6 +18,9 @@ public:
   StringDictionaryHASHRPDACBlocks(IteratorDictStringPlain *it,
                                   unsigned long len, int overhead,
                                   unsigned long cut_size);
+  StringDictionaryHASHRPDACBlocks(IteratorDictStringPlain *it,
+                                  unsigned long len, int overhead,
+                                  unsigned long cut_size, int thread_count);
 
   StringDictionaryHASHRPDACBlocks(
       unsigned long cut_size, unsigned long strings_qty, unsigned int maxlength,
