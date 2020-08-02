@@ -129,7 +129,7 @@ size_t StringDictionaryHASHRPDACBlocks::getSize() {
 }
 
 void StringDictionaryHASHRPDACBlocks::save(std::ofstream &out) {
-  saveValue<uint32_t>(out, this->type);
+  saveValue<uint32_t>(out, HASHRPDACBlocks);
   saveValue<uint32_t>(out, this->maxlength);
   saveValue<uint64_t>(out, cut_size);
   saveValue<uint64_t>(out, strings_qty);

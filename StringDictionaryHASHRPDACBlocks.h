@@ -11,7 +11,7 @@ constexpr unsigned long DEFAULT_CUT_SIZE = 1 << 30;
 
 class StringDictionaryHASHRPDACBlocks : public StringDictionary {
 public:
-  StringDictionaryHASHRPDACBlocks() = default;
+  StringDictionaryHASHRPDACBlocks() = delete;
 
   StringDictionaryHASHRPDACBlocks(IteratorDictStringPlain *it,
                                   unsigned long len, int overhead);
