@@ -53,6 +53,8 @@ static const uint32_t HASHHF = 11;      // Familiy of Hash-Huffman dictionaries
 static const uint32_t HASHUFFDAC = 114; // HashDAC-Huffman dictionary
 static const uint32_t HASHRPF = 12;     // Familiy of Hash-RePair dictionaries
 static const uint32_t HASHRPDAC = 124;  // HashDAC-RePair dictionary
+static const uint32_t HASHRPDACBlocks =
+    125; // Blocks of HashDAC-RePair dictionary
 
 static const uint32_t HASHRP =
     1; // Hash-RePair dictionary (used for loading purposes)

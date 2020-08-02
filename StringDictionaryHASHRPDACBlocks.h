@@ -20,7 +20,8 @@ public:
                                   unsigned long cut_size);
 
   StringDictionaryHASHRPDACBlocks(
-      unsigned long cut_size, std::vector<StringDictionary *> &&parts,
+      unsigned long cut_size, unsigned long strings_qty, unsigned int maxlength,
+      std::vector<StringDictionary *> &&parts,
       std::vector<std::string> &&cut_samples,
       std::vector<unsigned long> &&starting_indexes);
   unsigned long locate(uchar *str, uint str_length);
@@ -39,6 +40,7 @@ public:
 
 private:
   unsigned long cut_size;
+  unsigned long strings_qty;
 
   std::vector<StringDictionary *> parts;
   std::vector<std::string> cut_samples;

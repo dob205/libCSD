@@ -5,6 +5,22 @@
 #include <memory>
 #include <string_view>
 
+template <class T, class U>
+size_t binary_search_before_index(std::vector<T> &v, const U &target) {
+  auto lbound_it = std::lower_bound(v.begin(), v.end(), target);
+  if (lbound_it == v.end())
+    return v.size() - 1;
+
+  auto pos = lbound_it - v.begin();
+
+  if (pos > 0) {
+    if (v[pos - 1] <= target && target < v[pos]) {
+      return pos - 1;
+    }
+  }
+  return pos;
+}
+
 StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
     IteratorDictStringPlain *it, unsigned long len, int overhead)
     : StringDictionaryHASHRPDACBlocks(it, len, overhead, DEFAULT_CUT_SIZE) {}
@@ -12,17 +28,23 @@ StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
 StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
     IteratorDictStringPlain *it, unsigned long, int overhead,
     unsigned long cut_size)
-    : cut_size(cut_size) {
+    : cut_size(cut_size), strings_qty(0) {
+
+  this->type = HASHRPDACBlocks;
 
   unsigned long acc_size = 0;
   unsigned long offset = 0;
-  unsigned long strings_qty = 0;
 
   bool sample_next = true;
+  this->maxlength = 0;
 
   while (it->hasNext()) {
     unsigned int next_string_length;
     auto *next_string = it->next(&next_string_length);
+
+    if (next_string_length > this->maxlength) {
+      this->maxlength = next_string_length;
+    }
 
     if (sample_next) {
       cut_samples.emplace_back(reinterpret_cast<char *>(next_string),
@@ -48,31 +70,27 @@ StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
     }
   }
   delete it;
+  this->elements = strings_qty;
 }
 
 unsigned long StringDictionaryHASHRPDACBlocks::locate(uchar *str,
                                                       uint str_length) {
   auto sview = std::string_view(reinterpret_cast<char *>(str), str_length);
-  auto ubound_it =
-      std::lower_bound(cut_samples.begin(), cut_samples.end(), sview);
-  unsigned long result_pos;
-  if (ubound_it == cut_samples.end())
-    result_pos = parts.size() - 1;
-  else
-    result_pos = ubound_it - cut_samples.begin();
+
+  unsigned long result_pos = binary_search_before_index(cut_samples, sview);
 
   return parts[result_pos]->locate(str, str_length) +
          starting_indexes[result_pos];
 }
 
 uchar *StringDictionaryHASHRPDACBlocks::extract(size_t id, uint *str_length) {
-  auto ubound_it = std::lower_bound(starting_indexes.begin(),
-                                    starting_indexes.end(), id - 1);
-  unsigned long result_pos;
-  if (ubound_it == starting_indexes.end())
-    result_pos = parts.size() - 1;
-  else
-    result_pos = ubound_it - starting_indexes.begin();
+  if (id > strings_qty) {
+    *str_length = 0;
+    return nullptr;
+  }
+  unsigned long result_pos =
+      binary_search_before_index(starting_indexes, id - 1);
+
   auto sindex = starting_indexes[result_pos];
   auto eindex = id - sindex;
 
@@ -80,18 +98,21 @@ uchar *StringDictionaryHASHRPDACBlocks::extract(size_t id, uint *str_length) {
 }
 
 IteratorDictString *StringDictionaryHASHRPDACBlocks::extractTable() {
-  std::vector<uchar *> tabledec(starting_indexes[starting_indexes.size() - 1]);
+  std::vector<uchar *> tabledec(strings_qty);
   uint strLen;
-  for (unsigned long partIdx = 1; partIdx < starting_indexes.size();
+
+  for (unsigned long partIdx = 0; partIdx < starting_indexes.size();
        partIdx++) {
-    for (unsigned long i = 1;
-         i <= starting_indexes[partIdx] - starting_indexes[partIdx - 1] + 1;
-         i++)
-      tabledec[starting_indexes[partIdx - 1] + i - 1] =
-          parts[partIdx - 1]->extract(i, &strLen);
+    unsigned long to = partIdx < starting_indexes.size() - 1
+                           ? starting_indexes[partIdx + 1]
+                           : strings_qty - 1;
+    for (unsigned long i = 1; i <= to - starting_indexes[partIdx] + 1; i++) {
+      auto t_i = starting_indexes[partIdx] + i - 1;
+      tabledec[t_i] = parts[partIdx]->extract(i, &strLen);
+    }
   }
 
-  return new IteratorDictStringVector(&tabledec, elements);
+  return new IteratorDictStringVector(&tabledec, tabledec.size());
 }
 
 size_t StringDictionaryHASHRPDACBlocks::getSize() {
@@ -108,7 +129,10 @@ size_t StringDictionaryHASHRPDACBlocks::getSize() {
 }
 
 void StringDictionaryHASHRPDACBlocks::save(std::ofstream &out) {
+  saveValue<uint32_t>(out, this->type);
+  saveValue<uint32_t>(out, this->maxlength);
   saveValue<uint64_t>(out, cut_size);
+  saveValue<uint64_t>(out, strings_qty);
   saveValue<uint32_t>(out, parts.size());
 
   for (uint i = 0; i < cut_samples.size(); i++) {
@@ -128,7 +152,12 @@ void StringDictionaryHASHRPDACBlocks::save(std::ofstream &out) {
 
 StringDictionary *StringDictionaryHASHRPDACBlocks::load(std::ifstream &in,
                                                         uint technique) {
+  auto _type = loadValue<uint32_t>(in);
+  if (_type != HASHRPDACBlocks)
+    return nullptr;
+  auto _maxlength = loadValue<uint32_t>(in);
   auto _cut_size = loadValue<uint64_t>(in);
+  auto _strings_qty = loadValue<uint64_t>(in);
   auto parts_sz = loadValue<uint32_t>(in);
   std::vector<std::string> _cut_samples;
   std::vector<unsigned long> _starting_indexes;
@@ -147,19 +176,23 @@ StringDictionary *StringDictionaryHASHRPDACBlocks::load(std::ifstream &in,
   }
 
   StringDictionary *result = new StringDictionaryHASHRPDACBlocks(
-      _cut_size, std::move(_parts), std::move(_cut_samples),
-      std::move(_starting_indexes));
+      _cut_size, _strings_qty, _maxlength, std::move(_parts),
+      std::move(_cut_samples), std::move(_starting_indexes));
 
   return result;
 }
 
 StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
-    unsigned long cut_size, std::vector<StringDictionary *> &&parts,
+    unsigned long cut_size, unsigned long strings_qty, unsigned int maxlength,
+    std::vector<StringDictionary *> &&parts,
     std::vector<std::string> &&cut_samples,
     std::vector<unsigned long> &&starting_indexes)
-    : cut_size(cut_size), parts(std::move(parts)),
+    : cut_size(cut_size), strings_qty(strings_qty), parts(std::move(parts)),
       cut_samples(std::move(cut_samples)),
-      starting_indexes(std::move(starting_indexes)) {}
+      starting_indexes(std::move(starting_indexes)) {
+  this->elements = strings_qty;
+  this->maxlength = maxlength;
+}
 
 StringDictionaryHASHRPDACBlocks::~StringDictionaryHASHRPDACBlocks() {
   for (auto *sd : parts) {
