@@ -47,6 +47,7 @@ inline size_t bitwisehash(uchar *word, size_t len, size_t htsize) {
 
 /* Function used to do double hashing (proposed by Donald E. Knuth) */
 inline size_t step_value(uchar *word, size_t len, size_t htsize) {
+  if(htsize == 1) return 0;
   uint h = (uint)(4294967197u);
   for (size_t i = 0; i < len; i++) {
     h = ((h << 5) ^ (h >> 27)) ^ word[i];

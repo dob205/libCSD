@@ -91,6 +91,9 @@ TEST(StringDictionaryHASHRPDACBlocksTests, can_create) {
   data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI");
   data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ");
 
+  std::string false_data(
+      "xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAX");
+
   std::sort(data.begin(), data.end());
 
   for (size_t j = 1; j <= 29; j++) {
@@ -109,6 +112,10 @@ TEST(StringDictionaryHASHRPDACBlocksTests, can_create) {
           << "extracted " << i << " is null, j = " << j;
     }
 
+    auto false_index = sd.locate(reinterpret_cast<unsigned char *>(
+                                     const_cast<char *>(false_data.c_str())),
+                                 false_data.size());
+    ASSERT_EQ(false_index, NORESULT);
     for (auto &s : data) {
       auto i = sd.locate(
           reinterpret_cast<unsigned char *>(const_cast<char *>(s.c_str())),
