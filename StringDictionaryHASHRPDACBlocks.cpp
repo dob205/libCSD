@@ -76,7 +76,7 @@ StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
     acc_size += next_string_length + 1;
     strings_qty++;
 
-    if (!it->hasNext() || acc_size + next_string_length > cut_size) {
+    if (!it->hasNext() || acc_size > cut_size) {
       auto *sub_it =
           new IteratorDictStringPlain(it->getPlainText() + offset, acc_size);
       sub_it->keep_buffer();
@@ -115,8 +115,8 @@ unsigned long StringDictionaryHASHRPDACBlocks::locate(uchar *str,
 
   unsigned long result_pos = binary_search_before_index(cut_samples, sview);
 
-  return parts[result_pos]->locate(str, str_length) +
-         starting_indexes[result_pos];
+  auto locate_result = parts[result_pos]->locate(str, str_length);
+  return locate_result > 0 ? locate_result + starting_indexes[result_pos] : 0;
 }
 
 uchar *StringDictionaryHASHRPDACBlocks::extract(size_t id, uint *str_length) {

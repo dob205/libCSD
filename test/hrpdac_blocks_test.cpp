@@ -128,7 +128,7 @@ TEST(StringDictionaryHASHRPDACBlocksTests, can_create) {
 TEST(StringDictionaryHASHRPDACBlocksTests, parallel_build) {
   std::vector<std::string> data;
 
-  for (int i = 0; i < 10000000; i++) {
+  for (int i = 0; i < 100000; i++) {
     char c = (char)((i % 20) + 'a');
     std::string extra(&c, 1);
     data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
@@ -149,7 +149,7 @@ TEST(StringDictionaryHASHRPDACBlocksTests, parallel_build) {
       reinterpret_cast<unsigned char *>(plain_data), total_size);
 
   StringDictionaryHASHRPDACBlocks sd(
-      it, total_size, 25, static_cast<unsigned long>(1UL << 27UL), 3);
+      it, total_size, 25, static_cast<unsigned long>(1UL << 20UL), 3);
   {
     std::ofstream ofs("parallel_build_test.sd",
                       std::ios::out | std::ios::binary);
