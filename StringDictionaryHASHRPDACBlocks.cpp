@@ -202,6 +202,7 @@ StringDictionary *StringDictionaryHASHRPDACBlocks::load(std::ifstream &in,
     auto cut_sample_sz = loadValue<uint32_t>(in);
     auto *cut_sample_buf = loadValue<char>(in, cut_sample_sz);
     _cut_samples.emplace_back(cut_sample_buf, cut_sample_sz);
+    delete[] cut_sample_buf;
   }
   for (uint i = 0; i < parts_sz; i++) {
     _starting_indexes.push_back(loadValue<uint64_t>(in));
