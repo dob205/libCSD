@@ -15,7 +15,7 @@ class IteratorDictStringHRPDACBlocks : public IteratorDictString {
 
   unsigned long to_index() {
     return partIdx < starting_indexes.size() - 1 ? starting_indexes[partIdx + 1]
-                                                 : strings_qty - 1;
+                                                 : strings_qty;
   }
 
 public:
@@ -28,13 +28,13 @@ public:
 
   bool hasNext() {
     return partIdx < parts.size() &&
-           current <= to_index() - starting_indexes[partIdx] + 1;
+           current <= to_index() - starting_indexes[partIdx];
   }
 
   unsigned char *next(uint *str_length) {
     auto *result = parts[partIdx]->extract(current++, str_length);
 
-    if (current > to_index() - starting_indexes[partIdx] + 1) {
+    if (current > to_index() - starting_indexes[partIdx]) {
       partIdx++;
       current = 1;
     }
