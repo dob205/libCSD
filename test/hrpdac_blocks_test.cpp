@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <cstring>
 #include <gtest/gtest.h>
+#include <iostream>
+#include <sstream>
 #include <vector>
 
 #include "StringDictionaryHASHRPDACBlocks.h"
@@ -176,4 +178,47 @@ TEST(StringDictionaryHASHRPDACBlocksTests, parallel_build) {
                                  target.size()),
             0)
       << "not found target str: " << target;
+}
+
+TEST(StringDictionaryHASHRPDACBlocksTests, extract_table) {
+  std::vector<std::string> data;
+  std::stringstream suffix_builder;
+  unsigned long max_sz = 0;
+  std::string current_suf = "";
+  for (int i = 0; i < 100000; i++) {
+    char c = (char)((i % 20) + 'a');
+    std::string extra(&c, 1);
+    if (i % 20 == 0 && i / 20 > 0) {
+      suffix_builder << extra;
+      current_suf = suffix_builder.str();
+    }
+    extra = current_suf + extra;
+    std::string result("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+                       extra);
+    data.push_back(result);
+  }
+
+  std::sort(data.begin(), data.end());
+  {
+    std::ofstream prueba("prueba.txt");
+    for (auto &s : data) {
+      prueba << s << "\n";
+    }
+  }
+  size_t total_size = 0;
+  auto *plain_data = get_plain(data, total_size);
+
+  auto *it = new IteratorDictStringPlain(
+      reinterpret_cast<unsigned char *>(plain_data), total_size);
+
+  StringDictionaryHASHRPDACBlocks sd(
+      it, total_size, 25, static_cast<unsigned long>(1UL << 20UL), 3);
+
+  auto *table_it = sd.extractTable();
+  while (table_it->hasNext()) {
+    unsigned int sz;
+    char *data = reinterpret_cast<char *>(table_it->next(&sz));
+    // std::cout << data << std::endl;
+  }
+  delete table_it;
 }

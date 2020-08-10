@@ -9,6 +9,8 @@
 #include <mutex>
 #include <string_view>
 
+#include "iterators/IteratorDictStringHRPDACBlocks.h"
+
 template <class T, class U>
 size_t binary_search_before_index(std::vector<T> &v, const U &target) {
   auto lbound_it = std::lower_bound(v.begin(), v.end(), target);
@@ -134,21 +136,8 @@ uchar *StringDictionaryHASHRPDACBlocks::extract(size_t id, uint *str_length) {
 }
 
 IteratorDictString *StringDictionaryHASHRPDACBlocks::extractTable() {
-  std::vector<uchar *> tabledec(strings_qty);
-  uint strLen;
-
-  for (unsigned long partIdx = 0; partIdx < starting_indexes.size();
-       partIdx++) {
-    unsigned long to = partIdx < starting_indexes.size() - 1
-                           ? starting_indexes[partIdx + 1]
-                           : strings_qty - 1;
-    for (unsigned long i = 1; i <= to - starting_indexes[partIdx] + 1; i++) {
-      auto t_i = starting_indexes[partIdx] + i - 1;
-      tabledec[t_i] = parts[partIdx]->extract(i, &strLen);
-    }
-  }
-
-  return new IteratorDictStringVector(&tabledec, tabledec.size());
+  return new IteratorDictStringHRPDACBlocks(parts, starting_indexes,
+                                            strings_qty);
 }
 
 size_t StringDictionaryHASHRPDACBlocks::getSize() {

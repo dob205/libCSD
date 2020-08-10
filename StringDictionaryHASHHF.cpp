@@ -28,6 +28,7 @@
 #include "StringDictionaryHASHHF.h"
 #include "iterators/IteratorDictStringPlain.h"
 #include "iterators/IteratorDictStringVector.h"
+#include <memory>
 
 StringDictionaryHASHHF::StringDictionaryHASHHF() {
   this->type = HASHHF;
@@ -339,7 +340,7 @@ IteratorDictString *StringDictionaryHASHHF::extractTable() {
 
   delete[] tmp;
 
-  return new IteratorDictStringVector(&tabledec, elements);
+  return new IteratorDictStringVector(std::move(tabledec), elements);
 }
 
 size_t StringDictionaryHASHHF::getSize() {

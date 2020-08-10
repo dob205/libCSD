@@ -26,6 +26,7 @@
  */
 
 #include "StringDictionaryHASHRPDAC.h"
+#include <memory>
 
 StringDictionaryHASHRPDAC::StringDictionaryHASHRPDAC() {
   this->type = HASHRPDAC;
@@ -256,7 +257,7 @@ IteratorDictString *StringDictionaryHASHRPDAC::extractTable() {
   for (uint i = 1; i <= elements; i++)
     tabledec[i - 1] = extract(i, &strLen);
 
-  return new IteratorDictStringVector(&tabledec, elements);
+  return new IteratorDictStringVector(std::move(tabledec), elements);
 }
 
 size_t StringDictionaryHASHRPDAC::getSize() {

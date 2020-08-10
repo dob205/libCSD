@@ -280,7 +280,7 @@ IteratorDictString *StringDictionaryHASHUFFDAC::extractTable() {
   for (uint i = 1; i <= elements; i++)
     tabledec[i - 1] = extractString(i, &strLen);
 
-  return new IteratorDictStringVector(&tabledec, elements);
+  return new IteratorDictStringVector(std::move(tabledec), elements);
 }
 
 uchar *StringDictionaryHASHUFFDAC::extractString(size_t id, uint *strLen) {

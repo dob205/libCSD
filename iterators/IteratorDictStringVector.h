@@ -33,6 +33,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <memory>
 
 using uchar = unsigned char;
 using uint = unsigned int;
@@ -43,8 +44,8 @@ public:
       @arr: the array of strings.
       @scanneable: stream size (in bytes).
   */
-  IteratorDictStringVector(std::vector<uchar *> *arr, size_t scanneable) {
-    this->arr = *arr;
+  IteratorDictStringVector(std::vector<uchar *> &&arr, size_t scanneable) {
+    this->arr = std::move(arr);
     this->scanneable = scanneable;
     this->processed = 0;
   }
