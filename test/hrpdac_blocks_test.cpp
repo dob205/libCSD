@@ -183,7 +183,6 @@ TEST(StringDictionaryHASHRPDACBlocksTests, parallel_build) {
 TEST(StringDictionaryHASHRPDACBlocksTests, extract_table) {
   std::vector<std::string> data;
   std::stringstream suffix_builder;
-  unsigned long max_sz = 0;
   std::string current_suf = "";
   for (int i = 0; i < 100000; i++) {
     char c = (char)((i % 20) + 'a');
@@ -217,7 +216,7 @@ TEST(StringDictionaryHASHRPDACBlocksTests, extract_table) {
   auto *table_it = sd.extractTable();
   while (table_it->hasNext()) {
     unsigned int sz;
-    char *data = reinterpret_cast<char *>(table_it->next(&sz));
+    table_it->next(&sz);
     // std::cout << data << std::endl;
   }
   delete table_it;

@@ -176,7 +176,6 @@ SequenceAlphPart::SequenceAlphPart(const Array &seq, uint _cut,
   lenIndexBuilder->unuse();
   seqsBuilder->unuse();
 
-  this->maxLen = maxLen;
   this->sigma = sigma;
 }
 
@@ -283,7 +282,6 @@ SequenceAlphPart::SequenceAlphPart(uint *seq, size_t n, uint cut,
   seqsBuilder->unuse();
 
   this->cut = cut;
-  this->maxLen = maxLen;
   this->sigma = sigma;
 }
 

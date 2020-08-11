@@ -32,8 +32,8 @@
 
 #include <algorithm>
 #include <iostream>
-#include <vector>
 #include <memory>
+#include <vector>
 
 using uchar = unsigned char;
 using uint = unsigned int;
