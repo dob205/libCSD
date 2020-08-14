@@ -83,8 +83,13 @@ StringDictionaryHASHRPDACBlocks::StringDictionaryHASHRPDACBlocks(
           new IteratorDictStringPlain(it->getPlainText() + offset, acc_size);
       sub_it->keep_buffer();
 
-      auto next_part_index = parts.size();
-      parts.push_back(nullptr);
+      unsigned long next_part_index;
+      {
+        std::lock_guard lg(m);
+        next_part_index = parts.size();
+        parts.push_back(nullptr);
+      }
+
       wpool.add_task(
           [this, next_part_index, sub_it, overhead, &m, &parts_done, &cv]() {
             StringDictionary *sd =
