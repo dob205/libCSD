@@ -8,6 +8,7 @@
 #include <memory>
 #include <mutex>
 #include <string_view>
+#include <functional>
 
 #include "iterators/IteratorDictStringHRPDACBlocks.h"
 
