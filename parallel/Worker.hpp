@@ -7,6 +7,7 @@
 #include <mutex>
 #include <thread>
 #include <vector>
+#include <functional>
 
 class WorkerQueue {
   std::mutex mutex;
