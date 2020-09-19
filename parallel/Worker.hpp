@@ -117,6 +117,10 @@ public:
       w->stop();
     queue_cv.notify_all();
   }
+
+  size_t workers_size() const {
+    return workers.size();
+  }
 };
 
 #endif /* WORKER_HPP */
