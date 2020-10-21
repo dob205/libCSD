@@ -3,11 +3,11 @@
 
 #include <condition_variable>
 #include <deque>
+#include <functional>
 #include <memory>
 #include <mutex>
 #include <thread>
 #include <vector>
-#include <functional>
 
 class WorkerQueue {
   std::mutex mutex;
@@ -118,9 +118,7 @@ public:
     queue_cv.notify_all();
   }
 
-  size_t workers_size() const {
-    return workers.size();
-  }
+  size_t workers_size() const { return workers.size(); }
 };
 
 #endif /* WORKER_HPP */

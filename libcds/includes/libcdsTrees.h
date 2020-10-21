@@ -3,8 +3,6 @@
 
 #include <libcdsBasics.h>
 
-#define MAX(i, j) (((i) > (j)) ? (i) : (j))
-
 namespace cds_utils {
 typedef unsigned char byte;
 

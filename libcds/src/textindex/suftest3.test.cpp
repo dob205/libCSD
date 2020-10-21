@@ -83,26 +83,6 @@ int save_index(void *, char *) __attribute__((unused));
 int build_index(uchar *text, ulong length, char *build_options, void **index)
     __attribute__((unused));
 
-#if 1
-typedef struct timeb mytimestruct;
-static inline void mygettime(mytimestruct *t) { ftime(t); }
-static inline double mylaptime(mytimestruct *before, mytimestruct *after) {
-  double t;
-  t = after->time - before->time;
-  t += (double)(after->millitm - before->millitm) / 1000;
-  return t;
-}
-#else
-typedef mytimestruct struct rusage;
-void mygettime(mytimestruct *t) { getrusage(RUSAGE_SELF, t); }
-double mylaptime(mytimestruct *before, mytimestruct *after) {
-  double t;
-  t = after->ru_utime.tv_sec - before->ru_utime.tv_sec;
-  t += (double)(after->ru_utime.tv_usec - before->ru_utime.tv_usec) / 1000000;
-  return t;
-}
-#endif
-
 /* Three function to variables to manage parameters */
 static bool is_delimeter(char *delimiters, char c) {
   int i = 0, len_delimiters = strlen(delimiters);
