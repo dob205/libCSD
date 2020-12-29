@@ -20,7 +20,7 @@
 
 namespace cds_static {
 
-SuffixTree *SuffixTree::load(std::ifstream &fp) {
+SuffixTree *SuffixTree::load(std::istream &fp) {
   size_t r = loadValue<size_t>(fp);
   size_t pos = fp.tellg();
   fp.seekg(pos - sizeof(size_t));

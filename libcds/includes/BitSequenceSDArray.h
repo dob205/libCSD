@@ -46,8 +46,8 @@ public:
   virtual size_t rank1(size_t i) const;
   virtual size_t selectNext1(size_t i) const;
   virtual size_t getSize() const;
-  virtual void save(std::ofstream &fp) const;
-  static BitSequenceSDArray *load(std::ifstream &fp);
+  virtual void save(std::ostream &fp) const;
+  static BitSequenceSDArray *load(std::istream &fp);
 
 protected:
   selects3 sd;

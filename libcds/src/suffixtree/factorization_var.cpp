@@ -253,7 +253,7 @@ uint factorization_var::getSize() {
   return mem;
 }
 
-void factorization_var::save(std::ofstream &fp) {
+void factorization_var::save(std::ostream &fp) {
   saveValue(fp, tamCode);
   saveValue(fp, tamtablebase);
   saveValue(fp, listLength);
@@ -268,7 +268,7 @@ void factorization_var::save(std::ofstream &fp) {
   bS->save(fp);
 }
 
-factorization_var *factorization_var::load(std::ifstream &fp) {
+factorization_var *factorization_var::load(std::istream &fp) {
   factorization_var *rep = new factorization_var();
   rep->tamCode = loadValue<uint>(fp);
   rep->tamtablebase = loadValue<uint>(fp);

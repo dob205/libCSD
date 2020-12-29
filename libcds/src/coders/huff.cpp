@@ -210,7 +210,7 @@ size_t decodeHuff(const THuff H, uint *symb, uint *stream, size_t ptr) {
   return ptr;
 }
 
-void saveHuff(const THuff H, std::ofstream &f) {
+void saveHuff(const THuff H, std::ostream &f) {
   uint *symb = new uint[H.lim + 1];
   uint i;
   for (i = 0; i < (H.lim + 1); i++)
@@ -236,7 +236,7 @@ void freeHuff(THuff H) {
   delete[] H.num;
 }
 
-THuff loadHuff(std::ifstream &f, int enc) {
+THuff loadHuff(std::istream &f, int enc) {
   THuff H;
   uint *symb;
   // uint *num;

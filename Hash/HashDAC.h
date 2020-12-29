@@ -96,10 +96,10 @@ public:
   size_t getSize();
 
   /** Saves the hash to a file */
-  void save(std::ofstream &fp);
+  void save(std::ostream &fp);
 
   /** Loads a hash from a file*/
-  static HashDAC *load(std::ifstream &fp);
+  static HashDAC *load(std::istream &fp);
 
   virtual ~HashDAC();
 

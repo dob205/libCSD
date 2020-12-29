@@ -90,13 +90,13 @@ public:
   /** Stores the decoding tree structure into an ofstream.
       @param out: the oftstream.
   */
-  void save(std::ofstream &out);
+  void save(std::ostream &out);
 
   /** Loads a decoding tree structure from an ifstream.
       @param in: the ifstream.
       @returns the loaded decoding table.
   */
-  static DecodingTree *load(std::ifstream &in);
+  static DecodingTree *load(std::istream &in);
 
   /** Generic destructor. */
   ~DecodingTree();

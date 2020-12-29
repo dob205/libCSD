@@ -231,7 +231,7 @@ size_t decodeHuff(const THuffx H, uint *symb, uint *stream, size_t ptr) {
   return ptr;
 }
 
-void saveHuff(const THuffx H, std::ofstream &f) {
+void saveHuff(const THuffx H, std::ostream &f) {
   saveValue<uint>(f, H.max);
   saveValue<uint>(f, H.lim);
   saveValue<uint>(f, H.depth);
@@ -255,7 +255,7 @@ void freeHuff(THuffx H) {
   delete[] H.num_dec;
 }
 
-THuffx loadHuff(std::ifstream &f) {
+THuffx loadHuff(std::istream &f) {
   uint i, d, dold, dact;
   THuffx H;
   H.max = loadValue<uint>(f);

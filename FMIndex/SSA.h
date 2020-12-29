@@ -60,8 +60,8 @@ public:
                         size_t last);
 
   uchar *extract_id(uint id, uint *strLen, uint max_len);
-  static SSA *load(std::ifstream &fp);
-  void save(std::ofstream &fp);
+  static SSA *load(std::istream &fp);
+  void save(std::ostream &fp);
 
 protected:
   uint n;

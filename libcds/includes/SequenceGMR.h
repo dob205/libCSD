@@ -54,10 +54,10 @@ public:
   virtual size_t select(uint c, size_t j) const;
   virtual uint access(size_t j) const;
   virtual size_t getSize() const;
-  virtual void save(std::ofstream &fp) const;
+  virtual void save(std::ostream &fp) const;
   /** Loads the SequenceGMR object from the stream.
    */
-  static SequenceGMR *load(std::ifstream &fp);
+  static SequenceGMR *load(std::istream &fp);
 
 protected:
   SequenceGMR();

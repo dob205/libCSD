@@ -114,7 +114,7 @@ uint DAC_BVLS::getSize() const {
   return mem;
 }
 
-void DAC_BVLS::save(std::ofstream &fp) const {
+void DAC_BVLS::save(std::ostream &fp) const {
   saveValue(fp, tamCode);
   saveValue(fp, nLevels);
   saveValue(fp, levelsIndex, nLevels + 1);
@@ -123,7 +123,7 @@ void DAC_BVLS::save(std::ofstream &fp) const {
   bS->save(fp);
 }
 
-DAC_BVLS *DAC_BVLS::load(std::ifstream &fp) {
+DAC_BVLS *DAC_BVLS::load(std::istream &fp) {
   DAC_BVLS *rep = new DAC_BVLS();
   rep->tamCode = loadValue<uint>(fp);
   rep->nLevels = loadValue<uint>(fp);

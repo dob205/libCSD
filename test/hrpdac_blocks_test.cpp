@@ -50,16 +50,12 @@ TEST(StringDictionaryHASHRPDACBlocksTests, can_serialize) {
     std::string filename =
         "StringDictionaryHASHRPDACBlocksTests_can_serialize.bin";
 
-    {
-      std::ofstream ofs(filename, std::ios::out | std::ios::binary);
-      sd.save(ofs);
-    }
+    std::stringstream ss(std::ios::in | std::ios::out | std::ios::binary);
+    sd.save(ss);
 
     StringDictionary *deserialized;
-    {
-      std::ifstream ifs(filename, std::ios::in | std::ios::binary);
-      deserialized = StringDictionaryHASHRPDACBlocks::load(ifs);
-    }
+
+    deserialized = StringDictionaryHASHRPDACBlocks::load(ss);
 
     for (auto &s : data) {
       auto i = deserialized->locate(
@@ -137,7 +133,7 @@ TEST(StringDictionaryHASHRPDACBlocksTests, can_create) {
 TEST(StringDictionaryHASHRPDACBlocksTests, parallel_build) {
   std::vector<std::string> data;
 
-  for (int i = 0; i < 100000; i++) {
+  for (int i = 0; i < 10000; i++) {
     char c = (char)((i % 20) + 'a');
     std::string extra(&c, 1);
     data.push_back("xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
@@ -145,12 +141,7 @@ TEST(StringDictionaryHASHRPDACBlocksTests, parallel_build) {
   }
 
   std::sort(data.begin(), data.end());
-  {
-    std::ofstream prueba("prueba.txt");
-    for (auto &s : data) {
-      prueba << s << "\n";
-    }
-  }
+
   size_t total_size = 0;
   auto *plain_data = get_plain(data, total_size);
 
@@ -159,18 +150,12 @@ TEST(StringDictionaryHASHRPDACBlocksTests, parallel_build) {
 
   StringDictionaryHASHRPDACBlocks sd(
       it, total_size, 25, static_cast<unsigned long>(1UL << 20UL), 3);
-  {
-    std::ofstream ofs("parallel_build_test.sd",
-                      std::ios::out | std::ios::binary);
-    sd.save(ofs);
-  }
 
-  StringDictionary *deserialized;
-  {
-    std::ifstream ifs("parallel_build_test.sd",
-                      std::ios::in | std::ios::binary);
-    deserialized = StringDictionaryHASHRPDACBlocks::load(ifs);
-  }
+  std::stringstream ss("parallel_build_test.sd",
+                       std::ios::in | std::ios::out | std::ios::binary);
+  sd.save(ss);
+
+  StringDictionary *deserialized = StringDictionaryHASHRPDACBlocks::load(ss);
 
   std::string target = "xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa";
   ASSERT_GT(deserialized->locate(reinterpret_cast<unsigned char *>(
@@ -184,7 +169,7 @@ TEST(StringDictionaryHASHRPDACBlocksTests, extract_table) {
   std::vector<std::string> data;
   std::stringstream suffix_builder;
   std::string current_suf = "";
-  for (int i = 0; i < 100000; i++) {
+  for (int i = 0; i < 10000; i++) {
     char c = (char)((i % 20) + 'a');
     std::string extra(&c, 1);
     if (i % 20 == 0 && i / 20 > 0) {
@@ -198,12 +183,7 @@ TEST(StringDictionaryHASHRPDACBlocksTests, extract_table) {
   }
 
   std::sort(data.begin(), data.end());
-  {
-    std::ofstream prueba("prueba.txt");
-    for (auto &s : data) {
-      prueba << s << "\n";
-    }
-  }
+
   size_t total_size = 0;
   auto *plain_data = get_plain(data, total_size);
 

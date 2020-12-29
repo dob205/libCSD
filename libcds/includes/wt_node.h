@@ -46,8 +46,8 @@ public:
   virtual uint access(size_t pos) const = 0;
   virtual uint access(size_t pos, size_t &rankp) const = 0;
   virtual size_t getSize() const = 0;
-  virtual void save(std::ofstream &fp) const = 0;
-  static wt_node *load(std::ifstream &fp);
+  virtual void save(std::ostream &fp) const = 0;
+  static wt_node *load(std::istream &fp);
 };
 
 } // namespace cds_static

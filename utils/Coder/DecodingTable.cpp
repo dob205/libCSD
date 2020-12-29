@@ -217,7 +217,7 @@ size_t DecodingTable::getSize() {
          endings->getSize() + treesize + sizeof(DecodingTable);
 }
 
-void DecodingTable::save(std::ofstream &out) {
+void DecodingTable::save(std::ostream &out) {
   saveValue<uint32_t>(out, k);
 
   saveValue<uint64_t>(out, bytesStream);
@@ -231,7 +231,7 @@ void DecodingTable::save(std::ofstream &out) {
     subtrees[i]->save(out);
 }
 
-DecodingTable *DecodingTable::load(std::ifstream &in) {
+DecodingTable *DecodingTable::load(std::istream &in) {
   DecodingTable *table = new DecodingTable();
 
   table->k = loadValue<uint32_t>(in);

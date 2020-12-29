@@ -57,14 +57,14 @@ uint wt_node_leaf::access(size_t pos, size_t &rank) const {
 
 size_t wt_node_leaf::getSize() const { return sizeof(wt_node_leaf); }
 
-void wt_node_leaf::save(std::ofstream &fp) const {
+void wt_node_leaf::save(std::ostream &fp) const {
   uint wr = WT_NODE_LEAF_HDR;
   saveValue(fp, wr);
   saveValue(fp, count);
   saveValue(fp, symbol);
 }
 
-wt_node_leaf *wt_node_leaf::load(std::ifstream &fp) {
+wt_node_leaf *wt_node_leaf::load(std::istream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != WT_NODE_LEAF_HDR)
     return NULL;

@@ -189,7 +189,7 @@ size_t LCP_PT::getSize() const {
   return mem;
 }
 
-void LCP_PT::save(std::ofstream &fp) const {
+void LCP_PT::save(std::ostream &fp) const {
   saveValue(fp, lcp_type);
   saveValue(fp, logv);
   saveValue(fp, length);
@@ -200,7 +200,7 @@ void LCP_PT::save(std::ofstream &fp) const {
   rmq->save(fp);
 }
 
-LCP_PT *LCP_PT::load(std::ifstream &fp) {
+LCP_PT *LCP_PT::load(std::istream &fp) {
   LCP_PT *lcp = new LCP_PT();
   size_t type = loadValue<size_t>(fp);
   if (type != PT) {

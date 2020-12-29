@@ -104,10 +104,10 @@ public:
   virtual size_t getSize() const = 0;
 
   /** Stores the bitmap given a file pointer*/
-  virtual void save(std::ofstream &fp) const = 0;
+  virtual void save(std::ostream &fp) const = 0;
 
   /** Reads a bitmap determining the type */
-  static BitSequence *load(std::ifstream &fp);
+  static BitSequence *load(std::istream &fp);
 
 protected:
   /** Length of the bitstring */

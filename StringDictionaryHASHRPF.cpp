@@ -259,7 +259,7 @@ size_t StringDictionaryHASHRPF::getSize() {
   return hash->getSize() + rp->getSize() + sizeof(StringDictionaryHASHRPF);
 }
 
-void StringDictionaryHASHRPF::save(std::ofstream &out) {
+void StringDictionaryHASHRPF::save(std::ostream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -268,7 +268,7 @@ void StringDictionaryHASHRPF::save(std::ofstream &out) {
   hash->save(out);
 }
 
-StringDictionary *StringDictionaryHASHRPF::load(std::ifstream &in,
+StringDictionary *StringDictionaryHASHRPF::load(std::istream &in,
                                                 uint technique) {
   size_t type = loadValue<uint32_t>(in);
 

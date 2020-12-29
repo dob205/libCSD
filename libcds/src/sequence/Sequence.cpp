@@ -65,7 +65,7 @@ uint Sequence::access(size_t i, size_t &_rank) const {
   return s;
 }
 
-Sequence *Sequence::load(std::ifstream &fp) {
+Sequence *Sequence::load(std::istream &fp) {
   uint type = loadValue<uint>(fp);
   size_t pos = fp.tellg();
   fp.seekg(pos - sizeof(uint), std::ios::beg);

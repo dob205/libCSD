@@ -55,7 +55,7 @@ public:
    * \alpha sequence and sbb to create the bit-sequences.
    * @param input the input stream
    */
-  XBW(std::ifstream &input);
+  XBW(std::istream &input);
 
   /** Destroys the object */
   ~XBW();

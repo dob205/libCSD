@@ -35,7 +35,7 @@ public:
   /** Reads a BitString from a file stream
    * @param input input file stream
    */
-  BitString(std::ifstream &input);
+  BitString(std::istream &input);
 
   /** Creates a BitString with len bits of space */
   BitString(const size_t len);
@@ -72,7 +72,7 @@ public:
   /** Saves the bitmap to a file
    * @param out file stream
    */
-  void save(std::ofstream &out) const;
+  void save(std::ostream &out) const;
 
   /** Returns the size in bytes of the BitString */
   inline size_t getSize() const {

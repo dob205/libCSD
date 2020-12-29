@@ -137,7 +137,7 @@ size_t LCP_FMN::getSize() const {
   return O->getSize() + Z->getSize() + sizeof(LCP_FMN);
 }
 
-void LCP_FMN::save(std::ofstream &fp) const {
+void LCP_FMN::save(std::ostream &fp) const {
   saveValue(fp, lcp_type);
   saveValue(fp, b_length);
   saveValue(fp, OZ_type);
@@ -145,7 +145,7 @@ void LCP_FMN::save(std::ofstream &fp) const {
   Z->save(fp);
 }
 
-LCP_FMN *LCP_FMN::load(std::ifstream &fp) {
+LCP_FMN *LCP_FMN::load(std::istream &fp) {
   LCP_FMN *lcp = new LCP_FMN();
   size_t type = loadValue<size_t>(fp);
   if (type != FMN_RRR_OS) {

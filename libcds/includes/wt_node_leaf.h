@@ -43,8 +43,8 @@ public:
   virtual uint access(size_t pos) const;
   virtual uint access(size_t pos, size_t &rank) const;
   virtual size_t getSize() const;
-  virtual void save(std::ofstream &fp) const;
-  static wt_node_leaf *load(std::ifstream &fp);
+  virtual void save(std::ostream &fp) const;
+  static wt_node_leaf *load(std::istream &fp);
 
 protected:
   wt_node_leaf();

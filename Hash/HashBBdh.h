@@ -77,7 +77,7 @@ public:
   size_t getSize();
 
   /** Loads a hash from a file*/
-  static HashBBdh *load(std::ifstream &fp);
+  static HashBBdh *load(std::istream &fp);
 
   virtual ~HashBBdh();
 

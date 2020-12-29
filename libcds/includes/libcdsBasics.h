@@ -28,6 +28,8 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <istream>
+#include <ostream>
 #include <sstream>
 #include <stdint.h>
 #include <string>

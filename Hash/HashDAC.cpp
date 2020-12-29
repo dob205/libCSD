@@ -121,13 +121,13 @@ size_t HashDAC::getSize() {
   return mem;
 }
 
-void HashDAC::save(std::ofstream &fp) {
+void HashDAC::save(std::ostream &fp) {
   saveValue(fp, tsize);
   saveValue(fp, n);
   b_ht->save(fp);
 }
 
-HashDAC *HashDAC::load(std::ifstream &fp) {
+HashDAC *HashDAC::load(std::istream &fp) {
   HashDAC *h_new = new HashDAC();
 
   h_new->tsize = loadValue<size_t>(fp);

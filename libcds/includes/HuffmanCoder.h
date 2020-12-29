@@ -61,10 +61,10 @@ public:
   virtual size_t getSize() const;
 
   /** Saves the coder to a file */
-  virtual void save(std::ofstream &fp) const;
+  virtual void save(std::ostream &fp) const;
 
   /** Loads a coder from a file */
-  static HuffmanCoder *load(std::ifstream &fp);
+  static HuffmanCoder *load(std::istream &fp);
 
 protected:
   HuffmanCoder();

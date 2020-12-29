@@ -42,13 +42,13 @@ uint PermutationMRRR::revpi(uint i) const {
   return inversePerm(permutation, i);
 }
 
-void PermutationMRRR::save(std::ofstream &fp) const {
+void PermutationMRRR::save(std::ostream &fp) const {
   uint wr = MRRRPERM;
   saveValue(fp, wr);
   savePerm(permutation, fp);
 }
 
-PermutationMRRR *PermutationMRRR::load(std::ifstream &fp) {
+PermutationMRRR *PermutationMRRR::load(std::istream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != MRRRPERM)
     return NULL;

@@ -40,8 +40,8 @@ public:
   virtual uint map(const uint s) const;
   virtual uint unmap(const uint s) const;
   virtual size_t getSize() const;
-  virtual void save(std::ofstream &out) const;
-  static MapperNone *load(std::ifstream &input);
+  virtual void save(std::ostream &out) const;
+  static MapperNone *load(std::istream &input);
 };
 } // namespace cds_static
 #endif /* __MAPPER_NONE_H */

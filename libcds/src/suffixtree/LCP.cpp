@@ -98,7 +98,7 @@ uint *LCP::create_lcp(TextIndex *csa, char *text, uint n, int q) const {
   return lcp;
 }
 
-LCP *LCP::load(std::ifstream &fp) {
+LCP *LCP::load(std::istream &fp) {
   size_t r = loadValue<size_t>(fp);
   size_t pos = fp.tellg();
   fp.seekg(pos - sizeof(size_t));

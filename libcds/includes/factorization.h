@@ -51,9 +51,9 @@ public:
   factorization(uint *list, uint l_Length);
   virtual uint access(uint param);
   virtual uint access_seq(uint param, size_t *next_pos, bool dir);
-  virtual void save(std::ofstream &fp);
+  virtual void save(std::ostream &fp);
   virtual uint getSize();
-  static factorization *load(std::ifstream &fp);
+  static factorization *load(std::istream &fp);
   virtual ~factorization();
 };
 } // namespace cds_static

@@ -259,14 +259,14 @@ size_t StringDictionaryRPDAC::getSize() {
   return rp->getSize() + sizeof(StringDictionaryRPDAC);
 }
 
-void StringDictionaryRPDAC::save(std::ofstream &out) {
+void StringDictionaryRPDAC::save(std::ostream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
   rp->save(out, RPDAC);
 }
 
-StringDictionary *StringDictionaryRPDAC::load(std::ifstream &in) {
+StringDictionary *StringDictionaryRPDAC::load(std::istream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != RPDAC)
     return NULL;

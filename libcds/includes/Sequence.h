@@ -80,10 +80,10 @@ public:
 
   /** Saves the structure to the stream
    */
-  virtual void save(std::ofstream &fp) const = 0;
+  virtual void save(std::ostream &fp) const = 0;
 
   /** Reads a bitmap determining the type */
-  static Sequence *load(std::ifstream &fp);
+  static Sequence *load(std::istream &fp);
 
 protected:
   size_t length;

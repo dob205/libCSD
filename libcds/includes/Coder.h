@@ -32,8 +32,8 @@ public:
   virtual size_t decode(uint *symb, uint *stream, size_t pos) const = 0;
   virtual size_t maxLength() const = 0;
   virtual size_t getSize() const = 0;
-  virtual void save(std::ofstream &fp) const = 0;
-  static Coder *load(std::ifstream &fp);
+  virtual void save(std::ostream &fp) const = 0;
+  static Coder *load(std::istream &fp);
 };
 
 } // namespace cds_static

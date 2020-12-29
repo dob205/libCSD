@@ -65,10 +65,10 @@ public:
   virtual uint *create_lcp(TextIndex *csa, char *text, uint n, int q) const;
 
   /** Stores the structure given a file pointer*/
-  virtual void save(std::ofstream &fp) const = 0;
+  virtual void save(std::ostream &fp) const = 0;
 
   /** Reads a LCP determining the type */
-  static LCP *load(std::ifstream &fp);
+  static LCP *load(std::istream &fp);
 };
 } // namespace cds_static
 

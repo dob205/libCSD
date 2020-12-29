@@ -194,7 +194,7 @@ size_t SequenceGMR::getSize() const {
   return s + B->getSize() + sizeof(SequenceGMR);
 }
 
-void SequenceGMR::save(std::ofstream &fp) const {
+void SequenceGMR::save(std::ostream &fp) const {
   uint wr = GMR_HDR;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -205,7 +205,7 @@ void SequenceGMR::save(std::ofstream &fp) const {
     chunk[i]->save(fp);
 }
 
-SequenceGMR *SequenceGMR::load(std::ifstream &fp) {
+SequenceGMR *SequenceGMR::load(std::istream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != GMR_HDR)
     return NULL;

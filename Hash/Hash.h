@@ -92,10 +92,10 @@ public:
   virtual size_t getSize() = 0;
 
   /** Saves the hash to a file */
-  void save(std::ofstream &fp);
+  void save(std::ostream &fp);
 
   /** Loads a hash from a file*/
-  static Hash *load(std::ifstream &fp, int r);
+  static Hash *load(std::istream &fp, int r);
 
   virtual ~Hash(){};
 

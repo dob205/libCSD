@@ -330,7 +330,7 @@ size_t StringDictionaryHASHUFFDAC::getSize() {
          256 * sizeof(bool);
 }
 
-void StringDictionaryHASHUFFDAC::save(std::ofstream &out) {
+void StringDictionaryHASHUFFDAC::save(std::ostream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -344,7 +344,7 @@ void StringDictionaryHASHUFFDAC::save(std::ofstream &out) {
   table->save(out);
 }
 
-StringDictionary *StringDictionaryHASHUFFDAC::load(std::ifstream &in) {
+StringDictionary *StringDictionaryHASHUFFDAC::load(std::istream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != HASHUFFDAC)
     return NULL;

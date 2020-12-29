@@ -57,9 +57,9 @@ public:
 
   virtual size_t getLength() const { return length; }
 
-  virtual void save(std::ofstream &fp) const;
+  virtual void save(std::ostream &fp) const;
 
-  static SequenceAlphPart *load(std::ifstream &fp);
+  static SequenceAlphPart *load(std::istream &fp);
 
 protected:
   // reverse permutation for sorted symbols

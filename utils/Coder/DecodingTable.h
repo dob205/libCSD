@@ -240,13 +240,13 @@ public:
   /** Stores the decoding table structure into an ofstream.
       @param out: the oftstream.
   */
-  void save(std::ofstream &out);
+  void save(std::ostream &out);
 
   /** Loads a decoding table structure from an ifstream.
       @param in: the ifstream.
       @returns the loaded decoding table.
   */
-  static DecodingTable *load(std::ifstream &in);
+  static DecodingTable *load(std::istream &in);
 
   /** Generic destructor. */
   ~DecodingTable();

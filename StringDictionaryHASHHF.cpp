@@ -349,7 +349,7 @@ size_t StringDictionaryHASHHF::getSize() {
          sizeof(StringDictionaryHASHHF) + 256 * sizeof(bool);
 }
 
-void StringDictionaryHASHHF::save(std::ofstream &out) {
+void StringDictionaryHASHHF::save(std::ostream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -365,7 +365,7 @@ void StringDictionaryHASHHF::save(std::ofstream &out) {
   table->save(out);
 }
 
-StringDictionary *StringDictionaryHASHHF::load(std::ifstream &in,
+StringDictionary *StringDictionaryHASHHF::load(std::istream &in,
                                                uint technique) {
   size_t type = loadValue<uint32_t>(in);
 

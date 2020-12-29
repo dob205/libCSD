@@ -328,7 +328,7 @@ size_t StringDictionaryPFC::getSize() {
          sizeof(StringDictionaryPFC);
 }
 
-void StringDictionaryPFC::save(std::ofstream &out) {
+void StringDictionaryPFC::save(std::ostream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -339,7 +339,7 @@ void StringDictionaryPFC::save(std::ofstream &out) {
   blStrings->save(out);
 }
 
-StringDictionary *StringDictionaryPFC::load(std::ifstream &in) {
+StringDictionary *StringDictionaryPFC::load(std::istream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != PFC)
     return NULL;

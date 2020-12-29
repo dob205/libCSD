@@ -234,14 +234,14 @@ size_t StringDictionaryFMINDEX::getSize() {
   return size;
 }
 
-void StringDictionaryFMINDEX::save(std::ofstream &out) {
+void StringDictionaryFMINDEX::save(std::ostream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
   fm_index->save(out);
 }
 
-StringDictionary *StringDictionaryFMINDEX::load(std::ifstream &in) {
+StringDictionary *StringDictionaryFMINDEX::load(std::istream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != FMINDEX)
     return NULL;

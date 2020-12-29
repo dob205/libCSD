@@ -33,7 +33,7 @@ void Mapper::unuse() {
     delete this;
 }
 
-Mapper *Mapper::load(std::ifstream &input) {
+Mapper *Mapper::load(std::istream &input) {
   uint rd;
   input.read((char *)&rd, sizeof(uint));
   size_t pos = input.tellg();

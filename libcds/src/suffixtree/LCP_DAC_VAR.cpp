@@ -179,13 +179,13 @@ size_t LCP_DAC_VAR::getSize() const {
   return mem;
 }
 
-void LCP_DAC_VAR::save(std::ofstream &fp) const {
+void LCP_DAC_VAR::save(std::ostream &fp) const {
   saveValue(fp, lcp_type);
   saveValue(fp, n);
   rep->save(fp);
 }
 
-LCP_DAC_VAR *LCP_DAC_VAR::load(std::ifstream &fp) {
+LCP_DAC_VAR *LCP_DAC_VAR::load(std::istream &fp) {
   LCP_DAC_VAR *lcp = new LCP_DAC_VAR();
   size_t type = loadValue<size_t>(fp);
   if (type != DAC_VAR) {

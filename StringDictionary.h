@@ -122,14 +122,14 @@ public:
   /** Stores the dictionary into an ofstream.
       @param out: the oftstream.
   */
-  virtual void save(std::ofstream &out) = 0;
+  virtual void save(std::ostream &out) = 0;
 
   /** Loads a dictionary from an ifstream.
       @param in: the ifstream.
       @param opt: some dicionaries have some different options for loading
       @returns the loaded dictionary.
   */
-  static StringDictionary *load(std::ifstream &in, uint opt);
+  static StringDictionary *load(std::istream &in, uint opt);
 
   /** Generic destructor. */
   virtual ~StringDictionary(){};

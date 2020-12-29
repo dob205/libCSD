@@ -62,24 +62,24 @@ public:
       @param out: the oftstream.
       @param encoding: encoding mode (log bits or DAC)
   */
-  void save(std::ofstream &out, uint encoding);
+  void save(std::ostream &out, uint encoding);
 
   /** Stores the dictionary into an ofstream.
       @param out: the oftstream.
   */
-  void save(std::ofstream &out);
+  void save(std::ostream &out);
 
   /** Loads a RePair encoding from an ifstream.
       @param in: the ifstream.
       @returns the loaded dictionary.
   */
-  static RePair *load(std::ifstream &in);
+  static RePair *load(std::istream &in);
 
   /** Loads a RePair encoding (without sequence) from an ifstream.
       @param in: the ifstream.
       @returns the loaded dictionary.
   */
-  static RePair *loadNoSeq(std::ifstream &in);
+  static RePair *loadNoSeq(std::istream &in);
 
   // Generic destructor
   ~RePair();

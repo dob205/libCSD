@@ -68,7 +68,7 @@ size_t LCP_naive::getSize() const {
   return result + sizeof(LCP_naive);
 }
 
-void LCP_naive::save(std::ofstream &fp) const {
+void LCP_naive::save(std::ostream &fp) const {
   size_t wr = NAIVE;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -76,7 +76,7 @@ void LCP_naive::save(std::ofstream &fp) const {
   saveValue(fp, lcp_array, ((b * length + W - 1) / W));
 }
 
-LCP_naive *LCP_naive::load(std::ifstream &fp) {
+LCP_naive *LCP_naive::load(std::istream &fp) {
   LCP_naive *lcp = new LCP_naive();
   size_t type = loadValue<size_t>(fp);
   if (type != NAIVE) {

@@ -19,7 +19,7 @@
 #include <NPR.h>
 
 namespace cds_static {
-NPR *NPR::load(std::ifstream &fp) {
+NPR *NPR::load(std::istream &fp) {
   size_t r = loadValue<size_t>(fp);
   size_t pos = fp.tellg();
   fp.seekg(pos - sizeof(size_t));

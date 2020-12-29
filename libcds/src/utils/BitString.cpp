@@ -24,7 +24,7 @@
 
 namespace cds_utils {
 
-BitString::BitString(std::ifstream &input) {
+BitString::BitString(std::istream &input) {
   assert(input.good());
   input.read((char *)&length, sizeof(size_t));
   input.read((char *)&uintLength, sizeof(size_t));
@@ -56,7 +56,7 @@ BitString::BitString(const uint *array, const size_t len) {
 
 BitString::~BitString() { delete[] data; }
 
-void BitString::save(std::ofstream &out) const {
+void BitString::save(std::ostream &out) const {
   assert(out.good());
   out.write((char *)&length, sizeof(size_t));
   out.write((char *)&uintLength, sizeof(size_t));

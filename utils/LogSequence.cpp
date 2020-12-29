@@ -58,7 +58,7 @@ LogSequence::LogSequence(std::vector<size_t> *v, unsigned int numbits) {
     setField(i, (*v)[i]);
 }
 
-LogSequence::LogSequence(std::ifstream &in) {
+LogSequence::LogSequence(std::istream &in) {
   numbits = loadValue<uchar>(in);
   numentries = loadValue<size_t>(in);
 
@@ -99,7 +99,7 @@ size_t LogSequence::getSize() {
          sizeof(std::vector<size_t>);
 }
 
-void LogSequence::save(std::ofstream &out) {
+void LogSequence::save(std::ostream &out) {
   saveValue<uchar>(out, numbits);
   saveValue<size_t>(out, numentries);
 

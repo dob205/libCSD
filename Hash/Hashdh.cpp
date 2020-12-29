@@ -86,7 +86,7 @@ size_t Hashdh::getSize() {
   return mem;
 }
 
-Hashdh *Hashdh::load(std::ifstream &fp) {
+Hashdh *Hashdh::load(std::istream &fp) {
   Hashdh *h_new = new Hashdh();
 
   h_new->tsize = loadValue<size_t>(fp);

@@ -356,7 +356,7 @@ BitSequenceRRR::~BitSequenceRRR() {
   E = E->unuse();
 }
 
-void BitSequenceRRR::save(std::ofstream &f) const {
+void BitSequenceRRR::save(std::ostream &f) const {
   /*cout << "===================" << std::endl;
   std::cout << "length = " << length << std::endl;
   std::cout << "ones = " << ones << std::endl;
@@ -380,7 +380,7 @@ void BitSequenceRRR::save(std::ofstream &f) const {
   saveValue(f, O, O_len);
 }
 
-BitSequenceRRR *BitSequenceRRR::load(std::ifstream &f) {
+BitSequenceRRR *BitSequenceRRR::load(std::istream &f) {
   BitSequenceRRR *ret = NULL;
   try {
     ret = new BitSequenceRRR();

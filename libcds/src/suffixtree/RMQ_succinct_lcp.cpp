@@ -389,7 +389,7 @@ uint RMQ_succinct_lcp::getSize() {
   return (uint)mem;
 }
 
-void RMQ_succinct_lcp::save(std::ofstream &fp) {
+void RMQ_succinct_lcp::save(std::ostream &fp) {
   saveValue(fp, n);
   saveValue(fp, type, nmb);
   for (uint i = 0; i < M_depth; i++)
@@ -400,7 +400,7 @@ void RMQ_succinct_lcp::save(std::ofstream &fp) {
     saveValue(fp, Prec[i], s);
 }
 
-RMQ_succinct_lcp *RMQ_succinct_lcp::load(std::ifstream &fp) {
+RMQ_succinct_lcp *RMQ_succinct_lcp::load(std::istream &fp) {
   RMQ_succinct_lcp *rmq = new RMQ_succinct_lcp();
   rmq->s = 1 << 3;
   rmq->sprime = 1 << 4;

@@ -43,7 +43,7 @@ size_t DecodingTree::getSize() {
          leaves * sizeof(uint);
 }
 
-void DecodingTree::save(std::ofstream &out) {
+void DecodingTree::save(std::ostream &out) {
   saveValue<uint>(out, codeword);
   saveValue<uint>(out, leaves);
   partree->save(out);
@@ -53,7 +53,7 @@ void DecodingTree::save(std::ofstream &out) {
   delete partree;
 }
 
-DecodingTree *DecodingTree::load(std::ifstream &in) {
+DecodingTree *DecodingTree::load(std::istream &in) {
   DecodingTree *table = new DecodingTree();
 
   table->codeword = loadValue<uint>(in);

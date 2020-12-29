@@ -429,7 +429,7 @@ size_t NPR_CN::getSize() const {
   return mem;
 }
 
-void NPR_CN::save(std::ofstream &fp) const {
+void NPR_CN::save(std::ostream &fp) const {
   saveValue(fp, npr_type);
   saveValue(fp, n);
   saveValue(fp, b);
@@ -442,7 +442,7 @@ void NPR_CN::save(std::ofstream &fp) const {
     saveValue(fp, min_pos[i], (level_size[i] * bits_b + W - 1) / W);
 }
 
-NPR_CN *NPR_CN::load(std::ifstream &fp) {
+NPR_CN *NPR_CN::load(std::istream &fp) {
   NPR_CN *npr = new NPR_CN();
   size_t type = loadValue<size_t>(fp);
   if (type != CN_NPR) {

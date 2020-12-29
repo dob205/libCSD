@@ -576,7 +576,7 @@ void csa_init(CSA *SA) {
   }
 }
 
-void csa_save(CSA *SA, std::ofstream &fp) {
+void csa_save(CSA *SA, std::ostream &fp) {
   saveValue(fp, SA->m);
   saveValue(fp, SA->two);
   saveValue(fp, SA->two2);
@@ -598,7 +598,7 @@ void csa_save(CSA *SA, std::ofstream &fp) {
 #endif
 }
 
-CSA *csa_load(std::ifstream &fp) {
+CSA *csa_load(std::istream &fp) {
   CSA *SA;
   SA = (CSA *)malloc(sizeof(CSA));
   csa_init(SA);

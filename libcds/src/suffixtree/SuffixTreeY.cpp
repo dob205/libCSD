@@ -439,7 +439,7 @@ size_t SuffixTreeY::getSize() const {
   return mem;
 }
 
-void SuffixTreeY::save(std::ofstream &fp) const {
+void SuffixTreeY::save(std::ostream &fp) const {
   size_t wr = CSTY;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -448,7 +448,7 @@ void SuffixTreeY::save(std::ofstream &fp) const {
   csa->save(fp);
 }
 
-SuffixTreeY *SuffixTreeY::load(std::ifstream &fp) {
+SuffixTreeY *SuffixTreeY::load(std::istream &fp) {
   SuffixTreeY *cst = new SuffixTreeY();
   size_t type = loadValue<size_t>(fp);
   if (type != CSTY) {

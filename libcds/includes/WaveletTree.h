@@ -81,8 +81,8 @@ public:
 
   virtual size_t getSize() const;
 
-  virtual void save(std::ofstream &fp) const;
-  static WaveletTree *load(std::ifstream &fp);
+  virtual void save(std::ostream &fp) const;
+  static WaveletTree *load(std::istream &fp);
 
 protected:
   WaveletTree();

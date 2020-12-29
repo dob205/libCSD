@@ -118,14 +118,14 @@ size_t LCP_Sad::get_seq_LCP(size_t i, TextIndex *csa, size_t **, size_t *,
 
 size_t LCP_Sad::getSize() const { return U->getSize() + sizeof(LCP_Sad); }
 
-void LCP_Sad::save(std::ofstream &fp) const {
+void LCP_Sad::save(std::ostream &fp) const {
   saveValue(fp, lcp_type);
   saveValue(fp, U_type);
   saveValue(fp, U_length);
   U->save(fp);
 }
 
-LCP_Sad *LCP_Sad::load(std::ifstream &fp) {
+LCP_Sad *LCP_Sad::load(std::istream &fp) {
   LCP_Sad *lcp = new LCP_Sad();
   size_t type = loadValue<size_t>(fp);
   if (type != SAD_GON_OS) {

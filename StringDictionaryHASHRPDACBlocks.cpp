@@ -158,7 +158,7 @@ size_t StringDictionaryHASHRPDACBlocks::getSize() {
   return result;
 }
 
-void StringDictionaryHASHRPDACBlocks::save(std::ofstream &out) {
+void StringDictionaryHASHRPDACBlocks::save(std::ostream &out) {
   saveValue<uint32_t>(out, HASHRPDACBlocks);
   saveValue<uint32_t>(out, this->maxlength);
   saveValue<uint64_t>(out, cut_size);
@@ -180,7 +180,7 @@ void StringDictionaryHASHRPDACBlocks::save(std::ofstream &out) {
   }
 }
 
-StringDictionary *StringDictionaryHASHRPDACBlocks::load(std::ifstream &in,
+StringDictionary *StringDictionaryHASHRPDACBlocks::load(std::istream &in,
                                                         uint technique) {
   auto _type = loadValue<uint32_t>(in);
   if (_type != HASHRPDACBlocks)

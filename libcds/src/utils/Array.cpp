@@ -23,7 +23,7 @@
 
 namespace cds_utils {
 
-Array::Array(std::ifstream &input) {
+Array::Array(std::istream &input) {
   length = loadValue<size_t>(input);
   maxValue = loadValue<uint>(input);
   bitsPerItem = loadValue<uint>(input);
@@ -117,7 +117,7 @@ Array::Array(uint *A, size_t i, size_t j, uint bpe) {
 
 Array::~Array() { delete[] data; }
 
-void Array::save(std::ofstream &out) const {
+void Array::save(std::ostream &out) const {
   saveValue(out, length);
   saveValue(out, maxValue);
   saveValue(out, bitsPerItem);

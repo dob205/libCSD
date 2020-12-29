@@ -69,8 +69,8 @@ public:
 
   virtual size_t count(uint symbol) const;
 
-  virtual void save(std::ofstream &fp) const;
-  static WaveletTreeNoptrs *load(std::ifstream &fp);
+  virtual void save(std::ostream &fp) const;
+  static WaveletTreeNoptrs *load(std::istream &fp);
 
 protected:
   WaveletTreeNoptrs();

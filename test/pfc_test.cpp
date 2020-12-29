@@ -103,7 +103,7 @@ TEST(pfc_tests, test_locate) {
 }
 
 TEST(pfc_tests, test_extract_2) {
-  auto r = generate_i_strings(1000000);
+  auto r = generate_i_strings(10000);
 
   std::istringstream iss(r.s);
 
@@ -123,7 +123,7 @@ TEST(pfc_tests, test_extract_2) {
 }
 
 TEST(pfc_tests, test_locate_2) {
-  auto r = generate_i_strings(1000000);
+  auto r = generate_i_strings(10000);
 
   std::istringstream iss(r.s);
 

@@ -219,7 +219,7 @@ int RePair::extractPrefixAndCompareDAC(uint id, uchar *prefix, uint prefixLen) {
     return -prefix[pos];
 }
 
-void RePair::save(std::ofstream &out, uint encoding) {
+void RePair::save(std::ostream &out, uint encoding) {
   saveValue<uchar>(out, maxchar);
   saveValue<uint64_t>(out, terminals);
   saveValue<uint64_t>(out, rules);
@@ -233,14 +233,14 @@ void RePair::save(std::ofstream &out, uint encoding) {
     Cls->save(out);
 }
 
-void RePair::save(std::ofstream &out) {
+void RePair::save(std::ostream &out) {
   saveValue<uchar>(out, maxchar);
   saveValue<uint64_t>(out, terminals);
   saveValue<uint64_t>(out, rules);
   G->save(out);
 }
 
-RePair *RePair::load(std::ifstream &in) {
+RePair *RePair::load(std::istream &in) {
   RePair *dict = new RePair();
 
   dict->maxchar = loadValue<uchar>(in);
@@ -258,7 +258,7 @@ RePair *RePair::load(std::ifstream &in) {
   return dict;
 }
 
-RePair *RePair::loadNoSeq(std::ifstream &in) {
+RePair *RePair::loadNoSeq(std::istream &in) {
   RePair *dict = new RePair();
 
   dict->maxchar = loadValue<uchar>(in);

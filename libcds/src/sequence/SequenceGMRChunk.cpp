@@ -176,7 +176,7 @@ size_t SequenceGMRChunk::getSize() const {
   return sizeof(SequenceGMRChunk) + permutation->getSize() + X->getSize();
 }
 
-void SequenceGMRChunk::save(std::ofstream &fp) const {
+void SequenceGMRChunk::save(std::ostream &fp) const {
   uint wr = GMR_CHUNK_HDR;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -185,7 +185,7 @@ void SequenceGMRChunk::save(std::ofstream &fp) const {
   permutation->save(fp);
 }
 
-SequenceGMRChunk *SequenceGMRChunk::load(std::ifstream &fp) {
+SequenceGMRChunk *SequenceGMRChunk::load(std::istream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != GMR_CHUNK_HDR)
     return NULL;

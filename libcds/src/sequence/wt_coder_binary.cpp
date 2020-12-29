@@ -64,13 +64,13 @@ bool wt_coder_binary::done(uint, uint l) const {
 
 size_t wt_coder_binary::getSize() const { return sizeof(wt_coder_binary); }
 
-void wt_coder_binary::save(std::ofstream &fp) const {
+void wt_coder_binary::save(std::ostream &fp) const {
   uint wr = WT_CODER_BINARY_HDR;
   saveValue(fp, wr);
   saveValue(fp, h);
 }
 
-wt_coder_binary *wt_coder_binary::load(std::ifstream &fp) {
+wt_coder_binary *wt_coder_binary::load(std::istream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != WT_CODER_BINARY_HDR)
     return NULL;

@@ -54,9 +54,9 @@ public:
     return -1; // Implemented in wt_coder_binary
   }
   /** Saves the coder to a file, returns 0 in case of success */
-  virtual void save(std::ofstream &fp) const = 0;
+  virtual void save(std::ostream &fp) const = 0;
   /** Loads a coder from a file, returns NULL in case of error */
-  static wt_coder *load(std::ifstream &fp);
+  static wt_coder *load(std::istream &fp);
 
 protected:
   uint user_count;

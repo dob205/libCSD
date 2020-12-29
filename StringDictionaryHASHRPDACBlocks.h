@@ -37,8 +37,8 @@ public:
   uchar *extractRank(uint rank, uint *strLen);
   IteratorDictString *extractTable();
   size_t getSize();
-  void save(std::ofstream &out);
-  static StringDictionary *load(std::ifstream &in, uint technique = HASHUFF);
+  void save(std::ostream &out);
+  static StringDictionary *load(std::istream &in, uint technique = HASHUFF);
   ~StringDictionaryHASHRPDACBlocks();
 
 private:

@@ -515,7 +515,7 @@ size_t StringDictionaryRPHTFC::getSize() {
          sizeof(StringDictionaryRPHTFC);
 }
 
-void StringDictionaryRPHTFC::save(std::ofstream &out) {
+void StringDictionaryRPHTFC::save(std::ostream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -534,7 +534,7 @@ void StringDictionaryRPHTFC::save(std::ofstream &out) {
   rp->save(out);
 }
 
-StringDictionary *StringDictionaryRPHTFC::load(std::ifstream &in) {
+StringDictionary *StringDictionaryRPHTFC::load(std::istream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != RPHTFC)
     return NULL;

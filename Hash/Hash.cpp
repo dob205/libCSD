@@ -79,14 +79,14 @@ void Hash::finish(size_t length) {
 
 void Hash::setData(uchar *data) { this->data = data; }
 
-void Hash::save(std::ofstream &fp) {
+void Hash::save(std::ostream &fp) {
   saveValue(fp, tsize);
   saveValue(fp, n);
   hash->save(fp);
   b_ht->save(fp);
 }
 
-Hash *Hash::load(std::ifstream &fp, int r) {
+Hash *Hash::load(std::istream &fp, int r) {
   switch (r) {
   // HASHUFF and HASHRP must be the same value
   case (HASHUFF):

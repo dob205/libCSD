@@ -45,9 +45,9 @@ public:
 
   virtual uint getSize();
 
-  virtual void save(std::ofstream &fp);
+  virtual void save(std::ostream &fp);
 
-  static RMQ_succinct_lcp *load(std::ifstream &fp);
+  static RMQ_succinct_lcp *load(std::istream &fp);
 
   virtual ~RMQ_succinct_lcp();
 

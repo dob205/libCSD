@@ -523,7 +523,7 @@ size_t StringDictionaryHTFC::getSize() {
          sizeof(StringDictionaryHTFC);
 }
 
-void StringDictionaryHTFC::save(std::ofstream &out) {
+void StringDictionaryHTFC::save(std::ostream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -539,7 +539,7 @@ void StringDictionaryHTFC::save(std::ofstream &out) {
   table->save(out);
 }
 
-StringDictionary *StringDictionaryHTFC::load(std::ifstream &in) {
+StringDictionary *StringDictionaryHTFC::load(std::istream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != HTFC)
     return NULL;

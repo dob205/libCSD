@@ -103,7 +103,7 @@ bool BitSequence375::access(const size_t i) const {
   return (1u << (i % W)) & data[i / W];
 }
 
-void BitSequence375::save(std::ofstream &f) const {
+void BitSequence375::save(std::ostream &f) const {
   uint wr = BRW32_375;
   saveValue(f, wr);
 
@@ -117,7 +117,7 @@ void BitSequence375::save(std::ofstream &f) const {
   saveValue(f, n);
 }
 
-BitSequence375 *BitSequence375::load(std::ifstream &f) {
+BitSequence375 *BitSequence375::load(std::istream &f) {
   assert(f.good());
   uint type = loadValue<uint>(f);
   if (type != BRW32_375) { // throw exception

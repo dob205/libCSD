@@ -140,13 +140,13 @@ public:
   /** Stores the dictionary into an ofstream.
       @param out: the oftstream.
   */
-  void save(std::ofstream &out);
+  void save(std::ostream &out);
 
   /** Loads a dictionary from an ifstream.
       @param in: the ifstream.
       @returns the loaded dictionary.
   */
-  static StringDictionary *load(std::ifstream &in, uint technique = HASHUFF);
+  static StringDictionary *load(std::istream &in, uint technique = HASHUFF);
 
   /** Generic destructor. */
   ~StringDictionaryHASHHF();

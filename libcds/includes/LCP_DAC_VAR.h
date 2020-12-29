@@ -53,8 +53,8 @@ public:
   virtual size_t get_seq_LCP(size_t i, TextIndex *csa, size_t **next_pos,
                              size_t *n_next, bool dir) const;
   virtual size_t getSize() const;
-  virtual void save(std::ofstream &fp) const;
-  static LCP_DAC_VAR *load(std::ifstream &fp);
+  virtual void save(std::ostream &fp) const;
+  static LCP_DAC_VAR *load(std::istream &fp);
   virtual ~LCP_DAC_VAR();
 };
 

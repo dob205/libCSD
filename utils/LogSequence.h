@@ -46,7 +46,7 @@ public:
   /** Loads a stream from an InputStream
    *  @param input: the InputStream to load from
    */
-  LogSequence(std::ifstream &in);
+  LogSequence(std::istream &in);
 
   /** Create a data structure where each entry needs numbits, reserve
       enough space to store capacity entries.
@@ -81,7 +81,7 @@ public:
   /** Saves the stream
    *  @param output: the OutputStream to be saved to
    */
-  void save(std::ofstream &out);
+  void save(std::ostream &out);
 
   /** Returns the number of bits effectively used for each position
    */

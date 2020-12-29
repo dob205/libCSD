@@ -380,7 +380,7 @@ uint RMQ_succinct::getSize() {
   return mem;
 }
 
-void RMQ_succinct::save(std::ofstream &fp) {
+void RMQ_succinct::save(std::ostream &fp) {
   saveValue(fp, n);
   saveValue(fp, a, n);
   saveValue(fp, type, nmb);
@@ -392,7 +392,7 @@ void RMQ_succinct::save(std::ofstream &fp) {
     saveValue(fp, Prec[i], s);
 }
 
-RMQ_succinct *RMQ_succinct::load(std::ifstream &fp) {
+RMQ_succinct *RMQ_succinct::load(std::istream &fp) {
   RMQ_succinct *rmq = new RMQ_succinct();
   rmq->s = 1 << 3;
   rmq->sprime = 1 << 4;

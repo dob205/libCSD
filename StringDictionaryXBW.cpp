@@ -228,7 +228,7 @@ size_t StringDictionaryXBW::getSize() {
   return xbw->size() + sizeof(StringDictionaryXBW);
 }
 
-void StringDictionaryXBW::save(std::ofstream &out) {
+void StringDictionaryXBW::save(std::ostream &out) {
   saveValue<uint32_t>(out, type);
   saveValue<uint64_t>(out, elements);
   saveValue<uint32_t>(out, maxlength);
@@ -240,7 +240,7 @@ void StringDictionaryXBW::save(std::ofstream &out) {
   out.write((char *)A, (len / W + 2) * sizeof(uint));
 }
 
-StringDictionary *StringDictionaryXBW::load(std::ifstream &in) {
+StringDictionary *StringDictionaryXBW::load(std::istream &in) {
   size_t type = loadValue<uint32_t>(in);
   if (type != DXBW)
     return NULL;

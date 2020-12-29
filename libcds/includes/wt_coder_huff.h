@@ -44,8 +44,8 @@ public:
   virtual bool is_set(uint symbol, uint l) const;
   virtual bool done(uint symbol, uint l) const;
   virtual size_t getSize() const;
-  virtual void save(std::ofstream &fp) const;
-  static wt_coder_huff *load(std::ifstream &fp);
+  virtual void save(std::ostream &fp) const;
+  static wt_coder_huff *load(std::istream &fp);
   // uint * get_buffer(uint symbol, uint *n);
 
 protected:

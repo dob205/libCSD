@@ -20,7 +20,7 @@ TEST(ParallelTests, test1) {
     wpool.add_task([&tasks_done, &task_count, &wpool, &m, i]() {
       std::cout << "Task " << i << std::endl;
       unsigned long r = 0;
-      for (unsigned long j = 0; j < (1UL << 32UL); j++) {
+      for (unsigned long j = 0; j < (1UL << 12UL); j++) {
         r += (r + j * i + j + i) ^ r;
       }
       std::cout << "r is " << r << std::endl;

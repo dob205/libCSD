@@ -227,7 +227,7 @@ size_t wt_node_internal::getSize() const {
   return s;
 }
 
-void wt_node_internal::save(std::ofstream &fp) const {
+void wt_node_internal::save(std::ostream &fp) const {
   uint wr = WT_NODE_INTERNAL_HDR;
   saveValue(fp, wr);
   bitmap->save(fp);
@@ -245,7 +245,7 @@ void wt_node_internal::save(std::ofstream &fp) const {
   }
 }
 
-wt_node_internal *wt_node_internal::load(std::ifstream &fp) {
+wt_node_internal *wt_node_internal::load(std::istream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != WT_NODE_INTERNAL_HDR)
     return NULL;

@@ -65,9 +65,9 @@ public:
   /*Return the size, in bytes, used for DAC_BVLS structure*/
   virtual uint getSize() const;
 
-  virtual void save(std::ofstream &fp) const;
+  virtual void save(std::ostream &fp) const;
 
-  static DAC_BVLS *load(std::ifstream &fp);
+  static DAC_BVLS *load(std::istream &fp);
 
   virtual ~DAC_BVLS();
 

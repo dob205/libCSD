@@ -341,7 +341,7 @@ size_t SequenceAlphPart::getSize() const {
   return ret;
 }
 
-void SequenceAlphPart::save(std::ofstream &fp) const {
+void SequenceAlphPart::save(std::ostream &fp) const {
   uint type = ALPHPART_HDR;
   saveValue(fp, type);
   saveValue(fp, sigma);
@@ -355,7 +355,7 @@ void SequenceAlphPart::save(std::ofstream &fp) const {
     indexesByLength[i]->save(fp);
 }
 
-SequenceAlphPart *SequenceAlphPart::load(std::ifstream &fp) {
+SequenceAlphPart *SequenceAlphPart::load(std::istream &fp) {
   uint type = loadValue<uint>(fp);
   if (type != ALPHPART_HDR)
     return NULL;

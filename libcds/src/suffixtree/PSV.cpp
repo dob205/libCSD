@@ -318,7 +318,7 @@ size_t PSV::find_PSV(size_t v, TextIndex *csa, LCP *lcp) const {
   return 0;
 }
 
-void PSV::save(std::ofstream &fp) const {
+void PSV::save(std::ostream &fp) const {
   saveValue(fp, r);
   saveValue(fp, b);
   saveValue(fp, n);
@@ -332,7 +332,7 @@ void PSV::save(std::ofstream &fp) const {
   saveValue(fp, A, (num_elements * b_A + W - 1) / W);
 }
 
-PSV *PSV::load(std::ifstream &fp) {
+PSV *PSV::load(std::istream &fp) {
   PSV *psv = new PSV();
   psv->r = loadValue<size_t>(fp);
   psv->b = loadValue<size_t>(fp);

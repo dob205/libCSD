@@ -61,10 +61,10 @@ public:
   virtual size_t getSize();
 
   /** Saves the coder to a file */
-  virtual void save(std::ofstream &fp);
+  virtual void save(std::ostream &fp);
 
   /** Loads a coder from a file*/
-  static Huffman *load(std::ifstream &fp);
+  static Huffman *load(std::istream &fp);
 
   /** Retrieves the codeword assignment.
       @return a reference to an array containing the codeword

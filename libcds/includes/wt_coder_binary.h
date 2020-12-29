@@ -44,8 +44,8 @@ public:
   virtual bool done(uint symbol, uint l) const;
   virtual uint depth() const { return h; }
   virtual size_t getSize() const;
-  virtual void save(std::ofstream &fp) const;
-  static wt_coder_binary *load(std::ifstream &fp);
+  virtual void save(std::ostream &fp) const;
+  static wt_coder_binary *load(std::istream &fp);
 
 protected:
   wt_coder_binary();

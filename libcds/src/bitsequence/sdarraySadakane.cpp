@@ -56,7 +56,7 @@ void make___selecttbl(void) {
   }
 }
 
-void selectd2_save(const selectd2 *s, std::ofstream &fp) {
+void selectd2_save(const selectd2 *s, std::ostream &fp) {
   assert(fp.good());
   saveValue(fp, s->n);
   saveValue(fp, s->m);
@@ -71,7 +71,7 @@ void selectd2_save(const selectd2 *s, std::ofstream &fp) {
   saveValue(fp, s->sl, s->sl_len);
 }
 
-void selectd2_load(selectd2 *s, std::ifstream &fp) {
+void selectd2_load(selectd2 *s, std::istream &fp) {
   s->n = loadValue<int>(fp);
   s->m = loadValue<int>(fp);
   s->size = loadValue<int>(fp);
@@ -361,7 +361,7 @@ int selectd2_select2(const selectd2 *select, const int i1, const int f, int *st,
   return p;
 }
 
-void selects3_save(const selects3 *s, std::ofstream &fp) {
+void selects3_save(const selects3 *s, std::ostream &fp) {
   saveValue(fp, s->n);
   saveValue(fp, s->m);
   saveValue(fp, s->size);
@@ -374,7 +374,7 @@ void selects3_save(const selects3 *s, std::ofstream &fp) {
   selectd2_save(s->sd1, fp);
 }
 
-void selects3_load(selects3 *s, std::ifstream &fp) {
+void selects3_load(selects3 *s, std::istream &fp) {
   s->n = loadValue<int>(fp);
   s->m = loadValue<int>(fp);
   s->size = loadValue<int>(fp);

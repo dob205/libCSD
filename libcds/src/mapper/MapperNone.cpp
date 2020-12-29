@@ -30,12 +30,12 @@ uint MapperNone::unmap(const uint s) const { return s; }
 
 size_t MapperNone::getSize() const { return sizeof(MapperNone); }
 
-void MapperNone::save(std::ofstream &out) const {
+void MapperNone::save(std::ostream &out) const {
   uint wr = MAPPER_NONE_HDR;
   out.write((char *)&wr, sizeof(uint));
 }
 
-MapperNone *MapperNone::load(std::ifstream &input) {
+MapperNone *MapperNone::load(std::istream &input) {
   uint rd;
   input.read((char *)&rd, sizeof(uint));
   if (rd != MAPPER_NONE_HDR)

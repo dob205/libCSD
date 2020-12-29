@@ -89,14 +89,14 @@ size_t NPR_FMN::getSize() const {
   return mem;
 }
 
-void NPR_FMN::save(std::ofstream &fp) const {
+void NPR_FMN::save(std::ostream &fp) const {
   saveValue(fp, npr_type);
   nsv->save(fp);
   psv->save(fp);
   rmq->save(fp);
 }
 
-NPR_FMN *NPR_FMN::load(std::ifstream &fp) {
+NPR_FMN *NPR_FMN::load(std::istream &fp) {
   NPR_FMN *npr = new NPR_FMN();
   size_t type = loadValue<size_t>(fp);
   if (type != FMN_NPR) {

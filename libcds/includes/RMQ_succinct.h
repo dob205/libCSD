@@ -51,8 +51,8 @@ public:
   RMQ_succinct(int *a, unsigned int n);
 
   uint getSize();
-  void save(std::ofstream &fp);
-  RMQ_succinct *load(std::ifstream &fp);
+  void save(std::ostream &fp);
+  RMQ_succinct *load(std::istream &fp);
 
   virtual ~RMQ_succinct();
 

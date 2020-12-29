@@ -148,7 +148,7 @@ bool BitSequenceRG::access(const size_t i) const {
   return (1u << (i % W)) & data[i / W];
 }
 
-void BitSequenceRG::save(std::ofstream &f) const {
+void BitSequenceRG::save(std::ostream &f) const {
   uint wr = BRW32_HDR;
   saveValue(f, wr);
   saveValue(f, n);
@@ -157,7 +157,7 @@ void BitSequenceRG::save(std::ofstream &f) const {
   saveValue(f, Rs, n / s + 1);
 }
 
-BitSequenceRG *BitSequenceRG::load(std::ifstream &f) {
+BitSequenceRG *BitSequenceRG::load(std::istream &f) {
   assert(f.good());
   uint type = loadValue<uint>(f);
   if (type != BRW32_HDR) { // throw exception

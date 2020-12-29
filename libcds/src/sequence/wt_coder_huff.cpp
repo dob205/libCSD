@@ -75,13 +75,13 @@ size_t wt_coder_huff::getSize() const {
          (hc->maxLength() / W + 1) * sizeof(uint);
 }
 
-void wt_coder_huff::save(std::ofstream &fp) const {
+void wt_coder_huff::save(std::ostream &fp) const {
   uint wr = WT_CODER_HUFF_HDR;
   saveValue(fp, wr);
   hc->save(fp);
 }
 
-wt_coder_huff *wt_coder_huff::load(std::ifstream &fp) {
+wt_coder_huff *wt_coder_huff::load(std::istream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != WT_CODER_HUFF_HDR)
     return NULL;

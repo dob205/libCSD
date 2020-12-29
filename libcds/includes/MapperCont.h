@@ -49,8 +49,8 @@ public:
   virtual uint unmap(uint s) const;
   virtual size_t getSize() const;
 
-  virtual void save(std::ofstream &out) const;
-  static MapperCont *load(std::ifstream &input);
+  virtual void save(std::ostream &out) const;
+  static MapperCont *load(std::istream &input);
 
 protected:
   MapperCont();

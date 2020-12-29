@@ -74,9 +74,9 @@ size_t Huffman::decode(uint *symb, uint *stream, size_t pos) {
   return decodeHuff(huff_table, symb, stream, pos);
 }
 
-void Huffman::save(std::ofstream &fp) { saveHuff(huff_table, fp); }
+void Huffman::save(std::ostream &fp) { saveHuff(huff_table, fp); }
 
-Huffman *Huffman::load(std::ifstream &fp) {
+Huffman *Huffman::load(std::istream &fp) {
   Huffman *ret = new Huffman();
   ret->huff_table = loadHuff(fp);
   return ret;

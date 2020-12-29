@@ -254,7 +254,7 @@ WaveletTreeNoptrs::~WaveletTreeNoptrs() {
     am->unuse();
 }
 
-void WaveletTreeNoptrs::save(std::ofstream &fp) const {
+void WaveletTreeNoptrs::save(std::ostream &fp) const {
   uint wr = WVTREE_NOPTRS_HDR;
   saveValue(fp, wr);
   saveValue<size_t>(fp, n);
@@ -266,7 +266,7 @@ void WaveletTreeNoptrs::save(std::ofstream &fp) const {
   occ->save(fp);
 }
 
-WaveletTreeNoptrs *WaveletTreeNoptrs::load(std::ifstream &fp) {
+WaveletTreeNoptrs *WaveletTreeNoptrs::load(std::istream &fp) {
   uint rd = loadValue<uint>(fp);
   if (rd != WVTREE_NOPTRS_HDR)
     return NULL;

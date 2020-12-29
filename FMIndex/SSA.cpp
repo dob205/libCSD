@@ -76,7 +76,7 @@ SSA::~SSA() {
     delete[] occ;
 }
 
-void SSA::save(std::ofstream &fp) {
+void SSA::save(std::ostream &fp) {
   saveValue(fp, n);
   saveValue(fp, maxV);
   saveValue(fp, occ, maxV + 1);
@@ -90,7 +90,7 @@ void SSA::save(std::ofstream &fp) {
   saveValue(fp, alphabet, 256);
 }
 
-SSA *SSA::load(std::ifstream &fp) {
+SSA *SSA::load(std::istream &fp) {
   SSA *fm = new SSA();
   fm->n = loadValue<uint>(fp);
   fm->maxV = loadValue<uint>(fp);

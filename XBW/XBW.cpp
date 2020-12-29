@@ -29,7 +29,7 @@
 
 #include <SequenceBuilderWaveletTree.h>
 
-XBW::XBW(std::ifstream &input) {
+XBW::XBW(std::istream &input) {
   // Read the number of nodes
   input.read((char *)&nodesCount, sizeof(uint));
 
@@ -68,7 +68,6 @@ XBW::XBW(std::ifstream &input) {
       unmap[mapping[i]] = i;
     }
 
-  input.close();
   delete ((SequenceBuilderWaveletTree *)sbb);
 
   // Free the temporary arrays

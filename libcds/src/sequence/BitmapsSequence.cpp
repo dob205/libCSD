@@ -161,7 +161,7 @@ size_t BitmapsSequence::getSize() const {
   return size;
 }
 
-void BitmapsSequence::save(std::ofstream &fp) const {
+void BitmapsSequence::save(std::ostream &fp) const {
   uint wr = BS_HDR;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -171,7 +171,7 @@ void BitmapsSequence::save(std::ofstream &fp) const {
   am->save(fp);
 }
 
-BitmapsSequence *BitmapsSequence::load(std::ifstream &fp) {
+BitmapsSequence *BitmapsSequence::load(std::istream &fp) {
   uint __attribute__((unused)) type = loadValue<uint>(fp);
   if (type != BS_HDR) {
     abort();

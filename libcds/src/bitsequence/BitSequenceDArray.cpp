@@ -282,7 +282,7 @@ size_t BitSequenceDArray::getSize() const {
   return mem;
 }
 
-void BitSequenceDArray::save(std::ofstream &fp) const {
+void BitSequenceDArray::save(std::ostream &fp) const {
   uint wr = DARRAY_HDR;
   saveValue(fp, wr);
   saveValue(fp, length);
@@ -302,7 +302,7 @@ void BitSequenceDArray::save(std::ofstream &fp) const {
   saveValue(fp, rs, (length / RRR + 2));
 }
 
-BitSequenceDArray *BitSequenceDArray::load(std::ifstream &fp) {
+BitSequenceDArray *BitSequenceDArray::load(std::istream &fp) {
   uint id = loadValue<uint>(fp);
   if (id != DARRAY_HDR)
     return NULL;
