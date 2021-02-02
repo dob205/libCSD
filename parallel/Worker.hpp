@@ -72,11 +72,11 @@ private:
   }
 
   void run() {
-    while (!stopped()) {
+    while (!stopped() || !queue.empty()) {
       std::unique_lock<std::mutex> ul(shared_mutex);
       queue_cv.wait(ul, [this]() { return stopped() || !queue.empty(); });
-      if (stopped())
-        return;
+      if (stopped() && queue.empty())
+        break;
       if (queue.empty())
         continue;
       auto task = queue.pop();
@@ -84,6 +84,7 @@ private:
       queue_cv.notify_all();
       task();
     }
+    queue_cv.notify_all();
   }
 };
 
