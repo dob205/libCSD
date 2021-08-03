@@ -2,7 +2,7 @@
 #include <cstring>
 #include <gtest/gtest.h>
 #include <iostream>
-#include <sstream>
+#include <memory>
 #include <vector>
 
 #include "StringDictionaryHASHRPDACBlocks.h"
@@ -47,15 +47,11 @@ TEST(StringDictionaryHASHRPDACBlocksTests, can_serialize) {
 
     StringDictionaryHASHRPDACBlocks sd(it, total_size, 25, 1 << j);
 
-    std::string filename =
-        "StringDictionaryHASHRPDACBlocksTests_can_serialize.bin";
-
     std::stringstream ss(std::ios::in | std::ios::out | std::ios::binary);
     sd.save(ss);
 
-    StringDictionary *deserialized;
-
-    deserialized = StringDictionaryHASHRPDACBlocks::load(ss);
+    auto deserialized = std::unique_ptr<StringDictionary>(
+        StringDictionaryHASHRPDACBlocks::load(ss));
 
     for (auto &s : data) {
       auto i = deserialized->locate(
@@ -64,10 +60,10 @@ TEST(StringDictionaryHASHRPDACBlocksTests, can_serialize) {
       ASSERT_GE(i, 0) << "not found string '" << s
                       << "' on deserialization, j = " << j;
       unsigned int strlen;
-      auto *se = deserialized->extract(i, &strlen);
+      auto se = std::unique_ptr<uchar[]>(deserialized->extract(i, &strlen));
       ASSERT_TRUE(se != nullptr) << i << " corresponding to " << s
                                  << " was not found on extract, j = " << j;
-      std::string se_str(reinterpret_cast<char *>(se), strlen);
+      std::string se_str(reinterpret_cast<char *>(se.get()), strlen);
       ASSERT_EQ(se_str, s) << "Extracted str '" << se_str
                            << "' is different to '" << s << "', j = " << 4;
     }
@@ -105,7 +101,7 @@ TEST(StringDictionaryHASHRPDACBlocksTests, can_create) {
 
     for (size_t i = 1; i <= data.size(); i++) {
       uint extracted_sz = 0;
-      auto *extracted = sd.extract(i, &extracted_sz);
+      auto extracted = std::unique_ptr<uchar[]>(sd.extract(i, &extracted_sz));
       ASSERT_TRUE(extracted != nullptr)
           << "extracted " << i << " is null, j = " << j;
     }
@@ -120,8 +116,8 @@ TEST(StringDictionaryHASHRPDACBlocksTests, can_create) {
           s.size());
       ASSERT_GT(i, 0) << "string '" << s << "' was not located, j = " << j;
       uint extracted_sz;
-      auto *extracted = sd.extract(i, &extracted_sz);
-      std::string extracted_str(reinterpret_cast<char *>(extracted),
+      auto extracted = std::unique_ptr<uchar[]>(sd.extract(i, &extracted_sz));
+      std::string extracted_str(reinterpret_cast<char *>(extracted.get()),
                                 extracted_sz);
       ASSERT_EQ(extracted_str, s)
           << "Extracted (i = " << i << ") " << extracted_str
@@ -155,7 +151,8 @@ TEST(StringDictionaryHASHRPDACBlocksTests, parallel_build) {
                        std::ios::in | std::ios::out | std::ios::binary);
   sd.save(ss);
 
-  StringDictionary *deserialized = StringDictionaryHASHRPDACBlocks::load(ss);
+  auto deserialized = std::unique_ptr<StringDictionary>(
+      StringDictionaryHASHRPDACBlocks::load(ss));
 
   std::string target = "xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa";
   ASSERT_GT(deserialized->locate(reinterpret_cast<unsigned char *>(
@@ -168,7 +165,7 @@ TEST(StringDictionaryHASHRPDACBlocksTests, parallel_build) {
 TEST(StringDictionaryHASHRPDACBlocksTests, extract_table) {
   std::vector<std::string> data;
   std::stringstream suffix_builder;
-  std::string current_suf = "";
+  std::string current_suf;
   for (int i = 0; i < 10000; i++) {
     char c = (char)((i % 20) + 'a');
     std::string extra(&c, 1);
@@ -193,11 +190,10 @@ TEST(StringDictionaryHASHRPDACBlocksTests, extract_table) {
   StringDictionaryHASHRPDACBlocks sd(
       it, total_size, 25, static_cast<unsigned long>(1UL << 20UL), 3);
 
-  auto *table_it = sd.extractTable();
+  auto table_it = std::unique_ptr<IteratorDictString>(sd.extractTable());
   while (table_it->hasNext()) {
     unsigned int sz;
-    table_it->next(&sz);
+    std::unique_ptr<uchar[]>(table_it->next(&sz));
     // std::cout << data << std::endl;
   }
-  delete table_it;
 }
