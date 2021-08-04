@@ -2,7 +2,7 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <sstream>
+#include <stack>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -13,6 +13,10 @@ class FileSetIteratorDictString : public IteratorDictString {
   std::istream &ifs;
   std::string current_line;
 
+  using ustr_t = std::unique_ptr<uchar[]>;
+
+  std::stack<ustr_t> stack;
+
 public:
   explicit FileSetIteratorDictString(std::istream &ifs) : ifs(ifs) {}
 
@@ -20,11 +24,13 @@ public:
 
   unsigned char *next(uint *str_length) override {
     std::getline(ifs, current_line);
-    auto *uchar_val = new unsigned char[current_line.size() + 1];
+    // auto *uchar_val = new unsigned char[current_line.size() + 1];
+    auto current = std::make_unique<unsigned char[]>(current_line.size() + 1);
     *str_length = current_line.size();
-    memcpy(uchar_val, current_line.data(), current_line.size());
-    uchar_val[current_line.size()] = '\0';
-    return uchar_val;
+    memcpy(current.get(), current_line.data(), current_line.size());
+    (current.get())[current_line.size()] = '\0';
+    stack.push(std::move(current));
+    return stack.top().get();
   }
 };
 
@@ -74,12 +80,10 @@ TEST(pfc_tests, test_extract) {
 
   for (size_t i = 1; i <= sd.numElements(); i++) {
     unsigned int str_len;
-    unsigned char *s_ext = sd.extract(i, &str_len);
-    std::string_view sv(reinterpret_cast<char *>(s_ext), str_len);
+    auto s_ext = std::unique_ptr<unsigned char[]>(sd.extract(i, &str_len));
+    std::string_view sv(reinterpret_cast<char *>(s_ext.get()), str_len);
 
     ASSERT_EQ(sv, TEST_STRS_1[i - 1]);
-
-    delete[] s_ext;
   }
 }
 
