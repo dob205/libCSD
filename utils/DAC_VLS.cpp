@@ -142,10 +142,10 @@ uint DAC_VLS::access(uint pos, uint **seq) const {
     sequence[j] = get_field(levels, base_bits, ini);
 
     l_seq++;
-    if (j == (uint)nLevels - 1)
+    if (j >= (uint)nLevels - 1)
       break;
   }
-  *seq = sequence;
+    *seq = sequence;
   return l_seq;
 }
 
