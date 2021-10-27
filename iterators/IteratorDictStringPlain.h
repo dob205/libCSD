@@ -33,6 +33,7 @@
 #include <iostream>
 #include "IteratorDictString.h"
 
+using uchar = unsigned char;
 using uint = unsigned int;
 
 class IteratorDictStringPlain : public IteratorDictString {
