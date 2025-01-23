@@ -1,3 +1,9 @@
+====================
+Adds fixes based on https://github.com/CristobalM/libCSD and own research
+to fix the compilation of libCSD originally developed by 
+Martínez-Prieto et. al on modern macOS versions such as macOS 15 Sequoia.
+====================
+
 libCSD is a C++ library providing some different techniques for managing
 string dictionaries in compressed space. These approaches are inspired on
 the paper:
@@ -28,10 +34,16 @@ by prefix and substrings. The set of techniques is described as follows:
 The techniques support different parameterizations to achieve varied and
 competitive space/time tradeoffs. 
 
-Compiling the library
+Compiling the library (the outdated way)
 ====================
 1) For building the libcds library, type "make" within the libcds folder.
 2) Once built libcds, type "make" within the root folder and libCSD is ready.
+
+Compiling the library (the new and fixed way)
+====================
+1) At first type in "cmake -B build -S ." to generate the build files of the project.
+2) Type "cmake --build build --config Debug" or "cmake --build build --config Release" to get the binaries.
+3) Once we built libCSD you can find the binaries in the build folder and execute them as provided in the following paragraphs.
 
 
 Building a dictionary
