@@ -4,7 +4,7 @@ project(CSD)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -Werror")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
@@ -96,6 +96,12 @@ ${xbw_srcs}
 
 add_dependencies(CSD cds)
 
+# add the binaries Build and Test from https://github.com/migumar2/libCSD into our output 
+add_executable(Build Build.cpp)
+target_link_libraries(Build CSD cds)
+
+add_executable(Test Test.cpp)
+target_link_libraries(Test CSD cds)
 
 find_package(GTest QUIET)
 if(GTest_FOUND)

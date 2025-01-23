@@ -26,6 +26,7 @@
 #include <libcdsBasics.h>
 
 using namespace cds_utils;
+using ulong = unsigned long;
 
 namespace cds_static {
 

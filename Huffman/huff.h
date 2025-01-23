@@ -26,6 +26,7 @@
 #include <libcdsBasics.h>
 
 using namespace cds_utils;
+using ulong = unsigned long;
 
 typedef struct { // maximum symbol (0..max), same excluding zero freqs
   uint max, lim;
